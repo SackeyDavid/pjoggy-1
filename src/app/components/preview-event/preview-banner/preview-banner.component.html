@@ -5,7 +5,17 @@
       <div class="row">
          <div class="col-lg-8">
             <div class="banner-content-wrap">
-               <p class="banner-info wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="500ms">{{eventContent?.start_date_time | date:'mediumDate'}} to {{eventContent?.end_date_time | date:'mediumDate'}}, {{eventContent?.venue}}</p>
+               <p class="banner-info wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="500ms">
+                  <!-- {{eventContent?.start_date_time | date:'mediumDate'}} to {{eventContent?.end_date_time | date:'mediumDate'}}, {{eventContent?.venue}} -->
+               
+               <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
+               {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
+               </ng-container>
+               <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
+               {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
+
+               </ng-container>
+               </p>
                <h1 class="banner-title wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="700ms">{{eventContent?.title}}</h1>
 
                <div class="countdown wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="800ms">

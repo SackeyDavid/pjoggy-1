@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<app-preview-header
+<!-- <app-preview-header
     (introEvent)="gotoIntro()"
     (scheduleEvent)="gotoSchedule()"
     (speakersEvent)="gotoSpeakers()"
@@ -16,13 +16,13 @@
     [sponsors]="sponsorsDisplay"
     [gallery]="galleryDisplay"
     [direction]="dataContent?.hosting == 'Physical' ? true:false">
-</app-preview-header>
+</app-preview-header> -->
 
-<app-preview-banner 
-    [eventContent]="this.eventContent"    
+<app-preview-banner
+    [eventContent]="this.eventContent"
 ></app-preview-banner>
 
-<app-preview-details id="intro" 
+<app-preview-details id="intro"
     [eventContent]="this.eventContent"
     [hostingContent]="this.hostingContent">
 </app-preview-details>
@@ -36,7 +36,7 @@
     [speakers]="speakersContent">
 </app-preview-speakers>
 
-<app-preview-pricing id="pricing"
+<!-- <app-preview-pricing id="pricing"
     *ngIf="pricingDisplay == true"
     [pricing]="pricingContent">
 </app-preview-pricing>
@@ -44,7 +44,22 @@
 <app-preview-organizers id="organizers"
     *ngIf="organisersDisplay == true"
     [organizers]="organisersContent">
-</app-preview-organizers>
+</app-preview-organizers> -->
+
+<div class="row">
+    <div class="col">
+        <app-preview-minimised-pricing id="pricing"
+            *ngIf="pricingDisplay == true"
+            [pricing]="pricingContent">
+        </app-preview-minimised-pricing>
+    </div>
+    <div class="col">
+        <app-preview-minimised-organizers id="organizers"
+            *ngIf="organisersDisplay == true"
+            [organizers]="organisersContent">
+        </app-preview-minimised-organizers>
+    </div>
+</div>
 
 <app-preview-sponsors id="sponsors"
     *ngIf="sponsorsDisplay == true"

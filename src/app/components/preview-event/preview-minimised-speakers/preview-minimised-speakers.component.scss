@@ -1,0 +1,210 @@
+.speakers-div {
+  padding-bottom: 100px ;
+  background-color: #ffffff;
+  // opacity: 0.3;
+  background-image: radial-gradient(#0d0f3159 1.1px, #ffffff 1.1px);
+  background-size: 22px 22px;
+}
+
+.section-title, .column-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #3b1d82;
+  position: relative;
+  padding-bottom: 30px;
+  margin-bottom: 85px;
+  text-align: center;
+}
+
+.section-title span, .column-title span {
+  display: block;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 26px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+.speakers-section {
+  padding-top: 120px;
+  padding-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.speaker .speaker-img {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-border-radius: 50%;
+  overflow: hidden;
+  margin: auto auto 20px;
+}
+
+.speaker-img img {
+  width: 100%;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+}
+.speaker-img:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: rgba(59, 29, 130, 0.5);
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  opacity: 0;
+  z-index: 1;
+}
+
+.view-speaker {
+  position: absolute;
+  left: 0;
+  top: 70%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 22px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-border-radius: 50%;
+  padding: 12px 0;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  opacity: 0;
+  z-index: 2;
+}
+
+.ts-title {
+  margin-bottom: 5px;
+}
+.ts-title a {
+  color: #222222;
+}
+.speaker:hover .speaker-img img {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+.speaker:hover .speaker-img:before {
+  opacity: 1;
+}
+.speaker:hover .view-speaker {
+  top: 50%;
+  opacity: 1;
+}
+.speaker:hover .ts-title a {
+  color: #e7015e;
+}
+
+.ts-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.speaker:hover .view-speaker {
+  top: 50%;
+  opacity: 1;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+.view-speaker {
+  position: absolute;
+  left: 0;
+  top: 70%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 22px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-border-radius: 50%;
+  padding: 12px 0;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  opacity: 0;
+  z-index: 2;
+}
+
+.ts-speaker-popup {
+  background: #fff;
+  padding: 0;
+  position: relative;
+}
+.ts-speaker-popup .ts-speaker-popup-img img {
+  width: 100%;
+}
+.ts-speaker-popup .ts-speaker-popup-content {
+  padding: 60px 40px;
+}
+.ts-speaker-popup .ts-speaker-popup-content .ts-title {
+  margin-bottom: 10px;
+}
+.ts-speaker-popup .ts-speaker-popup-content .speakder-designation {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.ts-speaker-popup .ts-speaker-popup-content .company-logo {
+  margin-bottom: 15px;
+}
+.ts-speaker-popup .ts-speaker-popup-content p {
+  margin-bottom: 25px;
+}
+.ts-speaker-popup .ts-speaker-popup-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.ts-speaker-popup .ts-speaker-popup-content .speaker-session-info p {
+  color: #e7015e;
+  margin-bottom: 30px;
+}
+.ts-speaker-popup .ts-speaker-popup-content .ts-speakers-social a {
+  color: #ababab;
+  margin-right: 18px;
+}
+.ts-speaker-popup .ts-speaker-popup-content .ts-speakers-social a:hover {
+  color: #e7015e;
+}
+.ts-speaker-popup button.mfp-close {
+  font-size: 30px;
+}

@@ -48,8 +48,8 @@ export class EventsListComponent implements OnInit {
   todays_events_loadIndex = 8
 
   
-  users_favorite_event_id_and_fav_id: any = []
-  users_favorite_event_id_and_visibilty: any = []
+  users_favorite_event_id_and_fav_id: any = [];
+  users_favorite_event_id_and_visibilty: any = [];
 
   @ViewChild('upcomingSlider') upcomingSlider: OwlCarousel | undefined;
   @ViewChild('popularSlider') popularSlider: OwlCarousel | undefined;

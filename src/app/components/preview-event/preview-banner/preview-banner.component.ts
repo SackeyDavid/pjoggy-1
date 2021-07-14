@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, interval } from 'rxjs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-preview-banner',
@@ -48,5 +49,19 @@ export class PreviewBannerComponent implements OnInit, OnDestroy {
     this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
     this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
   }
+
   
+  getEventDateWithoutTime(date: string) {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
+  getEventEndDateFormatted(date: any) {
+    return moment(date).format('h:mm A');
+
+  }
+  
+  getEventStartDateFormatted(date: any) {
+    return moment(date).format('ddd, MMM D, YYYY h:mm A');
+  }
+
 }

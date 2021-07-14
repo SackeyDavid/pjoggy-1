@@ -5,6 +5,7 @@ import { TicketsService } from 'src/app/services/tickets/tickets.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import { PrefixNot } from '@angular/compiler';
 import { EventSideMenuCheckService } from 'src/app/services/event-side-menu-check/event-side-menu-check.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-create-event-publish',
@@ -270,6 +271,20 @@ export class CreateEventPublishComponent implements OnInit {
         this.requirePhone = true;
       }
     }
+  }
+
+  getEventDateWithoutTime(date: string) {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
+  
+  getEventStartDateFormatted(date: any) {
+    return moment(date).format('ddd, MMM D, YYYY h:mm A');
+  }
+
+  getEventEndDateFormatted(date: any) {
+    return moment(date).format('h:mm A');
+
   }
 
 }

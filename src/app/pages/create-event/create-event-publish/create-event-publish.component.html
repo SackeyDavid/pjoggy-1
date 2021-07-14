@@ -108,7 +108,14 @@
                               
                 <div class="card-body">
                       <h5 class="card-title">{{eventTitle}}</h5>
-                      <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
+                      <ng-container *ngIf="getEventDateWithoutTime(eventStartDate) == getEventDateWithoutTime(eventEndDate)">
+                        <p class="card-text"><small class="text-muted">{{getEventStartDateFormatted(eventStartDate)}} <b> to </b> {{getEventEndDateFormatted(eventEndDate)}}</small></p>
+                      </ng-container>
+                      <ng-container *ngIf="!(getEventDateWithoutTime(eventStartDate) == getEventDateWithoutTime(eventEndDate))">
+                        <p class="card-text"><small class="text-muted">{{eventStartDate | date:'mediumDate'}}<i><b> to </b></i>{{eventEndDate | date:'mediumDate'}}</small></p>
+
+                      </ng-container>
+                      
                       <br>
                       <p class="card-text">
                         {{eventDescription}}
@@ -127,8 +134,8 @@
                       </p>
                       <p class="card-text" style="font-size: 12px;">
                         <span *ngIf="eventOrganizer !== null">By: {{eventOrganizer}}</span> <br>
-                        <span *ngIf="eventContactPhone !== 'null'">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
-                        <span *ngIf="eventContactEmail !== 'null'">Email: {{eventContactEmail}}</span>
+                        <span *ngIf="eventContactPhone !== null">Phone No.: {{eventContactPhone}}</span><br *ngIf="eventContactPhone != null">
+                        <span *ngIf="eventContactEmail !== null">Email: {{eventContactEmail}}</span>
                       </p>
                     </div>
               </div>

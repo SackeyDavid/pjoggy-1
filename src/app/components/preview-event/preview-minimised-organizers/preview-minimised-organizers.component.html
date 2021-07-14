@@ -1,0 +1,31 @@
+<div class="organizers-div">
+  <div class="container">
+     <div class="row organizers-section">
+        <div class="col-lg-8 mx-auto">
+           <h2 class="section-title text-center">
+              <span>Meet the</span>
+              Event Organizers
+           </h2>
+        </div>
+     </div>
+
+     <div class="row">
+       <div *ngFor="let x of organizers; index as i" class="col mb-4 organizer">
+          <div class="organizer-img text-center">
+             <img *ngIf="x.image != null" class="img-fluid" src="http://events369.logitall.biz/storage/organizer/{{x.image}}" alt="">
+             <img *ngIf="x.image == null" class="img-fluid" src="../../../../assets/images/avatar-placeholder.png" alt="">
+             <a (click)="openModal($event, i)" href="#" class="view-organizer ts-image-popup" data-effect="mfp-zoom-in">
+                <i class="bi bi-plus"></i>
+             </a>
+          </div>
+          <div class="ts-organizer-info text-center">
+             <h3 class="ts-title">
+                <a (click)="openModal($event, i)" href="#"  data-toggle="modal" data-target="#exampleModal">{{x.name}}</a>
+             </h3>
+          </div>
+       </div>
+     </div>
+  </div>
+</div>
+
+

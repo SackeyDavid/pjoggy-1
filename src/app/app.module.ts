@@ -117,6 +117,8 @@ import { FavoritePageComponent } from './pages/favorites-page/favorite-page.comp
 import { FavoritesComponentComponent } from './components/favorites-component/favorites-component.component';
 import { EventsByCategoryComponent } from './components/events-by-category/events-by-category.component';
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
+import { PreviewMinimisedSpeakersComponent } from './components/preview-event/preview-minimised-speakers/preview-minimised-speakers.component';
+import { PreviewMinimisedOrganizersComponent } from './components/preview-event/preview-minimised-organizers/preview-minimised-organizers.component';
 
 
 @NgModule({
@@ -208,7 +210,9 @@ import { CategoryEventsPageComponent } from './pages/category-events-page/catego
     FavoritePageComponent,
     FavoritesComponentComponent,
     EventsByCategoryComponent,
-    CategoryEventsPageComponent
+    CategoryEventsPageComponent,
+    PreviewMinimisedSpeakersComponent,
+    PreviewMinimisedOrganizersComponent
   ],
   imports: [
     BrowserModule,

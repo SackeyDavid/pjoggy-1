@@ -3,6 +3,9 @@ import { EventsService } from 'src/app/services/events/events.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import { Router } from '@angular/router';
 import moment from 'moment';
+import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
 
 @Component({
   selector: 'app-user-events',
@@ -26,15 +29,35 @@ export class UserEventsComponent implements OnInit {
 
   errMsg = '';
 
+  userFavorites: any = [];
+  userID: string = '';
+  user_token: string = '';
   
+  users_favorite_event_id_and_fav_id: any = [];
+  users_favorite_event_id_and_visibilty: any = [];
+  users_favorite_event_ids: any = [];
+
+  modalRef: any;
+
 
   constructor(
     private router: Router,
     private eventsService: EventsService, 
-    private basicInfoService: BasicInfoService
+    private basicInfoService: BasicInfoService,
+    private userFavoriteService: UsersFavoritesService,
+    private modalService: MdbModalService
   ) { }
 
   ngOnInit() {  
+    var user_token = sessionStorage.getItem('x_auth_token');
+    this.user_token = ((user_token !== null? user_token: ''));
+    var user_id: any =  sessionStorage.getItem('user_id');
+    // user_id = JSON.parse(user_id)
+    // console.log(user_token)
+    this.userID = user_id;
+   
+    this.getUsersFavorites() 
+
     this.getUserEvents(0);
     this.getAllUserEvents();
     this.getUserEvents(2);
@@ -436,6 +459,202 @@ export class UserEventsComponent implements OnInit {
       }
     );
   }
+
+  hasBeenAddedToFavorites(event_id: any) {
+    return this.users_favorite_event_ids.includes(event_id)
+  }
+
+  saveEventAsFavorite(event_id: any): void {
+    // console.log(this.user_token )
+    if(this.user_token == '') {
+      this.router.navigateByUrl('/login')
+      
+    } else {
+
+      // var favorite_buttons: HTMLCollection = document.getElementsByClassName('favorite-'+event_id);
+      var favorite_buttons = document.getElementsByClassName('favorite-'+event_id);
+
+      
+      for (let item of favorite_buttons) {
+        item.setAttribute('style', 'display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;'); 
+        // item.style.fill = 'red';  // This is probably what you need for your SVG items
+      }
+      
+      // document.getElementById('favorite-'+event_id)?.style.setProperty('fill', 'rgba(255, 101, 80, 0.4)');
+      
+      this.userFavoriteService.addFavoriteEvent(event_id, this.userID).then(
+        res => {
+          if (res) {
+            console.log(res);
+            
+            // reload data so view reflects changes
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
+
+          }
+          else {
+            console.log('didnt add to favorites');
+          }
+        },
+        err => {
+          console.log(err);
+          // this.isLoading = false;
+        }
+      );
+      
+    }
+    
+  }
+
+  removeEventFromFavorites(event_id: any): void { 
+    console.log(event_id)
+    
+    let favorite_id: any = ''
+
+    for (let i = 0; i < this.users_favorite_event_id_and_fav_id.length; i++) {
+
+      if(this.users_favorite_event_id_and_fav_id[i].event_id == event_id) {
+          favorite_id = this.users_favorite_event_id_and_fav_id[i].fav_id
+
+          var favorite_buttons = document.getElementsByClassName('favorite-'+event_id);
+
+      
+          for (let item of favorite_buttons) {
+            item.setAttribute('style', 'display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;'); 
+            // item.style.fill = 'red';  // This is probably what you need for your SVG items
+          }
+          
+      }
+
+      // TODO: low priority; remove duplicates from users_favorite_event_ids
+      // var unique_users_favorite_event_ids = [];
+
+      // unique_users_favorite_event_ids = this.users_favorite_event_ids.filter(function(item: any, pos: any) {
+      //   return this.users_favorite_event_ids.indexOf(item) == pos;
+      // })
+
+      var index = this.users_favorite_event_ids.indexOf(event_id);
+      if (index > -1) {
+        this.users_favorite_event_ids.splice(index, 1);
+      }
+
+    }
+
+      this.userFavoriteService.removeEventFromFavorite(favorite_id).then(
+        res => {
+          if (res) {
+            console.log(res); 
+
+            // reload data so view reflects
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
+            
+          }
+          else {
+            console.log('didnt remove to favorites');
+          }
+        },
+        err => {
+          console.log(err);
+          // this.isLoading = false;
+        }
+      );
+    
+  }
+
+  
+  getUsersFavorites (){
+
+    if(this.userID !== '') {
+      this.userFavoriteService.getUserFavorites(this.userID).then(
+        res => {
+          this.userFavorites = res.event;
+
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    }  
+  }
+
+  getUsersFavoritesAfterNextPageLoad (){
+
+    if(this.userID !== '') {
+      
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+    }
+  }
+
+  getEventStartDateFormatted(date: any) {
+    return moment(date).format('ddd, MMM D, YYYY h:mm A');
+  }
+
+  
+  getTicketSalesStatus(ticket_sales_end_date: string) {
+    if (ticket_sales_end_date == null) return 1;
+
+    var ticket_end_date = ticket_sales_end_date.split(' ')[0];
+    var ticket_end_time = ticket_sales_end_date.split(' ')[1];
+    // console.log(ticket_end_date, ticket_end_time);
+
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let today = date.valueOf();
+    // let sd = Date.parse(this.f.start_date.value);
+    let ed = Date.parse(ticket_end_date);    
+    let now = new Date().getTime();
+    // let st = new Date(this.f.start_time.value).getTime();
+    let et = new Date(ticket_end_time).getTime();
+
+    
+    if (ed > today && et > now) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
+  }
+
+  
+  getEventDateWithoutTime(date: string) {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
+  getEventEndDateFormatted(date: any) {
+    return moment(date).format('h:mm A');
+
+  }
+
 
 
 }
