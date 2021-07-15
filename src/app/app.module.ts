@@ -119,6 +119,8 @@ import { EventsByCategoryComponent } from './components/events-by-category/event
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 import { PreviewMinimisedSpeakersComponent } from './components/preview-event/preview-minimised-speakers/preview-minimised-speakers.component';
 import { PreviewMinimisedOrganizersComponent } from './components/preview-event/preview-minimised-organizers/preview-minimised-organizers.component';
+import { PreviewMinimisedSponsorsComponent } from './components/preview-event/preview-minimised-sponsors/preview-minimised-sponsors.component';
+import { PreviewMinimisedPricingComponent } from './components/preview-event/preview-minimised-pricing/preview-minimised-pricing.component';
 
 
 @NgModule({
@@ -212,7 +214,9 @@ import { PreviewMinimisedOrganizersComponent } from './components/preview-event/
     EventsByCategoryComponent,
     CategoryEventsPageComponent,
     PreviewMinimisedSpeakersComponent,
-    PreviewMinimisedOrganizersComponent
+    PreviewMinimisedOrganizersComponent,
+    PreviewMinimisedSponsorsComponent,
+    PreviewMinimisedPricingComponent
   ],
   imports: [
     BrowserModule,

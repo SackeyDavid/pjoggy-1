@@ -1,0 +1,27 @@
+<div class="sponsors-div gradient">
+  <div class="container">
+      <div class="row">
+         <div class="col-lg-12">
+            <h2 class="section-title white">
+               <span>Who helps us</span>
+               Our Sponsors
+            </h2>
+         </div>
+      </div>
+      <div class="row my-5">
+          <div class="col-lg-12 text-center">
+             <div *ngFor="let x of sponsors" class="sponsors-logo">
+                <a href="#" (click)="$event.preventDefault()"><img src="http://events369.logitall.biz/storage/sponsors/{{x.logo}}" alt="" width="80" height="60"></a>
+             </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-12">
+             <div class="sponsor-btn text-center">
+                <a href="index.html#" class="btn">Become a Sponsor</a>
+             </div>
+          </div>
+       </div>
+  </div>
+</div>
+

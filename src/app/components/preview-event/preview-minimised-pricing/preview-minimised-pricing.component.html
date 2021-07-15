@@ -1,0 +1,44 @@
+<div>
+  <div class="container">
+      <div class="row">
+      <div class="col-lg-12">
+          <h2 class="section-title white">
+              <span>Pricing Plans</span>
+              Get your Ticket
+          </h2>
+      </div>
+      </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let x of pricing" class="col wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="400ms">
+          <div class="pricing-item">
+            <img class="pricing-dot" src="images/pricing/dot.png" alt="">
+            <div class="ts-pricing-box">
+
+                <div class="ts-pricing-header">
+                  <h2 class="ts-pricing-name">{{x.name}}</h2>
+                  <h3 class="ts-pricing-price">
+                      <span class="currency">{{x.currency}}</span>{{x.price}}
+                  </h3>
+                </div>
+                <div class="ts-pricing-progress">
+                      <p class="amount-progres-text">Available tickets for this price</p>
+                      <div class="ts-progress">
+                        <div class="ts-progress-inner" style="width: 100%"></div>
+                      </div>
+                      <!-- <p class="ts-pricing-value">{{x.quantity_remaining}}/{{x.quantity_remaining + x.quantity_sold}}</p> -->
+                </div>
+                <div class="promotional-code">
+                  <!-- <p class="promo-code-text">Enter Promotional Code</p> -->
+                  <a href="#" class="btn pricing-btn">Buy Ticket</a>
+                  <!-- <p class="vate-text">All prices exclude 25% VAT</p> -->
+                </div>
+            </div>
+            <img class="pricing-dot1 " src="images/pricing/dot.png" alt="">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

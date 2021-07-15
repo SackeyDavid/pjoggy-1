@@ -1,0 +1,205 @@
+.pricing-div {
+  // padding-top: 100px;
+}
+
+.gradient:before {
+  position: absolute;
+  // left: 0;
+  // top: 0;
+  /* background-image: -webkit-linear-gradient(306deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%);
+  background-image: -o-linear-gradient(306deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%);
+  background-image: linear-gradient(144deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%); */
+  background-image: -webkit-linear-gradient(306deg, #231575 0%, #0b4193 51%, #0099ff 100%, #05b0ff 100%);
+  background-image: -o-linear-gradient(306deg, #231575 0%, #0b4193 51%, #0099ff 100%, #05b0ff 100%);
+  background-image: linear-gradient(306deg, #231575 0%, #0b4193 51%, #0099ff 100%, #05b0ff 100%);
+  // width: 100%;
+  //
+  content: '';
+  opacity: 0.902;
+}
+
+.section-title, .column-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #3b1d82;
+  position: relative;
+  padding-top: 100px;
+  padding-bottom: 30px;
+  // margin-bottom: 85px;
+  text-align: center;
+}
+.section-title:after, .column-title:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  right: 0;
+  // background-image: url("../images/shap/title.png");
+  background-repeat: no-repeat;
+  background-size: center center;
+  background-position: contain;
+  width: 70px;
+  height: 10px;
+  margin: auto auto 0;
+  top: auto;
+  bottom: 0;
+}
+.section-title span, .column-title span {
+  display: block;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 26px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+.section-title.white, .column-title.white {
+  color: #fff;
+}
+
+.section-title.white span, .column-title.white span {
+  color: #fff;
+}
+
+.pricing-item {
+  position: relative;
+  max-width: 220px;
+  margin: auto;
+}
+.pricing-item.disebled {
+  opacity: 0.7;
+  cursor: no-drop;
+}
+.pricing-item.disebled .btn {
+  background: #a077a6;
+  cursor: no-drop;
+}
+
+.pricing-dot {
+  width: 100%;
+  display: block;
+}
+.pricing-dot1 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  display: block;
+  width: 100%;
+  margin-top: -2px;
+}
+
+.ts-pricing-box {
+  background: #fff;
+  padding: 40px;
+  margin-bottom: 120px;
+  text-align: center;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+}
+.ts-pricing-box:hover {
+  -webkit-box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.4);
+}
+.ts-pricing-box .ts-pricing-header .ts-pricing-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #3b1d82;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.ts-pricing-box .ts-pricing-header .ts-pricing-price {
+  font-size: 36px;
+  font-weight: 900;
+  color: #3b1d82;
+  margin-bottom: 20px;
+}
+.ts-pricing-box .ts-pricing-header .ts-pricing-price span {
+  margin-right: 10px;
+}
+.ts-pricing-box .ts-pricing-progress .ts-pricing-value {
+  font-weight: 700;
+  color: #e7015e;
+  margin-bottom: 25px;
+}
+.ts-pricing-box .ts-progress {
+  width: 100%;
+  height: 10px;
+  background: #ebedf4;
+  margin-bottom: 10px;
+}
+.ts-pricing-box .ts-progress .ts-progress-inner {
+  background-image: -webkit-linear-gradient(306deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%);
+  background-image: -o-linear-gradient(306deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%);
+  background-image: linear-gradient(144deg, #321575 0%, #8d0b93 51%, #ff0066 100%, #ff057c 100%);
+  height: 100%;
+}
+.ts-pricing-box .promotional-code .promo-code-text {
+  font-weight: 400;
+  color: #e7015e;
+}
+.ts-pricing-box .pricing-btn {
+  margin-bottom: 25px;
+  position: relative;
+}
+.ts-pricing-box .pricing-btn:before, .ts-pricing-box .pricing-btn:after {
+  position: absolute;
+  left: -14px;
+  top: 0;
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-border-radius: 50%;
+  bottom: 0;
+  margin: auto;
+}
+.ts-pricing-box .pricing-btn:after {
+  position: absolute;
+  left: auto;
+  top: 0;
+  right: -14px;
+}
+.ts-pricing-box .vate-text {
+  margin-bottom: 0;
+}
+
+.btn {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  background: #007bff;
+  height: 50px;
+  padding: 0 35px;
+  line-height: 50px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:focus {
+  outline: none;
+}
+.btn:hover {
+  color: #fff;
+  background: #d20055;
+  -webkit-box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.15);
+}
