@@ -6,6 +6,10 @@ import moment from 'moment';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
+import { CancelEventAlertComponent } from 'src/app/components/modals/cancel-event-alert/cancel-event-alert.component';
+import { EditEventAlertComponent } from 'src/app/components/modals/edit-event-alert/edit-event-alert.component';
+import { DeleteEventAlertComponent } from 'src/app/components/modals/delete-event-alert/delete-event-alert.component';
+import { RecoverEventAlertComponent } from 'src/app/components/modals/recover-event-alert/recover-event-alert.component';
 
 @Component({
   selector: 'app-user-events',
@@ -117,10 +121,14 @@ export class UserEventsComponent implements OnInit {
   }
 
   gotoEdit(eventId: any) {
+    // this.modalRef = this.modalService.open(EditEventAlertComponent, { data: { id: eventId }});
     console.log(eventId);
     this.saveSelectedEvent(eventId).then(
       ok => {
-        if (ok) this.router.navigateByUrl('/edit_event/basic_info')
+        if (ok) {
+          this.router.navigateByUrl('/edit_event/basic_info');
+          this.modalRef.close();
+        }
       },   
     );
   }
@@ -148,53 +156,16 @@ export class UserEventsComponent implements OnInit {
   }
 
   archiveEvent(eventId: any){
-    return new Promise((resolve, reject) => {
-      this.eventsService.archiveEvent(eventId).then(
-        res => {
-          console.log(res);
-          // TODO: reload page          
-          resolve(true);
-        },
-        err => {
-          console.log(err);
-          this.errMsg = err
-          reject(err);
-        }
-      );
-    });
+    this.modalRef = this.modalService.open(DeleteEventAlertComponent, { data: { id: eventId }});   
   }
 
   cancelEvent(eventId: any){
-    return new Promise((resolve, reject) => {
-      this.eventsService.cancelEvent(eventId).then(
-        res => {
-          console.log(res);
-          // TODO: reload page          
-          resolve(true);
-        },
-        err => {
-          console.log(err);
-          this.errMsg = err
-          reject(err);
-        }
-      );
-    });
+    this.modalRef = this.modalService.open(CancelEventAlertComponent, { data: { id: eventId }});
   }
 
   recoverEvent(eventId: any){
-    return new Promise((resolve, reject) => {
-      this.eventsService.recoverEvent(eventId).then(
-        res => {
-          console.log(res);
-          // TODO: reload page          
-          resolve(true);
-        },
-        err => {
-          console.log(err);
-          reject(err);
-        }
-      );
-    });
+    this.modalRef = this.modalService.open(RecoverEventAlertComponent, { data: { id: eventId }});
+    
   }
 
   getEventDateFormatted(date: any) {
@@ -315,15 +286,21 @@ export class UserEventsComponent implements OnInit {
     var dots = document.getElementById("published-dots-"+event_id) as HTMLSpanElement;
     var moreText = document.getElementById("published-more-"+event_id) as HTMLSpanElement;
     var btnText = document.getElementById("published-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("published-icons-"+event_id)  as HTMLSpanElement;
 
     if (dots?.style.display === "none") {
       dots.style.display = "inline";
       btnText.innerHTML = "See more"; 
       moreText.style.display = "none";
+      moreText.style.height = "0";
+      icons.style.display = "inline";
     } else {
       dots.style.display = "none";
       btnText.innerHTML = "See less"; 
       moreText.style.display = "inline";
+      moreText.style.height = "max-content";
+      icons.style.display = "none";
+
     }
   }
 
@@ -331,15 +308,18 @@ export class UserEventsComponent implements OnInit {
     var dots = document.getElementById("draft-dots-"+event_id) as HTMLSpanElement;
     var moreText = document.getElementById("draft-more-"+event_id) as HTMLSpanElement;
     var btnText = document.getElementById("draft-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("draft-icons-"+event_id)  as HTMLSpanElement;
 
     if (dots?.style.display === "none") {
       dots.style.display = "inline";
       btnText.innerHTML = "See more"; 
       moreText.style.display = "none";
+      icons.style.display = "inline";
     } else {
       dots.style.display = "none";
       btnText.innerHTML = "See less"; 
       moreText.style.display = "inline";
+      icons.style.display = "none";
     }
   }
 
@@ -347,15 +327,18 @@ export class UserEventsComponent implements OnInit {
     var dots = document.getElementById("cancelled-dots-"+event_id) as HTMLSpanElement;
     var moreText = document.getElementById("cancelled-more-"+event_id) as HTMLSpanElement;
     var btnText = document.getElementById("cancelled-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("cancelled-icons-"+event_id)  as HTMLSpanElement;
 
     if (dots?.style.display === "none") {
       dots.style.display = "inline";
       btnText.innerHTML = "See more"; 
       moreText.style.display = "none";
+      icons.style.display = "inline";
     } else {
       dots.style.display = "none";
       btnText.innerHTML = "See less"; 
       moreText.style.display = "inline";
+      icons.style.display = "none";
     }
   }
 
@@ -363,15 +346,18 @@ export class UserEventsComponent implements OnInit {
     var dots = document.getElementById("archived-dots-"+event_id) as HTMLSpanElement;
     var moreText = document.getElementById("archived-more-"+event_id) as HTMLSpanElement;
     var btnText = document.getElementById("archived-myBtn-"+event_id)  as HTMLSpanElement;
+    var icons = document.getElementById("archived-icons-"+event_id)  as HTMLSpanElement;
 
     if (dots?.style.display === "none") {
       dots.style.display = "inline";
       btnText.innerHTML = "See more"; 
       moreText.style.display = "none";
+      icons.style.display = "inline";
     } else {
       dots.style.display = "none";
       btnText.innerHTML = "See less"; 
       moreText.style.display = "inline";
+      icons.style.display = "none";
     }
   }
 
@@ -398,7 +384,7 @@ export class UserEventsComponent implements OnInit {
     this.eventsService.getDraftedUsersEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.createdEvents = res.all_events;
+        this.createdEvents = res;
         this.createdEvents.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
@@ -432,7 +418,7 @@ export class UserEventsComponent implements OnInit {
     this.eventsService.getArchivedUsersEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.archivedEvents = res.all_events;
+        this.archivedEvents = res;
         this.archivedEvents.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
@@ -449,7 +435,7 @@ export class UserEventsComponent implements OnInit {
     this.eventsService.getCancelledUsersEventsNextPage(url).then(
       res => {
         console.log(res);
-        this.cancelledEvents = res.all_events;
+        this.cancelledEvents = res;
         this.cancelledEvents.data.sort(function(a: any, b:any){
           return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });

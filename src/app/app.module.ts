@@ -121,6 +121,13 @@ import { PreviewMinimisedSpeakersComponent } from './components/preview-event/pr
 import { PreviewMinimisedOrganizersComponent } from './components/preview-event/preview-minimised-organizers/preview-minimised-organizers.component';
 import { PreviewMinimisedSponsorsComponent } from './components/preview-event/preview-minimised-sponsors/preview-minimised-sponsors.component';
 import { PreviewMinimisedPricingComponent } from './components/preview-event/preview-minimised-pricing/preview-minimised-pricing.component';
+import { PreviewMinimisedDescriptionComponent } from './components/preview-event/preview-minimised-description/preview-minimised-description.component';
+import { PreviewMinimisedLocationComponent } from './components/preview-event/preview-minimised-location/preview-minimised-location.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { CancelEventAlertComponent } from './components/modals/cancel-event-alert/cancel-event-alert.component';
+import { EditEventAlertComponent } from './components/modals/edit-event-alert/edit-event-alert.component';
+import { DeleteEventAlertComponent } from './components/modals/delete-event-alert/delete-event-alert.component';
+import { RecoverEventAlertComponent } from './components/modals/recover-event-alert/recover-event-alert.component';
 
 
 @NgModule({
@@ -216,7 +223,13 @@ import { PreviewMinimisedPricingComponent } from './components/preview-event/pre
     PreviewMinimisedSpeakersComponent,
     PreviewMinimisedOrganizersComponent,
     PreviewMinimisedSponsorsComponent,
-    PreviewMinimisedPricingComponent
+    PreviewMinimisedPricingComponent,
+    PreviewMinimisedDescriptionComponent,
+    PreviewMinimisedLocationComponent,
+    CancelEventAlertComponent,
+    EditEventAlertComponent,
+    DeleteEventAlertComponent,
+    RecoverEventAlertComponent
   ],
   imports: [
     BrowserModule,
@@ -243,8 +256,8 @@ import { PreviewMinimisedPricingComponent } from './components/preview-event/pre
     OwlNativeDateTimeModule,
     GooglePlaceModule,
     TimeagoModule.forRoot(),
-    MdbModalModule
-
+    MdbModalModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

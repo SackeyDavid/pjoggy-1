@@ -1,0 +1,61 @@
+.intro-item {
+  padding: 100px 0 100px;
+}
+
+.intro-left-content p {
+  margin-bottom: 40px;
+  padding-right: 10px;
+}
+
+.intro-left-content .btn {
+  height: 55px;
+  line-height: 55px;
+  padding: 0 55px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.column-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #3b1d82;
+  position: relative;
+  padding-bottom: 30px;
+  margin-bottom: 85px;
+  text-align: center;
+}
+
+.column-title span {
+  display: block;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 26px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+.column-title {
+  margin-bottom: 35px;
+  line-height: 42px;
+  text-align: left;
+}
+.column-title span {
+  margin-top: 0;
+}
+.column-title:after {
+  right: auto;
+}
+
+.copy-icon {
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.map-view{
+  width: 100%;
+  height: 100%;
+}

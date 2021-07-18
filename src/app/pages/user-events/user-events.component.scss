@@ -250,8 +250,9 @@ span.lead {
 
 p.card-text {
   line-height: 20px;
-  min-height: 15vh;
+  min-height: auto;
   max-height: 25vh;
+  padding-bottom: 0 !important;
 }
 
 .display-6 {
@@ -292,6 +293,7 @@ ul.nav {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  min-height: 40px;
 }
 
 // happening now text
@@ -525,4 +527,23 @@ color: var(--ev-create-event-nav-background);
 
 .row {
   --bs-gutter-x: 1.5rem !important;
+}
+
+.float-left {
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }

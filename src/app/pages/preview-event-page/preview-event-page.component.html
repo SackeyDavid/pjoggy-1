@@ -22,10 +22,26 @@
     [eventContent]="this.eventContent"
 ></app-preview-banner>
 
-<app-preview-details id="intro"
+<!-- <app-preview-details id="intro"
     [eventContent]="this.eventContent"
     [hostingContent]="this.hostingContent">
-</app-preview-details>
+</app-preview-details> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <app-preview-minimised-description
+                [eventContent]="this.eventContent">
+            </app-preview-minimised-description>
+        </div>
+        <div class="col">
+            <app-preview-minimised-location
+                [eventContent]="this.eventContent"
+                [hostingContent]="this.hostingContent">
+            </app-preview-minimised-location>
+        </div>
+    </div>
+</div>
 
 <!-- <app-preview-schedule id="schedule"
     *ngIf="scheduleDisplay == true">
@@ -43,17 +59,15 @@
 
 <div class="pricing-div gradient" style="background-image: linear-gradient(306deg, #231575 0%, #0b4193 51%, #0099ff 100%, #05b0ff 100%);">
     <div class="row">
-        <div class="col">
+        <div *ngIf="pricingDisplay == true" class="col">
             <app-preview-minimised-pricing id="pricing"
-                *ngIf="pricingDisplay == true"
                 [pricing]="pricingContent">
             </app-preview-minimised-pricing>
         </div>
-        <div class="col">
-          <app-preview-minimised-sponsors id="sponsors"
-              *ngIf="sponsorsDisplay == true"
-              [sponsors]="sponsorsContent">
-          </app-preview-minimised-sponsors>
+        <div *ngIf="sponsorsDisplay == true" class="col">
+            <app-preview-minimised-sponsors id="sponsors"
+                [sponsors]="sponsorsContent">
+            </app-preview-minimised-sponsors>
         </div>
     </div>
 </div>
@@ -63,16 +77,14 @@
     [organizers]="organisersContent">
 </app-preview-organizers> -->
 
-<div class="row">
-    <div class="col">
+<div class="row gx-0">
+    <div *ngIf="speakersDisplay == true" class="col">
         <app-preview-minimised-speakers id="speakers"
-            *ngIf="speakersDisplay == true"
             [speakers]="speakersContent">
         </app-preview-minimised-speakers>
     </div>
-    <div class="col">
+    <div *ngIf="organisersDisplay == true" class="col">
         <app-preview-minimised-organizers id="organizers"
-            *ngIf="organisersDisplay == true"
             [organizers]="organisersContent">
         </app-preview-minimised-organizers>
     </div>

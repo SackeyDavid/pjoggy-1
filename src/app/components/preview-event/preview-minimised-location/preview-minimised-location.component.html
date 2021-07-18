@@ -1,0 +1,100 @@
+<div *ngIf="eventContent?.hosting=='0'">
+  <div class="row intro-item">
+     <div class="col p-5 my-auto">
+        <table class="table table-borderless">
+           <tbody>
+
+             <tr *ngIf="hostingContent[0].link != ''">
+               <td><img src="../../../../assets/images/social-media/036-facebook.png" alt="" width="40" height="40"></td>
+               <td *ngIf="!facebookLinkCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[0].link}}" (click)="copyFacebookLink()"></i></td>
+               <td *ngIf="facebookLinkCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+               <td>{{hostingContent[0].link}}</td>
+             </tr>
+
+             <tr *ngIf="hostingContent[1].link != ''">
+              <td><img src="../../../../assets/images/social-media/001-zoom.png" alt="" width="40" height="40"></td>
+              <td>
+                 <tr>
+                    <td *ngIf="!zoomLinkCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[1].link}}" (click)="copyZoomLink()"></i></td>
+                    <td *ngIf="zoomLinkCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <td>{{hostingContent[1].url}}</td>
+                 </tr>
+                 <tr>
+                    <td *ngIf="!zoomIdCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[1].meeting_id}}" (click)="copyZoomId()"></i></td>
+                    <td *ngIf="zoomIdCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <td><b>Meeting ID: </b> {{hostingContent[1].meeting_id}}</td>
+                 </tr>
+                 <tr *ngIf="hostingContent.Zoom.password != ''">
+                    <td *ngIf="!zoomPasswordCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[1].password}}" (click)="copyZoomPassword()"></i></td>
+                    <td *ngIf="zoomPasswordCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <b>Password: </b> {{hostingContent[1].password}}
+                 </tr>
+               </td>
+             </tr>
+
+             <tr *ngIf="hostingContent.Youtube != ''">
+               <td><img src="../../../../assets/images/social-media/001-youtube.png" alt="" width="40" height="40"></td>
+               <td *ngIf="!youtubeLinkCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[0].link}}" (click)="copyYoutubeLink()"></i></td>
+               <td *ngIf="youtubeLinkCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+               <td>{{hostingContent[2].link}}</td>
+             </tr>
+
+            <tr *ngIf="hostingContent[3].link != ''">
+              <td><img src="../../../../assets/images/social-media/hangouts-meet.png" alt="" width="40" height="40"></td>
+              <td>
+                 <tr>
+                    <td *ngIf="!meetLinkCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[3].link}}" (click)="copyMeetLink()"></i></td>
+                    <td *ngIf="meetLinkCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <td>{{hostingContent[3].link}}</td>
+                 </tr>
+                 <tr>
+                    <td *ngIf="!meetPasswordCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[3].password}}" (click)="copyMeetPassword()"></i></td>
+                    <td *ngIf="meetPasswordCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <td><b>Password: </b> {{hostingContent[3].password}}</td>
+                 </tr>
+              </td>
+            </tr>
+
+            <tr *ngIf="hostingContent[4].link != ''">
+              <td><img src="../../../../assets/images/social-media/microsoft.png" alt="" width="40" height="40"></td>
+              <td>
+                 <tr>
+                    <td *ngIf="!teamsLinkCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[4].link}}" (click)="copyTeamsLink()"></i></td>
+                    <td *ngIf="teamsLinkCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    {{hostingContent[4].link}}
+                 </tr>
+                 <tr>
+                    <td *ngIf="!teamsPasswordCopied"><i class="bi bi-clipboard copy-icon" cdkCopyToClipboard="{{hostingContent[4].password}}" (click)="copyTeamsPassword()"></i></td>
+                    <td *ngIf="teamsPasswordCopied"><i class="bi bi-clipboard-check copy-icon"></i></td>
+                    <td><b>Password: </b> {{hostingContent[4].password}}</td>
+                 </tr>
+              </td>
+            </tr>
+
+           </tbody>
+         </table>
+     </div>
+  </div>
+</div>
+
+<div *ngIf="eventContent?.hosting=='1'" id="map" class="map-view">
+    <!-- <google-map (mapClick)="click($event)" -->
+    <google-map
+          height="100%"
+          width="100%"
+          [zoom]="zoom"
+          [center]="center"
+          [options]="options"
+      >
+        <!-- <map-marker #markerElem (mapClick)="openInfo(markerElem, marker.info)" -->
+        <map-marker #markerElem
+            *ngFor="let marker of markers"
+            [position]="marker.position"
+            [label]="marker.label"
+            [title]="marker.title"
+            [options]="marker.options"
+        >
+        </map-marker>
+        <map-info-window>{{ infoContent }}</map-info-window>
+    </google-map>
+</div>
