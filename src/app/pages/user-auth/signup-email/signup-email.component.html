@@ -1,168 +1,199 @@
-<section>
-  <div class="contents" [class.height]="showPrompt">
 
-    <img id="image-bg" class="bg" src="../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp"/>
-    
-<div class="container-fluid h-100">
-    <div class="row align-items-end h-100">
+<div class="split-screen">
+  <div class="left" id="image-bg" style="background: url(../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp);background-size: contain;">
+    <section class="copy left-text">
+      
+      <app-form-header 
+      [logo] = "'git-logo-white'"
+      [formTitle]="''">
+    </app-form-header>
+      <h1 class="replacing-text">Host fantastic virtual <div class="fancy"></div></h1>
+      <!-- <p></p> -->
+      <button routerLink="/login" class="btn btn-primary login-button px-4 mb-4 my-5"> Log in</button>
+      
+      <div class="progress-container">
+        <div class="progress progress-level"></div><div class="progress"></div>  &nbsp;
+        <span class="progress-count ml-4">01 </span> <span class="progress-count progress-total"> &#8211; 02</span>
+      </div>             
+    </section>
+  </div>
+  <div class="right">
+    <div class="container-fluid h-100">
+    <div class="row align-items-center h-100">
       <div class="col-lg-5 mx-auto my-auto form-card">
-  
-        <div class="card p-5" style="margin-top: 5%;margin-bottom: 5%;margin-left: 3%;margin-right: 3%;box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12);">
+        <!-- box-shadow: 0 15px 35px 0 rgba(60,66,87,.08),0 5px 15px 0 rgba(0,0,0,.12); -->
+        <div class="card p-5" style="margin-bottom: 0;margin-left: 3%;margin-right: 3%;padding-bottom: 0 !important;">
           <div class="card-body" style="padding: 0;">
             <div class="row">
-    
-              <div class="col">
-  
-                <!-- component -->
-  
+              <div class="d-flex justify-content-center">
                 <app-form-header 
-                  [formTitle]="'Sign up'" 
-                  >
+                [logo] = "'git-logo'"
+                [formTitle]="''">
                 </app-form-header>
-                <!-- [subText]="'Sign up to enjoy our suite of products'" -->
-                <!-- signup form -->
-                <form *ngIf="!showPrompt" [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
-                  
-                  <div *ngIf="errorMsgs.message" class="row text-center">
-                    <div class="col alert alert-danger">
-                      <small class="text-danger">{{errorMsgs.message}}</small>
-                    </div>
-                  </div>
-  
-                                         
-                    <div class="row">
-                        <div class="col">
-                            <div class="mt-3">
-                              <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">Email</label>
-                              <input id="email" type="email" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
-                            </div>
-                            <small *ngFor="let x of errorMsgs?.errors?.email"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
-                            <small *ngIf="saved && registerForm.controls.email.errors" class="text-danger">
-                              Please provide a valid email address
-                            </small>
-                        </div>
-                    </div>  
-                    
-                    <!-- <div class="row">
-                      <div class="col">
-                        <div class="mt-1">
-                          <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">User Type</label>
-                          <select class="custom-select  form-element" id="floatingSelect" style="height: 42px;" aria-label="Floating" formControlName="type" required>
-                            <option value="30">Individual</option>
-                            <option value="32">Organization</option>
-                          </select>
-                          <label for="floatingSelect">User Type</label>
-                        </div>
-                        <small><span *ngFor="let x of errorMsgs?.errors?.usertype" class="text-danger">{{x}}</span></small>
-                      </div>
-                    </div> -->
-    
-                    <div class="row mt-5">
-                        <div class="col mb-1">
-                          <button type="submit" class="register-button float-right btn btn-primary form-element form-btn">
-                            <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Register
-                          </button>
-                        </div>
-                      </div>    
-            
-                </form>
-                <!-- /.signup form -->
-                
-                <div *ngIf="showPrompt" class="row text-center mt-3">
-                  <div class="col-lg-12">
-                    <!-- <div class="card my-5"> -->
-                        <div *ngIf="!resent" class="alert alert-primary text-center">
-                            <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
-                            <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
-                            <p style="margin-bottom: 0rem !important;">We have sent a link to your email, {{registerForm.controls.email.value}}.</p>
-                            <p style="margin-bottom: 0rem !important;">Didn't receive the link? Click on the resend button again.</p>
-                        </div>
-                        <div *ngIf="resent" class="alert alert-primary text-center">
-                          <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p> -->
-                          <p style="margin-bottom: 0rem !important;">Activation link has been resent. </p>
-                          <p style="margin-bottom: 0rem !important;">Didn’t receive link? Click on the resend button again.</p>
-                        </div>
-                      <!-- </div> -->
-                  </div>
-                  <div class="col-lg-12 my-3">
-                    <button type="submit" class="register-button float-right btn btn-primary form-element form-btn" (click)="resend()">
-                      <span *ngIf="isResending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Resend Link
-                    </button>
-                  </div>
-                </div>
-  
-                <span class="text-center mx-5">
-                  <p>
-                    <div class="separator">or sign up with</div>
-                  <p></p>
-                </span>
 
-                <div class="row">
-
-                  <div class="d-flex justify-content-center social-div">
-                    <!-- <div class="spinner-grow" role="status">  -->
-                      <!-- <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
-                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
-                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span> -->
-                      <button (click)="googleSignUp()" class="btn m-1 social-btn"><span>
-                        <img class="rounded-circle social-logo zoom" src="../../../../assets/images/social-media/099-google.png" alt="google logo" width="26" height="26">
-                      </span></button>
-                      <button (click)="facebookSignUp()" class="btn m-1 social-btn"><span>
-                        <img class="rounded-circle social-logo zoom" src="../../../../assets/images/social-media/036-facebook.png" alt="facebook logo" width="26" height="26">
-                      </span></button>
-                    <!-- </div> -->
-                  </div>
-
-                  <!-- <div class="col mb-2">
-                    <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn" (click)="googleSignUp()">
-                     <div class="socialite-icon-and-text" style="display: block ruby;">
-                      <span class="ml-3">
-                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
-                      </span>
-                      <span style="font-size: 18px;"> Google </span>
-                     </div>
-                    </button>
-                  </div> -->
-                </div>
-
-                <!-- <div class="row">
-                  <div class="col mb-1">
-                    <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn" (click)="facebookSignUp()">
-                      <div class="socialite-icon-and-text" style="display: block ruby;">
-                      <span class="ml-3">
-                        <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
-                      </span>
-                       <span style="font-size: 18px;"> Facebook </span>
-                      </div>
-                    </button>
-                  </div>
-                </div> -->
-
-                <span class="mx-5 text-center"><p>Already have an account? <a href="#" routerLink="/login">Sign in</a></p></span>
-
-                <div class="d-flex justify-content-center">
-                  <div class="p-2 text-muted hide-on-mobile">&copy; Events369</div>
-                  <div class="p-2 text-muted card-links" routerLink="/help">Help</div>
-                  <div class="p-2 text-muted card-links" routerLink="/privacy">Privacy & Terms</div>
-                </div>
-                <div class="d-flex justify-content-center show-on-mobile">
-                  <div class="p-2 text-muted">&copy; Events369</div>
-                </div>
-
-               
-                
               </div>
-  
-            </div>
-  
+              <div class="col">
+                <div class="row mb-1">
+                  <div class="col">
+                      <h4 style="font-weight: bolder;text-align: center;">Sign up to your account</h4>
+                  </div>
+              </div>
+      <!-- signup form -->
+      <form *ngIf="!showPrompt" [formGroup]="registerForm" (ngSubmit)="onSubmit()">                
+                  
+        <div *ngIf="errorMsgs.message" class="row text-center">
+          <div class="col alert alert-danger">
+            <small class="text-danger">{{errorMsgs.message}}</small>
           </div>
         </div>
+
+                               
+          <div class="row">
+              <div class="col">
+                  <div class="mt-3">
+                    <label class="form-label" for="floatingFname" style="margin-bottom: 0.375rem;font-size: 0.8rem;margin-left: 5px !important;">Email</label>
+                    <input id="email" type="email" class="form-control form-element" id="floatingFname" style="height: 42px;" placeholder="name@example.com" formControlName="email" required>
+                  </div>
+                  <small *ngFor="let x of errorMsgs?.errors?.email"><span *ngFor="let x of errorMsgs?.errors?.email" class="text-danger">{{x}}</span></small>
+                  <small *ngIf="saved && registerForm.controls.email.errors" class="text-danger">
+                    Please provide a valid email address
+                  </small>
+              </div>
+          </div>  
+          
+          <!-- <div class="row">
+            <div class="col">
+              <div class="mt-1">
+                <label class="form-label" for="floatingFname" style="margin-bottom: 0;font-size: 0.8rem;margin-left: 5px !important;">User Type</label>
+                <select class="custom-select  form-element" id="floatingSelect" style="height: 42px;" aria-label="Floating" formControlName="type" required>
+                  <option value="30">Individual</option>
+                  <option value="32">Organization</option>
+                </select>
+                <label for="floatingSelect">User Type</label>
+              </div>
+              <small><span *ngFor="let x of errorMsgs?.errors?.usertype" class="text-danger">{{x}}</span></small>
+            </div>
+          </div> -->
+
+          <div class="row mt-5">
+              <div class="col mb-1">
+                <button type="submit" class="register-button float-right btn btn-primary form-element form-btn">
+                  <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Continue
+                </button>
+              </div>
+            </div>    
   
+      </form>
+      <!-- /.signup form -->
+      
+      <div *ngIf="showPrompt" class="row text-center mt-3">
+        <div class="col-lg-12">
+          <!-- <div class="card my-5"> -->
+              <div *ngIf="!resent" class="alert alert-primary text-center">
+                  <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p>
+                  <p style="margin-bottom: 0rem !important;">Click resend if you didn't receive any mail</p> -->
+                  <p style="margin-bottom: 0rem !important;">We have sent a link to your email, {{registerForm.controls.email.value}}.</p>
+                  <p style="margin-bottom: 0rem !important;">Didn't receive the link? Click on the resend button again.</p>
+              </div>
+              <div *ngIf="resent" class="alert alert-primary text-center">
+                <!-- <p style="margin-bottom: 0rem !important;">Please check your email</p> -->
+                <p style="margin-bottom: 0rem !important;">Activation link has been resent. </p>
+                <p style="margin-bottom: 0rem !important;">Didn’t receive link? Click on the resend button again.</p>
+              </div>
+            <!-- </div> -->
+        </div>
+        <div class="col-lg-12 my-3">
+          <button type="submit" class="register-button float-right btn btn-primary form-element form-btn" (click)="resend()">
+            <span *ngIf="isResending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Resend Link
+          </button>
+        </div>
       </div>
+
+      <span class="text-center mx-5">
+        <p>
+          <div class="separator">or sign up with</div>
+        <p></p>
+      </span>
+
+      <div class="row">
+
+        <div class="d-flex justify-content-center social-div">
+          <!-- <div class="spinner-grow" role="status">  -->
+            <!-- <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span> -->
+            <button (click)="googleSignUp()" class="btn m-1 social-btn"><span>
+              <img class="rounded-circle social-logo zoom" src="../../../../assets/images/social-media/099-google.png" alt="google logo" width="26" height="26">
+            </span></button>
+            <button (click)="facebookSignUp()" class="btn m-1 social-btn"><span>
+              <img class="rounded-circle social-logo zoom" src="../../../../assets/images/social-media/036-facebook.png" alt="facebook logo" width="26" height="26">
+            </span></button>
+          <!-- </div> -->
+        </div>
+
+        <!-- <div class="col mb-2">
+          <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn" (click)="googleSignUp()">
+           <div class="socialite-icon-and-text" style="display: block ruby;">
+            <span class="ml-3">
+              <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/099-google.png" alt="" width="25" height="25">
+            </span>
+            <span style="font-size: 18px;"> Google </span>
+           </div>
+          </button>
+        </div> -->
+      </div>
+
+      <!-- <div class="row">
+        <div class="col mb-1">
+          <button type="button" class="socialite-buttons float-right btn btn-lg border form-element form-btn" (click)="facebookSignUp()">
+            <div class="socialite-icon-and-text" style="display: block ruby;">
+            <span class="ml-3">
+              <img class="rounded-circle social-logo" src="../../../../assets/images/social-media/036-facebook.png" alt="" width="25" height="25">
+            </span>
+             <span style="font-size: 18px;"> Facebook </span>
+            </div>
+          </button>
+        </div>
+      </div> -->
+
+      <section class="copy legal">
+        <p>
+          <span class="small">By continuing, you confirm that you've accepted our <br><a routerLink="/privacy">Privacy Policy</a>
+          &amp;<a routerLink="/privacy"> Terms of Services</a>.
+          </span>
+        </p>
+      </section>
+      
+      <!-- <div class="d-flex justify-content-center">
+        <div class="p-2 text-muted hide-on-mobile">&copy; Events369</div>
+        <div class="p-2 text-muted card-links" routerLink="/help">Help</div>
+        <div class="p-2 text-muted card-links" routerLink="/privacy">Privacy & Terms</div>
+      </div>
+      <div class="d-flex justify-content-center show-on-mobile">
+        <div class="p-2 text-muted">&copy; Events369</div>
+      </div> -->
     </div>
+
   </div>
 
 </div>
-</section>
+</div>
+
+
+</div>
+
+
+
+</div>
+</div>
+  <div class="d-flex justify-content-center bg-light">
+
+    <span class="mx-5 text-center"><p class="account-login p-2">Already have a GiT account ? <a href="#" routerLink="/login">Log in</a></p></span>
+  
+  </div>
+
+  </div>
+  
+</div>
