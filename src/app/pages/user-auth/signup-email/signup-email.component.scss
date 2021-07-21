@@ -1,3 +1,12 @@
+@font-face {
+  font-family: Dura;
+  src: url(../../../../assets/fonts/Duru_Sans/DuruSans-Regular.ttf) format("opentype");
+}
+
+* {
+  font-family: 'Dura';
+}
+
 .form-card {
   width: 500px;
 }

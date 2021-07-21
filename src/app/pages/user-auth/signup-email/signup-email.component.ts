@@ -21,7 +21,7 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
   isResending: boolean = false;
   
   images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/pexels-picha-stock-3894375.jpg']
-  image = this.images[this.getRandomInt(0, 5)]
+  image = this.images[this.getRandomInt(0, 5)];
 
 
   public registerForm: FormGroup = new FormGroup({});
@@ -54,9 +54,9 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
     var content = styles['content'];
     // let strText = text?.textContent;
     let splitText = content?.split("");
-    splitText.splice(0, 1)
-    splitText.splice(-1, 1)
-    console.log(splitText)
+    splitText.splice(0, 1);
+    splitText.splice(-1, 1);
+    // console.log(splitText)
     content = "";
     text!.innerHTML = "";
     for(let i=0; i < splitText.length; i++) {
