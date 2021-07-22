@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup = new FormGroup({});
 
-  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/istockphoto-1243928117-612x612.jpg']
+  images = ['../../../../assets/images/samantha-gades-fIHozNWfcvs-unsplash.webp', '../../../../assets/images/pexels-august-de-richelieu-4262413.jpg', '../../../../assets/images/pexels-christina-morillo-1181433.jpg', '../../../../assets/images/pexels-jopwell-2422280.jpg', '../../../../assets/images/pexels-nandhu-kumar-1613240.jpg', '../../../../assets/images/pexels-picha-stock-3894375.jpg']
   image = this.images[this.getRandomInt(0, 5)]
 
   constructor(private auth: UserAuthService, private router: Router) 
@@ -32,17 +32,72 @@ export class LoginPageComponent implements OnInit {
      
     
     });
-  }
+    
+    setTimeout(() => {
+        
+      setInterval(this.runFunc, 5000)
+      
+      }, 2000);
+
+   }
+
+   runFunc() {
+    let text = document.querySelector(".fancy");
+    if(text) {
+      var styles = window.getComputedStyle(text!,':after')
+      var content = styles['content'];
+      // let strText = text?.textContent;
+      let splitText = content?.split("");
+      splitText.splice(0, 1);
+      splitText.splice(-1, 1);
+      // console.log(splitText)
+      content = "";
+      text!.innerHTML = "";
+      for(let i=0; i < splitText.length; i++) {
+        text!.innerHTML += '<span style="color: #fe5104">' +  splitText[i] + '</span>';
+      }
+      let char = 0;
+      let timer = setInterval(onTick, 300);
+      function onTick() {
+        if(text!.querySelectorAll('span')) {
+          const span = text!.querySelectorAll('span')[char];
+          if(span) span.classList.add('fade');
+          char++;
+
+          if(char === splitText.length) {
+            complete();
+            
+            text!.innerHTML = "";
+            return;
+          }
+        } 
+      }
+     
+
+     function complete() {
+       clearInterval(timer);
+      //  timer = ; 
+     }
+    }
+
+      
+   }
+
+   
 
   ngOnInit(): void {
-    document.getElementById('image-bg')?.setAttribute('src', this.image);
+    document.getElementById('image-bg')?.setAttribute('style', 'background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('+ this.image + ') no-repeat center center fixed; background-size: cover;')
 
     const emailRegEx = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
-    this.loginForm.value.email = this.loginForm.value.email.replace(/\s/g,'')
+    this.loginForm.value.email = this.loginForm.value.email.replace(/\s/g,'');
+
+    let text = document.querySelector(".fancy");
+    text!.innerHTML = '<span style="color: #fe5104"> events </span>';
+
   }
 
   onSubmit(){

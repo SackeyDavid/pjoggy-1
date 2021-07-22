@@ -66,16 +66,18 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
     let timer = setInterval(onTick, 300)
 
     function onTick() {
-      const span = text!.querySelectorAll('span')[char];
-      span.classList.add('fade');
-      char++;
+      if(text!.querySelectorAll('span') !== null) {
+        const span = text!.querySelectorAll('span')[char];
+        if(span) span.classList.add('fade');
+        char++;
 
-      if(char === splitText.length) {
-        complete();
-        
-        text!.innerHTML = "";
-        return;
-      }
+        if(char === splitText.length) {
+          complete();
+          
+          text!.innerHTML = "";
+          return;
+        }
+      } 
      }
 
      function complete() {

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: Dura;
+  src: url(../../../../assets/fonts/Duru_Sans/DuruSans-Regular.ttf) format("opentype");
+}
+
+* {
+  font-family: 'Dura';
+}
+
 .form-card {
   width: 500px;
 }
@@ -12,7 +21,7 @@
   height: 42px;
 }
 
-.register-button {
+.register-button, .login-button {
   // width: 140px;
   // height: 45px;
   font-family: 'Roboto', sans-serif;
@@ -28,7 +37,13 @@
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  }
+}
+
+.login-button {
+  border-radius: 4px;
+  font-size: .8rem;
+  padding: .7rem 2.8rem !important;
+}
 
 .register-button:hover {
   // background-color: #2EE59D;
@@ -139,6 +154,8 @@ p {
 
 .card {
   border-radius: 1.25rem !important;
+  box-shadow: none;
+  border: none;
 }
 
 small {
@@ -173,9 +190,9 @@ body {
   // font-family: sans-serif;
 }
 
-section {
-  height: 100% !important;
-}
+// section {
+//   height: 100% !important;
+// }
 
 .contents {
   background: black;
@@ -292,4 +309,243 @@ small {
   .show-on-mobile {
     display: none !important;
   }
+}
+
+// new styles
+:root {
+  --primary: var(--ev-brandname-darkblue);
+  font-size: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: var(--ev-brandname-darkblue);
+}
+a:hover {
+  text-decoration: underline;
+}
+small {
+  font-size: 80%;
+  text-align: center;
+}
+
+.split-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.left {
+  height: 200px;
+}
+.left, .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background-size: cover;
+}
+.left .copy {
+  color: #fff;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.left p {
+  font-weight: 400;
+}
+.right .copy {
+  color: #000;
+  text-align: center;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.bg-light {
+  width: 100%;
+  padding: 1rem;
+}
+
+.right .copy p {
+  margin: 1.5rem;
+  font-size: .875rem;
+}
+
+.right form {
+  // width: 328px;
+  width: auto;
+}
+
+
+@media screen and (max-width: 900px) {
+  // .p-5 {
+  //   padding: .3rem !important;
+  // }
+  // .card .p-5 {
+  //   margin-left: 0;
+  // }
+  #image-bg {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .split-screen {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .left, .right {
+    display: flex;
+    height: auto;
+  }
+  .left {
+    width: 60%;
+  }
+  .right {
+    width: 40%;;
+  }
+  section.left-text {
+    width: 50vw;
+    position: relative;
+    left: 5vw;
+    bottom: -15vh;
+  }
+}
+
+.replacing-text {
+  text-align: left;
+}
+.replacing-text div::after {
+  content: "events";
+  animation: text 50s infinite;
+  color: transparent;
+  
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes text {
+  10% {
+    content: 'summits';
+  }
+  20% {
+    content: 'trade shows';
+  }
+  30% {
+    content: 'birthdays';
+  }
+  40% {
+    content: 'town halls';
+  }
+  50% {
+    content: 'award functions';
+  }
+  60% {
+    content: 'workshops';
+  }
+  70% {
+    content: 'exhibitions';
+  }
+  80% {
+    content: 'seminars';
+  }
+}
+
+.fancy span {
+  opacity: 0;
+  transition: all .4s ease;
+}
+
+span.fade {
+  opacity: 1;
+}
+
+.account-login {
+  font-weight: bold;color: var(--ev-brandname-darkblue);
+  margin-bottom: 0 !important;
+}
+
+.progress-container {
+	width: 15vw;
+	display: flex;
+	flex-direction: row;
+}
+.progress {
+	flex: 1;
+	height: 1px;
+	overflow: hidden;
+	font-size: 0.75rem;
+	background-color: #e9ecef99;
+	border-radius: 0.25rem;
+	margin-top: 0.79rem;
+}
+
+.progress-level {
+	flex: 1;
+	height: 1px !important;
+	background-color: #e9ecef;
+	margin-top: .785rem !important;
+}
+
+.progress-count {
+  font-size: .9rem;
+}
+
+.progress-total {
+  color: #e9ecef99;
+}
+
+.btn {
+  text-transform: capitalize;
+}
+
+.btn-primary {
+  background-color: #1b4790 !important;
+  border-color: #1b4790 !important;
+}
+
+
+.btn-primary:hover {
+  background-color: #fe5104 !important;
+  border-color: #fe5104 !important;
 }
