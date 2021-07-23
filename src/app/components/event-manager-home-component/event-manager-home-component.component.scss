@@ -152,13 +152,39 @@ div.workspace-core {
 //   background: #1d1b31;
 //   color: #FFF;
 // }
-.sidebar.open .bx-home:hover{
+// .sidebar.open .bx-home:hover{
+//   background: #1d1b31;
+//   color: #FFF;
+// }
+.sidebar .bx-home:hover{
   background: #1d1b31;
   color: #FFF;
 }
-.sidebar .bx-home:hover{
-  background: #FFF;
-  color: #11101d;
+
+.bx {
+  opacity: .5 !important;
+}
+.bx-menu, .bx:hover {
+  opacity: 1 !important;
+}
+
+.sidebar .bx-home {
+	border: 1px solid #fbfbfb1c;
+	background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  opacity: 1 !important;
+}
+
+.sidebar.open .bx-home {
+	border: none;
+	background-color: #11101D;
+  color: #fff;
+  opacity: 1 !important;
+}
+
+.bx-home::before {
+	border-bottom: 2px solid #fff;
+	padding-bottom: .8rem;
 }
 .sidebar li a{
   display: flex;
@@ -171,7 +197,7 @@ div.workspace-core {
   background: #11101D;
 }
 .sidebar li a:hover{
-  background: #FFF;
+  background: #1d1b31;
 }
 .sidebar li a .links_name{
   color: #fff;
@@ -189,7 +215,8 @@ div.workspace-core {
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i{
   transition: all 0.5s ease;
-  color: #11101D;
+  // color: #11101D;
+  color: #FFF;
 }
 .sidebar li i{
   height: 50px;
@@ -771,10 +798,59 @@ input.form-control {
   flex: 1;
 }
 
-
 .event-speakers-buttons {
   flex: 1;
+  text-align: right;
 }
+
+.speakers-more {
+  background-color: #107bf7;
+  text-align: center;
+  color: white;
+  font-size: .8rem;
+  font-weight: bold;
+  padding: .7rem;
+}
+
+.bi-three-dots {
+  font-size: 1rem;
+  opacity: .6;
+}
+
+.login-button {
+  // width: 140px;
+  // height: 45px;
+  font-family: 'Roboto', sans-serif;
+  // font-size: 11px;
+  text-transform: capitalize;
+  // letter-spacing: 2.5px;
+  // font-weight: 500;
+  // color: #000;
+  background-color: #107bf7;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: .3rem;
+}
+
+.login-button {
+  border-radius: 10px;
+  font-size: .8rem;
+  padding: .7rem 1.8rem !important;
+}
+
+.speakers-link {
+  text-align: center;
+  color: white;
+  font-size: .8rem;
+  font-weight: bold;
+  padding: .7rem;
+}
+
+
 
 
 
