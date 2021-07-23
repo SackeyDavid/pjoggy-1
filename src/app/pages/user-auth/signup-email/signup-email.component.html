@@ -7,9 +7,10 @@
       [logo] = "'git-logo-white'"
       [formTitle]="''">
     </app-form-header>
-      <h1 class="replacing-text">Host fantastic virtual <div class="fancy"></div></h1>
+      <h1 class="replacing-text">Host&nbsp;fantastic&nbsp;virtual <div class="fancy"></div></h1>
+      <!-- <div class="fancy">event</div> -->
       <!-- <p></p> -->
-      <button routerLink="/login" class="btn btn-primary login-button px-4 mb-4 my-5"> Log in</button>
+      <button (click)="gotoLogin()" class="btn btn-primary login-button px-4 mb-4 my-5"> Log in</button>
       
       <div class="progress-container">
         <div class="progress progress-level"></div><div class="progress"></div>  &nbsp;

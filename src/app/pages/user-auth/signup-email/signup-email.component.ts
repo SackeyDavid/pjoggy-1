@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ declare var $: any;
   templateUrl: './signup-email.component.html',
   styleUrls: ['./signup-email.component.scss']
 })
-export class SignupEmailComponent implements OnInit, AfterViewInit {
+export class SignupEmailComponent implements OnInit {
 
   isSending: boolean = false;
   saved: boolean = false;
@@ -40,50 +40,48 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
       
       });
 
-      setTimeout(() => {
-        
-      setInterval(this.runFunc, 5000)
-      
-      }, 2000);
-
    }
 
    runFunc() {
     let text = document.querySelector(".fancy");
-    var styles = window.getComputedStyle(text!,':after')
-    var content = styles['content'];
-    // let strText = text?.textContent;
-    let splitText = content?.split("");
-    splitText.splice(0, 1);
-    splitText.splice(-1, 1);
-    // console.log(splitText)
-    content = "";
-    text!.innerHTML = "";
-    for(let i=0; i < splitText.length; i++) {
-      text!.innerHTML += '<span style="color: #fe5104">' +  splitText[i] + '</span>';
-    }
-    let char = 0
-    let timer = setInterval(onTick, 300)
+    if(text) {
+      var styles = window.getComputedStyle(text!,':after')
+      var content = styles['content'];
+      // let strText = text?.textContent;
+      let splitText = content?.split("");
+      splitText.splice(0, 1);
+      splitText.splice(-1, 1);
+      // splitText.(' ', '')
+      // console.log(splitText);
+      content = "";
+      text!.innerHTML = "";
+      for(let i= 0; i < splitText!.length; i++) {
+        if(splitText![i] === " ") splitText![i] = '&nbsp;';
+        text!.innerHTML += '<span style="color: #fe5104">' +  splitText![i] + '</span>';
+      }
+      let char = 0;
+      let timer = setInterval(onTick, 50);
 
-    function onTick() {
-      if(text!.querySelectorAll('span') !== null) {
-        const span = text!.querySelectorAll('span')[char];
-        if(span) span.classList.add('fade');
-        char++;
+      function onTick() {
+        if(text!.querySelectorAll('span') !== null) {
+          let span = text!.querySelectorAll('span')[char];
+          if(span) span.classList.add('text-flow');
+          char++;
 
-        if(char === splitText.length) {
-          complete();
+          if(char === splitText!.length) {
+            complete();
+            
+            // text!.innerHTML = "";
+            return;
+          }
+        } 
+      }
+
+      function complete() {
+        clearInterval(timer);
           
-          text!.innerHTML = "";
-          return;
-        }
-      } 
-     }
-
-     function complete() {
-       clearInterval(timer);
-      //  timer = ; 
-     }
+      }
+    } 
    }
 
    
@@ -99,14 +97,10 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
       // type: new FormControl('30', Validators.required)
     });
 
-    let text = document.querySelector(".fancy");
-    text!.innerHTML = '<span style="color: #fe5104"> events </span>';
+    setInterval(this.runFunc, 5000)
 
   } 
   
-  ngAfterViewInit() {
-
-  }
 
   onSubmit(){
     this.saved = true;
@@ -158,6 +152,10 @@ export class SignupEmailComponent implements OnInit, AfterViewInit {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  gotoLogin() {
+    window.location.href = '/login';
   }
 
 }

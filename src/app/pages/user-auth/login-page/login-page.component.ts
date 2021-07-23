@@ -33,53 +33,53 @@ export class LoginPageComponent implements OnInit {
     
     });
     
-    setTimeout(() => {
         
-      setInterval(this.runFunc, 5000)
       
-      }, 2000);
 
    }
 
    runFunc() {
     let text = document.querySelector(".fancy");
-    if(text) {
+    if (text) {
+      
       var styles = window.getComputedStyle(text!,':after')
       var content = styles['content'];
       // let strText = text?.textContent;
       let splitText = content?.split("");
       splitText.splice(0, 1);
       splitText.splice(-1, 1);
-      // console.log(splitText)
+      // splitText.(' ', '')
+      // console.log(splitText);
       content = "";
       text!.innerHTML = "";
-      for(let i=0; i < splitText.length; i++) {
-        text!.innerHTML += '<span style="color: #fe5104">' +  splitText[i] + '</span>';
+      for(let i= 0; i < splitText!.length; i++) {
+        if(splitText![i] === " ") splitText![i] = '&nbsp;';
+        text!.innerHTML += '<span style="color: #fe5104">' +  splitText![i] + '</span>';
       }
       let char = 0;
-      let timer = setInterval(onTick, 300);
+      let timer = setInterval(onTick, 50);
+
       function onTick() {
-        if(text!.querySelectorAll('span')) {
-          const span = text!.querySelectorAll('span')[char];
-          if(span) span.classList.add('fade');
+        if(text!.querySelectorAll('span') !== null) {
+          let span = text!.querySelectorAll('span')[char];
+          if(span) span.classList.add('text-flow');
           char++;
 
-          if(char === splitText.length) {
+          if(char === splitText!.length) {
             complete();
             
-            text!.innerHTML = "";
+            // text!.innerHTML = "";
             return;
           }
         } 
       }
-     
 
-     function complete() {
-       clearInterval(timer);
-      //  timer = ; 
-     }
+      function complete() {
+        clearInterval(timer);
+          
+      }
+
     }
-
       
    }
 
@@ -95,8 +95,8 @@ export class LoginPageComponent implements OnInit {
     });
     this.loginForm.value.email = this.loginForm.value.email.replace(/\s/g,'');
 
-    let text = document.querySelector(".fancy");
-    text!.innerHTML = '<span style="color: #fe5104"> events </span>';
+    setInterval(this.runFunc, 5000)
+      
 
   }
 
@@ -124,7 +124,7 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('events_user_id', res.user.id);
               sessionStorage.setItem('events_user_name', res.user.name);
               sessionStorage.setItem('events_user_email', res.user.email);
-              this.router.navigateByUrl('/');
+              this.router.navigateByUrl('/manage-community');
             }
           },
           err => {
@@ -150,6 +150,9 @@ export class LoginPageComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  gotoRegister() {
+    window.location.href = '/register';
+  }
 
 
 }

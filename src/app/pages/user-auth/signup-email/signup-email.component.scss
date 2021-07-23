@@ -484,39 +484,34 @@ small {
 
 @keyframes text {
   10% {
-    content: 'summits';
+    content: 'events';
   }
   20% {
-    content: 'trade shows';
+    content: 'workshops';
   }
   30% {
     content: 'birthdays';
   }
   40% {
-    content: 'town halls';
-  }
-  50% {
-    content: 'award functions';
-  }
-  60% {
-    content: 'workshops';
-  }
-  70% {
-    content: 'exhibitions';
-  }
-  80% {
     content: 'seminars';
   }
+  50% {
+    content: 'exhibitions';
+  }
+  60% {
+    content: 'trade shows';
+  }
+  70% {
+    content: 'award functions';
+  }
+  80% {
+    content: 'town halls';
+  }
+  90% {
+    content: 'summits';
+  }
 }
 
-.fancy span {
-  opacity: 0;
-  transition: all .4s ease;
-}
-
-span.fade {
-  opacity: 1;
-}
 
 .account-login {
   font-weight: bold;color: var(--ev-brandname-darkblue);
@@ -552,3 +547,4 @@ span.fade {
 .progress-total {
   color: #e9ecef99;
 }
+

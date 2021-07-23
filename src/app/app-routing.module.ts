@@ -44,6 +44,7 @@ import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/m
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
+import { EventManagerHomePageComponent } from './pages/event-manager-home-page/event-manager-home-page.component';
 
 
 const routes: Routes = [
@@ -67,10 +68,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginPageComponent
   },
-  // {
-  //   path: 'register',
-  //   component: SignupPageComponent
-  // },
+  {
+    path: 'manage-community',
+    component: EventManagerHomePageComponent
+  },
   {
     path: 'register',
     component: SignupEmailComponent
