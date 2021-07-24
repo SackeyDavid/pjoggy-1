@@ -1,0 +1,77 @@
+<!-- <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h2 class="card-title">Create Event</h2>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div> -->
+
+  <div class="popup">
+    <header>
+      <span>Create Event</span>
+      <div class="close" (click)="close()"><i class="bi bi-x"></i></div>
+    </header>
+    <div class="content">
+        <p>Title</p>
+        <div class="field">
+          <!-- <i class="bi bi-link-45deg"></i> -->
+          <input type="text" placeholder="John's Birthday">
+          <!-- <button><i class="bi bi-plus"></i> Add description</button> -->
+        </div>
+        <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
+            <div class="mr-2" style="width: 40%;">
+                <p>Date</p>
+                <div class="field" style="padding-right: 0 !important;">
+                <!-- <i class="bi bi-link-45deg"></i> -->
+                <input type="text" readonly value="{{ rxTime | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+                <i class="bi bi-calendar" style="position: relative;right: 1.7rem;"></i>
+                </div>
+            </div>
+            <div class="mr-2" style="width: 30%;">
+                <p>Time</p>
+                <div class="field" style="padding-right: 0 !important;">
+                <!-- <i class="bi bi-link-45deg"></i> -->
+                <input type="text" style="width: 100%;" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
+                <i class="bi bi-clock" style="position: absolute;right: 29%;"></i>
+                </div>
+                
+            </div>
+
+            <div style="flex: 1;">
+                <p>Duration</p>
+                <div class="field" style="padding-right: 0 !important;">
+                <!-- <i class="bi bi-link-45deg"></i> -->
+                <input type="text" style="width: 100%;" readonly value="1h 45m" placeholder="1h 45m">
+                <i class="bi bi-chevron-contract" style="position: absolute;right: 3%;"></i> 
+                </div>
+            </div>
+        </div>
+        <!-- <p>Location</p>
+        <div class="field">
+          <i class="bi bi-link-45deg"></i>
+          <input type="text" style="width: 100%;" placeholder="Location">
+          <i class="bi bi-geo-alt" style="position: absolute;right: 1.1rem;"></i>
+        </div> -->
+      <!-- <p>Share this link via</p>
+      <ul class="icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+      </ul>
+      <p>Or copy link</p>
+      <div class="field">
+        <i class="bi bi-link-45deg"></i>
+        <input type="text" readonly value="example.com/share-link">
+        <button>Copy</button>
+      </div> -->
+      <div class="modal-footer">
+        <button class="btn btn-primary login-button px-3"> Create Event</button> <small class="text-muted">You can always change these details later</small>
+
+      </div>
+      
+    </div>
+  </div>

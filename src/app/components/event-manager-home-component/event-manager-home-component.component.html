@@ -102,7 +102,7 @@
           <section class="workspace">
             <div class="workspace-nav">
                 <div class="card-deck ml-4 mr-4 mt-4">
-                    <div class="card m-2" style="background-color: #f57736;">
+                    <div class="card m-2" style="background-color: #f57736;" (click)="openEventCreate()">
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
@@ -155,7 +155,7 @@
                   </div>
             </div>
             <div class="workspace-core">
-              <div class="card ml-4 mt-4 mr-4 mb-2" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;">
+              <div class="card ml-4 mt-4 mr-4 mb-2" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: default;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body mt-5">
                   <h1 style="color: white;">{{ rxTime | date: 'hh:mm' }}</h1>
@@ -168,7 +168,7 @@
               <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body">
-                  <h4 style="color: white;">Design Conference
+                  <h4 style="color: white;font-size: 1.2rem;">Design Conference
                     <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
                       <i class="bi bi-three-dots"></i>
                     </div>

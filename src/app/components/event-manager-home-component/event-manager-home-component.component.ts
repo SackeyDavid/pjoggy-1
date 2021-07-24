@@ -2,6 +2,8 @@ import { ElementRef } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { map, share } from "rxjs/operators";
+import { CreateEventModalComponent } from '../modal/create-event-modal/create-event-modal.component';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-event-manager-home-component',
@@ -15,9 +17,12 @@ export class EventManagerHomeComponentComponent implements OnInit {
   intervalId: any;
   subscription: any;
 
+  modalRef: any;
+
 
   constructor(
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private modalService: MdbModalService,
   ) { 
 
     
@@ -49,7 +54,8 @@ export class EventManagerHomeComponentComponent implements OnInit {
     this.menuBtnChange();//calling the function(optional)
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {   
+    this.openEventCreate(); 
     // Using Basic Interval
     this.intervalId = setInterval(() => {
       this.time = new Date();
@@ -73,6 +79,10 @@ export class EventManagerHomeComponentComponent implements OnInit {
     }
   }
 
+  openEventCreate() {
+    this.modalRef = this.modalService.open(CreateEventModalComponent);
+
+  }
 }
 
 

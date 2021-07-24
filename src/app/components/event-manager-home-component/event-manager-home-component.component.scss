@@ -157,7 +157,7 @@ div.workspace-core {
 //   color: #FFF;
 // }
 .sidebar .bx-home:hover{
-  background: #1d1b31;
+  background-color: #1d1b31;
   color: #FFF;
 }
 
@@ -180,6 +180,15 @@ div.workspace-core {
 	background-color: #11101D;
   color: #fff;
   opacity: 1 !important;
+}
+
+.sidebar.open .bx-home:hover {
+  background-color: #1d1b31;
+}
+
+// not working
+.sidebar.open li a .links_name:hover .sidebar.open .bx-home {
+   background-color: #1d1b31;
 }
 
 .bx-home::before {
@@ -309,6 +318,7 @@ div.workspace-core {
     border-radius: .775rem;
     background-color: #fff;
     background-clip: border-box;
+    cursor: pointer;
   }
   
   .card-body {
@@ -833,7 +843,7 @@ input.form-control {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin-bottom: .3rem;
+  margin-bottom: .4rem;
 }
 
 .login-button {
