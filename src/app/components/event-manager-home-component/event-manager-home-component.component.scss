@@ -16,8 +16,8 @@ section.workspace {
 div.workspace-nav {
     flex: 1;
     background-color: inherit;
-    border-right: 1px solid #2d2d2ded;
-    height: 90vh !important;
+    // border-right: 1px solid #2d2d2ded;
+    // height: 90vh !important;
 }
 
 div.workspace-core {
@@ -44,7 +44,17 @@ div.workspace-core {
   z-index: 99;
   transition: all 0.5s ease;
   border-right: 1px solid #2d2d2ded;
+  padding-right: 0px;
+  padding-left: 0px;
 }
+
+.active-menu {
+  border-right: 2px solid #7d2ae8;
+  border-end-end-radius: 0px;
+  border-start-end-radius: 0px;
+  background-color: rgba(255,255,255,0.03);
+}
+
 .sidebar.open{
   width: 250px;
 }
@@ -53,6 +63,7 @@ div.workspace-core {
   display: flex;
   align-items: center;
   position: relative;
+  padding: 6px 14px;
 }
 .sidebar .logo-details .icon{
   opacity: 0;
@@ -100,6 +111,7 @@ div.workspace-core {
   position: relative;
   margin: 8px 0;
   list-style: none;
+  padding: 6px 14px;
 }
 .sidebar li .tooltip{
   position: absolute;
@@ -161,6 +173,14 @@ div.workspace-core {
   color: #FFF;
 }
 
+.name_job {
+  padding-right: 1rem;
+}
+
+.job {
+  opacity: .5;
+}
+
 .bx {
   opacity: .5 !important;
 }
@@ -177,7 +197,8 @@ div.workspace-core {
 
 .sidebar.open .bx-home {
 	border: none;
-	background-color: #11101D;
+	// background-color: #11101D;
+  background-color: rgba(255, 255, 255, 0.0);
   color: #fff;
   opacity: 1 !important;
 }
@@ -203,7 +224,7 @@ div.workspace-core {
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #11101D;
+  // background: #11101D;
 }
 .sidebar li a:hover{
   background: #1d1b31;
@@ -733,7 +754,8 @@ div.workspace-core {
   }
 
   .card {
-    background-color: #107bf7;
+    // background-color: #107bf7;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   .card-text {
@@ -814,7 +836,7 @@ input.form-control {
 }
 
 .speakers-more {
-  background-color: #107bf7;
+  background-color: #7d2ae8;
   text-align: center;
   color: white;
   font-size: .8rem;
@@ -836,7 +858,7 @@ input.form-control {
   // letter-spacing: 2.5px;
   // font-weight: 500;
   // color: #000;
-  background-color: #107bf7;
+  background-color: #7d2ae8;
   border: none;
   border-radius: 8px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);

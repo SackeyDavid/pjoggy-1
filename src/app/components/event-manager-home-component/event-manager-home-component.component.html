@@ -1,12 +1,12 @@
 <main>
     <div class="sidebar">
         <div class="logo-details">
-          <i class='bx bxl-c-plus-plus icon' style="visibility: hidden;"></i>
+          <i class='bx bxl-spring-boot icon' style="visibility: visible;opacity: 1 !important;"></i>
             <div class="logo_name">Events369</div>
-            <i class='bx bx-menu' id="btn" ></i>
+            <i class='bx bx-menu' id="btn" style="visibility: hidden;"></i>
         </div>
         <ul class="nav-list">
-          <li>
+          <li class="active-menu">
             <a href="#">
              <i class='bx bx-home'></i>
              <!-- <input type="text" placeholder="Search..."> -->
@@ -70,16 +70,16 @@
            </a>
            <span class="tooltip">Setting</span>
          </li> -->
-         <!-- <li class="profile">
+         <li class="profile">
              <div class="profile-details">
-               <img src="profile.jpg" alt="profileImg">
+               <img src="../../../assets/images/avatar-placeholder.png" alt="profileImg">
                <div class="name_job">
-                 <div class="name">Prem Shahi</div>
-                 <div class="job">Web designer</div>
+                 <div class="name">Kofi Ahen's CommunityCommunity</div>
+                 <div class="job">Event Host</div>
                </div>
              </div>
-             <i class='bx bx-log-out' id="log_out" ></i>
-         </li> -->
+             <!-- <i class='bx bx-log-out' id="log_out" ></i> -->
+         </li>
         </ul>
       </div>
       <section class="home-section">
@@ -102,8 +102,8 @@
           <section class="workspace">
             <div class="workspace-nav">
                 <div class="card-deck ml-4 mr-4 mt-4">
-                    <div class="card m-2" style="background-color: #f57736;" (click)="openEventCreate()">
-                      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                    <div class="card m-2" style="background-color: rgba(255,255,255,.06);" (click)="openEventCreate()">
+                      <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
                           <div class="card-icon">
@@ -158,58 +158,62 @@
               <div class="card ml-4 mt-4 mr-4 mb-2" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: default;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body mt-5">
-                  <h1 style="color: white;">{{ rxTime | date: 'hh:mm' }}</h1>
-                  <p class="card-text">
+                  <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
+                  <h1 style="color: white;text-align: right;">{{ rxTime | date: 'hh:mm' }}</h1>
+                  <p class="card-text" style="text-align: right;">
                     {{ rxTime | date: 'EEEE, dd MMMM YYYY' }}
                   </p>
                 </div>
               </div>
 
-              <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
-                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-body">
-                  <h4 style="color: white;font-size: 1.2rem;">Design Conference
-                    <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
-                      <i class="bi bi-three-dots"></i>
-                    </div>
-                  </h4>
-                  <p class="card-text">
-                    <small class="text-muted"> <i class="bi bi-clock"></i> 10:00 - 11:00 &#124; starts in 6 hours</small>
-                  </p>
-                  <div class="event-speakers-info pt-2">
-                    <div class="event-speakers-avatars float-left">
-                      <div class="img square mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                        <a href="#">
-                          <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                        </a>
-                      </div>
-                      <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                        <a href="#">
-                          <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                        </a>
-                      </div>
-                      <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                        <a href="#">
-                          <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                        </a>
-                      </div>
-                      <div class="img square ml-2  mt-3 speakers-more">
-                        +6
-                      </div>
-                    </div>
-                    <div class="event-speakers-buttons">
-                      <div class="img square ml-2 card-icon speakers-link mt-3">
-                        <i class="bi bi-link"></i>
-                      </div>
-                      <button class="btn btn-primary login-button px-3 ml-2"> Start</button>
-      
-                    </div>
-
-                  </div>
-                </div>
-              </div>
 
             </div>
+        </section>
+        <section class="workspace">
+          
+          <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
+            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+            <div class="card-body">
+              <h4 style="color: white;font-size: 1.2rem;">Design Conference
+                <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
+                  <i class="bi bi-three-dots"></i>
+                </div>
+              </h4>
+              <p class="card-text">
+                <small class="text-muted"> <i class="bi bi-clock"></i> 10:00 - 11:00 &#124; starts in 6 hours</small>
+              </p>
+              <div class="event-speakers-info pt-2">
+                <div class="event-speakers-avatars float-left">
+                  <div class="img square mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+                    <a href="#">
+                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+                    </a>
+                  </div>
+                  <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+                    <a href="#">
+                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+                    </a>
+                  </div>
+                  <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+                    <a href="#">
+                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+                    </a>
+                  </div>
+                  <div class="img square ml-2  mt-3 speakers-more">
+                    +6
+                  </div>
+                </div>
+                <div class="event-speakers-buttons">
+                  <div class="img square ml-2 card-icon speakers-link mt-3">
+                    <i class="bi bi-link"></i>
+                  </div>
+                  <button class="btn btn-primary login-button px-3 ml-2" style="margin-bottom: .3rem;"> Start</button>
+  
+                </div>
+
+              </div>
+            </div>
+          </div>
         </section>
       </section>
     

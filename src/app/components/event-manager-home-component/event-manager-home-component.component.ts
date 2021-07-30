@@ -32,6 +32,8 @@ export class EventManagerHomeComponentComponent implements OnInit {
     
     this.elementRef.nativeElement.querySelector('#btn')
                                   .addEventListener('click', this.onClick.bind(this));
+    
+    document.querySelector(".sidebar")?.classList.toggle("open");
 
     // this.elementRef.nativeElement.querySelector('.sidebar')
     // .addEventListener('click', this.onClick.bind(this));
@@ -55,7 +57,7 @@ export class EventManagerHomeComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {   
-    this.openEventCreate(); 
+    // this.openEventCreate(); 
     // Using Basic Interval
     this.intervalId = setInterval(() => {
       this.time = new Date();

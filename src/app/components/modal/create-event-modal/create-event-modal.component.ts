@@ -51,9 +51,9 @@ export class CreateEventModalComponent implements OnInit {
     var timeToReturn = new Date();
 
     timeToReturn.setMilliseconds(Math.round(timeToReturn.getMilliseconds() / 1000) * 1000);
-    timeToReturn.setSeconds(Math.round(timeToReturn.getSeconds() / 60) * 60);
-    timeToReturn.setMinutes((((timeToReturn.getMinutes() + 7.5)/15 | 0) * 15) %60 );
-    timeToReturn.setHours(((((timeToReturn.getMinutes() / 105) + .5) | 0) + timeToReturn.getHours()) %24 );
+    timeToReturn.setSeconds(Math.ceil(timeToReturn.getSeconds() / 60) * 60);
+    timeToReturn.setMinutes(Math.ceil(timeToReturn.getMinutes() / 15) * 15 );
+    // timeToReturn.setHours(((((timeToReturn.getMinutes() / 105) + .5) | 0) + timeToReturn.getHours()) %24 );
     // Math.round(timeToReturn.getMinutes() / 15) * 15)
     // Math.round(timeToReturn.getMinutes() / 105 + .5)
     return timeToReturn;
