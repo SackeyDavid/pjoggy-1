@@ -175,6 +175,7 @@ div.workspace-core {
 
 .name_job {
   padding-right: 1rem;
+  opacity: 0;
 }
 
 .job {
@@ -205,6 +206,10 @@ div.workspace-core {
 
 .sidebar.open .bx-home:hover {
   background-color: #1d1b31;
+}
+
+.sidebar.open .name_job,  .sidebar.open .bxl-spring-boot {
+  opacity: 1 !important;
 }
 
 // not working
