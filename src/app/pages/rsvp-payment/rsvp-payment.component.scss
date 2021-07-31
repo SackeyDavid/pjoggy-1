@@ -1,0 +1,19 @@
+.ticket-card{
+  max-width: 180px;
+}
+
+.active-ticket{
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(11, 11, 243);
+}
+
+.ticket-card .card:hover{
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(1, 1, 124);
+}
+
+.expiration-input{
+  width: 40%;
+}

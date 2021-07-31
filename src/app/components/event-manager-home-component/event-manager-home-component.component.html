@@ -2,7 +2,7 @@
     <div class="sidebar">
         <div class="logo-details">
           <i class='bx bxl-spring-boot icon' style="visibility: visible;opacity: 0 !important;"></i>
-            <div class="logo_name">Events369</div>
+            <div class="logo_name" routerLink="/">Events369</div>
             <i class='bx bx-menu' id="btn" style="visibility: visible;padding: 0px 16px;"></i>
         </div>
         <ul class="nav-list">
@@ -10,9 +10,9 @@
             <a href="#">
              <i class='bx bx-home'></i>
              <!-- <input type="text" placeholder="Search..."> -->
-             <span class="links_name">Home</span>
+             <span class="links_name">Events</span>
              </a>
-             <span class="tooltip">Home</span>
+             <span class="tooltip">Events</span>
           </li>
           <li>
             <a href="#">
@@ -74,7 +74,7 @@
              <div class="profile-details">
                <img src="../../../assets/images/avatar-placeholder.png" alt="profileImg">
                <div class="name_job">
-                 <div class="name">Kofi Ahen's CommunityCommunity</div>
+                 <div class="name">Kofi Ahen's Community</div>
                  <div class="job">Event Host</div>
                </div>
              </div>
@@ -84,12 +84,13 @@
       </div>
       <section class="home-section">
         <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
-            <a class="navbar-brand">Home</a>
+            <a class="navbar-brand"></a>
             <form class="form-inline">
-              <div class="form-group has-search">
+              <!-- <div class="form-group has-search">
                 <span class="bi bi-search form-control-feedback"></span>
                 <input type="text" class="form-control" placeholder="Search by keywords">
-              </div>
+              </div> -->
+              <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button>
                 <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
                 <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
                 <div class="img square ml-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
@@ -106,8 +107,8 @@
                       <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
-                          <div class="card-icon">
-                            <i class="bi bi-camera-video-fill"></i>
+                          <div class="card-icon" style="background-color: rgba(74,80,83,255);">
+                            <i class="bi bi-camera-video-fill" style="color: #00b172;"></i>
                           </div>
                         </h3>
                         <p class="card-text font-weight-bold">Create Event</p>
@@ -118,8 +119,8 @@
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
-                          <div class="card-icon">
-                            <i class="bi bi-plus-square-fill"></i>
+                          <div class="card-icon" style="background-color: rgba(83,78,87,255);">
+                            <i class="bi bi-plus-square-fill" style="color: #f16ebc;"></i>
                           </div>
                         </h3>
                         <p class="card-text font-weight-bold">Join Event</p>
@@ -132,8 +133,8 @@
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
-                           <div class="card-icon">
-                            <i class="bi bi-calendar-date"></i>
+                           <div class="card-icon" style="background-color: rgba(83,78,87,255);">
+                            <i class="bi bi-calendar-date-fill" style="color: #f16ebc;"></i>
                            </div> 
                         </h3>
                         <p class="card-text font-weight-bold">Schedule</p>
@@ -144,8 +145,8 @@
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
-                          <div class="card-icon">
-                            <i class="bi bi-display"></i>
+                          <div class="card-icon" style="background-color: rgba(83,78,87,255);">
+                            <i class="bi bi-display-fill" style="color: #f16ebc;"></i>
                           </div>
                         </h3>
                         <p class="card-text font-weight-bold">Share Screen.</p>
@@ -169,54 +170,2012 @@
 
             </div>
         </section>
+
+        <!-- manage events section  -->
         <section class="workspace">
+        <div class="container mt-0 mx-4 px-1">
+        <div class="row">
           
-          <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
-            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-            <div class="card-body">
-              <h4 style="color: white;font-size: 1.2rem;">Design Conference
-                <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
-                  <i class="bi bi-three-dots"></i>
+          <p class="text-muted mt-2 mb-3">VIEW EVENTS BY STATUS</p>
+            <div *ngIf="errMsg" class="alert alert-danger alert-dismissible" role="alert">
+                {{errMsg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+
+            <div class="col-12">              
+              <div class="container-scroll" style="min-height: 80px;">
+                  <div class="horizontal-scroll" id="horizontal-scroll" style="min-height: inherit;">
+                    <button class="btn-scroll" id="btn-scroll-left" (click)="scrollHorizontally(1)"><i class="bi bi-chevron-left"></i></button>
+                    <button class="btn-scroll" id="btn-scroll-right" (click)="scrollHorizontally(-1)"><i class="bi bi-chevron-right"></i></button>
+                    <ul class="nav nav-pills storys-container" style="overflow-y: hidden;"  id="pills-tab" role="tablist">
+                      <li class="nav-item story-circle">
+                        <a *ngIf="createdEvents" class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
+                          <ng-container *ngIf="createdEvents.total">
+                              
+                              <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{createdEvents.total}}</span>
+             
+                          </ng-container>
+                        </a>
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="publishedEvents" class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
+                          <ng-container *ngIf="publishedEvents.total">
+                            <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{publishedEvents?.total}}</span>
+                              <!-- <span style="color: inherit;background-color: #fff;border-radius: 50%;">{{publishedEvents.length}})</span> -->
+                          </ng-container>
+                      </a>
+                     
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="ongoingEvents" class="nav-link" id="pills-ongoing-tab" data-toggle="pill" href="#pills-ongoing" role="tab" aria-controls="pills-ongoing" aria-selected="false">Ongoing
+                          <ng-container *ngIf="ongoingEvents.total">
+                            <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{ongoingEvents?.total}}</span>
+                          </ng-container>
+                      </a>
+                     
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="cancelledEvents" class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
+                          <ng-container *ngIf="cancelledEvents.total">
+                            <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{cancelledEvents?.total}}</span>
+                          </ng-container>
+                      </a>
+                      
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="archivedEvents" class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
+                          <ng-container *ngIf="archivedEvents.total">
+                            <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{archivedEvents.total}}</span>
+                          </ng-container>
+                      </a>
+                      
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="pastEvents" class="nav-link" id="pills-past-tab" data-toggle="pill" href="#pills-past" role="tab" aria-controls="pills-past" aria-selected="false">Past
+                          <ng-container *ngIf="pastEvents.total">
+                            <span style="color: #430d88;background-color: #caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{pastEvents.total}}</span>
+                          </ng-container>
+                      </a>
+                      
+                      </li>
+                      <li class="nav-item story-circle">
+                        <a  *ngIf="userEvents" class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
+                          <ng-container *ngIf="userEvents.total">
+                            <span style="color: #430d88;background-color:#caaceea3;border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">{{userEvents.total}}</span>
+                          </ng-container>
+                      </a>
+                  
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+            
+
+            
+            <div class="tab-content pt-3" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
+                
+              <ng-container *ngIf="!createdEvents?.data">
+                <div class="d-flex justify-content-center">
+                  <!-- <div class="spinner-grow" role="status">  -->
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  
+                  <!-- </div> -->
+                </div>        
+              </ng-container>  
+
+                <div class="row" *ngIf="createdEvents?.data?.length == 0">
+                    <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                      <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                        <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                        <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Drafts empty</span>
+                        <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                          You have no created event yet
+
+                      </p>
+                    </div>
+
+                  </div>
+
+                <div class="row">
+                    <div *ngFor="let event of createdEvents?.data; let i = index" class="col-lg-7 mb-4">
+                      <div class="card p-4" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
+                        <div class="card-horizontal">
+                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 180px; width: 400px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                            </div>
+                            <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 400px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Card title</h4>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                    
+                        <!-- <div class="card event-card" style="border: none;">              
+                          <div class="card mb-2" style="box-shadow: none;">
+                            <div class="save_live_event_div_container" style="padding: 8px;">
+                              
+                              <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                  <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                      <svg
+                                          class="favorite-{{event.id}}"
+                                          viewBox="0 0 32 32"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                          aria-hidden="true"
+                                          role="presentation"
+                                          focusable="false"
+                                      >
+                                          <path
+                                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                          ></path>
+                                      </svg>
+                                  </button>                      
+                              </div>
+            
+                              <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                    <svg
+                                        class="favorite-{{event.id}}"
+                                        viewBox="0 0 32 32"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                        aria-hidden="true"
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <path
+                                            d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                        ></path>
+                                    </svg>
+                                </button>                    
+                              </div>
+          
+                              
+                              <div class="event_social_share" style="visibility: hidden;">
+                                <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                    <svg 
+                                      version="1.1" 
+                                      id="Capa_1" 
+                                      xmlns="http://www.w3.org/2000/svg" 
+                                      xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                      x="0px" 
+                                      y="0px"
+                                      viewBox="0 0 512 512" 
+                                      style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                        
+                                      <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                            c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                            c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                            C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                            l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                            C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                            M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                            s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+              
+                                      </svg>
+                                </button>                      
+                            </div>
+            
+                            </div>
+                            <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                                <ng-container *ngIf="event.ticketing == '0'">
+                                  <span class="price-span">Free</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '2'">
+                                  <span class="price-span">Donation</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1'">
+                                  <span class="price-span">{{event.price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                  <span class="price-span">Sold out</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                  <span class="price-span">Sales ended</span>
+                                </ng-container> 
+                            </div>
+
+                              <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                  <ng-container *ngIf="event.ticketing == '0'">
+                                    <span class="price-span">Free</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '2'">
+                                    <span class="price-span">Donation</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1'">
+                                    <span class="price-span">{{event.price}}</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                    <span class="price-span">Sold out</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                    <span class="price-span">Sales ended</span>
+                                  </ng-container> 
+                              </div>
+                          </div>
+                          <div (click)="showHideMoreDraft(event.id)">
+                            <p class="card-text p-2">
+                              <span class="bold card-title">{{event.title}}</span>
+                              <span class="lead text-muted">
+                                <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                  <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+          
+                                </ng-container>
+                              </span><br>
+                              
+                            </p>
+                          </div>
+                          <span id="draft-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                          <span id="draft-more-{{event.id}}" style="display: none;">
+
+                              <hr>
+                              <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                              <p class="p-2 fadeIn">
+                                  <small class="text-muted">Category : {{event.Category}}</small><br>
+                              </p>
+                              <hr>
+                              <div class="text-center fadeIn">
+                                <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                                <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                                <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
+                            </div>
+
+                             
+                          </span>
+
+                          <span class="py-2 fadeIn">
+                            <span id="draft-myBtn-{{event.id}}" (click)="showHideMoreDraft(event.id)" class="see-more-or-less p-2">See More 
+                            </span>
+                            <span id="draft-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                              <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                                <span class="tooltip">Preview</span>                        
+                            </i>&nbsp;&nbsp;
+                            <i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                              <span class="tooltip">Edit</span>
+                            </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                              <span class="tooltip">Delete</span>
+                            </i>
+                            </span>
+                          </span>
+                        
+
+                          
+                        </div> -->
+                    </div>  
+                    
+                    
+                    <!-- <br><br><br> -->
+                    <div class="row">
+                        <div class="col-12">
+                          <div class="d-flex flex-row justify-content-center p-1" *ngIf="createdEvents?.prev_page_url || createdEvents?.next_page_url">
+                            <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                              <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                                <i class="bi-arrow-up"></i>
+                              </button> -->
+                              <!-- <button *ngIf="draft_loadIndex < createdEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreDrafts()">
+                                <i class="bi-arrow-down"></i>
+                              </button> -->
+                              
+                              <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item" *ngIf="createdEvents?.current_page !== 1">
+                                    <a class="page-link" (click)="openDraftedEventsNextPage(createdEvents?.prev_page_url)" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link">{{createdEvents?.current_page}} of {{createdEvents?.last_page}}</a></li>
+                                  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                  <li class="page-item" *ngIf="createdEvents?.to < createdEvents?.total">
+                                    <a class="page-link" (click)="openDraftedEventsNextPage(createdEvents?.next_page_url)" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </nav>
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                        <br><br><br>
+                      </div>
+                    
+                    <!-- <br><br><br>
+                    <div class="d-flex justify-content-center">
+                        <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Show more
+                        </button>
+
+                        <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Show less
+                        </button>
+                    <br><br><br>
+                    </div> -->
+
                 </div>
-              </h4>
-              <p class="card-text">
-                <small class="text-muted"> <i class="bi bi-clock"></i> 10:00 - 11:00 &#124; starts in 6 hours</small>
-              </p>
-              <div class="event-speakers-info pt-2">
-                <div class="event-speakers-avatars float-left">
-                  <div class="img square mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                    <a href="#">
-                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                    </a>
-                  </div>
-                  <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                    <a href="#">
-                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                    </a>
-                  </div>
-                  <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                    <a href="#">
-                      <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                    </a>
-                  </div>
-                  <div class="img square ml-2  mt-3 speakers-more">
-                    +6
-                  </div>
+            </div>
+            <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                    <div class="row">  
+                      
+                    <ng-container *ngIf="!userEvents?.data">
+                      <div class="d-flex justify-content-center">
+                        <!-- <div class="spinner-grow" role="status">  -->
+                          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                          <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        
+                        <!-- </div> -->
+                      </div>        
+                    </ng-container>  
+                        
+                    <div class="row" *ngIf="userEvents?.data?.length == 0">
+                        <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                          <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                            <i class="bi bi-camera-reels-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                            <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Host your first event!</span>
+                            <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                              You have not hosted any event yet                      
+          
+                          </p>
+                        </div>
+          
+                      </div>
+
+                        <div *ngFor="let event of userEvents?.data; let i = index" class="col-lg-4 mb-4">
+                            <!-- <div (click)="showHideMore(event.id)">
+                                <img *ngIf="event.banner_image" class="card-img-top" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" height="250px" alt="{{event.title}}">
+                                <img *ngIf="!event.banner_image" class="card-img-top" src="/assets/images/placeholder-image.png" height="250px" alt="{{event.title}}">
+                      
+                                <div class="card-body">                          
+                                    <div class="col">
+                                        <h4 class="card-title">{{event.title}}</h4>
+                                        <span id="dots-{{event.id}}" style="color: #fff;">...</span>
+                                        <span id="more-{{event.id}}" style="display: none;">
+
+                                            <hr>
+                                            <p class="card-text">{{event.description}}</p>
+                                            <p>
+                                                <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br>
+                                                <small class="text-muted">Category : {{event.Category}}</small><br>
+                                            </p>
+                                            <hr>
+                                            <div class="text-center">
+                                                <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                            </div>
+                                            
+                                        </span>
+
+                                        <span id="myBtn-{{event.id}}" class="see-more-or-less">See More</span>
+                                        
+                                    </div>
+                                </div>                       
+                            </div> -->
+
+                            <div class="card event-card" style="border: none;">              
+                              <div class="card mb-2" style="box-shadow: none;">
+                                <div class="save_live_event_div_container" style="padding: 8px;">
+                                  
+                                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                          <svg
+                                              class="favorite-{{event.id}}"
+                                              viewBox="0 0 32 32"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                              aria-hidden="true"
+                                              role="presentation"
+                                              focusable="false"
+                                          >
+                                              <path
+                                                  d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                              ></path>
+                                          </svg>
+                                      </button>                      
+                                  </div>
+                
+                                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                    <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                        <svg
+                                            class="favorite-{{event.id}}"
+                                            viewBox="0 0 32 32"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                            aria-hidden="true"
+                                            role="presentation"
+                                            focusable="false"
+                                        >
+                                            <path
+                                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                            ></path>
+                                        </svg>
+                                    </button>                    
+                                  </div>
+              
+                                  
+                                  <div class="event_social_share" style="visibility: hidden;">
+                                    <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                        <svg 
+                                          version="1.1" 
+                                          id="Capa_1" 
+                                          xmlns="http://www.w3.org/2000/svg" 
+                                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                          x="0px" 
+                                          y="0px"
+                                          viewBox="0 0 512 512" 
+                                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                            
+                                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+                  
+                                          </svg>
+                                    </button>                      
+                                </div>
+                
+                                </div>
+                                <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                                  <ng-container *ngIf="event.ticketing == '0'">
+                                    <span class="price-span">Free</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '2'">
+                                    <span class="price-span">Donation</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1'">
+                                    <span class="price-span">{{event.price}}</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                    <span class="price-span">Sold out</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                    <span class="price-span">Sales ended</span>
+                                  </ng-container> 
+                              </div>
+          
+                                <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                    <ng-container *ngIf="event.ticketing == '0'">
+                                      <span class="price-span">Free</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '2'">
+                                      <span class="price-span">Donation</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1'">
+                                      <span class="price-span">{{event.price}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                      <span class="price-span">Sold out</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                      <span class="price-span">Sales ended</span>
+                                    </ng-container> 
+                                </div>
+                                <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                              </div>
+                              <div (click)="showHideMore(event.id)">
+                                <p class="card-text p-2">
+                                  <span class="bold card-title">{{event.title}}</span>
+                                  <span class="lead text-muted">
+                                    <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                                    <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                      <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                    </ng-container>
+                                    <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                    <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+              
+                                    </ng-container>
+                                  </span><br>
+                                  
+                                </p>
+                              </div>
+                              <span id="dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                              <span id="more-{{event.id}}" style="display: none;">
+
+                                  <hr>
+                                  <p class="card-text p-2">{{event.description}}</p>
+                                  <p class="p-2">
+                                      <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                      <small class="text-muted">Category : {{event.Category}}</small><br>
+                                  </p>
+                                  <hr>
+                                  <div class="text-center p-2">
+                                      <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                  </div>
+                                  
+                              </span>
+
+                              <span id="myBtn-{{event.id}}" (click)="showHideMore(event.id)" class="see-more-or-less p-2">See More</span>
+                                        
+                            </div> 
+                        </div> 
+                        
+                        
+                        <!-- <br><br><br> -->
+                        <div class="row">
+                            <div class="col-12">
+                              <div class="d-flex flex-row justify-content-center p-1" *ngIf="userEvents.prev_page_url || userEvents.next_page_url">
+                                <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                                  <!-- <button *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLess()">
+                                    <i class="bi-arrow-up"></i>
+                                  </button> -->
+                                  <!-- <button *ngIf="loadIndex < userEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMore()">
+                                    <i class="bi-arrow-down"></i>
+                                  </button> -->
+                                  
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                      <li class="page-item" *ngIf="userEvents.current_page !== 1">
+                                        <a class="page-link" (click)="openAllEventsNextPage(userEvents.prev_page_url)" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                          <span class="sr-only">Previous</span>
+                                        </a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link">{{userEvents.current_page}} of {{userEvents.last_page}}</a></li>
+                                      <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                      <li class="page-item" *ngIf="userEvents.to < userEvents.total">
+                                        <a class="page-link" (click)="openAllEventsNextPage(userEvents.next_page_url)" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                          <span class="sr-only">Next</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+
+                                <!-- </div> -->
+                              </div>
+                            </div>
+                            <br><br><br>
+                          </div>
+                        <!-- <div class="d-flex justify-content-center">
+                            <button  *ngIf="loadIndex < userEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show more
+                            </button>
+
+                            <button  *ngIf="(loadIndex >= userEvents.length) && (userEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLess()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show less
+                            </button>
+                        <br><br><br>
+                        </div> -->
+
+                    </div>
                 </div>
-                <div class="event-speakers-buttons">
-                  <div class="img square ml-2 card-icon speakers-link mt-3">
-                    <i class="bi bi-link"></i>
+                <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-published-tab">
+                  
+                  <ng-container *ngIf="!publishedEvents?.data">
+                    <div class="d-flex justify-content-center">
+                      <!-- <div class="spinner-grow" role="status">  -->
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      
+                      <!-- </div> -->
+                    </div>        
+                  </ng-container>  
+                    
+                    <div class="row" *ngIf="publishedEvents?.data?.length == 0">
+                        <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                          <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                            <i class="bi bi-check-circle-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                            <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Publish an event</span>
+                            <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                              You have no published event yet
+          
+                          </p>
+                        </div>
+          
+                      </div>
+
+                    <div class="row">
+                        <div *ngFor="let event of publishedEvents?.data; let i = index" class="col-lg-4 mb-4">
+                                              
+                            <div class="card event-card" style="border: none;">              
+                              <div class="card mb-2" style="box-shadow: none;">
+                                <div class="save_live_event_div_container" style="padding: 8px;">
+                                  
+                                  <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                      <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                          <svg
+                                              class="favorite-{{event.id}}"
+                                              viewBox="0 0 32 32"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                              aria-hidden="true"
+                                              role="presentation"
+                                              focusable="false"
+                                          >
+                                              <path
+                                                  d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                              ></path>
+                                          </svg>
+                                      </button>                      
+                                  </div>
+                
+                                  <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                    <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                        <svg
+                                            class="favorite-{{event.id}}"
+                                            viewBox="0 0 32 32"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                            aria-hidden="true"
+                                            role="presentation"
+                                            focusable="false"
+                                        >
+                                            <path
+                                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                            ></path>
+                                        </svg>
+                                    </button>                    
+                                  </div>
+              
+                                  
+                                  <div class="event_social_share" style="visibility: hidden;">
+                                    <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                        <svg 
+                                          version="1.1" 
+                                          id="Capa_1" 
+                                          xmlns="http://www.w3.org/2000/svg" 
+                                          xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                          x="0px" 
+                                          y="0px"
+                                          viewBox="0 0 512 512" 
+                                          style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                            
+                                          <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                                c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                                c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                                C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                                l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                                C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                                M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                                s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+                  
+                                          </svg>
+                                    </button>                      
+                                </div>
+                
+                                </div>
+                                <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                                  <ng-container *ngIf="event.ticketing == '0'">
+                                    <span class="price-span">Free</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '2'">
+                                    <span class="price-span">Donation</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1'">
+                                    <span class="price-span">{{event.price}}</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                    <span class="price-span">Sold out</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                    <span class="price-span">Sales ended</span>
+                                  </ng-container> 
+                              </div>
+          
+                                <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                    <ng-container *ngIf="event.ticketing == '0'">
+                                      <span class="price-span">Free</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '2'">
+                                      <span class="price-span">Donation</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1'">
+                                      <span class="price-span">{{event.price}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                      <span class="price-span">Sold out</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                      <span class="price-span">Sales ended</span>
+                                    </ng-container> 
+                                </div>
+                                <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                              </div>
+                              <div (click)="showHideMorePublished(event.id)">
+                                <p class="card-text p-2">
+                                  <span class="bold card-title">{{event.title}}</span>
+                                  <span class="lead text-muted">
+                                    <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                                    <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                      <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                    </ng-container>
+                                    <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                    <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+              
+                                    </ng-container>
+                                  </span><br>
+                                  
+                                </p>
+                              </div>
+                              <span id="published-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                              <span id="published-more-{{event.id}}" style="display: none;">
+
+                                  <hr>
+                                  <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                                  <p class="p-2 fadeIn">
+                                      <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                      <small class="text-muted">Category : {{event.Category}}</small><br>
+                                  </p>
+                                  <hr>
+                                  <div class="float-left fadeIn">
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
+                                    <button (click)="gotoEdit(event.id)" class="btn btn-secondary mb-1 px-4 mx-1">Edit</button>
+                                    <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button>
+                                    <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
+                                  </div>
+
+                                  <!-- <div class="text-center p-2">
+                                      <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                  </div> -->
+                                  
+                              </span>
+
+                              <span class="py-2 fadeIn">
+                                <span id="published-myBtn-{{event.id}}" (click)="showHideMorePublished(event.id)" class="see-more-or-less p-2">See More 
+                                </span>
+                                <span id="published-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                                  <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                                    <span class="tooltip">Preview</span>  
+                                  </i>&nbsp;&nbsp;<i (click)="postPoneEvent(event.id)" class="bi bi-clock-history">
+                                    <span class="tooltip">Postpone</span>  
+                                  </i> &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">  
+                                    <span class="tooltip">Edit event</span>                        
+                                </i>&nbsp;&nbsp;<i (click)="cancelEvent(event.id)" class="bi bi-x-square">
+                                  <span class="tooltip">Cancel event</span>  
+                                </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                                  <span class="tooltip">Delete event</span>  
+                                </i>
+                                </span>
+                              </span>
+                            
+
+                              
+                            </div>
+                            
+                            
+                        </div>  
+                        
+                        
+                        <!-- <br><br><br> -->
+                        <div class="row">
+                            <div class="col-12">
+                              <div class="d-flex flex-row justify-content-center p-1" *ngIf="publishedEvents?.prev_page_url || publishedEvents?.next_page_url">
+                                <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                                  <!-- <button *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessPublished()">
+                                    <i class="bi-arrow-up"></i>
+                                  </button> -->
+                                  
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                      <li class="page-item" *ngIf="publishedEvents.current_page !== 1">
+                                        <a class="page-link" (click)="openPublishedEventsNextPage(publishedEvents.prev_page_url)" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                          <span class="sr-only">Previous</span>
+                                        </a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link">{{publishedEvents.current_page}} of {{publishedEvents.last_page}}</a></li>
+                                      <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                      <li class="page-item" *ngIf="publishedEvents.to < publishedEvents.total">
+                                        <a class="page-link" (click)="openPublishedEventsNextPage(publishedEvents.next_page_url)" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                          <span class="sr-only">Next</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                <!-- </div> -->
+                              </div>
+                            </div>
+                            <br><br><br>
+                          </div>
+                        <!-- <br><br><br>
+                        <div class="d-flex justify-content-center">
+                            <button  *ngIf="published_loadIndex < publishedEvents.length" class="btn btn-dark btn-lg" (click)="loadMorePublished()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show more
+                            </button>
+
+                            <button  *ngIf="(published_loadIndex >= publishedEvents.length) && (publishedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessPublished()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show less
+                            </button>
+                        <br><br><br>
+                        </div> -->
+
+
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
+
+                  
+                  <ng-container *ngIf="!cancelledEvents?.data">
+                    <div class="d-flex justify-content-center">
+                      <!-- <div class="spinner-grow" role="status">  -->
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      
+                      <!-- </div> -->
+                    </div>        
+                  </ng-container> 
+
+                  <div class="row" *ngIf="cancelledEvents?.data?.length == 0">
+                      <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                        <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                          <i class="bi bi-journal-x" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                          <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Cancelled empty</span>
+                          <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                            You have no cancelled event yet
+
+                        </p>
+                      </div>
+
+                    </div>
+
+                  <div class="row">
+                      <div *ngFor="let event of cancelledEvents?.data; let i = index" class="col-lg-4 mb-4">
+                        
+                          <div class="card event-card" style="border: none;">              
+                            <div class="card mb-2" style="box-shadow: none;">
+                              <div class="save_live_event_div_container" style="padding: 8px;">
+                                
+                                <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                    <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                        <svg
+                                            class="favorite-{{event.id}}"
+                                            viewBox="0 0 32 32"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                            aria-hidden="true"
+                                            role="presentation"
+                                            focusable="false"
+                                        >
+                                            <path
+                                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                            ></path>
+                                        </svg>
+                                    </button>                      
+                                </div>
+              
+                                <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                      <svg
+                                          class="favorite-{{event.id}}"
+                                          viewBox="0 0 32 32"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                          aria-hidden="true"
+                                          role="presentation"
+                                          focusable="false"
+                                      >
+                                          <path
+                                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                          ></path>
+                                      </svg>
+                                  </button>                    
+                                </div>
+            
+                                
+                                <div class="event_social_share" style="visibility: hidden;">
+                                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                      <svg 
+                                        version="1.1" 
+                                        id="Capa_1" 
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                        x="0px" 
+                                        y="0px"
+                                        viewBox="0 0 512 512" 
+                                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                          
+                                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+                
+                                        </svg>
+                                  </button>                      
+                              </div>
+              
+                              </div>
+                              <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                                <ng-container *ngIf="event.ticketing == '0'">
+                                  <span class="price-span">Free</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '2'">
+                                  <span class="price-span">Donation</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1'">
+                                  <span class="price-span">{{event.price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                  <span class="price-span">Sold out</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                  <span class="price-span">Sales ended</span>
+                                </ng-container> 
+                            </div>
+
+                              <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                  <ng-container *ngIf="event.ticketing == '0'">
+                                    <span class="price-span">Free</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '2'">
+                                    <span class="price-span">Donation</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1'">
+                                    <span class="price-span">{{event.price}}</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                    <span class="price-span">Sold out</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                    <span class="price-span">Sales ended</span>
+                                  </ng-container> 
+                              </div>
+                              <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                            </div>
+                            <div (click)="showHideMoreCancelled(event.id)">
+                              <p class="card-text p-2">
+                                <span class="bold card-title">{{event.title}}</span>
+                                <span class="lead text-muted">
+                                  <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                                  <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                    <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                  </ng-container>
+                                  <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                  <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+            
+                                  </ng-container>
+                                </span><br>
+                                
+                              </p>
+                            </div>
+                            <span id="cancelled-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                            <span id="cancelled-more-{{event.id}}" style="display: none;">
+
+                                <hr>
+                                <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                                <p class="p-2 fadeIn">
+                                    <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                    <small class="text-muted">Category : {{event.Category}}</small><br>
+                                </p>
+                                <hr>
+                                <div class="text-center fadeIn">
+                                  <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1">Preview</button>
+                                  <!-- <button (click)="cancelEvent(event.id)" class="btn btn-warning mb-1 px-4 mx-1">Cancel</button> -->
+                                  <button (click)="recoverEvent(event.id)" class="btn btn-success mb-1 px-4 mx-1">Recover</button>
+                                  <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1">Delete</button>
+                                </div>
+
+                                <!-- <div class="text-center p-2">
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                </div> -->
+                                
+                            </span>
+
+                            <span class="py-2 fadeIn">
+                              <span id="cancelled-myBtn-{{event.id}}" (click)="showHideMoreCancelled(event.id)" class="see-more-or-less p-2">See More 
+                              </span>
+                              <span id="cancelled-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                                <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                                  <span class="tooltip">Preview</span>  
+                                </i>                       
+                                &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat">
+                                  <span class="tooltip">Recover</span>  
+                                </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                                  <span class="tooltip">Delete</span>  
+                                </i>
+                              </span>
+                            </span>
+                          
+
+                                      
+                          </div> 
+                      </div>  
+                      
+                      
+                      <!-- <br><br><br> -->
+                      <div class="row">
+                          <div class="col-12">
+                            <div class="d-flex flex-row justify-content-center p-1" *ngIf="cancelledEvents.prev_page_url || cancelledEvents.next_page_url">
+                              <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                                <!-- <button *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessDrafts()">
+                                  <i class="bi-arrow-up"></i>
+                                </button> -->
+                                <!-- <button *ngIf="cancelled_loadIndex < cancelledEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreCancelled()">
+                                  <i class="bi-arrow-down"></i>
+                                </button> -->
+                              <!-- </div> -->
+                              
+                              <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item" *ngIf="cancelledEvents.current_page !== 1">
+                                    <a class="page-link" (click)="openCancelledEventsNextPage(cancelledEvents.prev_page_url)" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link">{{cancelledEvents.current_page}} of {{cancelledEvents.last_page}}</a></li>
+                                  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                  <li class="page-item" *ngIf="cancelledEvents.to < cancelledEvents.total">
+                                    <a class="page-link"  (click)="openCancelledEventsNextPage(cancelledEvents.next_page_url)" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </nav>
+                            </div>
+                          </div>
+                          <br><br><br>
+                        </div>
+                      
+                      <!-- <br><br><br>
+                      <div class="d-flex justify-content-center">
+                          <button  *ngIf="draft_loadIndex < createdEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreDrafts()" type="button">
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              Show more
+                          </button>
+
+                          <button  *ngIf="(draft_loadIndex >= createdEvents.length) && (createdEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessDrafts()" type="button">
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              Show less
+                          </button>
+                      <br><br><br>
+                      </div> -->
+
                   </div>
-                  <button class="btn btn-primary login-button px-3 ml-2" style="margin-bottom: .3rem;"> Start</button>
-  
+              </div>
+
+              <!-- archived events tab  -->
+                <div class="tab-pane fade" id="pills-archived" role="tabpanel" aria-labelledby="pills-archived-tab">
+                  <ng-container *ngIf="!archivedEvents?.data">
+                    <div class="d-flex justify-content-center">
+                      <!-- <div class="spinner-grow" role="status">  -->
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      
+                      <!-- </div> -->
+                    </div>        
+                  </ng-container> 
+
+                    <div class="row" *ngIf="archivedEvents?.data?.length == 0">
+                        <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                          <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                            <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                            <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Archive empty</span>
+                            <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                              You have no deleted event yet
+          
+                          </p>
+                        </div>
+          
+                      </div>
+
+                    <div class="row">
+                        <div *ngFor="let event of archivedEvents?.data" class="col-lg-4 mb-4">
+                                                
+                          <div class="card event-card" style="border: none;">              
+                            <div class="card mb-2" style="box-shadow: none;">
+                              <div class="save_live_event_div_container" style="padding: 8px;">
+                                
+                                <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                    <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                        <svg
+                                            class="favorite-{{event.id}}"
+                                            viewBox="0 0 32 32"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                            aria-hidden="true"
+                                            role="presentation"
+                                            focusable="false"
+                                        >
+                                            <path
+                                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                            ></path>
+                                        </svg>
+                                    </button>                      
+                                </div>
+              
+                                <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                      <svg
+                                          class="favorite-{{event.id}}"
+                                          viewBox="0 0 32 32"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                          aria-hidden="true"
+                                          role="presentation"
+                                          focusable="false"
+                                      >
+                                          <path
+                                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                          ></path>
+                                      </svg>
+                                  </button>                    
+                                </div>
+            
+                                
+                                <div class="event_social_share" style="visibility: hidden;">
+                                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                      <svg 
+                                        version="1.1" 
+                                        id="Capa_1" 
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                        x="0px" 
+                                        y="0px"
+                                        viewBox="0 0 512 512" 
+                                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                          
+                                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+                
+                                        </svg>
+                                  </button>                      
+                              </div>
+              
+                              </div>
+                              <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                                <ng-container *ngIf="event.ticketing == '0'">
+                                  <span class="price-span">Free</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '2'">
+                                  <span class="price-span">Donation</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1'">
+                                  <span class="price-span">{{event.price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                  <span class="price-span">Sold out</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                  <span class="price-span">Sales ended</span>
+                                </ng-container> 
+                            </div>
+
+                              <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                  <ng-container *ngIf="event.ticketing == '0'">
+                                    <span class="price-span">Free</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '2'">
+                                    <span class="price-span">Donation</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1'">
+                                    <span class="price-span">{{event.price}}</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                    <span class="price-span">Sold out</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                    <span class="price-span">Sales ended</span>
+                                  </ng-container> 
+                              </div>
+                              <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                            </div>
+                            <div (click)="showHideMoreArchived(event.id)">
+                              <p class="card-text p-2">
+                                <span class="bold card-title">{{event.title}}</span>
+                                <span class="lead text-muted">
+                                  <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                                  <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                    <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                  </ng-container>
+                                  <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                  <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+            
+                                  </ng-container>
+                                </span><br>
+                                
+                              </p>
+                            </div>
+                            <span id="archived-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                            <span id="archived-more-{{event.id}}" style="display: none;">
+
+                                <hr>
+                                <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                                <p class="p-2 fadeIn">
+                                    <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                    <small class="text-muted">Category : {{event.Category}}</small><br>
+                                </p>
+                                <hr>
+                                <div class="text-center fadeIn">
+                                  <button (click)="gotoPreview(event.id)" class="btn btn-primary mb-1 px-4 mx-1">Preview</button>
+                                  <button (click)="recoverEvent(event.id)" class="btn btn-success mb-1 px-4 mx-1">Recover</button>
+                                </div>
+
+                                <!-- <div class="text-center p-2">
+                                    <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                                </div> -->
+                                
+                            </span>
+
+                            <span class="py-2 fadeIn">
+                              <span id="archived-myBtn-{{event.id}}" (click)="showHideMoreArchived(event.id)" class="see-more-or-less p-2">See More 
+                              </span>
+                              <span id="archived-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                                <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                                  <span class="tooltip" style="right: .4rem;">Preview</span>  
+                                </i>                       
+                                &nbsp;&nbsp;<i (click)="recoverEvent(event.id)" class="bi bi-arrow-repeat">
+                                  <span class="tooltip" style="right: .4rem;">Recover</span>  
+                                </i>
+                              </span>
+                            </span>
+                          
+
+                                      
+                          </div> 
+
+
+                        </div>  
+                        
+                        
+                        
+                        <!-- <br><br><br> -->
+                        <div class="row">
+                            <div class="col-12">
+                              <div class="d-flex flex-row justify-content-center p-1" *ngIf="(archivedEvents.prev_page_url) || (archivedEvents.next_page_url)">
+                                <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                                  <!-- <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
+                                    <i class="bi-arrow-up"></i>
+                                  </button> -->
+                                  <!-- <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
+                                    <i class="bi-arrow-down"></i>
+                                  </button> -->
+                                  
+                                  <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                      <li class="page-item" *ngIf="archivedEvents.current_page !== 1">
+                                        <a class="page-link" (click)="openArchivedEventsNextPage(archivedEvents.prev_page_url)" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                          <span class="sr-only">Previous</span>
+                                        </a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link">{{archivedEvents.current_page}} of {{archivedEvents.last_page}}</a></li>
+                                      <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                      <li class="page-item" *ngIf="archivedEvents.to < archivedEvents.total">
+                                        <a class="page-link" (click)="openArchivedEventsNextPage(archivedEvents.next_page_url)" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                          <span class="sr-only">Next</span>
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                <!-- </div> -->
+                              </div>
+                            </div>
+                            <br><br><br>
+                          </div>
+                        <!-- <br><br><br>
+                        <div class="d-flex justify-content-center">
+                            <button  *ngIf="archived_loadIndex < archivedEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreArchived()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show more
+                            </button>
+
+                            <button  *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessArchived()" type="button">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Show less
+                            </button>
+                        <br><br><br>
+                        </div> -->
+
+                    </div>
                 </div>
 
+                <!-- past events tab  -->
+                <div class="tab-pane fade" id="pills-past" role="tabpanel" aria-labelledby="pills-past-tab">
+                    
+                  <ng-container *ngIf="!pastEvents?.data">
+                    <div class="d-flex justify-content-center">
+                      <!-- <div class="spinner-grow" role="status">  -->
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                        <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      
+                      <!-- </div> -->
+                    </div>        
+                  </ng-container> 
+
+                  <div class="row" *ngIf="pastEvents?.data?.length == 0">
+                      <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                        <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                          <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                          <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Past events empty</span>
+                          <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                            You have no past event yet
+
+                        </p>
+                      </div>
+
+                    </div>
+
+                  <div class="row">
+                      <div *ngFor="let event of pastEvents?.data" class="col-lg-4 mb-4">
+                                              
+                        <div class="card event-card" style="border: none;">              
+                          <div class="card mb-2" style="box-shadow: none;">
+                            <div class="save_live_event_div_container" style="padding: 8px;">
+                              
+                              <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                  <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                      <svg
+                                          class="favorite-{{event.id}}"
+                                          viewBox="0 0 32 32"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                          aria-hidden="true"
+                                          role="presentation"
+                                          focusable="false"
+                                      >
+                                          <path
+                                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                          ></path>
+                                      </svg>
+                                  </button>                      
+                              </div>
+            
+                              <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                    <svg
+                                        class="favorite-{{event.id}}"
+                                        viewBox="0 0 32 32"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                        aria-hidden="true"
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <path
+                                            d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                        ></path>
+                                    </svg>
+                                </button>                    
+                              </div>
+          
+                              
+                              <div class="event_social_share" style="visibility: hidden;">
+                                <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                    <svg 
+                                      version="1.1" 
+                                      id="Capa_1" 
+                                      xmlns="http://www.w3.org/2000/svg" 
+                                      xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                      x="0px" 
+                                      y="0px"
+                                      viewBox="0 0 512 512" 
+                                      style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                        
+                                      <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                            c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                            c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                            C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                            l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                            C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                            M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                            s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+              
+                                      </svg>
+                                </button>                      
+                            </div>
+            
+                            </div>
+                            <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                              <ng-container *ngIf="event.ticketing == '0'">
+                                <span class="price-span">Free</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '2'">
+                                <span class="price-span">Donation</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1'">
+                                <span class="price-span">{{event.price}}</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                <span class="price-span">Sold out</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                <span class="price-span">Sales ended</span>
+                              </ng-container> 
+                          </div>
+
+                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                                <ng-container *ngIf="event.ticketing == '0'">
+                                  <span class="price-span">Free</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '2'">
+                                  <span class="price-span">Donation</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1'">
+                                  <span class="price-span">{{event.price}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                  <span class="price-span">Sold out</span>
+                                </ng-container>
+                                <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                  <span class="price-span">Sales ended</span>
+                                </ng-container> 
+                            </div>
+                            <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                          </div>
+                          <div (click)="showHideMorePast(event.id)">
+                            <p class="card-text p-2">
+                              <span class="bold card-title">{{event.title}}</span>
+                              <span class="lead text-muted">
+                                <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                                <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                  <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+          
+                                </ng-container>
+                              </span><br>
+                              
+                            </p>
+                          </div>
+                          <span id="past-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                          <span id="past-more-{{event.id}}" style="display: none;">
+
+                              <hr>
+                              <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                              <p class="p-2 fadeIn">
+                                  <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                  <small class="text-muted">Category : {{event.Category}}</small><br>
+                              </p>
+                              <hr>
+                              <div class="text-center fadeIn">
+                                <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                                <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                                <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button>
+                              </div>
+
+                              <!-- <div class="text-center p-2">
+                                  <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                              </div> -->
+                              
+                          </span>
+
+                          <span class="py-2 fadeIn">
+                            <span id="past-myBtn-{{event.id}}" (click)="showHideMorePast(event.id)" class="see-more-or-less p-2">See More 
+                            </span>
+                            <span id="past-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                              <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                                <span class="tooltip">Preview</span>  
+                              </i>                       
+                              &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                                <span class="tooltip">Edit</span>  
+                              </i>&nbsp;&nbsp;<i (click)="archiveEvent(event.id)" class="bi bi-trash">
+                                <span class="tooltip">Delete </span>  
+                              </i>
+                            </span>
+                          </span>
+                        
+
+                                    
+                        </div> 
+
+
+                      </div>  
+                      
+                      
+                      
+                      <!-- <br><br><br> -->
+                      <div class="row">
+                          <div class="col-12">
+                            <div class="d-flex flex-row justify-content-center p-1" *ngIf="(pastEvents.prev_page_url) || (pastEvents.next_page_url)">
+                              <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                                <!-- <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
+                                  <i class="bi-arrow-up"></i>
+                                </button> -->
+                                <!-- <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
+                                  <i class="bi-arrow-down"></i>
+                                </button> -->
+                                
+                                <nav aria-label="Page navigation example">
+                                  <ul class="pagination">
+                                    <li class="page-item" *ngIf="pastEvents.current_page !== 1">
+                                      <a class="page-link" (click)="openPastEventsNextPage(pastEvents.prev_page_url)" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                      </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link">{{pastEvents.current_page}} of {{pastEvents.last_page}}</a></li>
+                                    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                    <li class="page-item" *ngIf="pastEvents.to < pastEvents.total">
+                                      <a class="page-link" (click)="openPastEventsNextPage(pastEvents.next_page_url)" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </nav>
+                              <!-- </div> -->
+                            </div>
+                          </div>
+                          <br><br><br>
+                        </div>
+                      <!-- <br><br><br>
+                      <div class="d-flex justify-content-center">
+                          <button  *ngIf="archived_loadIndex < archivedEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreArchived()" type="button">
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              Show more
+                          </button>
+
+                          <button  *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessArchived()" type="button">
+                              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              Show less
+                          </button>
+                      <br><br><br>
+                      </div> -->
+
+                  </div>
               </div>
+
+              <!-- ongoing events tab  -->
+              <div class="tab-pane fade" id="pills-ongoing" role="tabpanel" aria-labelledby="pills-ongoing-tab">
+                    
+                
+              <ng-container *ngIf="!ongoingEvents?.data">
+                <div class="d-flex justify-content-center">
+                  <!-- <div class="spinner-grow" role="status">  -->
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  
+                  <!-- </div> -->
+                </div>        
+              </ng-container>  
+
+                <div class="row" *ngIf="ongoingEvents?.data?.length == 0">
+                    <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                      <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                        <i class="bi bi-archive-fill" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                        <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Ongoing events empty</span>
+                        <p style="font-size: 14px;text-align: center;color: #888484;margin-left: 10%;margin-right: 10%;">
+                          You have no ongoing event yet
+
+                      </p>
+                    </div>
+
+                  </div>
+
+                <div class="row">
+                    <div *ngFor="let event of ongoingEvents?.data" class="col-lg-4 mb-4">
+                                            
+                      <div class="card event-card" style="border: none;">              
+                        <div class="card mb-2" style="box-shadow: none;">
+                          <div class="save_live_event_div_container" style="padding: 8px;">
+                            
+                            <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                    <svg
+                                        class="favorite-{{event.id}}"
+                                        viewBox="0 0 32 32"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                        aria-hidden="true"
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <path
+                                            d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                        ></path>
+                                    </svg>
+                                </button>                      
+                            </div>
+          
+                            <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                              <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                  <svg
+                                      class="favorite-{{event.id}}"
+                                      viewBox="0 0 32 32"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                      aria-hidden="true"
+                                      role="presentation"
+                                      focusable="false"
+                                  >
+                                      <path
+                                          d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                      ></path>
+                                  </svg>
+                              </button>                    
+                            </div>
+
+                            
+                            <div class="event_social_share" style="visibility: hidden;">
+                              <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                  <svg 
+                                    version="1.1" 
+                                    id="Capa_1" 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                    x="0px" 
+                                    y="0px"
+                                    viewBox="0 0 512 512" 
+                                    style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                      
+                                    <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                          c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                          c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                          C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                          l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                          C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                          M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                          s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+            
+                                    </svg>
+                              </button>                      
+                          </div>
+          
+                          </div>
+                          <div *ngIf="event.banner_image" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);height: 20vh;">
+                            <ng-container *ngIf="event.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1'">
+                              <span class="price-span">{{event.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
+                        </div>
+
+                          <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 20vh;">
+                              <ng-container *ngIf="event.ticketing == '0'">
+                                <span class="price-span">Free</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '2'">
+                                <span class="price-span">Donation</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1'">
+                                <span class="price-span">{{event.price}}</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1' && event.qty_remaining == 0">
+                                <span class="price-span">Sold out</span>
+                              </ng-container>
+                              <ng-container *ngIf="event.ticketing == '1' && getTicketSalesStatus(event.ticket_sales_end_date) == 0">
+                                <span class="price-span">Sales ended</span>
+                              </ng-container> 
+                          </div>
+                          <!-- <img  (click)="gotoPreview(event.id)" src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" class="card-img-top image-fluid" alt="{{event.title}}">                 -->
+                        </div>
+                        <div (click)="showHideMoreOngoing(event.id)">
+                          <p class="card-text p-2">
+                            <span class="bold card-title">{{event.title}}</span>
+                            <span class="lead text-muted">
+                              <!-- {{getEventStartDateFormatted(event.start_date_time)}} -->
+                              <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}}</small>
+                              </ng-container>
+                              <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                              <small class="text-muted">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+
+                              </ng-container>
+                            </span><br>
+                            
+                          </p>
+                        </div>
+                        <span id="ongoing-dots-{{event.id}}" style="color: #fff;height: 0px;">...</span>
+                        <span id="ongoing-more-{{event.id}}" style="display: none;">
+
+                            <hr>
+                            <p class="card-text p-2 fadeIn">{{event.description}}</p>
+                            <p class="p-2 fadeIn">
+                                <!-- <small class="text-muted">Date : {{getEventDateFormatted(event.start_date_time)}} to {{getEventDateFormatted(event.end_date_time)}}</small><br> -->
+                                <small class="text-muted">Category : {{event.Category}}</small><br>
+                            </p>
+                            <hr>
+                            <div class="text-center fadeIn">
+                              <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mb-1 mx-1"> Preview</button>
+                              <button (click)="gotoEdit(event.id)" class="btn btn-secondary px-4 mb-1 mx-1"> Edit</button>
+                              <!-- <button (click)="archiveEvent(event.id)" class="btn btn-danger mb-1 px-4 mx-1"> Delete</button> -->
+                            </div>
+
+                            <!-- <div class="text-center p-2">
+                                <button (click)="gotoPreview(event.id)" class="btn btn-primary px-4 mx-1">Preview</button>
+                            </div> -->
+                            
+                        </span>
+
+                        <span class="py-2 fadeIn">
+                          <span id="ongoing-myBtn-{{event.id}}" (click)="showHideMoreOngoing(event.id)" class="see-more-or-less p-2">See More 
+                          </span>
+                          <span id="ongoing-icons-{{event.id}}" class="px-2 icons" style="float: right;">
+                            <i (click)="gotoPreview(event.id)" class="bi bi-display">
+                              <span class="tooltip" style="right: .5rem">Preview</span>  
+                            </i>                       
+                            &nbsp;&nbsp;<i (click)="gotoEdit(event.id)" class="bi bi-pencil-square">
+                              <span class="tooltip" style="right: .5rem">Edit</span>  
+                            </i>
+                          </span>
+                        </span>
+                      
+
+                                  
+                      </div> 
+
+
+                    </div>  
+                    
+                    
+                    
+                    <!-- <br><br><br> -->
+                    <div class="row">
+                        <div class="col-12">
+                          <div class="d-flex flex-row justify-content-center p-1" *ngIf="(ongoingEvents.prev_page_url) || (ongoingEvents.next_page_url)">
+                            <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+                              <!-- <button *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" type="button" class="btn btn-outline-primary" (click)="loadLessArchived()">
+                                <i class="bi-arrow-up"></i>
+                              </button> -->
+                              <!-- <button *ngIf="archived_loadIndex < archivedEvents.length" type="button" class="btn btn-outline-primary" (click)="loadMoreArchived()">
+                                <i class="bi-arrow-down"></i>
+                              </button> -->
+                              
+                              <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item" *ngIf="ongoingEvents.current_page !== 1">
+                                    <a class="page-link" (click)="openOngoingEventsNextPage(ongoingEvents.prev_page_url)" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link">{{ongoingEvents.current_page}} of {{ongoingEvents.last_page}}</a></li>
+                                  <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                  <li class="page-item" *ngIf="ongoingEvents.to < ongoingEvents.total">
+                                    <a class="page-link" (click)="openOngoingEventsNextPage(ongoingEvents.next_page_url)" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </nav>
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                        <br><br><br>
+                      </div>
+                    <!-- <br><br><br>
+                    <div class="d-flex justify-content-center">
+                        <button  *ngIf="archived_loadIndex < archivedEvents.length" class="btn btn-dark btn-lg" (click)="loadMoreArchived()" type="button">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Show more
+                        </button>
+
+                        <button  *ngIf="(archived_loadIndex >= archivedEvents.length) && (archivedEvents.length >= 6)" class="btn btn-dark btn-lg" (click)="loadLessArchived()" type="button">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Show less
+                        </button>
+                    <br><br><br>
+                    </div> -->
+
+                </div>
             </div>
-          </div>
+            </div>
+
+            
+            </div>
+            
+        <!-- <br><br><br>
+        <div class="d-flex justify-content-center">
+          <button  *ngIf="loadIndex < userEvents.length" class="btn btn-dark btn-lg" (click)="loadMore()" type="button">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Load more
+            </button>
+
+            <a href="/" *ngIf="loadIndex >= userEvents.length" class="btn btn-dark btn-lg">Show all events</a>
+        </div> -->
+        </div>
+        </div>
+
+          
         </section>
       </section>
     
   
 </main>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="swipeable-x" style="display: none;">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      
+      <li class="nav-item" role="presentation">
+          <a *ngIf="createdEvents" class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
+              <ng-container *ngIf="createdEvents.total">
+                  ({{createdEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="publishedEvents" class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
+              <ng-container *ngIf="publishedEvents.total">
+                  ({{publishedEvents?.total}})
+                </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="ongoingEvents" class="nav-link" id="pills-ongoing-tab" data-toggle="pill" href="#pills-ongoing" role="tab" aria-controls="pills-ongoing" aria-selected="false">Ongoing
+              <ng-container *ngIf="ongoingEvents.total">
+                  ({{ongoingEvents?.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="cancelledEvents" class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
+              <ng-container *ngIf="cancelledEvents.total">
+                  ({{cancelledEvents?.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="archivedEvents" class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
+              <ng-container *ngIf="archivedEvents.total">
+                  ({{archivedEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="pastEvents" class="nav-link" id="pills-past-tab" data-toggle="pill" href="#pills-past" role="tab" aria-controls="pills-past" aria-selected="false">Past
+              <ng-container *ngIf="pastEvents.total">
+                  ({{pastEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+        <a  *ngIf="userEvents" class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
+            <ng-container *ngIf="userEvents.total">
+                ({{userEvents.total}})
+            </ng-container>
+        </a>
+    </li>
+  </ul>
+  </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;"> -->
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <!-- <div class="card-body">
+    <h4 style="color: white;font-size: 1.2rem;">Design Conference
+      <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
+        <i class="bi bi-three-dots"></i>
+      </div>
+    </h4>
+    <p class="card-text">
+      <small class="text-muted"> <i class="bi bi-clock"></i> 10:00 - 11:00 &#124; starts in 6 hours</small>
+    </p>
+    <div class="event-speakers-info pt-2">
+      <div class="event-speakers-avatars float-left">
+        <div class="img square mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2  mt-3 speakers-more">
+          +6
+        </div>
+      </div>
+      <div class="event-speakers-buttons">
+        <div class="img square ml-2 card-icon speakers-link mt-3">
+          <i class="bi bi-link"></i>
+        </div>
+        <button class="btn btn-primary login-button px-3 ml-2" style="margin-bottom: .3rem;"> Start</button>
+
+      </div>
+
+    </div>
+  </div>
+</div> -->

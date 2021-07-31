@@ -1,0 +1,125 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+
+    <div *ngIf="eventData?.event[0].ticketing == '1'" class="row gx-2">
+        <div *ngFor="let ticket of eventData?.tickets" class="col ticket-card">
+            <div class="card" [class.active-ticket]="selectedTicket == ticket.id" (click)="selectTicket(ticket.id)">
+                <div class="card-body text-center">
+                    <p class="h6">{{ticket.name}}</p>
+                    <p>{{ticket.currency}} {{ticket.price}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mt-4">
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pills-card-tab" data-toggle="pill" href="#pills-card" role="tab" aria-controls="pills-card" aria-selected="true">Credit/Debit Card</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-mobile-tab" data-toggle="pill" href="#pills-mobile" role="tab" aria-controls="pills-mobile" aria-selected="false">Mobile Money</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+
+                <div class="tab-pane fade show active" id="pills-card" role="tabpanel" aria-labelledby="pills-card-tab">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-name">Email</label>
+                      <input type="text" class="form-control" id="cc-email" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Name on card is required
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-name">Name on card</label>
+                      <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                      <small class="text-muted">Full name as displayed on card</small>
+                      <div class="invalid-feedback">
+                        Name on card is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-expiration">Card Type</label>
+                      <select type="text" class="form-control form-select" id="cc-card-type" placeholder="" required>
+                        <option selected></option>
+                        <option value="VIS">Visa</option>
+                        <option value="MAS">Master Card</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-number">Credit card number</label>
+                      <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Credit card number is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 mb-3">
+                      <label for="cc-expiration" style="display: block;">Expiration</label>
+                      <input type="text" class="form-control expiration-input" id="cc-expiration-month" placeholder="" required style="display: inline-block;">
+                      <span class="h3 text-center mx-1">/</span>
+                      <input type="text" class="form-control expiration-input" id="cc-expiration-year" placeholder="" required style="display: inline-block;">
+                      <div class="invalid-feedback">
+                        Expiration date required
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="cc-cvv">CVV</label>
+                      <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Security code required
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="mb-4">
+                  <button class="btn btn-primary btn-lg float-right" type="submit">Continue</button>
+                </div>
+
+                <div class="tab-pane fade" id="pills-mobile" role="tabpanel" aria-labelledby="pills-mobile-tab">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-expiration">Mobile Network</label>
+                      <select type="text" class="form-control form-select" id="cc-network" placeholder="" required>
+                        <option selected></option>
+                        <option value="VDF">Vodafone</option>
+                        <option value="MTN">MTN</option>
+                        <option value="ATL">Airtel</option>
+                        <option value="TGO">Tigo</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-number">Phone No.</label>
+                      <input type="text" class="form-control" id="cc-phone" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Phone No. number is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cc-name">Voucher Code</label>
+                      <input type="text" class="form-control" id="cc-code" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Voucher Code is required
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="mb-4">
+                  <button class="btn btn-primary btn-lg float-right" type="submit">Continue</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,138 @@
+<div x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-description="Modal panel, show/hide based on modal state." class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+    <div class="bg-white px-4 pt-4 pb-4 sm:p-6 sm:pb-4">
+      <div class="sm:flex sm:items-start">
+        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10">
+          <svg class="h-6 w-6 text-yellow-600" x-description="Heroicon name: outline/exclamation" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+</svg>
+        </div>
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left" style="margin-top: 0 !important;">
+          <h3 style="font-weight: 600;" class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+            Postpone Event
+          </h3>
+          <div class="mt-2">
+            <!-- <p class="text-sm text-gray-500">
+              Are you sure you want to postpone your event? All of your event's data will be temporarily removed if it's an ongoing event.
+            </p> -->
+            <div class="mt-2" style="display: flex;flex-direction: row;">
+            
+            <form class="form" [formGroup]="form" (ngSubmit)="postPoneEvent()">
+            <!-- start & end date -->
+            <div class="form-group mt-3">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
+                        formControlName="start_date" [owlDateTime]="sd" [owlDateTimeTrigger]="sd"
+                        [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
+                      <owl-date-time #sd pickerType="calendar"></owl-date-time>
+                      <label for="floatingStartDate">Start Date</label>
+                      <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                        Start date is required.
+                      </small>
+                      <small *ngIf="saved && !isDateCorrect" class="text-danger">
+                        Start date must be greater than current date.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
+                        formControlName="end_date" [owlDateTime]="ed" [owlDateTimeTrigger]="ed"
+                        [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
+                      <owl-date-time #ed pickerType="calendar"></owl-date-time>
+                      <label for="floatingEndDate">End Date</label>
+                      <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                        End date is required.
+                      </small>
+                      <small *ngIf="saved && !isDateIntervalCorrect" id="titleHelp" class="text-danger">
+                        End date must be greater than start date.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+            </div>
+            <!-- /.end -->
+
+             <!-- start & end time -->
+             <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingStartTime" aria-describedby="titleHelp" placeholder="Start time"
+                        formControlName="start_time" [owlDateTime]="st" [owlDateTimeTrigger]="st"
+                        [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}">
+                      <owl-date-time #st pickerType="timer"></owl-date-time>
+                      <label for="floatingStartTime">Start Time</label>
+                      <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                        Start time is required.
+                      </small>
+                      <small *ngIf="saved && !isTimeCorrect" class="text-danger">
+                        Start time must be greater than current time for today's event.
+                      </small>
+                    </div>
+                  </div>
+                  <!-- <div class="form-floating">
+                    <div class="form-floating mb-3">
+                      <ngb-timepicker [seconds]="true" id="floatingStartTime" aria-describedby="titleHelp" formControlName="start_time"
+                        [ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}"></ngb-timepicker>
+                      <label style="top: -3.5vh;" for="floatingStartTime">Start Time</label>
+                      <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                        Start time type is required.
+                      </small>
+                    </div>
+                  </div> -->
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <input type="text" class="form-control" id="floatingEndTime" aria-describedby="titleHelp" placeholder="End time"
+                        formControlName="end_time" [owlDateTime]="et" [owlDateTimeTrigger]="et"
+                        [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}">
+                      <owl-date-time #et pickerType="timer"></owl-date-time>
+                      <label for="floatingEndTime">End Time</label>
+                      <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                        End time is required.
+                      </small>
+                      <small *ngIf="saved && !isTimeIntervalCorrect" id="titleHelp" class="text-danger">
+                        End time must be greater than start time.
+                      </small>
+                    </div>
+                  </div>
+                  <!-- <div class="form-floating">
+                    <div class="form-floating mb-3 input-group">
+                      <ngb-timepicker [seconds]="true" id="floatingEndTime" aria-describedby="titleHelp" formControlName="end_time"
+                        [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}"></ngb-timepicker>
+                      <label style="top: -3.5vh;" for="floatingEndTime">End Time</label>
+                      <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                        End time type is required.
+                      </small>
+                    </div>
+                  </div> -->
+                </div>
+              </div>                                    
+            </div>
+            <!-- /.end -->  
+          </form>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <button (click)="postPoneEvent()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm">
+        Postpone 
+      </button>
+      <button (click)="modalRef.close()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+        Cancel
+      </button>
+    </div>
+  </div>

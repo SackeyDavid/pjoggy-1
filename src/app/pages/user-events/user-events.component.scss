@@ -547,3 +547,35 @@ color: var(--ev-create-event-nav-background);
   animation-name: fadeIn;
   animation-duration: 1s;
 }
+
+
+// new styles
+.nav-pills .nav-link {
+  margin-bottom: 0px !important;
+  padding-bottom: 1.4rem !important;
+}
+
+ul.nav {
+  border-bottom: 1px solid #000;
+  padding-bottom: 0px;
+  width: auto !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+	border-radius: 0px !important;
+	border: none !important;
+	background-color: #fff !important;
+	color: #000 !important;
+	box-shadow: none;
+	border-bottom: 1px solid #000 !important;
+}
+
+.nav-pills .nav-link {
+	border-radius: 30px !important;
+	margin-left: 1rem !important;
+	background-color: inherit;
+	color: grey !important;
+	font-weight: 600;
+	text-transform: capitalize;
+	font-size: 1rem;
+}

@@ -131,6 +131,10 @@ import { RecoverEventAlertComponent } from './components/modals/recover-event-al
 import { EventManagerHomePageComponent } from './pages/event-manager-home-page/event-manager-home-page.component';
 import { EventManagerHomeComponentComponent } from './components/event-manager-home-component/event-manager-home-component.component';
 import { CreateEventModalComponent } from './components/modal/create-event-modal/create-event-modal.component';
+import { PostponeEventAlertComponent } from './components/modals/postpone-event-alert/postpone-event-alert.component';
+import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
+import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -235,7 +239,10 @@ import { CreateEventModalComponent } from './components/modal/create-event-modal
     RecoverEventAlertComponent,
     EventManagerHomePageComponent,
     EventManagerHomeComponentComponent,
-    CreateEventModalComponent
+    CreateEventModalComponent,
+    PostponeEventAlertComponent,
+    RsvpPaymentComponent,
+    RsvpUserComponent
   ],
   imports: [
     BrowserModule,
@@ -264,11 +271,13 @@ import { CreateEventModalComponent } from './components/modal/create-event-modal
     TimeagoModule.forRoot(),
     MdbModalModule,
     GoogleMapsModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
-})
+}
+)
 export class AppModule { }
