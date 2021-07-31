@@ -226,7 +226,7 @@ export class NavbarComponent implements OnInit {
   }
 
   openManageEventsPage() {
-    window.open('/user_events', "_blank");
+    window.open('/manage-community', "_blank");
   }
 
   openFavoritesPage() {

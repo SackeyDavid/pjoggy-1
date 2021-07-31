@@ -807,7 +807,11 @@ export class EventManagerHomeComponentComponent implements OnInit {
   }
 
   getEventStartDateFormatted(date: any) {
-    return moment(date).format('ddd, MMM D, YYYY h:mm A');
+    return moment(date).format('ddd, D MMM YY');
+  }
+
+  getEventStartDateFormattedOnlyTime(date: any) {
+    return moment(date).format('h:mm A');
   }
 
   

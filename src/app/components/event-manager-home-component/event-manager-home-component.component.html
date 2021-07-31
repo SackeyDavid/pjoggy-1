@@ -111,8 +111,8 @@
                             <i class="bi bi-camera-video-fill" style="color: #00b172;"></i>
                           </div>
                         </h3>
-                        <p class="card-text font-weight-bold">Create Event</p>
-                        <p class="card-text"><small class="text-muted">create new event</small></p>
+                        <p class="card-text font-weight-bold">Host Event</p>
+                        <p class="card-text"><small class="text-muted">host new event</small></p>
                       </div>
                     </div>
                     <div class="card m-2 mr-2">
@@ -283,19 +283,56 @@
 
                 <div class="row">
                     <div *ngFor="let event of createdEvents?.data; let i = index" class="col-lg-7 mb-4">
-                      <div class="card p-4" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
+                      <div class="card p-3" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
                         <div class="card-horizontal">
-                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 180px; width: 400px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
                             </div>
-                            <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 400px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
+                            <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="card-body" style="padding-top: 0 !important;">
+                              <span class="lead">
+                                <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                  <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}} 
+                                    <!-- <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}} -->
+                                  </small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+          
+                                </ng-container>
+                              </span><br>
+                              <span>
+                                <small class="text-white">Host: <small style="font-size: .9rem;">Kofi Ahen</small></small>
+                              </span> <br>
+                              <span>
+                                  <small class="card-title text-white" style="font-size: 1.3rem;">{{event.title}}</small>
+                              </span> <br>
+                              <span class="lead">
+                                <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                  <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.start_date_time)}} 
+                                    <b> - </b> {{getEventStartDateFormattedOnlyTime(event.end_date_time)}}
+                                  </small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.start_date_time)}}<i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.end_date_time)}}</small>
+          
+                                </ng-container>
+                              </span><br>
+                                
+
+                                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                             </div>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                            <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                            <div class="float-left mt-3">
+                              <small class="text-muted" style="font-size: 0.8rem;">1 Registration</small>
+                            </div>
+                            <div class="float-right">
+                              <button class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"> View Details</button>
+                              <button class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"> Preview Event</button>
+
+                            </div>
                         </div>
                     </div>
                     
