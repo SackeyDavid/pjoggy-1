@@ -136,6 +136,8 @@ import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.componen
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 
 @NgModule({
   declarations: [
@@ -271,7 +273,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     TimeagoModule.forRoot(),
     MdbModalModule,
     GoogleMapsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],
