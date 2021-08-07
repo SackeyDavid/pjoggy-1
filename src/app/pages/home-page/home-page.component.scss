@@ -14,6 +14,11 @@ section.workspace {
   flex-direction: row;
   background-color: #11101D;
 }
+
+section.workspace-items {
+  background-color: #11101D;
+}
+
 div.workspace-nav {
   flex: 1;
   background-color: inherit;
@@ -83,7 +88,7 @@ div.workspace-core {
   height: 100%;
   padding: 30px 0 150px 0;
   overflow: auto;
-  scrollbar-color: rgba(255,255,255,.2) rgba(255, 255, 255, .0);
+  scrollbar-color: rgba(255,255,255,.08) rgba(255, 255, 255, .0);
   scrollbar-width: thin;
   
 }
@@ -377,6 +382,10 @@ input:checked+.slider:before {
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
+  overflow-y: scroll;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #11101D;
+  scrollbar-width: thin;
+  overflow-x: hidden;
 }
 .sidebar.close ~ .home-section{
   left: 78px;
@@ -824,7 +833,7 @@ flex: 1 1 auto;
 
 
 .img-fit-img-fix-background-cover {
-border-radius: 0px;
+// border-radius: 0px;
 background-position: 50%;
 background-repeat: no-repeat;
 background-size: cover;
@@ -858,7 +867,7 @@ height: 30vh !important;
   min-width: 0;
   word-wrap: break-word;
   border: 1px solid rgba(0, 0, 0, .05);
-  border-radius: .775rem;
+  border-radius: 1.275rem;
   background-color: #fff;
   background-clip: border-box;
   cursor: pointer;
@@ -1289,6 +1298,47 @@ p {
   opacity: .5;
 }
 
+// home section workspace-items 
+.card-img, .card-img-top {
+	border-top-left-radius: calc(1.275rem - 1px) !important;
+	border-top-right-radius: calc(1.275rem - 1px) !important;
+}
+
+.item-event-duration {
+	text-align: right;
+	position: absolute;
+	right: .1rem;
+	margin-right: .6rem !important;
+	margin-top: .6rem;
+}
+
+.event-host {
+  display: flex !important;
+  position: absolute !important;
+  /* transform: translate(10rem); */
+  right: 1.5rem !important;
+  top: 8.4rem !important;
+
+}
+
+.event-host-checkmark {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  height: 17px !important;
+	width: 17px !important;
+	border: 2px solid #353434 !important;
+	transform: translate(-11px, 35px) !important;
+	font-size: 0.6rem !important;
+}
+
+.event-host-dot {
+	background-color: green;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 0.074rem;
+}
 
 
 

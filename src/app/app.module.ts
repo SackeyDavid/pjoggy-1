@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { OwlModule } from 'ngx-owl-carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import 'boxicons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { TimeagoModule } from 'ngx-timeago';
