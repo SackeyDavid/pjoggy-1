@@ -52,6 +52,7 @@ div.workspace-core {
 .sidebar.close{
   width: 78px;
   opacity: 1 !important;
+  border-right: 1px solid #313030 !important;
 }
 
 .sidebar.close  p.list-title {
@@ -848,13 +849,13 @@ height: 100%;
 
 @media (max-width: 1400px) and (min-height: 900px) {
 .img-fit-img-fix-background-cover {
-height: 30vh !important;
+height: 185px !important;
 }
 }
 
 @media (max-width: 1400px) and (max-height: 900px) {
 .img-fit-img-fix-background-cover {
-height: 30vh !important;
+height: 185px !important;
 }
 }
 
@@ -1305,11 +1306,11 @@ p {
 }
 
 .item-event-duration {
-	text-align: right;
+	text-align: right !important;
 	position: absolute;
 	right: .1rem;
 	margin-right: .6rem !important;
-	margin-top: .6rem;
+	margin-top: .6rem !important;
 }
 
 .event-host {
@@ -1318,7 +1319,7 @@ p {
   /* transform: translate(10rem); */
   right: 1.5rem !important;
   top: 8.4rem !important;
-
+  margin-right: 0 !important;
 }
 
 .event-host-checkmark {
@@ -1338,6 +1339,36 @@ p {
 	border-radius: 50%;
   display: inline-block;
   margin-bottom: 0.074rem;
+}
+
+.pure-g {
+  display: flex;
+}
+
+.pure-g > div
+{
+    box-sizing: border-box;
+}
+.pure-g > div:first-child
+{
+    margin-right: 12pt;
+}
+.pure-g > div:last-child
+{
+    margin-left: 12pt;
+}
+.pure-g > div:nth-child(2)
+{
+    margin-right: 12pt;
+}
+
+.pure-u-1-2 {
+  width: calc(100% / 4);
+}
+.pure-g > div :not(:first-child):not(:last-child)
+{
+    // margin: 0 5pt;
+    // mar
 }
 
 
