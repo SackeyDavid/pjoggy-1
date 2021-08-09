@@ -44,7 +44,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.elementRef.nativeElement.querySelector('.sidebar')
                                   .addEventListener('click', this.onClick.bind(this));
     
-    document.querySelector(".sidebar")?.classList.toggle("open");
+    document.querySelector(".sidebar")?.classList.toggle("close");
 
     
     // let arrow = document.querySelectorAll(".arrow");
