@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { BannerAdsService } from 'src/app/services/banner-ads/banner-ads.service';
 import { ElementRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 declare var $:any;
 
@@ -12,14 +13,16 @@ declare var $:any;
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
 
-  
+  darkMode: boolean = true;
+
   bannerAdsData: any = [];
   eventsNow: any = [];
 
   constructor(
     private eventService: EventsService,
     private bannerService: BannerAdsService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    @Inject(DOCUMENT) private document: Document
   ) { 
     // $(document).ready(function(){
     //   $('.autoplay').slick({
@@ -34,9 +37,99 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           
   }
 
+  slideItems() {
+    let activeCard = document.querySelector(".card-active");
+    if (activeCard) {
+
+      activeCard.className += ' card-slided-left';
+      // activeCard.className += ' card-next'; 
+      activeCard.classList.remove('card-active');
+      activeCard!.nextElementSibling!.className += ' card-active';
+      activeCard!.nextElementSibling!.classList.remove('card-next');
+
+      setTimeout(() => {
+        document.querySelector(".autoplay")?.appendChild(activeCard!)
+        
+        let nextText = document.querySelector(".autoplay")?.firstElementChild;
+        if(nextText) {
+          nextText.className += ' card-active'; 
+          nextText.classList.remove('card-next');
+          activeCard!.className += ' card-next'; 
+          activeCard!.classList.remove('card-slided-left');
+  
+        }
+      }, 3100);
+      
+
+      // setTimeout(() => {
+      //   document.querySelector(".autoplay")?.insertBefore(nextText!, document.querySelector(".autoplay")?.firstElementChild!)
+      //   activeCard!.className += ' card-next'; 
+      //   activeCard!.classList.remove('card-slided-left');
+      //   // nextText!.setAttribute('style', 'margin-left: 1.25rem');
+      // }, 10000);
+
+      // let char = 0;
+      let timer = setInterval(onTick, 10000);
+
+      function onTick() {
+        // if(text!.querySelectorAll('span') !== null) {
+        //   let span = text!.querySelectorAll('span')[char];
+        //   if(span) span.classList.add('text-flow');
+        //   char++;
+
+        //   if(char === splitText!.length) {
+        //     complete();
+            
+        //     // text!.innerHTML = "";
+        //     return;
+        //   }
+        // } 
+        // let text = document.querySelector(".autoplay")?.firstElementChild;
+        // if(text) {
+        //   text.className += ' card-active'; 
+        //   text.classList.remove('card-slided-left');
+    
+        //   // setTimeout(() => {
+        //     let nextText = document.querySelector(".card-slided-left");
+        //     if(nextText) {
+        //       nextText.className += ' card-next'; 
+        //       nextText.classList.remove('card-slided-left');
+        //     }
+        // }
+
+      }
+
+      function complete() {
+        clearInterval(timer);
+          
+      }
+
+    // } else {
+    //   let text = document.querySelector(".autoplay")?.firstElementChild;
+    //   if(text) {
+    //     text.className += ' card-active'; 
+    //     text.classList.remove('card-slided-left');
+  
+    //     // setTimeout(() => {
+    //       let nextText = document.querySelector(".card-slided-left");
+    //       if(nextText) {
+    //         nextText.className += ' card-next'; 
+    //         nextText.classList.remove('card-slided-left');
+    //       }
+    //     // }, 5000);
+        
+    //   }
+    }
+      
+   }
+
+
   ngOnInit(): void {
     this.getBannerAds();
     this.getEventsHappeningNow();
+
+    setInterval(this.slideItems, 15000);
+    if(this.darkMode) this.toggleDarkMode();
   }
 
   ngAfterViewInit() {
@@ -56,7 +149,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     // }
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".bx-menu");
-    console.log(sidebarBtn);
+    // console.log(sidebarBtn);
     sidebarBtn!.addEventListener("click", ()=>{
       sidebar!.classList.toggle("close");
     });
@@ -100,6 +193,29 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         console.log(err);
       }
     );
+  }
+
+  toggleDarkMode() {
+    // if(this.darkMode = 1) {
+      // this.document.body.classList.remove('dark-theme');
+      
+      this.document.body.className +=' dark-theme';
+      this.darkMode = true;
+
+    // }
+    
+  }
+
+  toggleLightMode() {
+    // if(this.darkMode = 1) {
+      this.document.body.classList.remove('dark-theme');
+      // this.darkMode = 0;
+    // } else {
+    //   this.document.body.className +=' dark-theme';
+      this.darkMode = false;
+
+    // }
+    
   }
 
 }

@@ -182,10 +182,14 @@
             <div class="form-group" style="display: flex;">
                 <!-- <label>Test3</label> -->
                 <div style="display: flex;flex-direction: row;">
-                    <label class="switch">
-                        <input type="checkbox" checked>
+                    <label *ngIf="!darkMode" (click)="toggleDarkMode()" class="switch">
+                        <input type="checkbox">
                         <span class="slider round"></span>
                     </label>
+                    <label *ngIf="darkMode" (click)="toggleLightMode()" class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider round"></span>
+                  </label>
                  <span class="link_name ml-3">Night mode</span>
                  </div>
             </div>
@@ -224,7 +228,7 @@
                     <a id="browse_events_link">Notifications <span class="dot"></span> </a>
                     <a> Favorites </a>
                     <a> Following</a>
-                    <a style="border-top: 1px solid #313030; cursor: pointer;">Manage event</a>
+                    <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
                     <a>Tickets (0)</a> 
 
                     <!-- not working  -->
@@ -239,7 +243,7 @@
                     <!-- end of not working  -->
 
                     <a href="/create_event/basic_info">Host an event</a>
-                    <a href="/account/profile" style="border-top: 1px solid #313030;">Account</a>
+                    <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
                     <!-- href="https://about.gitlab.com/get-help/" -->
                     <a  target="_blank" routerLink="/help">Help</a>
                     <a id="logout_link">Log out</a>
@@ -255,8 +259,38 @@
           <section class="workspace">
             <div class="workspace-nav">
                 <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2>
+                <div class="home-slider" style="display: none;">
+                  <div class="home-slider-track">
+                    <div class="home-slide active">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div>
+                    <div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div>
+
+                    <!-- SAME 9 SLIDES DOUBLED  -->
+                    <div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div>
+                    <div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div><div class="home-slide">
+                      <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
+                    </div>
+                  </div>
+                </div>
                 <div class="autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                    <div class="card ml-4 mt-3 mr-3 mb-2" style="width: 45vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
+                    <div class="card mt-3 mr-3 mb-2 card-active" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
                         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                         <div class="card-body mt-1">
                           <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
@@ -270,13 +304,13 @@
                         
                         <div class="card-footer ml-3 pl-1" style="border: none;">
                             <div class="profile-details my-4" style="display: flex;">
-                                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                                 
                                   <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
                                 <div class="name-job p-2">
-                                  <div class="profile_name text-white">Anthony Andrew</div>
-                                  <div class="job text-white" style="font-size: .8rem;opacity: .7;">53.2K Views &bull; 2 weeks ago</div>
+                                  <div class="profile_name" style="color: white;">Anthony Andrew</div>
+                                  <div class="job" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
                                 </div>
                                 <!-- <i class='bx bx-log-out' ></i> -->
                               </div>
@@ -286,7 +320,7 @@
                           </div>
                     </div>
 
-                    <div class="card ml-1 mt-3 mr-4 mb-2" style="width: 30vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
+                    <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-christina-morillo-1181433.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
                         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                         <div class="card-body mt-1">
                             <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
@@ -301,13 +335,13 @@
                           </div>
                           <div class="card-footer ml-3 pl-1" style="border: none;">
                             <div class="profile-details my-4" style="display: flex;">
-                                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                                 
                                   <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
                                 <div class="name-job p-2">
-                                  <div class="profile_name text-white">Anthony Andrew</div>
-                                  <div class="job text-white" style="font-size: .8rem;opacity: .7;">53.2K Views &bull; 2 weeks ago</div>
+                                  <div class="profile_name" style="color: white;">Anthony Andrew</div>
+                                  <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
                                 </div>
                                 <!-- <i class='bx bx-log-out' ></i> -->
                               </div>
@@ -316,65 +350,69 @@
                                 </p>
                           </div>
                       </div>
-                      <div class="card ml-4 mt-3 mr-3 mb-2" style="width: 45vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                        <div class="card-body mt-1">
+
+                    <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-picha-stock-3894375.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
+                      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                      <div class="card-body mt-1">
                           <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                          <div style="width: 45%;">
-                            <h1 style="color: white;text-align: left;font-size: 1.3rem;">How to do Basic Jumping and how to landing safely</h1>
+                          <div style="width: 85%;">
+                            <h1 style="color: white;text-align: left;font-size: 1.3rem;">Skateboard Tips You need to know</h1>
                           
+                            
+                            
                           </div>
-                         
+                          
                           
                         </div>
-                        
                         <div class="card-footer ml-3 pl-1" style="border: none;">
-                            <div class="profile-details my-4" style="display: flex;">
-                                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
-                                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                                
-                                  <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                                <div class="name-job p-2">
-                                  <div class="profile_name text-white">Anthony Andrew</div>
-                                  <div class="job text-white" style="font-size: .8rem;opacity: .7;">53.2K Views &bull; 2 weeks ago</div>
-                                </div>
-                                <!-- <i class='bx bx-log-out' ></i> -->
+                          <div class="profile-details my-4" style="display: flex;">
+                              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                              
+                                <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
+                              <div class="name-job p-2">
+                                <div class="profile_name" style="color: white;">Anthony Andrew</div>
+                                <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
                               </div>
-                              <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-                                </p>
-                          </div>
+                              <!-- <i class='bx bx-log-out' ></i> -->
+                            </div>
+                            <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
+                              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">15 min</span>
+                              </p>
+                        </div>
                     </div>
 
-                    <div class="card ml-4 mt-3 mr-3 mb-2" style="width: 45vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                        <div class="card-body mt-1">
+                    <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-nandhu-kumar-1613240.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
+                      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                      <div class="card-body mt-1">
                           <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                          <div style="width: 45%;">
-                            <h1 style="color: white;text-align: left;font-size: 1.3rem;">How to do Basic Jumping and how to landing safely</h1>
+                          <div style="width: 85%;">
+                            <h1 style="color: white;text-align: left;font-size: 1.3rem;">Skateboard Tips You need to know</h1>
                           
+                            
+                            
                           </div>
-                         
+                          
                           
                         </div>
-                        
                         <div class="card-footer ml-3 pl-1" style="border: none;">
-                            <div class="profile-details my-4" style="display: flex;">
-                                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
-                                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                                
-                                  <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                                <div class="name-job p-2">
-                                  <div class="profile_name text-white">Anthony Andrew</div>
-                                  <div class="job text-white" style="font-size: .8rem;opacity: .7;">53.2K Views &bull; 2 weeks ago</div>
-                                </div>
-                                <!-- <i class='bx bx-log-out' ></i> -->
+                          <div class="profile-details my-4" style="display: flex;">
+                              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                              
+                                <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
+                              <div class="name-job p-2">
+                                <div class="profile_name" style="color: white;">Anthony Andrew</div>
+                                <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
                               </div>
-                              <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 6px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-                                </p>
-                          </div>
+                              <!-- <i class='bx bx-log-out' ></i> -->
+                            </div>
+                            <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
+                              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">15 min</span>
+                              </p>
+                        </div>
                     </div>
+
                 </div>  
             </div>
             
@@ -384,7 +422,7 @@
         <section class="workspace-items">
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Happening Now</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;">
+          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
             <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
               <div class="card-img-top" style="background: black;">
                 <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-christina-morillo-1181433.jpg);" alt="Card image cap">
@@ -395,7 +433,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">1 h 45 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -425,7 +463,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -455,7 +493,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -485,7 +523,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -511,7 +549,7 @@
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Upcoming</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;">
+          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
             <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
               <div class="card-img-top" style="background: black;">
                 <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
@@ -522,7 +560,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/company-logos/black-men-1.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -552,7 +590,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -582,7 +620,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -612,7 +650,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -638,7 +676,7 @@
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Popular</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;">
+          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
             <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
               <div class="card-img-top" style="background: black;">
                 <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
@@ -649,7 +687,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/company-logos/african-american-hairstyles-braids-500x500.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -679,7 +717,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -709,7 +747,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -739,7 +777,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -765,7 +803,7 @@
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">New</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;">
+          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
             <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
               <div class="card-img-top" style="background: black;">
                 <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/https\ _cdn.evbuc.com_images_94794601_231158441060_1_original.20200301-110623.jpg);" alt="Card image cap">
@@ -776,7 +814,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">3 hr 30 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/company-logos/index.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -806,7 +844,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -836,7 +874,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
@@ -866,7 +904,7 @@
                 <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid rgba(255,255,255, .3);padding: 4px;border-radius: 50%;">
+                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
                   <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>

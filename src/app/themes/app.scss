@@ -12,7 +12,19 @@
   --ev-brandname-darkblue: #1b4790;
   --ev-brandname-orange: #fe5104;
   --ev-box-shadow: 0 16px 24px 2px rgba(29,17,51,.04),0 6px 32px 4px rgba(9,32,77,.12),0 8px 12px -5px rgba(29,17,51,.12);
-
+  --ev-primary-background: #fff;
+  --ev-secondary-background: #f7f7f7;
+  --ev-tertiary-background: #7d2ae8;
+  --ev-white: #212121;
+  --ev-input-form-control-background: #f8f7fa;
+  --ev-bx-background:rgb(247,247,247, 1);
+  --ev-bx-opacity: 1;
+  --ev-sidebar-border-color: rgba(49, 48, 48, .1);
+  --ev-hr-border-color: rgba(49, 48, 48, .34);
+  --ev-checkmark-background: white;
+  --ev-profile-border: rgba(255,255,255, .3);
+  --ev-dark-mode-button-background: white;
+  --ev-dropdown-content-background: rgba(0, 0, 0, .04);
 
   .dark-theme {
     --primary-color: #fff;
@@ -24,6 +36,20 @@
     --ev-searchbar-background: #f8f7fb !important;
     --ev-placeholder-background: #b7b2b2 !important;
     --ev-searchbar-border: #f8f7fa !important;
+
+    --ev-primary-background: #11101D;
+    --ev-secondary-background: #1d1b31;
+    --ev-tertiary-background: #7d2ae8;
+    --ev-white: #fff;
+    --ev-input-form-control-background: #767a7d61;
+    --ev-bx-background: rgba(255, 255, 255, 0.3);
+    --ev-bx-opacity: .5;
+    --ev-sidebar-border-color: rgba(49, 48, 48, 1);
+    --ev-hr-border-color: rgba(49, 48, 48, 1);
+    --ev-checkmark-background: #353434;
+    --ev-profile-border: rgba(255,255,255, .3);
+    --ev-dark-mode-button-background: #1d1b31;
+    --ev-dropdown-content-background: rgba(0, 0, 0, .1);
   }
 
   .no-y-oversroll {
