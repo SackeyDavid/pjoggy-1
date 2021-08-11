@@ -138,6 +138,7 @@ import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -245,7 +246,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     CreateEventModalComponent,
     PostponeEventAlertComponent,
     RsvpPaymentComponent,
-    RsvpUserComponent
+    RsvpUserComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

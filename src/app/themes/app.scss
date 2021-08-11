@@ -22,9 +22,11 @@
   --ev-sidebar-border-color: rgba(49, 48, 48, .1);
   --ev-hr-border-color: rgba(49, 48, 48, .34);
   --ev-checkmark-background: white;
+  --ev-discover-checkmark-background: white;
   --ev-profile-border: rgba(255,255,255, .3);
   --ev-dark-mode-button-background: white;
   --ev-dropdown-content-background: rgba(0, 0, 0, .04);
+  --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
 
   .dark-theme {
     --primary-color: #fff;
@@ -47,9 +49,11 @@
     --ev-sidebar-border-color: rgba(49, 48, 48, 1);
     --ev-hr-border-color: rgba(49, 48, 48, 1);
     --ev-checkmark-background: #353434;
+    --ev-discover-checkmark-background: white;
     --ev-profile-border: rgba(255,255,255, .3);
     --ev-dark-mode-button-background: #1d1b31;
     --ev-dropdown-content-background: rgba(0, 0, 0, .1);
+    --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
   }
 
   .no-y-oversroll {

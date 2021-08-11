@@ -7,11 +7,11 @@ import { DOCUMENT } from '@angular/common';
 declare var $:any;
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
-export class HomePageComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
 
   darkMode: boolean = true;
 
@@ -24,16 +24,6 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) { 
-    // $(document).ready(function(){
-    //   $('.autoplay').slick({
-    //     infinite: true,
-    //     slidesToShow: 2,
-    //     slidesToScroll: 1,
-    //     autoplay: true,
-    //     autoplaySpeed: 2000,
-    //     arrow: false
-    //   });
-    // });
           
   }
 
@@ -61,41 +51,10 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       }, 3180);
       
 
-      // setTimeout(() => {
-      //   document.querySelector(".autoplay")?.insertBefore(nextText!, document.querySelector(".autoplay")?.firstElementChild!)
-      //   activeCard!.className += ' card-next'; 
-      //   activeCard!.classList.remove('card-slided-left');
-      //   // nextText!.setAttribute('style', 'margin-left: 1.25rem');
-      // }, 10000);
-
-      // let char = 0;
       let timer = setInterval(onTick, 10000);
 
       function onTick() {
-        // if(text!.querySelectorAll('span') !== null) {
-        //   let span = text!.querySelectorAll('span')[char];
-        //   if(span) span.classList.add('text-flow');
-        //   char++;
-
-        //   if(char === splitText!.length) {
-        //     complete();
-            
-        //     // text!.innerHTML = "";
-        //     return;
-        //   }
-        // } 
-        // let text = document.querySelector(".autoplay")?.firstElementChild;
-        // if(text) {
-        //   text.className += ' card-active'; 
-        //   text.classList.remove('card-slided-left');
-    
-        //   // setTimeout(() => {
-        //     let nextText = document.querySelector(".card-slided-left");
-        //     if(nextText) {
-        //       nextText.className += ' card-next'; 
-        //       nextText.classList.remove('card-slided-left');
-        //     }
-        // }
+        
 
       }
 
@@ -104,21 +63,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           
       }
 
-    // } else {
-    //   let text = document.querySelector(".autoplay")?.firstElementChild;
-    //   if(text) {
-    //     text.className += ' card-active'; 
-    //     text.classList.remove('card-slided-left');
-  
-    //     // setTimeout(() => {
-    //       let nextText = document.querySelector(".card-slided-left");
-    //       if(nextText) {
-    //         nextText.className += ' card-next'; 
-    //         nextText.classList.remove('card-slided-left');
-    //       }
-    //     // }, 5000);
-        
-    //   }
+    
     }
       
    }
