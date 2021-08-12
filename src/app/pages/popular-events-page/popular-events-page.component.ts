@@ -128,7 +128,7 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
     this.getBannerAds();
     this.getEventsHappeningNow();
 
-    setInterval(this.slideItems, 15000);
+    // setInterval(this.slideItems, 15000);
     if(this.darkMode) this.toggleDarkMode();
   }
 

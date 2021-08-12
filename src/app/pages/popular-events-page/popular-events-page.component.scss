@@ -1,13 +1,28 @@
 
-main {
-    display: flex;
-    flex-direction: row;
+  main {
+  display: flex;
+  flex-direction: row;
   }
   .menu {
-    flex: 1;
-    // background-color: violet;
-    max-width: 10vw;
-    height: 100vh;
+  flex: 1;
+  // background-color: violet;
+  max-width: 10vw;
+  height: 100vh;
+  }
+  div.workspace-nav {
+  flex: 1;
+  background-color: inherit;
+  overflow-y: scroll;
+  height: 100vh;
+  scrollbar-color: var(--ev-primary-background);
+  scrollbar-width: none;
+  // border-right: 1px solid #2d2d2ded;
+  // height: 90vh !important;
+  }
+
+  div.workspace-core {
+  flex: 1;
+  background-color: inherit;
   }
   section.workspace {
     display: flex;
@@ -20,7 +35,7 @@ main {
   }
   
   div.workspace-nav {
-    flex: 1;
+    flex: 2;
     background-color: inherit;
     // border-right: 1px solid #2d2d2ded;
     // height: 90vh !important;
@@ -626,7 +641,7 @@ main {
       text-align: center;
       padding-bottom: 9px;
       color: gray;
-      transform: translate(-11px, 36px);
+      transform: translate(45px, -19px);
       font-size: 0.6rem;
   }
   
@@ -721,16 +736,16 @@ main {
   // }
   // new styles
   .nav-pills .nav-link {
-  margin-bottom: 1rem !important;
+  margin-bottom: 0rem !important;
   padding-bottom: 1rem !important;
   }
   
   ul.nav {
-  border-bottom: 1px solid var(--ev-white);
+  border-bottom: 1px solid var(--ev-hr-border-color);
   padding-bottom: 0px;
-  width: max-content !important;
+  width: -moz-available !important;
   overflow-x: hidden;
-  margin-left: -4vh;
+  margin-left: 2vh;
   }
   
   .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -739,15 +754,16 @@ main {
   background-color: inherit !important;
   color: var(--ev-white) !important;
   box-shadow: none;
-  border-bottom: 1px solid var(--ev-white) !important;
+  border-bottom: 1px solid var(--ev-nav-active-border) !important;
   }
   
   .nav-pills .nav-link {
   border-radius: 30px !important;
-  margin-left: 1rem !important;
+  margin-left: 0rem !important;
+  margin-right: 2rem !important;
   background-color: inherit;
   color: grey !important;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: capitalize;
   font-size: 1rem;
   padding: 0 !important;
@@ -1476,15 +1492,17 @@ main {
   }
   
   .card-active {
-    width: 45vw;
+    width: -moz-available;
     transition: all .4 ease-in;
     margin-left: 1.5rem !important;
+    height: 50vh !important;
   }
   
   .card-next {
-    width: 30vw;
+    width: -moz-available;
     transition: all .4 ease-in;
     margin-left: 0.25rem !important;
+    height: 50vh !important;
   }
   
   .card-slided-left {
@@ -1492,7 +1510,29 @@ main {
     visibility: hidden;
     width: 45vw;
   }
+
+  .login-button {
+    // width: 140px;
+    // height: 45px;
+    font-family: 'Roboto', sans-serif;
+    // font-size: 11px;
+    // text-transform: uppercase;
+    // letter-spacing: 2.5px;
+    // font-weight: 500;
+    // color: #000;
+    background-color: #f05537;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+  }
   
+  .login-button {
+    background-color: #f05537 !important;
+  }
   
+  // nav styles
   
   
