@@ -3,6 +3,7 @@ import { EventsService } from 'src/app/services/events/events.service';
 import { BannerAdsService } from 'src/app/services/banner-ads/banner-ads.service';
 import { ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 declare var $:any;
 
@@ -22,18 +23,9 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
     private eventService: EventsService,
     private bannerService: BannerAdsService,
     private elementRef: ElementRef,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router
   ) { 
-    // $(document).ready(function(){
-    //   $('.autoplay').slick({
-    //     infinite: true,
-    //     slidesToShow: 2,
-    //     slidesToScroll: 1,
-    //     autoplay: true,
-    //     autoplaySpeed: 2000,
-    //     arrow: false
-    //   });
-    // });
           
   }
 
@@ -60,42 +52,10 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
         }
       }, 3180);
       
-
-      // setTimeout(() => {
-      //   document.querySelector(".autoplay")?.insertBefore(nextText!, document.querySelector(".autoplay")?.firstElementChild!)
-      //   activeCard!.className += ' card-next'; 
-      //   activeCard!.classList.remove('card-slided-left');
-      //   // nextText!.setAttribute('style', 'margin-left: 1.25rem');
-      // }, 10000);
-
-      // let char = 0;
       let timer = setInterval(onTick, 10000);
 
       function onTick() {
-        // if(text!.querySelectorAll('span') !== null) {
-        //   let span = text!.querySelectorAll('span')[char];
-        //   if(span) span.classList.add('text-flow');
-        //   char++;
-
-        //   if(char === splitText!.length) {
-        //     complete();
-            
-        //     // text!.innerHTML = "";
-        //     return;
-        //   }
-        // } 
-        // let text = document.querySelector(".autoplay")?.firstElementChild;
-        // if(text) {
-        //   text.className += ' card-active'; 
-        //   text.classList.remove('card-slided-left');
-    
-        //   // setTimeout(() => {
-        //     let nextText = document.querySelector(".card-slided-left");
-        //     if(nextText) {
-        //       nextText.className += ' card-next'; 
-        //       nextText.classList.remove('card-slided-left');
-        //     }
-        // }
+        
 
       }
 
@@ -103,22 +63,6 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
         clearInterval(timer);
           
       }
-
-    // } else {
-    //   let text = document.querySelector(".autoplay")?.firstElementChild;
-    //   if(text) {
-    //     text.className += ' card-active'; 
-    //     text.classList.remove('card-slided-left');
-  
-    //     // setTimeout(() => {
-    //       let nextText = document.querySelector(".card-slided-left");
-    //       if(nextText) {
-    //         nextText.className += ' card-next'; 
-    //         nextText.classList.remove('card-slided-left');
-    //       }
-    //     // }, 5000);
-        
-    //   }
     }
       
    }
@@ -129,6 +73,8 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
     this.getEventsHappeningNow();
 
     // setInterval(this.slideItems, 15000);
+    
+    this.darkMode = ((localStorage.getItem('theme') == 'dark') ? true : false);
     if(this.darkMode) this.toggleDarkMode();
   }
 
@@ -139,14 +85,6 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
     
     document.querySelector(".sidebar")?.classList.toggle("close");
 
-    
-    // let arrow = document.querySelectorAll(".arrow");
-    // for (var i = 0; i < arrow.length; i++) {
-    //   arrow[i].addEventListener("click", (e)=>{
-    //  let arrowParent = e; //selecting main parent of arrow
-    //  arrowParent.classList.toggle("showMenu");
-    //   });
-    // }
     let sidebar = document.querySelector(".sidebar");
     let sidebarBtn = document.querySelector(".bx-menu");
     console.log(sidebarBtn);
@@ -216,6 +154,12 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
 
     // }
     
+  }
+
+  
+  previewEvent() {
+    this.router.navigateByUrl('/event_details');
+    console.log('clicked');
   }
 
 }

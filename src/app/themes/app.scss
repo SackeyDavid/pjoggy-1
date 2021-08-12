@@ -27,7 +27,8 @@
   --ev-dark-mode-button-background: white;
   --ev-dropdown-content-background: rgba(0, 0, 0, .04);
   --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
-  --ev-nav-active-border: rgba(0,0,0, .5); 
+  --ev-nav-active-border: rgba(0,0,0, .5);
+  --ev-card-date: rgba(45,45,64, .04); 
 
   .dark-theme {
     --primary-color: #fff;
@@ -55,7 +56,8 @@
     --ev-dark-mode-button-background: #1d1b31;
     --ev-dropdown-content-background: rgba(0, 0, 0, .1);
     --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
-    --ev-nav-active-border: rgba(255,255,255, .5); 
+    --ev-nav-active-border: rgba(255,255,255, .5);
+    --ev-card-date: rgba(45,45,64, 1); 
   }
 
   .no-y-oversroll {
