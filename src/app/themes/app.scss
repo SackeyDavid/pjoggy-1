@@ -34,7 +34,8 @@
   --ev-card-ticket-checkmark-bg: var(--blue);
   --ev-black: white;
   --ev-text-color: rgba(17,16,29, .5);
-  --ev-schedule-card-color: rgba(0,0,0,.8);  
+  --ev-schedule-card-color: rgba(0,0,0,.8);
+  --ev-schedule-user-profile-bg-hover: rgba(17, 16, 29, 0.07);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -69,7 +70,8 @@
     --ev-card-ticket-checkmark-bg: white;
     --ev-black: #1e1e2e;
     --ev-text-color: rgba(255, 255, 255, 0.5);
-    --ev-schedule-card-color: rgba(255,255,255,.8);  
+    --ev-schedule-card-color: rgba(255,255,255,.8); 
+    --ev-schedule-user-profile-bg-hover: rgba(255, 255, 255, 0.07); 
   }
 
   .no-y-oversroll {

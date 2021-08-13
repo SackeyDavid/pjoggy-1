@@ -1673,6 +1673,7 @@
   .results {
     position: relative;
     margin-bottom: 0rem;
+    padding-top: 2rem;
   }
   
   .results .box {
@@ -1680,12 +1681,15 @@
     position: relative;
     vertical-align: middle;
     min-width: 10rem;
-    background: inherit;
-    padding-top: 2rem;
+    background: var(--ev-primary-background);
+    padding: .4rem .8rem;
+    border-radius: 10px;
+    transition: all .4s ease-in;
   }
 
   .box:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background: var(--ev-schedule-user-profile-bg-hover) !important;
+    cursor: pointer;
   }
   
   .color-circle {
@@ -1703,4 +1707,7 @@
     font-size: .9rem;
   }
     
+  .card-deck .card {
+    margin-left: 0px !important;
+  }
     
