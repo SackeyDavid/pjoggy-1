@@ -111,6 +111,24 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     });
 
     
+
+    $(document).ready(function() {
+      
+      function stringToHslColor(str: string, s: string, l: string) {
+        var hash = 0;
+        for (var i = 0; i < str.length; i++) {
+          hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        var h = hash % 360;
+        return 'hsl('+h+', '+s+'%, '+l+'%)';
+      }
+      
+    });
+
+
+
+    
     
   }
   
@@ -125,6 +143,16 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   onClick(event: any) {
     document.querySelector(".sidebar")?.classList.toggle("open");
     this.menuBtnChange();//calling the function(optional)
+  }
+
+  stringToHslColor(str: string, s: number, l: number) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    
+    var h = hash % 360;
+    return 'hsl('+h+', '+s+'%, '+l+'%)';
   }
 
   getBannerAds(): void {

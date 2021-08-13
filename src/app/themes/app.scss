@@ -21,14 +21,20 @@
   --ev-bx-opacity: 1;
   --ev-sidebar-border-color: rgba(49, 48, 48, .1);
   --ev-hr-border-color: rgba(49, 48, 48, .34);
+  --ev-schedule-card-border-color: rgba(49, 48, 48, .1);
   --ev-checkmark-background: white;
   --ev-discover-checkmark-background: white;
   --ev-profile-border: rgba(255,255,255, .3);
   --ev-dark-mode-button-background: white;
   --ev-dropdown-content-background: rgba(0, 0, 0, .04);
   --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
-  --ev-nav-active-border: rgba(0,0,0, .5);
-  --ev-card-date: rgba(45,45,64, .04); 
+  --ev-nav-active-border: rgba(17,16,29, .5);
+  --ev-card-date: rgba(45,45,64, .04);
+  --ev-card-ticket-pseudo-bottom-bg: white;
+  --ev-card-ticket-checkmark-bg: var(--blue);
+  --ev-black: white;
+  --ev-text-color: rgba(17,16,29, .5);
+  --ev-schedule-card-color: rgba(0,0,0,.8);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -50,6 +56,7 @@
     --ev-bx-opacity: .5;
     --ev-sidebar-border-color: rgba(49, 48, 48, 1);
     --ev-hr-border-color: rgba(49, 48, 48, 1);
+    --ev-schedule-card-border-color: rgba(49, 48, 48, .5);
     --ev-checkmark-background: #353434;
     --ev-discover-checkmark-background: white;
     --ev-profile-border: rgba(255,255,255, .3);
@@ -57,7 +64,12 @@
     --ev-dropdown-content-background: rgba(0, 0, 0, .1);
     --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
     --ev-nav-active-border: rgba(255,255,255, .5);
-    --ev-card-date: rgba(45,45,64, 1); 
+    --ev-card-date: rgba(45,45,64, 1);
+    --ev-card-ticket-pseudo-bottom-bg: initial;
+    --ev-card-ticket-checkmark-bg: white;
+    --ev-black: #1e1e2e;
+    --ev-text-color: rgba(255, 255, 255, 0.5);
+    --ev-schedule-card-color: rgba(255,255,255,.8);  
   }
 
   .no-y-oversroll {

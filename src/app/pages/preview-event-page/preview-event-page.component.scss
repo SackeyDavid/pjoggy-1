@@ -120,7 +120,7 @@
     hr {
       background-color: var(--ev-hr-border-color) !important;
     }
-    .bx::before {
+    .sidebar .bx::before {
         background-color: var(--ev-bx-background);
         padding: 8px;
         font-size: .9rem;
@@ -641,13 +641,13 @@
     .discover-user-checkmark {
         position: absolute;
         border-radius: 50%;
-        background-color: white; // css white color recommended
+        background-color: var(--ev-card-ticket-checkmark-bg); // css bg color specific to this page
         height: 15px;
         width: 15px;
-        border: 2px solid var(--ev-discover-checkmark-background) !important;
+        border: 2px solid var(--ev-card-ticket-checkmark-bg) !important;
         text-align: center;
         padding-bottom: 9px;
-        color: gray;
+        color: var(--ev-black);
         transform: translate(45px, -19px);
         font-size: 0.6rem;
     }
@@ -701,7 +701,7 @@
     padding: .7rem 1.8rem !important;
     }
     
-    .login-button {
+    .ticket-button {
     // width: 140px;
     // height: 45px;
     font-family: 'Roboto', sans-serif;
@@ -710,8 +710,9 @@
     // letter-spacing: 2.5px;
     // font-weight: 500;
     // color: #000;
-    background-color: var(--ev-tertiary-background);
+    background-color: var(--ev-brandname-orange);
     border: none;
+    font-weight: bold;
     border-radius: 8px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease 0s;
@@ -720,11 +721,42 @@
     margin-bottom: 0rem;
     }
     
-    .login-button {
+    .ticket-button {
     border-radius: 10px;
-    font-size: .8rem;
+    font-size: 1rem;
     padding: .7rem 1.8rem !important;
     }
+
+    .ticket-button:hover {
+      background-color: #f05537;
+    }
+
+    
+    .calendar-button {
+      // width: 140px;
+      // height: 45px;
+      font-family: 'Roboto', sans-serif;
+      // font-size: 11px;
+      text-transform: capitalize;
+      // letter-spacing: 2.5px;
+      // font-weight: 500;
+      // color: #000;
+      background-color: var(--secondary);
+      border: none;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+      margin-bottom: 0rem;
+      }
+      
+      .calendar-button {
+      border-radius: 10px;
+      font-size: 1rem;
+      padding: .7rem 1.8rem !important;
+      }
     
     .speakers-link {
     text-align: center;
@@ -748,7 +780,7 @@
     }
     
     ul.nav {
-    border-bottom: 1px solid var(--ev-hr-border-color);
+    border-bottom: 1px solid var(--ev-sidebar-border-color);
     padding-bottom: 0px;
     width: -moz-available !important;
     overflow-x: hidden;
@@ -769,7 +801,7 @@
     margin-left: 0rem !important;
     margin-right: 2rem !important;
     background-color: inherit;
-    color: grey !important;
+    color: var(--ev-text-color) !important;
     font-weight: 400;
     text-transform: capitalize;
     font-size: 1rem;
@@ -1048,7 +1080,7 @@
     }
     
     .text-white {
-      color: var(--ev-white) !important;
+      color: var(--ev-text-color) !important;
     }
     
     .text-success {
@@ -1079,7 +1111,7 @@
     }
     
     .text-white {
-      color: var(--ev-white) !important;
+      color: var(--ev-text-color) !important;
     }
     
     a.text-white:hover,
@@ -1190,7 +1222,7 @@
     }
     
     .text-white {
-      color: var(--ev-white) !important;
+      color: var(--ev-text-color) !important;
     }
     
     a.text-white:hover,
@@ -1556,5 +1588,119 @@
       padding: 10px 20px;
       right: 0.8rem;
     }
+    
+    .card-schedule-active {
+      border-radius: 8px;
+      /* padding: 0.4rem 1.4rem; */
+      color: rgba(255, 255, 255, 1); // css white recommended
+      font-weight: bold;
+      text-align: left;
+      /* padding-left: 0; */
+      // position: relative;
+      background-color: var(--ev-brandname-orange);
+      margin-right: 1.2rem;
+      width: max-content;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    .card-schedule {
+      border-radius: 8px;
+      /* padding: 0.4rem 1.4rem; */
+      color: var(--ev-text-color); // css white recommended
+      font-weight: bold;
+      text-align: left;
+      /* padding-left: 0; */
+      // position: relative;
+      background-color: rgba(255, 255, 255, 0.5);
+      margin-right: 1.2rem;
+      width: max-content;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+    
+    .ticket:before,
+    .ticket:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 100px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      z-index: 2;
+      background-color: var(--ev-primary-background);
+    }
+
+    .ticket:before {
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(-45deg);
+      left: -21px;
+      top: -1rem;
+    }
+    
+    .ticket:after {
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(135deg);
+      right: -21px;
+      top: -1rem;
+    }
+
+    .card-ticket:after {
+      background-color: var(--ev-card-ticket-pseudo-bottom-bg);
+      height: 25px;
+      content: "";
+      position: absolute;
+      bottom: -25px;
+      left: -20px;
+      right: -20px;
+      border-top: 1px dashed var(--ev-hr-border-color);
+  }
+
+  span.color-circle {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.9rem;
+    text-align: center;
+    color: var(--ev-black);
+    padding: 4px;
+  }
+  
+  .results {
+    position: relative;
+    margin-bottom: 0rem;
+  }
+  
+  .results .box {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    min-width: 10rem;
+    background: inherit;
+    padding-top: 2rem;
+  }
+
+  .box:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .color-circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: antiquewhite;
+    overflow: hidden;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .string {
+    font-size: .9rem;
+  }
     
     
