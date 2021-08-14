@@ -441,7 +441,7 @@ input:checked+.slider:before {
 
 .dropdown-content_user {
   display: none;
-  margin-left: 0%;
+  margin-left: -10%;
   position: absolute;
   background-color: var(--ev-dark-mode-button-background);
   min-width: 250px;
@@ -554,7 +554,8 @@ ev-avatar img {
 }
 
 input.form-control {
-background-color: var(--ev-input-form-control-background) !important;
+  background-color: var(--ev-input-form-control-background) !important;
+  transition: all .4s ease-in !important;
 }
 
 .form-control {
@@ -1486,5 +1487,40 @@ p {
   width: 45vw;
 }
 
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.autosearch-results {
+	position: absolute;
+	background-color: var(--ev-input-form-control-background) !important;
+	top: 77%;
+	// border: 1px solid var(--ev-sidebar-border-color);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	border-radius: 0.55rem;
+	border-start-start-radius: 0px;
+	border-start-end-radius: 0px;
+  min-width: 40vw !important;
+}
+
+.w3-large {
+  display: ruby;
+  height: 30px;
+  // margin-bottom: -3.5vh;
+  font-size: 14px;
+}
+
+.present_date {
+  font-size: 14px;
+  display: flex;
+  width: max-content;
+  height: 20px;
+  margin-top: 0vh;
+}
+
+.search_price{
+ font-size: 14px;
+ color: #fe5104 !important;
+}
 
 

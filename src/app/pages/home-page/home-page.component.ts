@@ -1,9 +1,19 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output, Injectable, EventEmitter, Inject } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { BannerAdsService } from 'src/app/services/banner-ads/banner-ads.service';
 import { ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs'
+import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
+import _ from 'lodash';
+import { UserAccountService } from 'src/app/services/user-account/user-account.service';
+import { SearchService } from 'src/app/services/search/search.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 
 declare var $:any;
 
@@ -14,7 +24,20 @@ declare var $:any;
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
 
-  darkMode: boolean = true;
+  userAuthenticated: boolean = false;  
+  searchQuery: string = '';
+  imgSrc: string = '';
+  currentUser: any;
+  live_search_results: any;
+  userID: any;
+
+  userFavorites: any = [];
+
+  @Output() searchEvent = new EventEmitter<string>();
+
+  formGroup: FormGroup = new FormGroup({});
+
+  darkMode: boolean = false;
 
   bannerAdsData: any = [];
   eventsNow: any = [];
@@ -24,8 +47,20 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     private bannerService: BannerAdsService,
     private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document,
-    private router: Router
-  ) {     
+    private http: HttpClient, 
+    private router: Router, 
+    private endpoint: EndpointService,
+    private userAccountsService: UserAccountService,
+    private searchService: SearchService,
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private userFavoriteService: UsersFavoritesService,
+  ) {    
+    this.initForm(); 
+    if(this.fb.control.name.length == 0) {
+      document.querySelector("#search-input")?.
+    setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+    }
   }
 
   slideItems() {
@@ -67,6 +102,13 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.checkIfUserAuthenticated();
+    this.getUser();
+    this.getUsersFavorites();
+    this.initForm();
+    let sessionQuery = sessionStorage.getItem('search_query');
+    sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
+
     this.getBannerAds();
     this.getEventsHappeningNow();
 
@@ -133,18 +175,15 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   toggleDarkMode() {
-    // if(this.darkMode = 1) {
-      // this.document.body.classList.remove('dark-theme');
-      
       this.document.body.className +=' dark-theme';
+      localStorage.setItem('theme', 'dark');
       this.darkMode = true;
-
-    // }
     
   }
 
   toggleLightMode() {
       this.document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
       this.darkMode = false;
 
   }
@@ -153,5 +192,230 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/event_details');
     console.log('clicked');
   }
+
+  showSearchBar() {
+    var brand_element = document.getElementById('brand-name')
+    var toggle_elemtent = document.getElementById('toggle-button')
+    var searchIcon = document.getElementById('searchIcon')
+
+    if(brand_element) {
+      brand_element.style.transition = '2s'
+      brand_element.style.transitionProperty = 'display'
+      brand_element.style.display = 'none'
+    }
+    if(toggle_elemtent) {
+      toggle_elemtent.style.transition = '2s'
+      toggle_elemtent.style.transitionProperty = 'display'
+      toggle_elemtent.style.display = 'none'
+    }
+    if(searchIcon) {
+      searchIcon.style.transition = '2s'
+      searchIcon.style.transitionProperty = 'display'
+      searchIcon.style.display = 'none'
+    }
+
+    var divsToHide = document.getElementsByClassName("search-on-mobile-only"); //divsToHide is an array
+    console.log(divsToHide)
+    for(var i = 0; i < divsToHide.length; i++){
+        divsToHide[i].setAttribute('style', 'display: block !important') // or
+        divsToHide[i].setAttribute('style', 'display: block !important') // depending on what you're doing
+    }
+
+  }
+
+  hideMobileSearch() {
+    var divsToHide = document.getElementsByClassName("search-on-mobile-only"); //divsToHide is an array
+    console.log(divsToHide)
+    for(var i = 0; i < divsToHide.length; i++){
+        divsToHide[i].setAttribute('style', 'display: none !important') // or
+        divsToHide[i].setAttribute('style', 'display: none !important') // depending on what you're doing
+    }
+
+    var brand_element = document.getElementById('brand-name')
+    var toggle_elemtent = document.getElementById('toggle-button')
+    var searchIcon = document.getElementById('searchIcon')
+
+    if(brand_element) {
+      brand_element.style.transition = '2s'
+      brand_element.style.transitionProperty = 'display'
+      brand_element.style.display = 'block'
+    }
+    if(toggle_elemtent) {
+      toggle_elemtent.style.transition = '2s'
+      toggle_elemtent.style.transitionProperty = 'display'
+      toggle_elemtent.style.display = 'block'
+    }
+    if(searchIcon) {
+      searchIcon.style.transition = '2s'
+      searchIcon.style.transitionProperty = 'display'
+      searchIcon.style.display = 'block'
+    }
+
+  }
+
+  checkIfUserAuthenticated() {
+    var data: any =  sessionStorage.getItem('x_auth_token')
+    var user_id: any =  sessionStorage.getItem('user_id')
+    this.userID = user_id;
+   
+
+    this.userAuthenticated = ((data != null)? true : false)
+    console.log('user authenticated: ', this.userAuthenticated)
+  }
+
+
+  logout(e: any){
+    e.preventDefault();
+    // sessionStorage.removeItem('x_auth_token');
+    // window.location.href = '/'
+    this.openSnackBar();
+    
+    const apiUrl = 'http://events369.logitall.biz/api/v1/';
+    this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
+      res =>  {
+        console.log(res);
+        if (_.toLower(res.message) == 'ok') {
+          sessionStorage.removeItem('x_auth_token');
+          sessionStorage.removeItem('user_id');
+
+          // this.router.navigateByUrl('/');
+          
+          window.location.href = '/';
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  initForm() {
+    this.formGroup = this.fb.group({
+      'search': ['']
+    }) ;
+    this.formGroup.get('search')?.valueChanges.subscribe(response => {
+      if(response.length < 1) {
+        document.querySelector("#search-input")?.
+            setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+            this.live_search_results = null;    
+      } else {
+        
+      this.doLiveSearch(response);
+      }
+    })
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Logging out...', 'x', {
+      duration: 3000
+    });
+  }
+
+
+
+  doLiveSearch(searchword: string){
+    this.live_search_results = null;
+    this.searchService.liveSearch(searchword).then(
+      res => {
+        if (res) {
+          console.log(res);  
+          this.live_search_results = res.events.data;  
+          this.live_search_results = this.live_search_results.slice(0, 5);
+          if(this.live_search_results.length) {
+            document.querySelector("#search-input")?.
+            setAttribute('style', 'box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; border-end-start-radius: 0px !important;border-end-end-radius: 0px !important;border-bottom: 1px solid var(--ev-sidebar-border-color) !important;');
+          } else {
+            document.querySelector("#search-input")?.
+            setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+            
+          }     
+        }        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  
+
+  doSearch(){
+    console.log('lets search for ' + this.searchQuery);
+    sessionStorage.setItem('search_query', this.searchQuery);
+    this.searchEvent.emit(this.searchQuery);
+    this.router.navigateByUrl('/search_results');
+  }
+
+  getEventDateFormatted(date: any) {
+    // return moment(date).format('ddd, MMM D, YYYY h:mm A');
+    return moment(date).format('ddd, MMM D, YYYY - h:mm A');
+  }
+
+  getUser(): void {
+    this.userAccountsService.getCurrentUser().then(
+      res => {
+        console.log(res);
+        this.currentUser = res;
+
+        if (res.profile) {
+          this.imgSrc =  res.profile
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  gotoPreview(eventId: any) {
+    sessionStorage.setItem('preview_event_id', eventId);
+    this.router.navigateByUrl('/event_details');
+  }
+
+  openManageEventsPage() {
+    window.open('/manage-community', "_blank");
+  }
+
+  openFavoritesPage() {
+    window.open('/events/favorites', "_blank");
+
+  }
+
+  getUsersFavorites (){
+
+    if(this.userID !== '') {
+      this.userFavoriteService.getUserFavorites(this.userID).then(
+        res => {
+          this.userFavorites = res.event;
+
+        },
+        err => {
+          console.log(err);
+        }
+      );
+
+    }  
+  }
+
+  getTicketSalesStatus(ticket_sales_end_date: string) {
+    if (ticket_sales_end_date == null) return 1;
+
+    var ticket_end_date = ticket_sales_end_date.split(' ')[0];
+    var ticket_end_time = ticket_sales_end_date.split(' ')[1];
+    // console.log(ticket_end_date, ticket_end_time);
+
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let today = date.valueOf();
+    let ed = Date.parse(ticket_end_date);    
+    let now = new Date().getTime();
+    let et = new Date(ticket_end_time).getTime();
+    
+    if (ed > today && et > now) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
 
 }

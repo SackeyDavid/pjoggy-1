@@ -80,6 +80,9 @@ div.workspace-core {
 .sidebar.open .logo-details .logo_name{
   opacity: 1;
 }
+.logo_name:hover {
+  cursor: pointer;
+}
 .sidebar .logo-details #btn{
   position: absolute;
   top: 50%;
