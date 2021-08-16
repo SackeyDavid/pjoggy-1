@@ -38,6 +38,8 @@ export class CreateEventModalComponent implements OnInit {
       .subscribe(time => {
         this.rxTime = time;
       });
+
+      // document.querySelector('.modal')!.className += ' right';
   }
 
   ngOnDestroy() {

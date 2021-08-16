@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, Inject } from '@angular/core';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { map, share } from "rxjs/operators";
@@ -15,6 +15,12 @@ import { EditEventAlertComponent } from 'src/app/components/modals/edit-event-al
 import { DeleteEventAlertComponent } from 'src/app/components/modals/delete-event-alert/delete-event-alert.component';
 import { RecoverEventAlertComponent } from 'src/app/components/modals/recover-event-alert/recover-event-alert.component';
 import { PostponeEventAlertComponent } from 'src/app/components/modals/postpone-event-alert/postpone-event-alert.component';
+import { UserAccountService } from 'src/app/services/user-account/user-account.service';
+import { DOCUMENT } from '@angular/common';
+import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import _ from 'lodash';
 
 
 @Component({
@@ -24,6 +30,22 @@ import { PostponeEventAlertComponent } from 'src/app/components/modals/postpone-
 })
 export class EventManagerHomeComponentComponent implements OnInit {
 
+  
+  userAuthenticated: boolean = false;  
+  searchQuery: string = '';
+  imgSrc: string = '';
+  currentUser: any;
+  live_search_results: any;
+  userID: any;
+
+  userFavorites: any = [];
+
+
+  darkMode: boolean = false;
+
+  bannerAdsData: any = [];
+  eventsNow: any = [];
+  
   time = new Date();
   rxTime = new Date();
   intervalId: any;
@@ -46,8 +68,6 @@ export class EventManagerHomeComponentComponent implements OnInit {
 
   errMsg = '';
 
-  userFavorites: any = [];
-  userID: string = '';
   user_token: string = '';
   
   users_favorite_event_id_and_fav_id: any = [];
@@ -74,7 +94,12 @@ export class EventManagerHomeComponentComponent implements OnInit {
     private eventsService: EventsService, 
     private basicInfoService: BasicInfoService,
     private userFavoriteService: UsersFavoritesService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private userAccountsService: UserAccountService,
+    @Inject(DOCUMENT) private document: Document,
+    private endpoint: EndpointService,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar, 
   
   ) { 
 
@@ -82,16 +107,19 @@ export class EventManagerHomeComponentComponent implements OnInit {
 
   ngAfterViewInit() {
     
-    this.elementRef.nativeElement.querySelector('#btn')
+    this.elementRef.nativeElement.querySelector('.sidebar')
                                   .addEventListener('click', this.onClick.bind(this));
     
-    document.querySelector(".sidebar")?.classList.toggle("open");
+    document.querySelector(".sidebar")?.classList.toggle("close");
 
-    // this.elementRef.nativeElement.querySelector('.sidebar')
-    // .addEventListener('click', this.onClick.bind(this));
+    
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    // console.log(sidebarBtn);
+    sidebarBtn!.addEventListener("click", ()=>{
+      sidebar!.classList.toggle("close");
+    });
 
-    // this.elementRef.nativeElement.querySelector('.bx-search')
-    // .addEventListener('click', this.onClick.bind(this));
     this.sCont =  this.elementRef.nativeElement.querySelector("#pills-tab");
     this.hScroll = this.elementRef.nativeElement.querySelector("#horizontal-scroll");
     this.btnScrollLeft =  this.elementRef.nativeElement.querySelector('#btn-scroll-left');
@@ -112,15 +140,31 @@ export class EventManagerHomeComponentComponent implements OnInit {
       document.querySelector(".closeBtn")?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
     }
   }
-  
+
   onClick(event: any) {
     document.querySelector(".sidebar")?.classList.toggle("open");
     this.menuBtnChange();//calling the function(optional)
   }
 
   ngOnInit(): void {   
+    this.checkIfUserAuthenticated();
+    this.getUser();
+    this.getUsersFavorites();
+    // this.initForm();
+    let sessionQuery = sessionStorage.getItem('search_query');
+    sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
+
+    // this.getBannerAds();
+    // this.getEventsHappeningNow();
+
+    // setInterval(this.slideItems, 15000);
+    
+    this.darkMode = ((localStorage.getItem('theme') == 'dark') ? true : false);
+    if(this.darkMode) this.toggleDarkMode();
+
     // this.openEventCreate(); 
     // Using Basic Interval
+
     this.intervalId = setInterval(() => {
       this.time = new Date();
     }, 1000);
@@ -161,6 +205,34 @@ export class EventManagerHomeComponentComponent implements OnInit {
       this.subscription.unsubscribe();
     }
   }
+
+  checkIfUserAuthenticated() {
+    var data: any =  sessionStorage.getItem('x_auth_token')
+    var user_id: any =  sessionStorage.getItem('user_id')
+    this.userID = user_id;
+   
+
+    this.userAuthenticated = ((data != null)? true : false)
+    console.log('user authenticated: ', this.userAuthenticated)
+  }
+
+
+  getUser(): void {
+    this.userAccountsService.getCurrentUser().then(
+      res => {
+        console.log(res);
+        this.currentUser = res;
+
+        if (res.profile) {
+          this.imgSrc =  res.profile
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
 
   openEventCreate() {
     this.modalRef = this.modalService.open(CreateEventModalComponent);
@@ -900,6 +972,60 @@ export class EventManagerHomeComponentComponent implements OnInit {
     // }
     console.log(this.sCont!.offsetWidth, this.currentScrollPosition)
   }
+
+  
+  toggleDarkMode() {
+      this.document.body.className +=' dark-theme';
+      localStorage.setItem('theme', 'dark');
+      this.darkMode = true;
+    
+  }
+
+  toggleLightMode() {
+      this.document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      this.darkMode = false;
+
+  }
+
+  logout(e: any){
+    e.preventDefault();
+    // sessionStorage.removeItem('x_auth_token');
+    // window.location.href = '/'
+    this.openSnackBar();
+    
+    const apiUrl = 'http://events369.logitall.biz/api/v1/';
+    this.http.get<any>(apiUrl + 'logout', { headers: this.endpoint.headers() }).subscribe(
+      res =>  {
+        console.log(res);
+        if (_.toLower(res.message) == 'ok') {
+          sessionStorage.removeItem('x_auth_token');
+          sessionStorage.removeItem('user_id');
+
+          // this.router.navigateByUrl('/');
+          
+          window.location.href = '/';
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  
+  openSnackBar() {
+    this._snackBar.open('Logging out...', 'x', {
+      duration: 3000
+    });
+  }
+
+  
+  previewEvent() {
+    this.router.navigateByUrl('/event_details');
+    console.log('clicked');
+  }
+  
 
 
 }
