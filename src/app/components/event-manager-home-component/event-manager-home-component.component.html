@@ -212,14 +212,14 @@
               <div class="dropbtn_user" style="display: grid;height: 100%;">
                 <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
                      <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
-                      <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                      <div *ngIf="!imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
                            <img src="../../../assets/images/avatar-placeholder.png" />
                       </div> 
-                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                      <div *ngIf="imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
                         <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
                       </div> 
                       <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
-                      <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                      <i class="bi bi-chevron-down" style="max-width: max-content; color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
                       <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
                       <span class="dot"></span>
                        <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
