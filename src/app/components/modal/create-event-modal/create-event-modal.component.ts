@@ -12,12 +12,16 @@ import { map, share } from "rxjs/operators";
 })
 export class CreateEventModalComponent implements OnInit {
 
-  selected: Date | null | undefined;
+  selected: Date | null | undefined = new Date();
+  eventEndDate: Date | null | undefined = new Date();
   dateTimeClicked: boolean = false;
+  startDateClicked: boolean = false;
+  endDateClicked: boolean = false;
   startDate = new Date();
   
   time = new Date();
-  rxTime = new Date();
+  rxStartTime = new Date();
+  rxEndTime = new Date();
   intervalId: any;
   subscription: any;
   url: string = '';
@@ -40,7 +44,8 @@ export class CreateEventModalComponent implements OnInit {
         share()
       )
       .subscribe(time => {
-        this.rxTime = time;
+        this.rxStartTime = new Date();
+        this.rxEndTime = new Date();
       });
 
       // document.querySelector('.modal')!.className += ' right';
@@ -77,7 +82,24 @@ export class CreateEventModalComponent implements OnInit {
     this.modalRef.close()
   }
 
-  showCalendar(date: string) {
+  showCalendar(type: string) {
     this.dateTimeClicked = true;
+    if(type == 'start') {
+      this.startDateClicked = true;
+      this.endDateClicked = false;
+    } else {
+      this.endDateClicked = true;
+      this.startDateClicked = false;
+    }
+  }
+
+  changeStartDate(event: any) {
+    this.selected = event;
+    this.rxStartTime = this.selected!;
+  }
+
+  changeEndDate(event: any) {
+    this.eventEndDate = event;
+    this.rxEndTime = this.eventEndDate!;
   }
 }

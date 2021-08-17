@@ -28,7 +28,7 @@
                 <small class="text-muted">Event start date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ rxTime | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+                <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ selected | date: 'MMM dd, YYYY' }}">
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
             </div>
@@ -54,12 +54,12 @@
         </div>
 
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
-            <div class="mr-2" style="flex: 1;">
+            <div class="mr-2" style="flex: 1;" (click)="showCalendar('end')">
                 <p  class="text-white">End Date</p>
                 <small class="text-muted">Event end date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ rxTime | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+                <input type="text" readonly value="{{ eventEndDate | date: 'MMM dd, YYYY' }}" placeholder="{{ eventEndDate | date: 'MMM dd, YYYY' }}">
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
             </div>
@@ -127,7 +127,7 @@
       </div>
 
     </div>
-    <div class="row" style="height: inherit;" *ngIf="dateTimeClicked">
+    <div class="row" style="height: inherit;" *ngIf="startDateClicked && !endDateClicked">
       <div class="content mt-4 pt-2" style="height: 95%;">
         <h5 class="text-white">Starting On</h5>
         
@@ -136,12 +136,33 @@
         
         <div class="field" style="padding-right: 0 !important;">
           <!-- <i class="bi bi-link-45deg"></i> -->
-          <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+          <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ rxStartTime | date: 'MMM dd, YYYY' }}">
           <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
         </div>
         
         <mat-card class="demo-inline-calendar-card">
-          <mat-calendar (selectedChange)="selected = $event" [start]="startDate"></mat-calendar>
+          <mat-calendar (selectedChange)="changeStartDate($event)"></mat-calendar>
+        </mat-card>
+      </div>
+      <!-- <p>Selected date: {{selected}}</p> -->
+      
+    </div>
+    
+    <div class="row" style="height: inherit;" *ngIf="endDateClicked && !startDateClicked">
+      <div class="content mt-4 pt-2" style="height: 95%;">
+        <h5 class="text-white">Ending On</h5>
+        
+          <p class="text-white">Date</p> 
+          <small class="text-muted">Set the date for your event</small>
+        
+        <div class="field" style="padding-right: 0 !important;">
+          <!-- <i class="bi bi-link-45deg"></i> -->
+          <input type="text" readonly value="{{ eventEndDate | date: 'MMM dd, YYYY' }}" placeholder="{{ eventEndDate | date: 'MMM dd, YYYY' }}">
+          <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
+        </div>
+        
+        <mat-card class="demo-inline-calendar-card">
+          <mat-calendar (selectedChange)="changeEndDate($event)"></mat-calendar>
         </mat-card>
       </div>
       <!-- <p>Selected date: {{selected}}</p> -->
