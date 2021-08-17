@@ -302,3 +302,23 @@ small {
 ::ng-deep .mat-calendar-body-label {
   display: none !important;
 }
+
+::ng-deep .mat-calendar-body-cell-content, .mat-date-range-input-separator {
+	color: var(--ev-white) !important;
+}
+
+::ng-deep .mat-button, .mat-icon-button, .mat-stroked-button {
+	color: var(--ev-white) !important;
+}
+
+::ng-deep .mat-calendar-table-header {
+	color: var(--ev-white) !important;
+}
+
+::ng-deep .mat-calendar-table-header-divider::after {
+	background: var(--ev-sidebar-border-color) !important;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+	border-color: var(--ev-tertiary-background) !important;
+}
