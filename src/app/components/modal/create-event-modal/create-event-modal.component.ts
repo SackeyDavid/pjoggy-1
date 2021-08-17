@@ -12,11 +12,15 @@ import { map, share } from "rxjs/operators";
 })
 export class CreateEventModalComponent implements OnInit {
 
+  selected: Date | null | undefined;
+  dateTimeClicked: boolean = false;
+  startDate = new Date();
   
   time = new Date();
   rxTime = new Date();
   intervalId: any;
   subscription: any;
+  url: string = '';
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -73,4 +77,7 @@ export class CreateEventModalComponent implements OnInit {
     this.modalRef.close()
   }
 
+  showCalendar(date: string) {
+    this.dateTimeClicked = true;
+  }
 }

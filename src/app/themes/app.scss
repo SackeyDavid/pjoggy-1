@@ -39,7 +39,10 @@
   --ev-host-event-card-bg: rgba(0, 0, 0, 0.074);
   --ev-card-icon-bg: rgba(241,110,188, .2);
   --ev-card-icon-first-bg: rgba(0,177,114, .1);
-  --ev-hscroll-button-hover-bg: rgba(0, 0, 0, 0.08);  
+  --ev-hscroll-button-hover-bg: rgba(0, 0, 0, 0.08);
+  --ev-create-event-bg: white;
+  --ev-create-event-input-bg: #f8f7fa;
+  --ev-create-event-scrollbar: rgb(205, 205, 205) rgb(240, 240, 240);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -80,7 +83,10 @@
     --ev-host-event-card-bg: rgba(0, 0, 0, 0.3);
     --ev-card-icon-bg: rgba(83,78,87,255);
     --ev-card-icon-first-bg: rgba(74,80,83,255);
-    --ev-hscroll-button-hover-bg: rgba(255, 255, 255, 0.3); 
+    --ev-hscroll-button-hover-bg: rgba(255, 255, 255, 0.3);
+    --ev-create-event-bg: rgba(40,39,48,255);
+    --ev-create-event-input-bg: rgba(50,48,59,255);
+    --ev-create-event-scrollbar: rgba(120,119,125,255) rgba(255, 255, 255, .0); 
   }
 
   .no-y-oversroll {

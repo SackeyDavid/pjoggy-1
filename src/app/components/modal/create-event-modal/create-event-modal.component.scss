@@ -10,7 +10,7 @@ body{
   background: #7d2ae8;
 }
 ::selection{
-  color: #fff;
+  color: var(--ev-white);
   background: #7d2ae8;
 }
 // .view-modal, .popup {
@@ -51,7 +51,7 @@ button{
 //               transform 0.2s 0s ease-in-out;
 // }
 .popup {
-	background: var(--ev-primary-background);
+	background: var(--ev-create-event-bg);
 	padding: 25px;
 	border-radius: 10px;
 	/* top: 70%; */
@@ -66,6 +66,7 @@ button{
   border-start-end-radius: 0;
   border-end-end-radius: 0;
   height: 100vh;
+  padding-right: 0;
 }
 .popup.show{
   top: 50%;
@@ -84,7 +85,7 @@ button{
 }
 .popup header{
   padding-bottom: 15px;
-  border-bottom: 1px solid #2d2d2ded;
+  border-bottom: 1px solid var(--ev-sidebar-border-color);
 }
 header span{
   font-size: 21px;
@@ -99,18 +100,26 @@ header .close, .icons a{
   transition: all 0.3s ease-in-out;
 }
 header .close{
+  position: absolute;
+  right: 3%;
   color: #fff;
-  font-size: 17px;
+  font-size: 30px;
   background: inherit;
-  height: 33px;
-  width: 33px;
+  height: 43px;
+  width: 43px;
   cursor: pointer;
 }
 header .close:hover{
-  background: rgba(0, 0, 0, 0.9);
+  background: var(--ev-hscroll-button-hover-bg);
 }
 .popup .content{
   margin: 20px 0;
+  height: 70%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: var(--ev-create-event-scrollbar);
+  scrollbar-width: thin;
+  padding-right: 25px;
 }
 .popup .icons{
   margin: 15px 0 20px 0;
@@ -119,6 +128,8 @@ header .close:hover{
   font-size: 16px;
   color: #fff;
   opacity: .8;
+  font-weight: 600;
+  margin-bottom: -.3rem !important;
 }
 .content .icons a{
   height: 50px;
@@ -174,11 +185,11 @@ header .close:hover{
 }
 .content .field{
   margin: 12px 0 -5px 0;
-  height: 45px;
+  height: 54px;
   border-radius: 8px;
   padding: 0 5px;
-  border: 1px solid #2d2d2ded;
-  background-color: rgba(0,0,0,0.2);
+  border: 1px solid var(--ev-sidebar-border-color);
+  background-color: var(--ev-create-event-input-bg);
   padding-left: 0;
 }
 .field.active{
@@ -188,7 +199,7 @@ header .close:hover{
   width: 50px;
   font-size: .9rem;
   text-align: center;
-  color: #fff;
+  color: var(--ev-white);
   opacity: .5;
 }
 .field.active i{
@@ -201,9 +212,10 @@ header .close:hover{
   border: none;
   outline: none;
   font-size: 15px;
-  background-color: inherit;
-  color: #fff;
-  opacity: .7;
+  background-color: var(--ev-create-event-input-bg);
+  color: var(--ev-white);
+  opacity: 1;
+  border-radius: 8px;
   padding-left: .8rem;
 }
 .field button{
@@ -228,30 +240,34 @@ header .close:hover{
 ::ng-deep .modal-footer {
  justify-content: flex-start !important;
  padding-left: 0 !important;
- border-top: 1px solid #2d2d2ded;  
+ border-top: 1px solid var(--ev-sidebar-border-color);  
 }
 
 .login-button {
   background-color: #7d2ae8;
   text-transform: capitalize;
   font-weight: bold;
-  font-size: .9rem;
+  font-size: 1rem;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  transition: all .4s ease-in;
 }
 
 .login-button:hover {
-  background-color: #8d39fa;
-  border-color:  #8d39fa;
+  // background-color: #8d39fac9;
+  // border-color:  #8d39fac9;
+  opacity: .9;
 }
 
 ::ng-deep .modal.show .modal-dialog {
 	transform: none;
 	right: 0;
 	position: absolute;
-	width: 70% !important;
+	width: 80% !important;
 }
 
 ::ng-deep .modal-dialog {
-	max-width: 70%;
+	max-width: 78%;
 	margin: 0;
 }
 
@@ -259,3 +275,30 @@ header .close:hover{
 //   -webkit-transform: translate3d(-25%, 0, 0) !important;
 //   transform: translate3d(-25%, 0, 0) !important;
 // }
+
+.text-white {
+  color: var(--ev-white) !important;
+}
+
+small {
+  font-size: .78rem !important;
+}
+
+.image-desc {
+	font-size: 16px;
+	text-align: center;
+	color: var(--ev-white);
+	margin-left: 10%;
+	margin-right: 10%;
+	opacity: .8;
+	font-weight: 471;
+	word-spacing: px;
+}
+
+.demo-inline-calendar-card {
+  width: 100%;
+}
+
+::ng-deep .mat-calendar-body-label {
+  display: none !important;
+}

@@ -9,45 +9,79 @@
   </div> -->
 <div class="slide-me-left" style="display: flex;flex-direction: row;">
 
-  <div style="flex: 1;" class="popup">
+  <div style="flex: 1.2;" class="popup">
     <header>
-      <span>Create Event</span>
-      <div class="close" (click)="close()"><i class="bi bi-x"></i></div>
+      <span class="text-white">New Event</span>
+      <div class="close text-white" (click)="close()"><i class="bi bi-x"></i></div>
     </header>
     <div class="content">
-        <p>Title</p>
+        <p class="text-white">Event Name</p>
+        <small class="text-muted">Give an exciting name to your upcoming event</small>
         <div class="field">
           <!-- <i class="bi bi-link-45deg"></i> -->
           <input type="text" placeholder="John's Birthday">
           <!-- <button><i class="bi bi-plus"></i> Add description</button> -->
         </div>
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
-            <div class="mr-2" style="width: 40%;">
-                <p>Date</p>
+            <div class="mr-2" style="flex: 1;" (click)="showCalendar('start')">
+                <p  class="text-white">Start Date</p>
+                <small class="text-muted">Event start date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
                 <input type="text" readonly value="{{ rxTime | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
-                <i class="bi bi-calendar" style="position: relative;right: 1.7rem;"></i>
+                <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
             </div>
-            <div class="mr-2" style="width: 30%;">
-                <p>Time</p>
+            <div class="ml-2" style="flex: 1;">
+                <p class="text-white">Start Time</p>
+                <small class="text-muted">Event start time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" style="width: 100%;" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
-                <i class="bi bi-clock" style="position: absolute;right: 29%;"></i>
+                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
+                <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
                 
             </div>
 
-            <div style="flex: 1;">
-                <p>Duration</p>
+            <!-- <div style="flex: 1;">
+                <p class="text-white">Duration</p>
                 <div class="field" style="padding-right: 0 !important;">
-                <!-- <i class="bi bi-link-45deg"></i> -->
+                <i class="bi bi-link-45deg"></i>
                 <input type="text" style="width: 100%;" readonly value="1h 45m" placeholder="1h 45m">
                 <i class="bi bi-chevron-contract" style="position: absolute;right: 3%;"></i> 
                 </div>
+            </div> -->
+        </div>
+
+        <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
+            <div class="mr-2" style="flex: 1;">
+                <p  class="text-white">End Date</p>
+                <small class="text-muted">Event end date</small>
+                <div class="field" style="padding-right: 0 !important;">
+                <!-- <i class="bi bi-link-45deg"></i> -->
+                <input type="text" readonly value="{{ rxTime | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+                <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
+                </div>
             </div>
+            <div class="ml-2" style="flex: 1;">
+                <p class="text-white">End Time</p>
+                <small class="text-muted">Event end time</small>
+                <div class="field" style="padding-right: 0 !important;">
+                <!-- <i class="bi bi-link-45deg"></i> -->
+                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
+                <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
+                </div>
+                
+            </div>
+
+            <!-- <div style="flex: 1;">
+                <p class="text-white">Duration</p>
+                <div class="field" style="padding-right: 0 !important;">
+                <i class="bi bi-link-45deg"></i>
+                <input type="text" style="width: 100%;" readonly value="1h 45m" placeholder="1h 45m">
+                <i class="bi bi-chevron-contract" style="position: absolute;right: 3%;"></i> 
+                </div>
+            </div> -->
         </div>
         <!-- <p>Location</p>
         <div class="field">
@@ -69,14 +103,49 @@
         <input type="text" readonly value="example.com/share-link">
         <button>Copy</button>
       </div> -->
-      <div class="modal-footer">
-        <button class="btn btn-primary login-button px-3"> Create Event</button> <small class="text-muted">You can always change these details later</small>
-
-      </div>
       
     </div>
-  </div>
-  <div style="flex: 1;">
+    
+    <div class="modal-footer">
+      <button class="btn btn-primary login-button"> Create Event</button> <small class="text-muted">You can always change these details later</small>
 
+    </div>
+  </div>
+  <div class="popup" style="flex: 1;background-color: var(--ev-create-event-bg);display: grid;align-content: center;">
+    <!-- <header>
+      <span class="text-white">New Event</span>
+      <div class="close text-white" (click)="close()"><i class="bi bi-x"></i></div>
+    </header> -->
+    <div class="row" *ngIf="!dateTimeClicked">
+      <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+        <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+          <img src="../../../../assets/images/speaker.png">
+          <!-- <span style="display: block;font-weight: 400;color: rgb(41, 39, 39);font-size: 20px;">Drafts empty</span> -->
+          <p class="image-desc">
+            Fantastic virtual events with real engagements
+        </p>
+      </div>
+
+    </div>
+    <div class="row" style="height: inherit;" *ngIf="dateTimeClicked">
+      <div class="content mt-4 pt-2" style="height: 95%;">
+        <h5 class="text-white">Starting On</h5>
+        
+          <p class="text-white">Date</p> 
+          <small class="text-muted">Set the date for your event</small>
+        
+        <div class="field" style="padding-right: 0 !important;">
+          <!-- <i class="bi bi-link-45deg"></i> -->
+          <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ rxTime | date: 'MMM dd, YYYY' }}">
+          <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
+        </div>
+        
+        <mat-card class="demo-inline-calendar-card">
+          <mat-calendar (selectedChange)="selected = $event" [start]="startDate"></mat-calendar>
+        </mat-card>
+      </div>
+      <!-- <p>Selected date: {{selected}}</p> -->
+      
+    </div>
   </div>
 </div>
