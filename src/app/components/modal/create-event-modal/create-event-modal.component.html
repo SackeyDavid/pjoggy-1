@@ -11,11 +11,11 @@
 
   <div style="flex: 1.2;" class="popup">
     <header>
-      <span class="text-white">New Event</span>
+      <span class="text-white" style="color: var(--ev-white) !important;">New Event</span>
       <div class="close text-white" [class.button-light] = "dateTimeClicked == true" (click)="close()"><i class="bi bi-x"></i></div>
     </header>
     <div class="content">
-        <p class="text-white">Event Name</p>
+        <p class="text-white"  style="color: var(--ev-white) !important;">Event Name</p>
         <small class="text-muted">Give an exciting name to your upcoming event</small>
         <div class="field">
           <!-- <i class="bi bi-link-45deg"></i> -->
@@ -24,7 +24,7 @@
         </div>
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
             <div class="mr-2" style="flex: 1;" (click)="showCalendar('start')">
-                <p  class="text-white">Start Date</p>
+                <p  class="text-white" style="color: var(--ev-white) !important;">Start Date</p>
                 <small class="text-muted">Event start date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="ml-2" style="flex: 1;" (click)="showTimePicker('start')">
-                <p class="text-white">Start Time</p>
+                <p class="text-white" style="color: var(--ev-white) !important;">Start Time</p>
                 <small class="text-muted">Event start time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
@@ -55,7 +55,7 @@
 
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
             <div class="mr-2" style="flex: 1;" (click)="showCalendar('end')">
-                <p  class="text-white">End Date</p>
+                <p  class="text-white" style="color: var(--ev-white) !important;">End Date</p>
                 <small class="text-muted">Event end date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="ml-2" style="flex: 1;" (click)="showTimePicker('end')">
-                <p class="text-white">End Time</p>
+                <p class="text-white" style="color: var(--ev-white) !important;">End Time</p>
                 <small class="text-muted">Event end time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
@@ -205,7 +205,7 @@
           <ng-container *ngFor="let time of times; index as i;">
           <p (click)="i >= returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))? changeEndTime(time): ''" [class.text-muted] = "i < returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))" attr.id="{{(time == getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))? 'nextcurrentTime': ''}}" class="my-1 ml-2 py-2 pl-3 time-picker">
            <span class="my-2 time-text-white mr-4"  style="font-weight: 401;"> {{time}}</span>
-          <i *ngIf="time == getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour())" class="bx bx-check time-checkmark" style="position: relative;right: -.3rem;"></i>
+          <i *ngIf="time == getEventTimeFormatted(roundTimeQuarterHourEndDate())" class="bx bx-check time-checkmark" style="position: relative;right: -.3rem;"></i>
           </p>
         </ng-container>
         </div>

@@ -306,15 +306,15 @@ small {
 // }
 
 ::ng-deep .mat-calendar-body-cell-content, .mat-date-range-input-separator {
-	color: var(--ev-black) !important;
+	color: var(--ev-calendar-black) !important;
 }
 
 ::ng-deep .mat-button, .mat-icon-button, .mat-stroked-button {
-	color: var(--ev-black) !important;
+	color: var(--ev-calendar-black) !important;
 }
 
 ::ng-deep .mat-calendar-table-header {
-	color: var(--ev-black);
+	color: var(--ev-calendar-black);
 }
 
 ::ng-deep .mat-calendar-table-header tr th:first-child, ::ng-deep .mat-calendar-table-header tr th:last-child {
@@ -337,7 +337,7 @@ small {
 }
 
 ::ng-deep .mat-calendar-arrow {
-	border-top-color: var(--ev-black) !important;
+	border-top-color: var(--ev-calendar-black) !important;
 }
 
 ::ng-deep .mat-calendar-body-selected {
@@ -370,11 +370,11 @@ small {
     transform: translate3d(0%, 0, 0) !important;
 
     .text-white {
-      color: var(--ev-black) !important;
+      color: var(--ev-calendar-black) !important;
     }
 
     header .close {
-      color: var(--ev-black) !important;
+      color: var(--ev-calendar-black) !important;
     }
 
     .content h5 {
@@ -392,8 +392,8 @@ small {
     }
 
     .field input {
-      background-color: rgba(225,224,230,255) !important;
-      color: var(--ev-black) !important;
+      background-color: var(--ev-calendar-content-field) !important;
+      color: var(--ev-calendar-black) !important;
       font-weight: 601 !important;
       font-size: .9rem !important;
     }
@@ -403,8 +403,8 @@ small {
     }
 
     .content .field {
-      border: 1px solid rgba(225,224,230,255) !important;
-      background-color: rgba(225,224,230,255) !important;
+      border: 1px solid var(--ev-calendar-content-field) !important;
+      background-color: var(--ev-calendar-content-field) !important;
     }
 
     ::selection {
@@ -486,7 +486,7 @@ small {
 }
 
 .time-text-white {
-  color: var(--ev-black);
+  color: var(--ev-calendar-black);
 }
 
 .text-muted:hover {
