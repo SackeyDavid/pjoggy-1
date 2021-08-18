@@ -12,7 +12,7 @@
   <div style="flex: 1.2;" class="popup">
     <header>
       <span class="text-white">New Event</span>
-      <div class="close text-white" (click)="close()"><i class="bi bi-x"></i></div>
+      <div class="close text-white" [class.button-light] = "dateTimeClicked == true" (click)="close()"><i class="bi bi-x"></i></div>
     </header>
     <div class="content">
         <p class="text-white">Event Name</p>
@@ -32,12 +32,12 @@
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
             </div>
-            <div class="ml-2" style="flex: 1;">
+            <div class="ml-2" style="flex: 1;" (click)="showTimePicker('start')">
                 <p class="text-white">Start Time</p>
                 <small class="text-muted">Event start time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
+                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'h:mm a' }}">
                 <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
                 
@@ -63,12 +63,12 @@
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
             </div>
-            <div class="ml-2" style="flex: 1;">
+            <div class="ml-2" style="flex: 1;" (click)="showTimePicker('end')">
                 <p class="text-white">End Time</p>
                 <small class="text-muted">Event end time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'hh:mm a' }}">
+                <input type="text" readonly value="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}">
                 <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
                 
@@ -111,7 +111,7 @@
 
     </div>
   </div>
-  <div class="popup" style="flex: 1;background-color: var(--ev-create-event-bg);display: grid;align-content: center;border-start-start-radius: 0; border-end-start-radius: 0;">
+  <div class="popup" style="flex: 1;background-color: var(--ev-create-event-bg);display: grid;align-content: center;border-start-start-radius: 0; border-end-start-radius: 0;padding-left: 0;">
     <!-- <header>
       <span class="text-white">New Event</span>
       <div class="close text-white" (click)="close()"><i class="bi bi-x"></i></div>
@@ -127,8 +127,8 @@
       </div>
 
     </div>
-    <div class="row" style="height: inherit;" *ngIf="startDateClicked && !endDateClicked">
-      <div class="content mt-4 pt-2" style="height: 95%;">
+    <div class="row" [class.calendar-bg-light] = "dateTimeClicked == true" id="startDateContainer" class="fadeIn" style="height: inherit;transition: all .3s ease-in;transform: translate3d(100%, 0, 0);padding-left: 30px;" *ngIf="startDateClicked">
+      <div class="content mt-4 pt-2" style="height: 90%;">
         <h5 class="text-white">Starting On</h5>
         
           <p class="text-white">Date</p> 
@@ -141,15 +141,15 @@
         </div>
         
         <mat-card class="demo-inline-calendar-card">
-          <mat-calendar (selectedChange)="changeStartDate($event)"></mat-calendar>
+          <mat-calendar (selectedChange)="changeStartDate($event)" [dateClass]="dateClass()" [(selected)]="selected" [minDate]="today"></mat-calendar>
         </mat-card>
       </div>
       <!-- <p>Selected date: {{selected}}</p> -->
       
     </div>
     
-    <div class="row" style="height: inherit;" *ngIf="endDateClicked && !startDateClicked">
-      <div class="content mt-4 pt-2" style="height: 95%;">
+    <div class="row" [class.calendar-bg-light] = "dateTimeClicked == true" id="endDateContainer" class="fadeIn" style="height: inherit;transition: all .3s ease-in;transform: translate3d(100%, 0, 0);padding-left: 30px;" *ngIf="endDateClicked">
+      <div class="content mt-4 pt-2" style="height: 90%;">
         <h5 class="text-white">Ending On</h5>
         
           <p class="text-white">Date</p> 
@@ -162,11 +162,58 @@
         </div>
         
         <mat-card class="demo-inline-calendar-card">
-          <mat-calendar (selectedChange)="changeEndDate($event)"></mat-calendar>
+          <mat-calendar (selectedChange)="changeEndDate($event)" [dateClass]="dateClass()" [(selected)]="eventEndDate" [minDate]="today"></mat-calendar>
         </mat-card>
       </div>
       <!-- <p>Selected date: {{selected}}</p> -->
       
     </div>
+
+    
+    <div class="row" [class.calendar-bg-light] = "dateTimeClicked == true" id="startTimeContainer" class="fadeIn" style="height: inherit;transition: all .3s ease-in;transform: translate3d(100%, 0, 0);padding-left: 30px;" *ngIf="startTimeClicked">
+      <div class="content mt-4 pt-2" style="height: 90%;overflow-y: hidden;padding-right: 15px;">
+        <h5 class="text-white">Start Time</h5>
+        
+          <p class="text-white"></p> 
+          <small class="text-muted">Set the time for your event</small>
+        
+        <div class="mt-4 time-picker-container" style="padding-right: 0 !important;position: relative;">
+          <!-- <i class="bi bi-link-45deg"></i> -->
+          <ng-container *ngFor="let time of times; index as i;">
+          <p (click)="i >= returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentTimeQuarterHour()))? changeStartTime(time): ''" [class.text-muted] = "i < returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentTimeQuarterHour()))" attr.id="{{(time == getEventTimeFormatted(getCurrentTimeQuarterHour()))? 'currentTime': ''}}" class="my-1 ml-2 py-2 pl-3 time-picker">
+           <span class="my-2 time-text-white mr-4"  style="font-weight: 401;"> {{time}}</span>
+          <i *ngIf="time == getEventTimeFormatted(roundTimeQuarterHour())" class="bx bx-check time-checkmark" style="position: relative;right: -.3rem;"></i>
+          </p>
+        </ng-container>
+        </div>
+        
+      </div>
+      <!-- <p>Selected date: {{selected}}</p> -->
+      
+    </div>
+
+    
+    <div class="row" [class.calendar-bg-light] = "dateTimeClicked == true" id="endTimeContainer" class="fadeIn" style="height: inherit;transition: all .3s ease-in;transform: translate3d(100%, 0, 0);padding-left: 30px;" *ngIf="endTimeClicked">
+      <div class="content mt-4 pt-2" style="height: 90%;overflow-y: hidden;padding-right: 15px;">
+        <h5 class="text-white">End Time</h5>
+        
+          <p class="text-white"></p> 
+          <small class="text-muted">Set the end time for your event</small>
+        
+        <div class="mt-4 time-picker-container" style="padding-right: 0 !important;position: relative;">
+          <!-- <i class="bi bi-link-45deg"></i> -->
+          <ng-container *ngFor="let time of times; index as i;">
+          <p (click)="i >= returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))? changeEndTime(time): ''" [class.text-muted] = "i < returnIndexOfCurrentTime(getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))" attr.id="{{(time == getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour()))? 'nextcurrentTime': ''}}" class="my-1 ml-2 py-2 pl-3 time-picker">
+           <span class="my-2 time-text-white mr-4"  style="font-weight: 401;"> {{time}}</span>
+          <i *ngIf="time == getEventTimeFormatted(getCurrentEventEndMinumumTimeQuarterHour())" class="bx bx-check time-checkmark" style="position: relative;right: -.3rem;"></i>
+          </p>
+        </ng-container>
+        </div>
+        
+      </div>
+      <!-- <p>Selected date: {{selected}}</p> -->
+      
+    </div>
+
   </div>
 </div>
