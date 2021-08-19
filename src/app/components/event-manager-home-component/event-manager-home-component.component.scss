@@ -391,7 +391,7 @@ input:checked+.slider:before {
   width: calc(100% - 260px);
   transition: all 0.5s ease;
   overflow-y: scroll;
-  scrollbar-color: rgba(255, 255, 255, 0.2) var(--ev-primary-background);
+  scrollbar-color: var(--ev-home-section-scrollbar);
   scrollbar-width: thin;
   overflow-x: hidden;
 }
@@ -1600,6 +1600,26 @@ p {
 
 .card td {
   flex: 1;
+}
+
+.page-item .page-link:hover {
+  cursor: pointer !important;
+  background-color: var(--ev-primary-background);
+}
+
+.mini-buttons i {
+	background-color: inherit;
+	padding: 8px;
+	font-size: 1rem;
+	border-radius: 10px;
+}
+
+
+.mini-buttons i:hover {
+	background-color: var(--ev-bx-background);
+	padding: 8px;
+	font-size: 1rem;
+	border-radius: 10px;
 }
 
 

@@ -45,7 +45,8 @@
   --ev-create-event-scrollbar: rgb(205, 205, 205) rgb(240, 240, 240);
   --ev-calendar-bg: #f8f7fa;
   --ev-calendar-black: #212121;
-  --ev-calendar-content-field: #f0f0f4;  
+  --ev-calendar-content-field: #f0f0f4;
+  --ev-home-section-scrollbar: rgb(205, 205, 205) rgb(240, 240, 240);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -92,7 +93,8 @@
     --ev-create-event-scrollbar: rgba(120,119,125,255) rgba(255, 255, 255, .0);
     --ev-calendar-bg: rgba(236,235,239,255);
     --ev-calendar-black: #1e1e2e;
-    --ev-calendar-content-field: rgba(225,224,230,255);  
+    --ev-calendar-content-field: rgba(225,224,230,255);
+    --ev-home-section-scrollbar: rgba(255, 255, 255, 0.2) var(--ev-primary-background);  
   }
 
   .no-y-oversroll {
