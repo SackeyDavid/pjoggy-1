@@ -262,6 +262,7 @@ header .close:hover{
 }
 
 ::ng-deep .modal.show .modal-dialog {
+  top: 0vh !important;
 	transform: none;
 	right: 0;
 	position: absolute;
@@ -269,6 +270,7 @@ header .close:hover{
 }
 
 ::ng-deep .modal-dialog {
+  top: 0vh !important;
 	max-width: 78%;
 	margin: 0;
 }
