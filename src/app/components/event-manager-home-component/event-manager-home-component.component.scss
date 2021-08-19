@@ -48,11 +48,11 @@ div.workspace-core {
   background: var(--ev-primary-background);
   z-index: 100;
   transition: all 0.5s ease;
+  border-right: 1px solid var(--ev-sidebar-border-color) !important;
 }
 .sidebar.close{
   width: 78px;
   opacity: 1 !important;
-  border-right: 1px solid var(--ev-sidebar-border-color) !important;
 }
 
 .sidebar.close  p.list-title {
@@ -257,6 +257,7 @@ hr {
   background: var(--ev-dark-mode-button-background);
   padding: 12px 0;
   transition: all 0.5s ease;
+  border-right: 1px solid var(--ev-sidebar-border-color);
 }
 .sidebar.close .profile-details{
   background: none;

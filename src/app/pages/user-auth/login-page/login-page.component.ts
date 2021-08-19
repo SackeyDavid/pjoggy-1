@@ -124,7 +124,8 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('events_user_id', res.user.id);
               sessionStorage.setItem('events_user_name', res.user.name);
               sessionStorage.setItem('events_user_email', res.user.email);
-              this.router.navigateByUrl('/manage-community');
+              // this.router.navigateByUrl('/manage-community');
+              window.open('/manage-community', "_self");
             }
           },
           err => {

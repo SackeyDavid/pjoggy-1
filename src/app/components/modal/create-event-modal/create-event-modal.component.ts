@@ -207,7 +207,7 @@ export class CreateEventModalComponent implements OnInit {
           var currentTime = document.getElementById('currentTime');
           var topPos = currentTime!.offsetTop;
     
-          document.querySelector('.time-picker-container')!.scrollTop = topPos-190;
+          document.querySelector('.time-picker-container')!.scrollTop = topPos-198;
           
         }, 100);
       }
@@ -286,8 +286,8 @@ export class CreateEventModalComponent implements OnInit {
 
     } else {
       this.eventStartTime = new Date();
-      
-      this.eventStartTime.setHours( 12 + toNumber(newTime.split(' ')[0].split(':')[0]));
+
+      this.eventStartTime.setHours( (newTime.split(' ')[0].split(':')[0] == 12 ? 0: 12) + toNumber(newTime.split(' ')[0].split(':')[0]));
       this.eventStartTime.setMilliseconds(Math.round(  this.eventStartTime.getMilliseconds() / 1000) * 1000);
       this.eventStartTime.setSeconds(Math.ceil(  this.eventStartTime.getSeconds() / 60) * 60);
       this.eventStartTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ) );
@@ -307,7 +307,7 @@ export class CreateEventModalComponent implements OnInit {
     } else {
       this.eventEndTime = new Date();
       
-      this.eventEndTime.setHours( 12 + toNumber(newTime.split(' ')[0].split(':')[0]));
+      this.eventEndTime.setHours( (newTime.split(' ')[0].split(':')[0] == 12 ? 0: 12) + toNumber(newTime.split(' ')[0].split(':')[0]));
       this.eventEndTime.setMilliseconds(Math.round(  this.eventEndTime.getMilliseconds() / 1000) * 1000);
       this.eventEndTime.setSeconds(Math.ceil(  this.eventEndTime.getSeconds() / 60) * 60);
       this.eventEndTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ) );

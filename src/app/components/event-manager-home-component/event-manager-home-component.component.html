@@ -198,7 +198,7 @@
   </ul>
     </div>
     <section class="home-section">
-      <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
+      <nav class="navbar sticky-top navbar-light bg-light justify-content-between" style="border-bottom: 1px solid var(--ev-sidebar-border-color);">
         <a class="navbar-brand"></a>
           <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
             <li class="nav-item mr-4 active">
@@ -218,7 +218,7 @@
                       <div *ngIf="imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
                         <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
                       </div> 
-                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.firstname}}</b>
                       <i class="bi bi-chevron-down" style="max-width: max-content; color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
                       <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
                       <span class="dot"></span>
@@ -270,11 +270,11 @@
                             <i class="bi bi-camera-video-fill" style="color: #00b172;"></i>
                           </div>
                         </h3>
-                        <p class="card-text font-weight-bold">Host Event</p>
-                        <p class="card-text"><small class="text-muted">host new event</small></p>
+                        <p class="card-text font-weight-bold">Create Event</p>
+                        <p class="card-text"><small class="text-muted">create new event</small></p>
                       </div>
                     </div>
-                    <div class="card m-2 mr-2">
+                    <div class="card m-2 mr-2" style="visibility: hidden;">
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">
                         <h3 class="card-title">
@@ -282,12 +282,13 @@
                             <i class="bi bi-plus-square-fill" style="color: #f16ebc;"></i>
                           </div>
                         </h3>
-                        <p class="card-text font-weight-bold">Join Event</p>
-                        <p class="card-text"><small class="text-muted">via event link</small></p>
+                       
+                        <!-- <p class="card-text font-weight-bold">Join Event</p>
+                        <p class="card-text"><small class="text-muted">via event link</small></p> -->
                       </div>
                     </div>
                   </div>
-                  <div class="card-deck ml-4 mr-4 mb-4">
+                  <div class="card-deck ml-4 mr-4 mb-4" style="display: none;">
                     <div class="card m-2 ml-2">
                       <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                       <div class="card-body">

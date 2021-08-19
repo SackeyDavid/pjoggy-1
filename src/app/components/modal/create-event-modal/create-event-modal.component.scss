@@ -10,7 +10,7 @@ body{
   background: #7d2ae8;
 }
 ::selection{
-  color: var(--ev-white);
+  color: var(--ev-calendar-black);
   background: #7d2ae8;
 }
 // .view-modal, .popup {
@@ -102,7 +102,7 @@ header .close, .icons a{
 header .close{
   position: absolute;
   right: 3%;
-  color: #fff;
+  color: var(--ev-calendar-black);
   font-size: 30px;
   background: inherit;
   height: 43px;
@@ -420,7 +420,7 @@ small {
 }
 
 .button-light {
-  color: var(--ev-black) !important;
+  color: var(--ev-calendar-black) !important;
 }
 
 .button-light:hover {
