@@ -5,7 +5,7 @@ import { Subscription, timer } from 'rxjs';
 import { map, share } from "rxjs/operators";
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import moment from 'moment';
-import _ from 'lodash';
+import _, { toNumber } from 'lodash';
 
 
 @Component({
@@ -279,7 +279,7 @@ export class CreateEventModalComponent implements OnInit {
     if(newTime.split(' ')[1] == 'am') {
       this.eventStartTime = new Date();
       
-      this.eventStartTime.setHours( newTime.split(' ')[0].split(':')[0]);
+      this.eventStartTime.setHours( (newTime.split(' ')[0].split(':')[0] == 12? 0: newTime.split(' ')[0].split(':')[0]));
       this.eventStartTime.setMilliseconds(Math.round(  this.eventStartTime.getMilliseconds() / 1000) * 1000);
       this.eventStartTime.setSeconds(Math.ceil(  this.eventStartTime.getSeconds() / 60) * 60);
       this.eventStartTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ));
@@ -287,7 +287,7 @@ export class CreateEventModalComponent implements OnInit {
     } else {
       this.eventStartTime = new Date();
       
-      this.eventStartTime.setHours( 12 + newTime.split(' ')[0].split(':')[0]);
+      this.eventStartTime.setHours( 12 + toNumber(newTime.split(' ')[0].split(':')[0]));
       this.eventStartTime.setMilliseconds(Math.round(  this.eventStartTime.getMilliseconds() / 1000) * 1000);
       this.eventStartTime.setSeconds(Math.ceil(  this.eventStartTime.getSeconds() / 60) * 60);
       this.eventStartTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ) );
@@ -299,7 +299,7 @@ export class CreateEventModalComponent implements OnInit {
     if(newTime.split(' ')[1] == 'am') {
       this.eventEndTime = new Date();
       
-      this.eventEndTime.setHours( newTime.split(' ')[0].split(':')[0]);
+      this.eventEndTime.setHours( (newTime.split(' ')[0].split(':')[0] == 12? 0: newTime.split(' ')[0].split(':')[0]));
       this.eventEndTime.setMilliseconds(Math.round(  this.eventEndTime.getMilliseconds() / 1000) * 1000);
       this.eventEndTime.setSeconds(Math.ceil(  this.eventEndTime.getSeconds() / 60) * 60);
       this.eventEndTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ));
@@ -307,7 +307,7 @@ export class CreateEventModalComponent implements OnInit {
     } else {
       this.eventEndTime = new Date();
       
-      this.eventEndTime.setHours( 12 + newTime.split(' ')[0].split(':')[0]);
+      this.eventEndTime.setHours( 12 + toNumber(newTime.split(' ')[0].split(':')[0]));
       this.eventEndTime.setMilliseconds(Math.round(  this.eventEndTime.getMilliseconds() / 1000) * 1000);
       this.eventEndTime.setSeconds(Math.ceil(  this.eventEndTime.getSeconds() / 60) * 60);
       this.eventEndTime.setMinutes(Math.ceil(  newTime.split(' ')[0].split(':')[1] ) );
