@@ -773,6 +773,7 @@ padding: .7rem;
 .nav-pills .nav-link {
   margin-bottom: 0rem !important;
   padding-bottom: 1rem !important;
+  transition: all .4s ease-out;
   }
   
   ul.nav {
@@ -794,7 +795,7 @@ padding: .7rem;
   }
   
   .nav-pills .nav-link {
-  border-radius: 30px !important;
+  border-radius: 0px !important;
   margin-left: -1.9rem !important;
   margin-right: 2rem !important;
   background-color: inherit;
@@ -805,6 +806,7 @@ padding: .7rem;
   padding: 0 !important;
   padding-bottom: 1.5rem !important;
   display: ruby !important;
+  border-bottom: 0px solid var(--ev-sidebar-border-color) !important;
   }
   
 .swipeable-x {
@@ -1612,6 +1614,7 @@ p {
 	padding: 8px;
 	font-size: 1rem;
 	border-radius: 10px;
+  color: var(--ev-white);
 }
 
 
