@@ -109,7 +109,7 @@ hr:not([size]) {
 hr {
   background-color: var(--ev-hr-border-color) !important;
 }
-.bx::before {
+.sidebar .bx::before {
 	background-color: var(--ev-bx-background);
 	padding: 8px;
 	font-size: .9rem;
@@ -612,6 +612,50 @@ visibility: hidden; }
 	top: .6rem;
 	right: 1.7rem;
 	opacity: .8;
+  animation: blink 5s infinite;
+}
+
+@keyframes blink{
+  0% {
+    background: red;
+  }
+  20% {
+    background: var(--ev-primary-background);
+  }
+  40% {
+    background: red;
+  }
+  60% {
+    background: var(--ev-primary-background);
+  }
+  80% {
+    background: red;
+  }
+  100% {
+    background: var(--ev-primary-background);
+  }
+}
+
+@-webkit-keyframes blink{
+  0% {
+    background: red;
+  }
+  20% {
+    background: var(--ev-primary-background);
+  }
+  40% {
+    background: red;
+  }
+  60% {
+    background: var(--ev-primary-background);
+  }
+  80% {
+    background: red;
+  }
+  100% {
+    background: var(--ev-primary-background);
+  }
+
 }
 
 // discover styles 
@@ -667,8 +711,9 @@ text-transform: capitalize;
 // color: #000;
 background-color: rgba(0, 0, 0, 0.1);
 border: 1px solid rgba(255, 255, 255, 0.3);
+color: var(--ev-white);
+box-shadow: none;
 border-radius: 8px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 transition: all 0.3s ease 0s;
 cursor: pointer;
 outline: none;
@@ -676,6 +721,12 @@ margin-bottom: 0rem;
 border-radius: 10px;
 font-size: .8rem;
 padding: .7rem 1.8rem !important;
+min-width: 150px !important;
+}
+
+.card-button:hover {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .login-button {
@@ -810,7 +861,7 @@ transition: .5s all ease-out;
 width: 132px;
 height: max-content;
 margin: 25px 10px;
-margin-bottom: -1.4rem;
+margin-bottom: -1.47rem;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -866,13 +917,13 @@ height: 100%;
 
 @media (max-width: 1400px) and (min-height: 900px) {
 .img-fit-img-fix-background-cover {
-height: 185px !important;
+height: 105px !important;
 }
 }
 
 @media (max-width: 1400px) and (max-height: 900px) {
 .img-fit-img-fix-background-cover {
-height: 185px !important;
+height: 105px !important;
 }
 }
 
@@ -1535,6 +1586,20 @@ p {
 .search_price{
  font-size: 14px;
  color: #fe5104 !important;
+}
+
+.card td {
+  padding-right: .8rem;
+}
+
+.card table tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.card td {
+  flex: 1;
 }
 
 

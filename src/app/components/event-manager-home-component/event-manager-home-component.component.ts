@@ -162,7 +162,7 @@ export class EventManagerHomeComponentComponent implements OnInit {
     this.darkMode = ((localStorage.getItem('theme') == 'dark') ? true : false);
     if(this.darkMode) this.toggleDarkMode();
 
-    this.openEventCreate(); 
+    // this.openEventCreate(); 
     // Using Basic Interval
 
     this.intervalId = setInterval(() => {
