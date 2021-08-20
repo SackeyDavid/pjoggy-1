@@ -75,7 +75,7 @@
                         formControlName="quantity" [ngClass]="{'is-invalid': saved && f.quantity.errors, 'is-valid': !f.quantity.errors && f.quantity.value != ''}">
                       <label for="floatingTitle">Quantity</label>
                       <div class="form-description">
-                        <p class="lead">Enter "1" if quantity is unlimited</p>
+                        <p class="lead">Enter "-1" if quantity is unlimited</p>
                       </div>
                       <small *ngIf="saved && f.quantity.errors" id="titleHelp" class="form-text invalid-feedback">
                         Quantity should be a number.
@@ -146,11 +146,11 @@
                     <div class="form-floating mb-3 input-group">
                       <input type="text" class="form-control" id="floatingStartDate" aria-describedby="titleHelp" placeholder="Start date"
                         formControlName="salesStartDate" [owlDateTime]="sd" [owlDateTimeTrigger]="sd"
-                        [ngClass]="{'is-invalid': saved && f.salesStartDate.errors, 'is-valid': !f.salesStartDate.errors && f.salesStartDate.value != ''}">
+                        [ngClass]="{'is-invalid': saved && f.salesStartDate.errors, 'is-valid': !f.salesStartDate.errors && f.salesStartDate.value != ''}" [required] = "eventTicketing == '1'">
                       <owl-date-time #sd pickerType="calendar"></owl-date-time>
                       <label for="floatingStartDate">Start Date</label>
                       <small *ngIf="saved && f.salesStartDate.errors" id="titleHelp" class="form-text invalid-feedback">
-                        Sales start date is required.
+                        Sales start date is required for paid events.
                       </small>
                     </div>
                   </div>
@@ -161,11 +161,11 @@
                     <div class="form-floating mb-3 input-group">
                       <input type="text" class="form-control" id="floatingEndDate" aria-describedby="titleHelp" placeholder="End date"
                         formControlName="salesEndDate" [owlDateTime]="ed" [owlDateTimeTrigger]="ed"
-                        [ngClass]="{'is-invalid': saved && f.salesEndDate.errors, 'is-valid': !f.salesEndDate.errors && f.salesEndDate.value != ''}">
+                        [ngClass]="{'is-invalid': saved && f.salesEndDate.errors, 'is-valid': !f.salesEndDate.errors && f.salesEndDate.value != ''}" [required] = "eventTicketing == '1'">
                       <owl-date-time #ed pickerType="calendar"></owl-date-time>
                       <label for="floatingEndDate">End Date</label>
                       <small *ngIf="saved && f.salesEndDate.errors" id="titleHelp" class="form-text invalid-feedback">
-                        Sales end date is required.
+                        Sales end date is required for paid events.
                       </small>
                     </div>
                   </div>
@@ -248,13 +248,13 @@
                           <p class="card-text">
                             On Sale &nbsp; - 
                             
-                          <ng-container *ngIf="ticket.max_quantity == 1"> Unlimited</ng-container>
-                          <ng-container *ngIf="ticket.max_quantity !== 1">{{ticket.max_quantity}}</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity == -1"> Unlimited</ng-container>
+                          <ng-container *ngIf="ticket.max_quantity !== -1">{{ticket.max_quantity}}</ng-container>
                             
                             <br>
                             
-                            <ng-container *ngIf="ticket.price == 1">Donations in {{ ticket.currency }}</ng-container>
-                            <ng-container *ngIf="ticket.price !== 1">{{ ticket.currency }} {{ ticket.price }}</ng-container>
+                            <ng-container *ngIf="eventTicketing == '2'">Donations in {{ ticket.currency }}</ng-container>
+                            <ng-container *ngIf="ticket.price">{{ ticket.currency }} {{ ticket.price }}</ng-container>
                                
                           </p>
                           <p class="card-text">

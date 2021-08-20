@@ -83,7 +83,7 @@ export class CreateEventTicketingComponent implements OnInit {
   initForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      quantity: ['1', Validators.pattern("^[0-9]*$")],
+      quantity: ['-1', Validators.pattern("^[-1-9]*$")],
       price: ['0'],
       currency: ['GHS'],
       salesEndDate: [''],
@@ -280,7 +280,7 @@ export class CreateEventTicketingComponent implements OnInit {
     this.f.name.setValue('');
     this.f.price.setValue('0');
     this.f.currency.setValue('');
-    this.f.quantity.setValue('1');
+    this.f.quantity.setValue('-1');
     this.f.salesEndDate.setValue('');
     this.f.salesStartDate.setValue('');
     if(this.eventTicketing == '0') this.f.name.setValue('Free')

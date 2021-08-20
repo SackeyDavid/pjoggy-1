@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import _ from 'lodash';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-create-event-details',
@@ -23,6 +24,8 @@ export class CreateEventDetailsComponent implements OnInit {
   saved: boolean;
   form: FormGroup = new FormGroup({});
   imgSrc: string;
+  imageChangedEvent: any;
+  imageQuality: number = 100;
 
   video: any;
   isVideoSet: boolean;
@@ -156,15 +159,18 @@ export class CreateEventDetailsComponent implements OnInit {
 
   onFileSelected(e: any){
     const file:File = e.target.files[0];
+    this.imageChangedEvent = e
     if (file) {
       this.isBannerSet = true;
-      this.f.banner_image.value = file;
+      // this.f.banner_image.value = file;
+      console.log(file);
 
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e: any) => {
-        console.log(e.target);
-        this.imgSrc = e.target.result;
+        // console.log(e.target);
+        // this.imgSrc = e.target.result;
+        this.imageCropped(e);
       }
     }
   }
@@ -338,6 +344,39 @@ export class CreateEventDetailsComponent implements OnInit {
     else{
       window.scrollTo(0,0);
     }
+  }
+
+  // convert base64 to file blob
+  urltoFile(url: any, filename: string, mimeType: any){
+    return (fetch(url)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], filename,{type:mimeType});})
+    );
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+
+    this.urltoFile(event.base64!, 'cropped.wep','image/webp')
+    .then((file) =>{ 
+      // console.log(file);
+      this.f.banner_image.value = file;
+      
+    });
+
+
+    // const file:File = event..target.files[0];
+    
+    // console.log(event)
+    this.imgSrc  = event.base64!;
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  cropperReady() {
+      // cropper ready
+  }
+  loadImageFailed() {
+      // show message
   }
 
 }

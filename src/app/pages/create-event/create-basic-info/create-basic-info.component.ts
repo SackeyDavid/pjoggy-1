@@ -96,14 +96,14 @@ export class CreateBasicInfoComponent implements OnInit {
     });
 
     this.setHostingValidators();
-  }  
+  }
 
   dateValidation(){
     let date = new Date();
     date.setHours(0,0,0,0);
     let today = date.valueOf();
     let sd = Date.parse(this.f.start_date.value);
-    let ed = Date.parse(this.f.end_date.value);    
+    let ed = Date.parse(this.f.end_date.value);
     let now = new Date().getTime();
     let st = new Date(this.f.start_time.value).getTime();
     let et = new Date(this.f.end_time.value).getTime();
@@ -115,7 +115,7 @@ export class CreateBasicInfoComponent implements OnInit {
     // check if event date is greater than today's date
     if (sd >= today) this.isDateCorrect = true;
     else this.isDateCorrect = false;
-      
+
     // check if end date is greater start date
     if (ed >= sd) this.isDateIntervalCorrect = true;
     else this.isDateIntervalCorrect = false;
@@ -348,7 +348,7 @@ export class CreateBasicInfoComponent implements OnInit {
 
   public handleAddressChange(address: any) {
     this.formattedAddress = address.formatted_address;
-    this.addressCoordinates = address.geometry.viewport.Eb.g + ', ' + address.geometry.viewport.mc.g;
+    this.addressCoordinates = address.geometry.location.lat() + ', ' + address.geometry.location.lng();
     this.f.gps.setValue(this.addressCoordinates);
     console.log(address);
   }
@@ -420,6 +420,5 @@ export class CreateBasicInfoComponent implements OnInit {
       window.scrollTo(0,0);
     }
   }
-
 
 }

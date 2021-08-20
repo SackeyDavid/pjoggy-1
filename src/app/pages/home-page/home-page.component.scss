@@ -105,7 +105,7 @@ hr:not([size]) {
 hr {
   background-color: var(--ev-hr-border-color) !important;
 }
-.bx::before {
+.sidebar .bx::before {
 	background-color: var(--ev-bx-background);
 	padding: 8px;
 	font-size: .9rem;
@@ -454,8 +454,8 @@ input:checked+.slider:before {
 
 @media(min-width: 1500px) {
   .dropdown-content_user {
-    margin-left: -220% !important;
-    margin-top: 0.9vh !important;
+    margin-left: -2% !important;
+    margin-top: -.1vh !important;
 
   }
 }
@@ -1522,5 +1522,59 @@ p {
  font-size: 14px;
  color: #fe5104 !important;
 }
+
+.save_live_event_div_container {
+  -moz-box-pack: justify !important;
+  position: absolute !important;
+  left: 0% !important;
+  display: block !important;
+  justify-content: space-between !important;
+  z-index: 99999 !important;
+}
+.save_live_event_div {
+  pointer-events: auto !important;
+  margin-top: -5px !important;
+  margin-right: -3px !important;
+}
+.event-card:hover .event_social_share {
+  visibility: visible !important;
+}
+.save_live_event_div, .event_social_share {
+  pointer-events: auto !important;
+  margin-top: -5px !important;
+  margin-right: -3px !important;
+  margin-bottom: 15px !important;
+}
+
+.event_social_share:hover {
+  visibility: visible !important;
+}
+.save_live_event_button {
+  -moz-box-pack: center !important;
+  -moz-box-align: center !important;
+  cursor: pointer !important;
+  position: relative !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  background: #3331 !important;
+  touch-action: manipulation !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+  outline: currentcolor none medium !important;
+  padding: 2px 0px 0px !important;
+  transition: -ms-transform 0.25s ease 0s, transform 0.25s ease 0s, transform 0.25s ease 0s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: medium none !important;
+  color: rgb(34, 34, 34) !important;
+  margin: 0px !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
 
 
