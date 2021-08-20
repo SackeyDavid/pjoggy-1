@@ -262,6 +262,7 @@ header .close:hover{
 }
 
 ::ng-deep .modal.show .modal-dialog {
+  overflow: hidden;
   top: 0vh !important;
 	transform: none;
 	right: 0;
@@ -497,4 +498,9 @@ small {
 
 .text-muted span {
   color: #9997a0 !important;
+}
+
+.btn-check:focus + .btn, .btn:focus {
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(80, 0, 255, 0.25) !important;
 }

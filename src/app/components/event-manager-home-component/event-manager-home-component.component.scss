@@ -385,7 +385,7 @@ input:checked+.slider:before {
 
 .home-section{
   position: relative;
-  background: #E4E9F7;
+  background: var(--ev-primary-background);
   height: 100vh;
   left: 260px;
   width: calc(100% - 260px);

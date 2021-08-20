@@ -14,13 +14,17 @@
       <span class="text-white" style="color: var(--ev-white) !important;">New Event</span>
       <div class="close" [class.button-light] = "dateTimeClicked == true" (click)="close()"><i class="bi bi-x"></i></div>
     </header>
-    <div class="content">
+    <form class="form" [formGroup]="form" (ngSubmit)="create()">
+    <div class="content" style="margin-bottom: 0;height: 70vh !important;">
         <p class="text-white"  style="color: var(--ev-white) !important;">Event Name</p>
         <small class="text-muted">Give an exciting name to your upcoming event</small>
         <div class="field">
           <!-- <i class="bi bi-link-45deg"></i> -->
-          <input type="text" placeholder="John's Birthday">
+          <input type="text" placeholder="John's Meetup" formControlName="title" [ngClass]="{'is-invalid': saved && f.title.errors, 'is-valid': !f.title.errors}">
           <!-- <button><i class="bi bi-plus"></i> Add description</button> -->
+          <small *ngIf="saved && f.title.errors" id="titleHelp" class="form-text invalid-feedback">
+            Title is required.
+          </small>
         </div>
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
             <div class="mr-2" style="flex: 1;" (click)="showCalendar('start')">
@@ -28,19 +32,34 @@
                 <small class="text-muted">Event start date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ selected | date: 'MMM dd, YYYY' }}">
+                <input type="text" readonly value="{{ selected | date: 'MMM dd, YYYY' }}" placeholder="{{ selected | date: 'MMM dd, YYYY' }}"
+                formControlName="start_date" [ngClass]="{'is-invalid': saved && f.start_date.errors, 'is-valid': !f.start_date.errors}">
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
                 </div>
+                <small *ngIf="saved && f.start_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                  Start date is required.
+                </small>
+                <small *ngIf="saved && !isDateCorrect" class="text-danger">
+                  Start date must be greater than current date.
+                </small>
+              
             </div>
             <div class="ml-2" style="flex: 1;" (click)="showTimePicker('start')">
                 <p class="text-white" style="color: var(--ev-white) !important;">Start Time</p>
                 <small class="text-muted">Event start time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'h:mm a' }}">
+                <input type="text" readonly value="{{ roundTimeQuarterHour() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHour() | date: 'h:mm a' }}"
+                formControlName="start_time"[ngClass]="{'is-invalid': saved && f.start_time.errors, 'is-valid': !f.start_time.errors}">
                 <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
-                </div>
-                
+               
+              </div>
+              <small *ngIf="saved && f.start_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                Start time is required.
+              </small>
+              <small *ngIf="saved && !isTimeCorrect" class="text-danger">
+                Start time must be greater than current time for today's event.
+              </small>  
             </div>
 
             <!-- <div style="flex: 1;">
@@ -59,19 +78,34 @@
                 <small class="text-muted">Event end date</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ eventEndDate | date: 'MMM dd, YYYY' }}" placeholder="{{ eventEndDate | date: 'MMM dd, YYYY' }}">
+                <input type="text" readonly value="{{ eventEndDate | date: 'MMM dd, YYYY' }}" placeholder="{{ eventEndDate | date: 'MMM dd, YYYY' }}"
+                formControlName="end_date" [ngClass]="{'is-invalid': saved && f.end_date.errors, 'is-valid': !f.end_date.errors}">
                 <i class="bi bi-calendar2-event-fill" style="position: relative;right: -.3rem;"></i>
+                
                 </div>
+                <small *ngIf="saved && f.end_date.errors" id="titleHelp" class="form-text invalid-feedback">
+                  End date is required.
+                </small>
+                <small *ngIf="saved && !isDateIntervalCorrect" id="titleHelp" class="text-danger">
+                  End date must be greater than start date.
+                </small>
             </div>
             <div class="ml-2" style="flex: 1;" (click)="showTimePicker('end')">
                 <p class="text-white" style="color: var(--ev-white) !important;">End Time</p>
                 <small class="text-muted">Event end time</small>
                 <div class="field" style="padding-right: 0 !important;">
                 <!-- <i class="bi bi-link-45deg"></i> -->
-                <input type="text" readonly value="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}">
+                <input type="text" readonly value="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}" placeholder="{{ roundTimeQuarterHourEndDate() | date: 'h:mm a' }}"
+                formControlName="end_time" [ngClass]="{'is-invalid': saved && f.end_time.errors, 'is-valid': !f.end_time.errors}">
                 <i class="bi bi-clock-fill" style="position: relative;right: -.3rem;"></i>
-                </div>
                 
+              </div>
+              <small *ngIf="saved && f.end_time.errors" id="titleHelp" class="form-text invalid-feedback">
+                End time is required.
+              </small>
+              <small *ngIf="saved && !isTimeIntervalCorrect" id="titleHelp" class="text-danger">
+                End time must be greater than start time.
+              </small>
             </div>
 
             <!-- <div style="flex: 1;">
@@ -105,9 +139,9 @@
       </div> -->
       
     </div>
-    
+  </form>
     <div class="modal-footer">
-      <button class="btn btn-primary login-button"> Create Event</button> <small class="text-muted">You can always change these details later</small>
+      <button class="btn btn-primary login-button" (click)="create()"> Create Event</button> <small class="text-muted">You can always change these details later</small>
 
     </div>
   </div>
