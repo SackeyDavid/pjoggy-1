@@ -539,16 +539,26 @@
                 </div>
                 <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
                   <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">
-                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
-                    {{getDataDiff(event.start_date_time, event.end_date_time).day}} days
-                  </ng-container>
-                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
-                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
-                      {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                      {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                      <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                        day
+                      </ng-container>
+                      <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                        days
+                      </ng-container>
+                      
                     </ng-container>
-                     
-                    {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min
-                  </ng-container>
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                      <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                        {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                      </ng-container>
+                       
+                      <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                        {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                      </ng-container>
+                      
+                    </ng-container>
                   </span>
                 </p>
                 <div class="profile-details event-host my-4" style="display: flex;">
@@ -666,382 +676,673 @@
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Upcoming</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+          
+          <ng-container *ngIf="!events_in_six_hrs.length">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>
+            
+          </ng-container> 
+        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
+          <ng-container *ngFor="let event of events_in_six_hrs">
+            <div (click)="previewEvent()" class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+              <div class="save_live_event_div_container" style="padding: 8px;padding-top: .85rem;">
+                        
+                <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                    <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>                      
+                </div>
+
+                <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                      <svg
+                          class="favorite-{{event.id}}"
+                          viewBox="0 0 32 32"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                          aria-hidden="true"
+                          role="presentation"
+                          focusable="false"
+                      >
+                          <path
+                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                          ></path>
+                      </svg>
+                  </button>                    
+                </div>
+
+                
+                <div class="event_social_share" style="visibility: hidden;">
+                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                      <svg 
+                        version="1.1" 
+                        id="Capa_1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        x="0px" 
+                        y="0px"
+                        viewBox="0 0 512 512" 
+                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                          
+                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+
+                        </svg>
+                  </button>                      
+              </div>
+
+              </div>
               <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
+                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);" alt="Card image cap">
                   </div>
               
               </div>
               <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
+                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">
+                <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                  {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                    day
+                  </ng-container>
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                    days
+                  </ng-container>
+                  
+                </ng-container>
+                <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                  <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                    {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                  </ng-container>
+                   
+                  <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                    {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                  </ng-container>
+                  
+                </ng-container>
+                </span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/black-men-1.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
               <div class="card-body" style="padding-top: .9rem;">
                 <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Seid's Convo </small> <span class="event-host-dot" style="background-color: orangered;"></span>
+                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> <span class="event-host-dot"></span>
 
                 </span>
 
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">A Chat With Beverly Hughton</h5>
+                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">{{event.title}}</h5>
                 
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">16.1K Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 hours to go</div>
-                                
+                <div class="job text-white" style="font-size: .8rem;opacity: .4;"> {{event.start_date_time | timeago }}</div>
+                <!-- 5.2K Joined <span class="mx-1"></span> &bull;<span class="mx-1"></span>               -->
               </div>
             </div>
+          </ng-container>
+          
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                  </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
-            </div>
-
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                  </div>
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
             </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                  </div>
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
             </div>
+          </div> -->
 
-          </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+        </div>
           
         </div>
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Popular</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+          
+          <ng-container *ngIf="!popularEvents.length">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>
+            
+          </ng-container> 
+        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
+          <ng-container *ngFor="let event of popularEvents">
+            <div (click)="previewEvent()" class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+              <div class="save_live_event_div_container" style="padding: 8px;padding-top: .85rem;">
+                        
+                <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                    <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>                      
+                </div>
+
+                <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                      <svg
+                          class="favorite-{{event.id}}"
+                          viewBox="0 0 32 32"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                          aria-hidden="true"
+                          role="presentation"
+                          focusable="false"
+                      >
+                          <path
+                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                          ></path>
+                      </svg>
+                  </button>                    
+                </div>
+
+                
+                <div class="event_social_share" style="visibility: hidden;">
+                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                      <svg 
+                        version="1.1" 
+                        id="Capa_1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        x="0px" 
+                        y="0px"
+                        viewBox="0 0 512 512" 
+                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                          
+                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+
+                        </svg>
+                  </button>                      
+              </div>
+
+              </div>
               <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
+                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);" alt="Card image cap">
                   </div>
               
               </div>
               <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
+                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                    {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                      day
+                    </ng-container>
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                      days
+                    </ng-container>
+                    
+                  </ng-container>
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                      {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                    </ng-container>
+                     
+                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                      {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                    </ng-container>
+                    
+                  </ng-container>
+                </span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/african-american-hairstyles-braids-500x500.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
               <div class="card-body" style="padding-top: .9rem;">
                 <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">True Talk  </small> <span class="event-host-dot" style="background-color: orangered;"></span>
+                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> <span class="event-host-dot"></span>
 
                 </span>
 
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Work, Career & Your Health </h5>
+                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">{{event.title}}</h5>
                 
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">30.2K Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 6 days to go</div>
-                                
+                <div class="job text-white" style="font-size: .8rem;opacity: .4;"> {{event.start_date_time | timeago }}</div>
+                <!-- 5.2K Joined <span class="mx-1"></span> &bull;<span class="mx-1"></span>               -->
               </div>
             </div>
+          </ng-container>
+          
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                  </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
-            </div>
-
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                  </div>
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
             </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                  </div>
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
             </div>
+          </div> -->
 
-          </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+        </div>
           
         </div>
 
         <h3 class="px-4 ml-2 pt-4 pb-4 text-white">New</h3>
         <div class="row">
-          <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+          
+          <ng-container *ngIf="!newEvents.length">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>
+            
+          </ng-container> 
+        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
+          <ng-container *ngFor="let event of newEvents">
+            <div (click)="previewEvent()" class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+              <div class="save_live_event_div_container" style="padding: 8px;padding-top: .85rem;">
+                        
+                <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                    <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                        <svg
+                            class="favorite-{{event.id}}"
+                            viewBox="0 0 32 32"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                        >
+                            <path
+                                d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                            ></path>
+                        </svg>
+                    </button>                      
+                </div>
+
+                <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                  <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                      <svg
+                          class="favorite-{{event.id}}"
+                          viewBox="0 0 32 32"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                          aria-hidden="true"
+                          role="presentation"
+                          focusable="false"
+                      >
+                          <path
+                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                          ></path>
+                      </svg>
+                  </button>                    
+                </div>
+
+                
+                <div class="event_social_share" style="visibility: hidden;">
+                  <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                      <svg 
+                        version="1.1" 
+                        id="Capa_1" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        x="0px" 
+                        y="0px"
+                        viewBox="0 0 512 512" 
+                        style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                          
+                        <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                              c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                              c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                              C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                              l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                              C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                              M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                              s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+
+                        </svg>
+                  </button>                      
+              </div>
+
+              </div>
               <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/https\ _cdn.evbuc.com_images_94794601_231158441060_1_original.20200301-110623.jpg);" alt="Card image cap">
+                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);" alt="Card image cap">
                   </div>
               
               </div>
               <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">3 hr 30 min</span>
+                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                    {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                      day
+                    </ng-container>
+                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                      days
+                    </ng-container>
+                    
+                  </ng-container>
+                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                      {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                    </ng-container>
+                     
+                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                      {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                    </ng-container>
+                    
+                  </ng-container>
+                </span>
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/index.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
               <div class="card-body" style="padding-top: .9rem;">
                 <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">BEKOFI  </small> <span class="event-host-dot"></span>
+                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> <span class="event-host-dot"></span>
 
                 </span>
 
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">PAMA Festival 2022</h5>
+                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">{{event.title}}</h5>
                 
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">20 Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 6 weeks to go</div>
-                                
+                <div class="job text-white" style="font-size: .8rem;opacity: .4;"> {{event.start_date_time | timeago }}</div>
+                <!-- 5.2K Joined <span class="mx-1"></span> &bull;<span class="mx-1"></span>               -->
               </div>
             </div>
+          </ng-container>
+          
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                  </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
-            </div>
-
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                  </div>
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
             </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
 
-            <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-              <div class="card-img-top" style="background: black;">
-                <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                  </div>
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
               
-              </div>
-              <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-                <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-              </p>
-              <div class="profile-details event-host my-4" style="display: flex;">
-                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                
-                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                
-              </div>
-              <div class="card-body" style="padding-top: .9rem;">
-                <span>
-                  <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-                </span>
-
-                <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-                
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                                
-              </div>
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
             </div>
+          </div> -->
 
-          </div>
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+          <!-- <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
+            <div class="card-img-top" style="background: black;">
+              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
+                </div>
+            
+            </div>
+            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
+            </p>
+            <div class="profile-details event-host my-4" style="display: flex;">
+              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+              
+                <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
+              
+            </div>
+            <div class="card-body" style="padding-top: .9rem;">
+              <span>
+                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
+
+              </span>
+
+              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
+              
+              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
+                              
+            </div>
+          </div> -->
+
+        </div>
           
         </div>
           

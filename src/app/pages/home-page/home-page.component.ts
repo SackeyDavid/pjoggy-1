@@ -52,6 +52,12 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   modalRef: any;
 
+  events_in_six_hrs: any = [];
+  events_events_in_six_hrs_empty: boolean = false
+  popularEvents: any = [];
+  newEvents: any = [];
+
+
   constructor(
     private eventService: EventsService,
     private bannerService: BannerAdsService,
@@ -65,12 +71,18 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private userFavoriteService: UsersFavoritesService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private eventsService: EventsService,
   ) {    
     this.initForm(); 
-    if(this.fb.control.name.length == 0) {
+    
+  }
+
+  closeSearch() {
+    if(this.formGroup.controls['search'].value == '') {
+      // this.live_search_results = null;
       document.querySelector("#search-input")?.
-    setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+    setAttribute('style', 'font-size: .9rem !important;height: calc(2em + 0.75rem + 2px) !important;box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
     }
   }
 
@@ -117,6 +129,10 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.checkIfUserAuthenticated();
     this.getUser();
     this.getUsersFavorites();
+    this.getEventsInSixHrs();
+    this.getPopularEvents();
+    this.getNewEvents();
+    
     this.initForm();
     let sessionQuery = sessionStorage.getItem('search_query');
     sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
@@ -301,9 +317,10 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       'search': ['']
     }) ;
     this.formGroup.get('search')?.valueChanges.subscribe(response => {
+      // console.log(this.live_search_results.length);
       if(response.length < 1) {
         document.querySelector("#search-input")?.
-            setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+            setAttribute('style', 'font-size: .9rem !important;height: calc(2em + 0.75rem + 2px) !important;box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
             this.live_search_results = null;    
       } else {
         
@@ -330,10 +347,10 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           this.live_search_results = this.live_search_results.slice(0, 5);
           if(this.live_search_results.length) {
             document.querySelector("#search-input")?.
-            setAttribute('style', 'box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; border-end-start-radius: 0px !important;border-end-end-radius: 0px !important;border-bottom: 1px solid var(--ev-sidebar-border-color) !important;');
+            setAttribute('style', 'font-size: 1rem !important;height: calc(3em + 0.75rem + 2px) !important;box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; border-end-start-radius: 0px !important;border-end-end-radius: 0px !important;border-bottom: 1px solid var(--ev-sidebar-border-color) !important;');
           } else {
             document.querySelector("#search-input")?.
-            setAttribute('style', 'box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
+            setAttribute('style', 'font-size: .9rem !important;height: calc(2em + 0.75rem + 2px) !important;box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');
             
           }     
         }        
@@ -571,6 +588,56 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   openModal(url: string) {
     this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
+  }
+
+  getEventsInSixHrs(): void {
+    this.eventsService.getEventsInSixHours().then(
+      res => {
+        console.log(res);
+        this.events_in_six_hrs = res.events?.data;
+        this.events_events_in_six_hrs_empty = ((this.events_in_six_hrs.length > 0)? false: true)
+        this.events_in_six_hrs.sort(function(a: any, b:any){
+          return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        });
+        this.events_in_six_hrs.splice(4);
+
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getPopularEvents(): void {
+    this.eventsService.getPopularEvents().then(
+      res => {
+        console.log(res);
+        this.popularEvents = res.events?.data;
+        // this.popularEvents.sort(function(a: any, b:any){
+        //   return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        // });
+        this.popularEvents.splice(4);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  getNewEvents(): void {
+    this.eventsService.getNewEvents().then(
+      res => {
+        console.log(res);
+        this.newEvents = res.events?.data;
+        // this.newEvents.sort(function(a: any, b:any){
+        //   return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+        // });
+        this.newEvents.splice(4);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
