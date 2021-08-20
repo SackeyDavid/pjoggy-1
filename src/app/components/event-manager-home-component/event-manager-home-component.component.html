@@ -198,7 +198,7 @@
   </ul>
     </div>
     <section class="home-section">
-      <nav class="navbar sticky-top navbar-light bg-light justify-content-between" style="border-bottom: 1px solid var(--ev-sidebar-border-color);">
+      <nav class="navbar sticky-top navbar-light bg-light justify-content-end" style="border-bottom: 1px solid var(--ev-sidebar-border-color);">
         <a class="navbar-brand"></a>
           <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
             <li class="nav-item mr-4 active">
@@ -208,27 +208,31 @@
               <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
             </li>
             </ul>
+            
+          <div class="mr-5">
+            <span class="ml-5 mr-2 text-muted" style="padding-top: .5rem;cursor: pointer;"> New Features</span> <i class="bi bi-bell-fill" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                      <span class="dot"></span>
+                      
+          </div>
           <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile" style="margin-right: 5rem;">
               <div class="dropbtn_user" style="display: grid;height: 100%;">
                 <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
                      <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
-                      <div *ngIf="!imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                      <div *ngIf="!imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 40px;">
                            <img src="../../../assets/images/avatar-placeholder.png" />
                       </div> 
-                      <div *ngIf="imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                      <div *ngIf="imgSrc" class="img square" style="max-width: 64px; flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}}); width: 40px;">
                         <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
                       </div> 
                       <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.firstname}}</b>
                       <i class="bi bi-chevron-down" style="max-width: max-content; color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
-                      <span class="ml-5 mr-2 text-muted" style="padding-top: .5rem;"> New Features</span> <i class="bi bi-bell-fill" style="color: grey;margin-top: .5rem;flex: 1;"></i>
-                      <span class="dot"></span>
                        <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
                      </span>
               </div>
                       
               <div class="dropdown-content_user"> 
                   <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-                  <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+                  <a id="browse_events_link">Notifications <span class="static-dot"></span> </a>
                   <a> Favorites </a>
                   <a> Following</a>
                   <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
@@ -267,7 +271,8 @@
                       <div class="card-body">
                         <h3 class="card-title">
                           <div class="card-icon" style="background-color: var(--ev-card-icon-first-bg);">
-                            <i class="bi bi-camera-video-fill" style="color: #00b172;"></i>
+                            <!-- <i class="bi bi-camera-video-fill"></i> -->
+                            <img src="../../../assets/svg/microphone-sing-svgrepo-com.svg" alt="microphone-sing-svgrepo-com" width="32" height="32">
                           </div>
                         </h3>
                         <p class="card-text font-weight-bold">Create Event</p>
@@ -316,7 +321,7 @@
                   </div>
             </div>
             <div class="workspace-core">
-              <div class="card ml-4 mt-4 mr-4 mb-2" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/pexels-arun-kumar-1191318-c.webp') no-repeat center center fixed; background-size: cover;cursor: default;">
+              <div class="card ml-4 mt-4 mr-4 mb-2" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1)), url('../../../../assets/images/jaime-lopes-0RDBOAdnbWM-unsplashd.jpg') no-repeat center center fixed; background-size: cover;cursor: default;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <div class="card-body mt-5">
                   <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
@@ -448,7 +453,7 @@
                       <table>
                         <tr>
                           <td>
-                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                            <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                             </div>
                             <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                             </div>
@@ -590,7 +595,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                   </div>
                                   <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                   </div>
@@ -710,7 +715,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                   </div>
                                   <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                   </div>
@@ -851,7 +856,7 @@
                           <table>
                             <tr>
                               <td>
-                                <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                 </div>
                                 <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                 </div>
@@ -985,7 +990,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                   </div>
                                   <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                   </div>
@@ -1133,7 +1138,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                   </div>
                                   <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                   </div>
@@ -1270,7 +1275,7 @@
                             <table>
                               <tr>
                                 <td>
-                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+                                  <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
                                   </div>
                                   <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                                   </div>
@@ -1581,7 +1586,7 @@
 
 <!-- <div class="card p-3" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;">
   <div class="card-horizontal">
-      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/placeholder-image.png&quot;);">
+      <div *ngIf="event.banner_image == null" (click)="gotoPreview(event.id)" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px; background-color: #80808082; background-image: url(&quot;../../../assets/images/photo-1475721027785-f74eccf877e2.webp&quot;);">
       </div>
       <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 105px !important; width: 200px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
       </div>

@@ -446,7 +446,7 @@ input:checked+.slider:before {
 
 .dropdown-content_user {
   display: none;
-  margin-left: 0%;
+  margin-left: -70%;
   position: absolute;
   background-color: var(--ev-dark-mode-button-background);
   min-width: 250px;
@@ -603,17 +603,33 @@ visibility: hidden; }
   opacity: 1 !important;
 }
 
-.dot {
+.static-dot {
 	background-color: red;
+  display: inline-block;
 	height: 6px;
 	width: 6px;
 	border-radius: 50%;
 	position: relative;
-	top: .6rem;
-	right: 1.7rem;
+	top: -.6rem;
+	right: 0rem;
+	opacity: .8;
+  // animation: blink 5s infinite;
+}
+
+.dot {
+	background-color: red;
+  display: inline-block;
+	height: 6px;
+	width: 6px;
+	border-radius: 50%;
+	position: relative;
+	top: -.6rem;
+	right: 0rem;
 	opacity: .8;
   animation: blink 5s infinite;
 }
+
+
 
 @keyframes blink{
   0% {
