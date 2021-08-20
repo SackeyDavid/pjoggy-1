@@ -199,734 +199,221 @@
     </div>
     <section class="home-section">
       <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
-          <form class="form-inline pl-3">
+        <form [formGroup] = "formGroup" class="form-inline pl-3">
+          
+
+           
             <div class="form-group has-search">
-              <span class="bi bi-search form-control-feedback"></span>
-              <input type="text" class="form-control" placeholder="Search">
+              <span class="bx bx-search form-control-feedback"></span>
+              <input id="search-input" formControlName="search" type="text" class="form-control" placeholder="What event do you want to join?" [(ngModel)]="this.searchQuery" name="search_query" (keydown.enter)="doSearch()">
+            </div>  
+            <!-- <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()"> -->
+            <div *ngIf="live_search_results?.length" class="row autosearch-results">
+              <div class="col-lg-12 mb-3" style="padding: .2rem;">
+                <table style="margin: .8rem;margin-bottom: 0;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
+                  <tbody>
+                    <tr style="padding: .4rem;">
+                      <td>
+                        <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
+
+                        </div>
+                      
+                      </td>
+                      <td style="padding-left: 5%;">
+                        <span class="w3-large text-white">{{item.title}}</span>
+                        <span class="present_date text-muted">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                        <span class="search_price">
+                          <ng-container *ngIf="item.ticketing == '0'">
+                            <span class="price-span">Free</span>
+                          </ng-container>
+                          <ng-container *ngIf="item.ticketing == '2'">
+                            <span class="price-span">Donation</span>
+                          </ng-container>
+                          <ng-container *ngIf="item.ticketing == '1'">
+                            <span class="price-span">{{item.price}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="item.ticketing == '1' && item.qty_remaining == 0">
+                            <span class="price-span">Sold out</span>
+                          </ng-container>
+                          <ng-container *ngIf="item.ticketing == '1' && getTicketSalesStatus(item.ticket_sales_end_date) == 0">
+                            <span class="price-span">Sales ended</span>
+                          </ng-container> 
+                        </span>
+                        
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
             </div>
-            <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
-              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-              <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-              
-          </form>
-          <div class="dropdown_user only-non-mobile">
-              <div class="dropbtn_user" style="display: grid;height: 100%;">
-                     <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
-                      <div class="img square" style="flex: 1;background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                           <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg" />
-                      </div> 
-                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> David</b>
-                      <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
-                      <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
-                      <span class="dot"></span>
-                       <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
-                     </span>
-              </div>
-                      
-              <div class="dropdown-content_user"> 
-                  <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-                  <a id="browse_events_link">Notifications <span class="dot"></span> </a>
-                  <a> Favorites </a>
-                  <a> Following</a>
-                  <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
-                  <a>Tickets (0)</a> 
 
-                  <!-- not working  -->
-                  <!-- <a href="#">Credits</a> -->
-                  <!-- <a href="#">Collections</a> -->
-                  <!-- <a href="#">Interests</a> -->
-                  
-                  
-                  <!-- <a href="#">Messages</a> -->
-                  <!-- <a href="#">Events</a> -->
-                  <!-- <a href="#">Saved</a> -->
-                  <!-- end of not working  -->
 
-                  <a href="/create_event/basic_info">Host an event</a>
-                  <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
-                  <!-- href="https://about.gitlab.com/get-help/" -->
-                  <a  target="_blank" routerLink="/help">Help</a>
-                  <a id="logout_link">Log out</a>
-              </div>
-          </div>
+
+           <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
+            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
             
-          <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-              <a href="#">
-                <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-              </a>
-            </div> -->
-          </nav>
+        </form>
+        <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
+          <li class="nav-item mr-4 active">
+            <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
+          </li>
+          </ul>
+        <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile">
+            <div class="dropbtn_user" style="display: grid;height: 100%;">
+              <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
+                   <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
+                    <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                         <img src="../../../assets/images/avatar-placeholder.png" />
+                    </div> 
+                    <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                      <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
+                    </div> 
+                    <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                    <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                    <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                    <span class="dot"></span>
+                     <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
+                   </span>
+            </div>
+                    
+            <div class="dropdown-content_user"> 
+                <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
+                <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+                <a> Favorites </a>
+                <a> Following</a>
+                <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
+                <a>Tickets (0)</a> 
+
+                <!-- not working  -->
+                <!-- <a href="#">Credits</a> -->
+                <!-- <a href="#">Collections</a> -->
+                <!-- <a href="#">Interests</a> -->
+                
+                
+                <!-- <a href="#">Messages</a> -->
+                <!-- <a href="#">Events</a> -->
+                <!-- <a href="#">Saved</a> -->
+                <!-- end of not working  -->
+
+                <a href="/create_event/basic_info">Host an event</a>
+                <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
+                <!-- href="https://about.gitlab.com/get-help/" -->
+                <a  target="_blank" routerLink="/help">Help</a>
+                <a id="logout_link" (click)="logout($event)">Log out</a>
+            </div>
+        </div>
+          
+        <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+            <a href="#">
+              <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+            </a>
+          </div> -->
+        </nav>
         <section class="workspace">
-          <div class="workspace-nav">
-              <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2>
-              <div class="home-slider" style="display: none;">
-                <div class="home-slider-track">
-                  <div class="home-slide active">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div>
-                  <div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div>
-
-                  <!-- SAME 9 SLIDES DOUBLED  -->
-                  <div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div>
-                  <div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div><div class="home-slide">
-                    <img src="../../../assets/images/pexels-august-de-richelieu-4262413.jpg">
-                  </div>
-                </div>
-              </div>
-              <div class="autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                  <div class="card mt-3 mr-3 mb-2 card-active" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5)), url('../../../../assets/images/pexels-arun-kumar-1191318.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                      <div class="card-body mt-1">
-                        <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                        <div style="width: 45%;">
-                          <h1 style="color: white;text-align: left;font-size: 1.3rem;">How to do Basic Jumping and how to landing safely</h1>
-                        
-                        </div>
-                       
-                        
-                      </div>
-                      
-                      <div class="card-footer ml-3 pl-1" style="border: none;">
-                          <div class="profile-details my-4" style="display: flex;">
-                              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                              
-                                <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                              <div class="name-job p-2">
-                                <div class="profile_name" style="color: white;">Anthony Andrew</div>
-                                <div class="job" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
-                              </div>
-                              <!-- <i class='bx bx-log-out' ></i> -->
-                            </div>
-                            <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-                              </p>
-                        </div>
-                  </div>
-
-                  <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-christina-morillo-1181433.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                      <div class="card-body mt-1">
-                          <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                          <div style="width: 85%;">
-                            <h1 style="color: white;text-align: left;font-size: 1.3rem;">Skateboard Tips You need to know</h1>
-                          
-                           
-                            
-                          </div>
-                         
-                          
-                        </div>
-                        <div class="card-footer ml-3 pl-1" style="border: none;">
-                          <div class="profile-details my-4" style="display: flex;">
-                              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                              
-                                <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                              <div class="name-job p-2">
-                                <div class="profile_name" style="color: white;">Anthony Andrew</div>
-                                <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
-                              </div>
-                              <!-- <i class='bx bx-log-out' ></i> -->
-                            </div>
-                            <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">15 min</span>
-                              </p>
-                        </div>
-                    </div>
-
-                  <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-picha-stock-3894375.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                    <div class="card-body mt-1">
-                        <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                        <div style="width: 85%;">
-                          <h1 style="color: white;text-align: left;font-size: 1.3rem;">Skateboard Tips You need to know</h1>
-                        
-                          
-                          
-                        </div>
-                        
-                        
-                      </div>
-                      <div class="card-footer ml-3 pl-1" style="border: none;">
-                        <div class="profile-details my-4" style="display: flex;">
-                            <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                            
-                              <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                            <div class="name-job p-2">
-                              <div class="profile_name" style="color: white;">Anthony Andrew</div>
-                              <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
-                            </div>
-                            <!-- <i class='bx bx-log-out' ></i> -->
-                          </div>
-                          <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                            <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">15 min</span>
-                            </p>
-                      </div>
-                  </div>
-
-                  <div class="card mt-3 mr-3 mb-2 card-next" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.5)), url('../../../../assets/images/pexels-nandhu-kumar-1613240.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;">
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                    <div class="card-body mt-1">
-                        <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
-                        <div style="width: 85%;">
-                          <h1 style="color: white;text-align: left;font-size: 1.3rem;">Skateboard Tips You need to know</h1>
-                        
-                          
-                          
-                        </div>
-                        
-                        
-                      </div>
-                      <div class="card-footer ml-3 pl-1" style="border: none;">
-                        <div class="profile-details my-4" style="display: flex;">
-                            <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                            
-                              <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                            <div class="name-job p-2">
-                              <div class="profile_name" style="color: white;">Anthony Andrew</div>
-                              <div class="job text-white" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
-                            </div>
-                            <!-- <i class='bx bx-log-out' ></i> -->
-                          </div>
-                          <p class="card-text float-right mb-3 mr-3" style="text-align: right;">
-                            <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">15 min</span>
-                            </p>
-                      </div>
-                  </div>
-
-              </div>  
-          </div>
+          <!-- <div class="workspace-nav">
+              <h2 class="px-4 ml-2 my-1 mt-4 text-white">Popular</h2>
+              
+               
+          </div> -->
           
       </section>
 
       <!-- manage events section  -->
       <section class="workspace-items">
-      <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Happening Now</h3>
-      <div class="row">
-        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
-          <div (click)="previewEvent()" class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-christina-morillo-1181433.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">1 h 45 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Accenture Capital  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Impact Investment & Corporate Risk Mitigation</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">5.2K Joined <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 sec ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
-
-      <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Upcoming</h3>
-      <div class="row">
-        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available;width: -webkit-fill-available;">
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/company-logos/black-men-1.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Seid's Convo </small> <span class="event-host-dot" style="background-color: orangered;"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">A Chat With Beverly Hughton</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">16.1K Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 hours to go</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
-
       <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Popular</h3>
       <div class="row">
-        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-picha-stock-3894375.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">45 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/company-logos/african-american-hairstyles-braids-500x500.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">True Talk  </small> <span class="event-host-dot" style="background-color: orangered;"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Work, Career & Your Health </h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">30.2K Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 6 days to go</div>
+        <div class="container mx-4 pl-2 pb-4" style="width: -moz-available;width: -webkit-fill-available;">
+          <ng-container *ngFor= "let event of popularEvents">
+            <div class="card p-3 event mb-3" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(0,0,0, .02);">
+                                  
+              <div class="card-horizontal event-content-wrapper">
+                  <span class="card-date">
+                      {{event.start_date_time | date: 'MMM'}} <br> 
+                      <small class="text-muted"> {{event.start_date_time | date: 'dd'}}</small>
+                  </span>
+                  <div style="display: flex; flex-direction: column;flex: auto;">
+                      
+                      <div class="card-horizontal">
+                          
+                          <div *ngIf="event.banner_image == null"  class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px; background-color: #80808082; background-image: url(../../../assets/images/photo-1475721027785-f74eccf877e2.webp);">
+                          </div>
+                          <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
+                          </div>
+                          <div class="card-body" style="padding-top: 0 !important;flex: 2;">
+                              <span>
+                                  <small class="card-title text-white" style="font-size: 1.3rem;">{{event.title}}</small>
+                              </span> <br>
+                              <span class="lead">
+                              <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                              <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}} 
+                                  <!-- <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}} -->
+                              </small>
+                              </ng-container>
+                              <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                              <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+      
+                              </ng-container>
+                          </span><br>
+                          <span *ngIf="event.event_price !== 0">
+                              <small class="text-white"><small style="font-size: .9rem;"> {{event.price}}</small></small>
+                              <br></span> 
+                          <span class="lead">
+                              <!-- <ng-container *ngIf="getEventDateWithoutTime(event.event_start_date) == getEventDateWithoutTime(event.event_end_date)">
+                              <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.event_start_date)}} 
+                                  <b> - </b> {{getEventStartDateFormattedOnlyTime(event.event_end_date)}}
+                              </small>
+                              </ng-container>
+                              <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.event_end_date))">
+                              <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.event_start_date)}}
+                                  <i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.event_end_date)}}</small>
+      
+                              </ng-container> -->
+                              <ng-container>
+                                  <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.start_date_time)}}
+                                      <i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.end_date_time)}}</small>
+          
+                              </ng-container>
+                          </span><br>
                               
-            </div>
-          </div>
+  
+                              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                          </div>
+                      </div>
+                      
+                      <div class="card-footer">
+                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                          <div class="float-left">
+                          <small class="text-muted" style="font-size: 0.8rem;">{{event.qty_reserved}} 
+                          <ng-container *ngIf="event.qty_reserved == 1">
+                              Reservation
+                          </ng-container>
+                          <ng-container *ngIf="event.qty_reserved > 1">
+                              Reservations
+                          </ng-container> </small>
+                          </div>
+                          <div class="float-right">
+                          <span class="text-muted px-3 ml-2" style="margin-bottom: .3rem;font-size: .8rem;">{{event.event_name}} order #{{event.rsvp_code}}  placed on {{getEventDateWithTime(event.event_reserved_at)}}</span> 
+                          <!-- <span class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"> </span> -->
+  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>  
 
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
+          </ng-container>
 
         </div>
         
       </div>
 
-      <h3 class="px-4 ml-2 pt-4 pb-4 text-white">New</h3>
-      <div class="row">
-        <div class="container mx-4 pl-2 pb-4 pure-g" style="width: -moz-available; width: -webkit-fill-available;">
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/https\ _cdn.evbuc.com_images_94794601_231158441060_1_original.20200301-110623.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">3 hr 30 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/company-logos/index.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">BEKOFI  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">PAMA Festival 2022</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">20 Likes <span class="mx-1"></span> &bull;<span class="mx-1"></span> 6 weeks to go</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/istockphoto-1243928117-612x612.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-jopwell-2422280.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-          <div class="card pure-u-1-2" style="background-color: rgba(255, 255, 255, 0.09);">
-            <div class="card-img-top" style="background: black;">
-              <div class="card-img-top img-fit-img-fix-background-cover" style="opacity: .9;height: 191px;" style="background-image: url(../../../assets/images/pexels-august-de-richelieu-4262413.jpg);" alt="Card image cap">
-                </div>
-            
-            </div>
-            <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
-              <span style="color: white;background-color:rgba(0,0,0,0.5);border-radius: 10px;padding: 5px 10px;font-size: .8rem;" class="ml-1">7 min</span>
-            </p>
-            <div class="profile-details event-host my-4" style="display: flex;">
-              <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-              
-                <span class="discover-user-checkmark event-host-checkmark"><i class="bi bi-check"></i></span></div>
-              
-            </div>
-            <div class="card-body" style="padding-top: .9rem;">
-              <span>
-                <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">Andy William  </small> <span class="event-host-dot"></span>
-
-              </span>
-
-              <h5 class="card-title text-white mt-3" style="opacity: .8;font-weight: 500;line-height: 1.4;margin: 0 auto;margin-bottom: 1rem;">Basic how to ride your skateboard comfortly</h5>
-              
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              <div class="job text-white" style="font-size: .8rem;opacity: .4;">53.2K Views <span class="mx-1"></span> &bull;<span class="mx-1"></span> 2 weeks ago</div>
-                              
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
+      
         
       </section>
     </section>
