@@ -145,23 +145,23 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.darkMode = ((localStorage.getItem('theme') == 'dark') ? true : false);
     if(this.darkMode) this.toggleDarkMode();
 
-    console.log(this.getDataDiff("2021-08-18 03:55:35", "2021-10-20 03:55:36"));
+    // console.log(this.getDataDiff("2021-08-18 03:55:35", "2021-10-20 03:55:36"));
     // console.log(diff);)
   }
 
   ngAfterViewInit() {
 
-    this.elementRef.nativeElement.querySelector('.sidebar')
+    this.elementRef.nativeElement.querySelector('.hp_sidebar')
                                   .addEventListener('click', this.onClick.bind(this));
     
-    document.querySelector(".sidebar")?.classList.toggle("close");
+    document.querySelector(".hp_sidebar")?.classList.toggle("close");
 
     
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".bx-menu");
-    // console.log(sidebarBtn);
-    sidebarBtn!.addEventListener("click", ()=>{
-      sidebar!.classList.toggle("close");
+    let hp_sidebar = document.querySelector(".hp_sidebar");
+    let hp_sidebarBtn = document.querySelector(".bx-menu");
+    // console.log(hp_sidebarBtn);
+    hp_sidebarBtn!.addEventListener("click", ()=>{
+      hp_sidebar!.classList.toggle("close");
     });
 
     
@@ -169,7 +169,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
   
   menuBtnChange() {
-    if(document.querySelector(".sidebar")?.classList.contains("open")){
+    if(document.querySelector(".hp_sidebar")?.classList.contains("open")){
       document.querySelector(".closeBtn")?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
     }else {
       document.querySelector(".closeBtn")?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
@@ -177,7 +177,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   onClick(event: any) {
-    document.querySelector(".sidebar")?.classList.toggle("open");
+    document.querySelector(".hp_sidebar")?.classList.toggle("open");
     this.menuBtnChange();//calling the function(optional)
   }
 
@@ -208,9 +208,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   }
 
-  previewEvent() {
+  previewEvent(event_id: any) {
     this.router.navigateByUrl('/event_details');
-    console.log('clicked');
+    // console.log('clicked');
   }
 
   showSearchBar() {
@@ -347,7 +347,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           this.live_search_results = this.live_search_results.slice(0, 5);
           if(this.live_search_results.length) {
             document.querySelector("#search-input")?.
-            setAttribute('style', 'font-size: 1rem !important;height: calc(3em + 0.75rem + 2px) !important;box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; border-end-start-radius: 0px !important;border-end-end-radius: 0px !important;border-bottom: 1px solid var(--ev-sidebar-border-color) !important;');
+            setAttribute('style', 'font-size: 1rem !important;height: calc(3em + 0.75rem + 2px) !important;box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; border-end-start-radius: 0px !important;border-end-end-radius: 0px !important;border-bottom: 1px solid var(--ev-hp_sidebar-border-color) !important;');
           } else {
             document.querySelector("#search-input")?.
             setAttribute('style', 'font-size: .9rem !important;height: calc(2em + 0.75rem + 2px) !important;box-shadow: none !important; border-end-start-radius: 0.55rem !important;border-end-end-radius: 0.55rem !important;border-bottom: none !important;');

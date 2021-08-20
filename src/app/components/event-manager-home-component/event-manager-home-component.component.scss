@@ -1641,4 +1641,9 @@ p {
 	border-radius: 10px;
 }
 
+.container, .container-sm, .container-md, .container-lg, .container-xl {
+	max-width: -moz-available !important;
+  max-width: -webkit-fill-available !important;
+}
+
 

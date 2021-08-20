@@ -80,16 +80,16 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.elementRef.nativeElement.querySelector('.sidebar')
+    this.elementRef.nativeElement.querySelector('.pp_sidebar')
                                   .addEventListener('click', this.onClick.bind(this));
     
-    document.querySelector(".sidebar")?.classList.toggle("close");
+    document.querySelector(".pp_sidebar")?.classList.toggle("close");
 
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".bx-menu");
-    console.log(sidebarBtn);
-    sidebarBtn!.addEventListener("click", ()=>{
-      sidebar!.classList.toggle("close");
+    let pp_sidebar = document.querySelector(".pp_sidebar");
+    let pp_sidebarBtn = document.querySelector(".bx-menu");
+    console.log(pp_sidebarBtn);
+    pp_sidebarBtn!.addEventListener("click", ()=>{
+      pp_sidebar!.classList.toggle("close");
     });
 
     
@@ -97,15 +97,15 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
   }
   
   menuBtnChange() {
-    if(document.querySelector(".sidebar")?.classList.contains("open")){
-      document.querySelector(".closeBtn")?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+    if(document.querySelector(".pp_sidebar")?.classList.contains("open")){
+      document.querySelector(".pp_closeBtn")?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
     }else {
-      document.querySelector(".closeBtn")?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+      document.querySelector(".pp_closeBtn")?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
     }
   }
 
   onClick(event: any) {
-    document.querySelector(".sidebar")?.classList.toggle("open");
+    document.querySelector(".pp_sidebar")?.classList.toggle("open");
     this.menuBtnChange();//calling the function(optional)
   }
 
