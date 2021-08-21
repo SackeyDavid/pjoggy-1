@@ -679,10 +679,10 @@
                     <br>
                     <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">
                       <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
-                        {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
+                        {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> - </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
                         </ng-container>
                         <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
-                        {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
+                        {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> - </b></i>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
          
                         </ng-container>
                
