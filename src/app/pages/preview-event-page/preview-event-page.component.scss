@@ -935,7 +935,7 @@
       border-radius: 1.275rem;
       background-color: var(--ev-white);
       background-clip: border-box;
-      cursor: pointer;
+      cursor: default;
       transition: all 3s ease-in;
     }
     
@@ -1742,5 +1742,26 @@
    font-size: 14px;
    color: #fe5104 !important;
   }
+
+  .speaker-host-title {
+    color: rgb(117, 112, 137);
+    overflow-wrap: break-word;
+  }
   
+  .host-badge {
+    position: absolute;
+    // right: -16px;
+    transform: translate(-1.5rem, 1.8rem);
+    background: rgb(106, 76, 255) none repeat scroll 0% 0%;
+    // color: rgb(255, 255, 255);
+    padding: 5px 10px;
+    border-radius: 10px;
+    top: -8px;
+    margin-top: 16px;
+    line-height: 16px;
+    font-size: 13px;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 0.9);
+  
+  }
     

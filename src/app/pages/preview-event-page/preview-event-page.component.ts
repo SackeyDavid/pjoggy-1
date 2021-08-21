@@ -301,33 +301,7 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  gotoIntro() {
-    console.log('going to intro...');
-    document.querySelector('#intro')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  gotoSpeakersOrganizers() {
-    console.log('going to speakers...');
-    document.querySelector('#speakersOrganizers')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  gotoSchedule() {
-    console.log('going to schedule...');
-    document.querySelector('#schedule')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  gotoPricingSponsors() {
-    console.log('going to pricing...');
-    document.querySelector('#pricingSponsors')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  
-  gotoGallery() {
-    console.log('going to gallery...');
-    document.querySelector('#gallery')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  
+   
   menuBtnChange() {
     if(document.querySelector(".sidebar")?.classList.contains("open")){
       document.querySelector(".closeBtn")?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
@@ -735,5 +709,26 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   getEventStartDateFormatted(date: any) {
     return moment(date).format('MMM D, h:mm A');
   }
+
+  gotoSpeakers() {
+    document.querySelector('#speakers')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  gotoSchedule() {
+    document.querySelector('#schedule')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  gotoHosts() {
+    document.querySelector('#hosts')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  gotoSponsors() {
+    document.querySelector('#sponsors')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  gotoOverview() {
+    document.querySelector('#overview')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
 
 }

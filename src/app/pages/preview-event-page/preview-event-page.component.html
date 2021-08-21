@@ -198,7 +198,7 @@
     </ul>
       </div>
       <section class="home-section">
-        <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
+        <nav class="navbar navbar-light bg-light justify-content-between">
           <form [formGroup] = "formGroup" class="form-inline pl-3">
             
 
@@ -318,8 +318,19 @@
           <section class="workspace pt-4">
             <div class="workspace-nav">
                 <!-- <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2> -->
-                
-                <div class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
+                <ng-container *ngIf="!eventContent">
+                  <div class="d-flex justify-content-center">
+                    <!-- <div class="spinner-grow" role="status">  -->
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    
+                    <!-- </div> -->
+                  </div>
+                  
+                </ng-container>
+
+                <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
                     <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
                           <div style="width: 45%;">
@@ -340,11 +351,11 @@
 
                 </div>  
 
-                <div class="row ml-4 mt-5 pl-0 mb-3">
+                <div *ngIf="eventContent" class="row ml-4 mt-5 pl-0 mb-3">
                   <ul class="nav nav-pills mb-3" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;" id="pills-tab" role="tablist">
       
                     <li class="nav-item" role="presentation">
-                        <a  class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">
+                        <a  class="nav-link active" id="pills-drafts-tab" (click)="gotoOverview()" role="tab" aria-controls="pills-drafts" aria-selected="false">
                             <ng-container >
                                 Overview
                             </ng-container>
@@ -352,7 +363,7 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a   class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">
+                        <a   class="nav-link" id="pills-published-tab" (click)="gotoSchedule()" role="tab" aria-controls="pills-published" aria-selected="false">
                             <ng-container >
                                 Schedule
                               </ng-container>
@@ -360,7 +371,7 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a   class="nav-link" id="pills-ongoing-tab" data-toggle="pill" href="#pills-ongoing" role="tab" aria-controls="pills-ongoing" aria-selected="false">
+                        <a   class="nav-link" id="pills-ongoing-tab" (click)="gotoSpeakers()" role="tab" aria-controls="pills-ongoing" aria-selected="false">
                             <ng-container >
                                 Speakers
                             </ng-container>
@@ -368,7 +379,7 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a  class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">
+                        <a  class="nav-link" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
                             <ng-container >
                                 Host
                             </ng-container>
@@ -380,16 +391,16 @@
                 
                 </div>
 
-                <div class="row ml-2 pl-1">
+                <div *ngIf="eventContent" class="row ml-2 pl-1">
         
-                  <div class="tab-content pt-2  ml-4" id="pills-tabContent">
+                  <div *ngIf="eventContent" class="tab-content pt-2  ml-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
-                    <h5 class="text-white pb-4">ABOUT THIS EVENT</h5>
+                    <h5 class="text-white pb-4" id="overview">ABOUT THIS EVENT</h5>
                     <p class="text-white mr-5 mb-4 pr-2">
                     {{eventContent.description}}  
                     </p>
                     <hr style="height: 1px !important;margin-right: 3.5rem !important;">
-                    <h5 class="text-white pt-5 pb-2">SCHEDULE</h5>
+                    <h5 class="text-white pt-5 pb-2" id="schedule">SCHEDULE</h5>
 
                     <div style="display: flex; flex-direction: row;">
                       
@@ -498,9 +509,9 @@
                       </div>
                     </div>
 
-                    <h5 class="text-white pb-4">SPEAKERS</h5>
-                    <div class="card-deck ml-0 mr-4 mt-3">
-                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                    <h5 class="text-white pb-4" id="speakers">SPEAKERS</h5>
+                    <div class="row ml-0 mr-4 mt-3 mb-5">
+                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
                           <h3 class="card-title">
@@ -509,9 +520,9 @@
                           
                             </div>
                           </h3>
-                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
-                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
-                          <p class="text-white pt-3" style="font-size: .8rem;">
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
+                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
                             Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
                             He has more than 15 years old of consulting experience in helping customer to
                              deliver integration projects in the areas of ESB, API Management and B2B exchange. 
@@ -520,7 +531,7 @@
                           </p>
                         </div>
                       </div>
-                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
                           <h3 class="card-title">
@@ -529,9 +540,29 @@
                           
                             </div>
                           </h3>
-                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
-                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
-                          <p class="text-white pt-3" style="font-size: .8rem;">
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
+                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
+                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
+                            He has more than 15 years old of consulting experience in helping customer to
+                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
+                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
+                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
+                        <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
+                        <div class="card-body">
+                          <h3 class="card-title">
+                            <div style="padding: 4px;border-radius: 50%;">
+                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                          
+                            </div>
+                          </h3>
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
+                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
                             Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
                             He has more than 15 years old of consulting experience in helping customer to
                              deliver integration projects in the areas of ESB, API Management and B2B exchange. 
@@ -542,39 +573,20 @@
                       </div>
                     </div>
 
-                    <div class="card-deck ml-0 mr-4 mt-3">
-                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                    <h5 class="text-white pb-4" id="hosts">HOSTS</h5>
+                    <div class="row ml-0 mr-4 mt-3 mb-5">                      
+                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
                           <h3 class="card-title">
                             <div style="padding: 4px;border-radius: 50%;">
                               <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                          
+                              <span class="host-badge">Host</span>
                             </div>
                           </h3>
-                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
-                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
-                          <p class="text-white pt-3" style="font-size: .8rem;">
-                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
-                            He has more than 15 years old of consulting experience in helping customer to
-                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
-                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
-                            Application Services portfolio, Automation, Container technologies, and DevOps.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="card" style="background-color: rgba(255,255,255,.06);">
-                        <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
-                        <div class="card-body">
-                          <h3 class="card-title">
-                            <div style="padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                          
-                            </div>
-                          </h3>
-                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
-                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
-                          <p class="text-white pt-3" style="font-size: .8rem;">
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
+                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
                             Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
                             He has more than 15 years old of consulting experience in helping customer to
                              deliver integration projects in the areas of ESB, API Management and B2B exchange. 
@@ -584,6 +596,68 @@
                         </div>
                       </div>
                     </div>
+
+                    <!-- <div class="card-deck ml-0 mr-4 mt-3">
+                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                        <div class="card-body">
+                          <h3 class="card-title">
+                            <div style="padding: 4px;border-radius: 50%;">
+                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                          
+                            </div>
+                          </h3>
+                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
+                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
+                          <p class="text-white pt-3" style="font-size: .8rem;">
+                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
+                            He has more than 15 years old of consulting experience in helping customer to
+                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
+                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
+                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                        <div class="card-body">
+                          <h3 class="card-title">
+                            <div style="padding: 4px;border-radius: 50%;">
+                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                          
+                            </div>
+                          </h3>
+                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
+                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
+                          <p class="text-white pt-3" style="font-size: .8rem;">
+                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
+                            He has more than 15 years old of consulting experience in helping customer to
+                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
+                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
+                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="card" style="background-color: rgba(255,255,255,.06);">
+                        <div class="card-body">
+                          <h3 class="card-title">
+                            <div style="padding: 4px;border-radius: 50%;">
+                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                          
+                            </div>
+                          </h3>
+                          <p class="card-text font-weight-bold text-white">Pua Ming Fei</p>
+                          <p class="card-text"><small class="text-muted">Solution Architect, Red Hat</small></p>
+                          <p class="text-white pt-3" style="font-size: .8rem;">
+                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
+                            He has more than 15 years old of consulting experience in helping customer to
+                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
+                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
+                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                          </p>
+                        </div>
+                      </div>
+                    </div> -->
+
+
                     </div>
               
                     <div class="tab-pane fade" id="pills-published" role="tabpanel" aria-labelledby="pills-all-tab">
@@ -614,7 +688,18 @@
                 </div>
             </div>
             <div class="workspace-core">
-              <div class="row mb-3" style="display: flex;">
+              <ng-container *ngIf="!eventContent">
+                <div class="d-flex justify-content-center">
+                  <!-- <div class="spinner-grow" role="status">  -->
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  
+                  <!-- </div> -->
+                </div>
+                
+              </ng-container>
+              <div *ngIf="eventContent" class="row mb-3" style="display: flex;">
               <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.15); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-end-start-radius: 0px !important; border-end-end-radius: 0px !important;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <span class="card-date">
@@ -629,7 +714,7 @@
                      
                     <small class="text-muted"> {{eventContent.start_date_time | date: 'YYYY'}}</small> <br>
                     <b>- </b>
-                    <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.end_date_time | date: 'd'}}</b> {{eventContent.end_date_time | date: 'MMM'}}
+                    <b style="font-size: 1rem;color: var(--ev-white);">{{eventContent.end_date_time | date: 'd'}}</b> {{eventContent.end_date_time | date: 'MMM'}}
                      
                     <small class="text-muted"> {{eventContent.end_date_time | date: 'YYYY'}}</small> 
                       
@@ -672,7 +757,7 @@
                   </div>
               </div>
 
-              <div class="card ticket mt-0 mr-3 mb-2 card-next" style="background-color: rgba(255,255,255,.05); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-top: 1px dashed rgba(255,255,255, .1);border-start-start-radius: 0px !important; border-start-end-radius: 0px !important;">
+              <div *ngIf="eventContent" class="card ticket mt-0 mr-3 mb-2 card-next" style="background-color: rgba(255,255,255,.05); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-top: 1px dashed rgba(255,255,255, .1);border-start-start-radius: 0px !important; border-start-end-radius: 0px !important;">
                                   
                   <div class="card-footer ml-3 mr-3 pt-4 pl-1" style="border: none;padding-top: 2rem !important;">
                     <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">START TIME</span>
@@ -697,7 +782,7 @@
                             GHS
                           </ng-container>
                           <ng-container *ngIf="eventContent.ticketing !== '0'">
-                            {{eventContent.currency}}
+                            {{pricingContent[0].currency}}
                           </ng-container>
                           
                         </span> <span style="font-size: 1rem;font-weight: 500;opacity: .8; color: var(--ev-white) !important;"> 
@@ -705,7 +790,7 @@
                             0
                           </ng-container>
                           <ng-container *ngIf="eventContent.ticketing !== '0'">
-                            {{eventContent.price}}
+                            {{pricingContent[0].price}}
                           </ng-container>
                           
                         </span>
