@@ -5,7 +5,7 @@ import { ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs'
+import { interval, Observable, Subscription } from 'rxjs'
 import { EndpointService } from 'src/app/services/endpoints/endpoint.service';
 import _ from 'lodash';
 import { UserAccountService } from 'src/app/services/user-account/user-account.service';
@@ -88,6 +88,19 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   id: string = '';
 
 
+  milliSecondsInASecond = 1000;
+  hoursInADay = 24;
+  minutesInAnHour = 60;
+  SecondsInAMinute  = 60;
+  
+  public timeDifference: any;
+  public secondsToDday: any;
+  public minutesToDday: any;
+  public hoursToDday: any;
+  public daysToDday: any;
+  
+  
+  private subscription: Subscription | undefined;
 
 
 
@@ -176,7 +189,27 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     // get event data before view initialized : fix for 14-Jul-2021 bug
     this.getData();
 
+
     
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
+  private getTimeDifference () {
+    let dateNow = new Date();
+    let dDay = new Date(this.eventContent.start_date_time);
+
+    this.timeDifference = dDay.getTime() - dateNow.getTime();
+    this.allocateTimeUnits(this.timeDifference);
+  }
+
+  allocateTimeUnits(timeDifference: any) {
+    this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
+    this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
+    this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
+    this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
   }
 
   ngAfterViewInit() {
@@ -234,7 +267,13 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
           this.meta.updateTag({ property: "og:start_time", content: this.eventContent.start_date_time });
           // this.meta.updateTag({ property: "og:image", content: this.eventContent.banner_image });
 
-          if(this.eventContent) this.getEventHost();
+          
+          if(this.eventContent) {
+
+            this.subscription = interval(1000)
+            .subscribe(x => { this.getTimeDifference(); });
+            this.getEventHost();
+          }
       
         },
         err => {
@@ -684,5 +723,17 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  getEventDateWithoutTime(date: string) {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
+  getEventEndDateFormatted(date: any) {
+    return moment(date).format('h:mm A');
+
+  }
+  
+  getEventStartDateFormatted(date: any) {
+    return moment(date).format('MMM D, h:mm A');
+  }
 
 }

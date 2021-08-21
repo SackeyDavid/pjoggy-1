@@ -386,18 +386,7 @@
                     <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
                     <h5 class="text-white pb-4">ABOUT THIS EVENT</h5>
                     <p class="text-white mr-5 mb-4 pr-2">
-                      Join us for a one-day virtual event that brings together a 
-                      collection of the world’s leading marketing experts. Traffic Think Tank Live 2021 will deliver tactical talks on SEO, content marketing, affiliate marketing, leadership, and running an agency, as well as virtual roundtable sessions where you can connect directly with the experts - all available from the comfort of your home.
-
-
-                      Your ticket gives you full access to all of the virtual talks from our amazing 
-                      lineup of speakers. There will be regular breaks through the day as well as panel discussions, virtual roundtable sessions, and the ability to meet other attendees via the attendee lounge. You'll also be able to use the live chat throughout the day to talk with attendees.
-
-                      IMPORTANT: There will be a hard cap of 1,000 attendees, with 400 tickets reserved 
-                      for non-Traffic Think Tank members.
-
-                      Finally, we'll be publishing the full session recordings for attendees within the 
-                      Traffic Think Tank Academy after the event so that you can look back on them again and again.
+                    {{eventContent.description}}  
                     </p>
                     <hr style="height: 1px !important;margin-right: 3.5rem !important;">
                     <h5 class="text-white pt-5 pb-2">SCHEDULE</h5>
@@ -629,10 +618,24 @@
               <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.15); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-end-start-radius: 0px !important; border-end-end-radius: 0px !important;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <span class="card-date">
-                    <b style="font-size: 1.5rem;color: var(--ev-white);">17</b> Sep
+                  <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
+                    <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.start_date_time | date: 'd'}}</b> {{eventContent.start_date_time | date: 'MMM'}}
                      
-                    <small class="text-muted"> 2021</small>
-                </span>
+                    <small class="text-muted"> {{eventContent.start_date_time | date: 'YYYY'}}</small>
+                 
+                  </ng-container>
+                    <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
+                    <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.start_date_time | date: 'd'}}</b> {{eventContent.start_date_time | date: 'MMM'}}
+                     
+                    <small class="text-muted"> {{eventContent.start_date_time | date: 'YYYY'}}</small> <br>
+                    <b>- </b>
+                    <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.end_date_time | date: 'd'}}</b> {{eventContent.end_date_time | date: 'MMM'}}
+                     
+                    <small class="text-muted"> {{eventContent.end_date_time | date: 'YYYY'}}</small> 
+                      
+                    </ng-container>
+           
+                  </span>
                 <div class="card-body mt-1">
                     <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
                     <div class="pt-4" style="width: 100%;">
@@ -674,18 +677,43 @@
                   <div class="card-footer ml-3 mr-3 pt-4 pl-1" style="border: none;padding-top: 2rem !important;">
                     <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">START TIME</span>
                     <br>
-                    <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">SEP 17, 1:30 PM - 9:00 PM <small style="font-size: 1rem;" class="text-muted">GMT</small> </span>
+                    <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">
+                      <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
+                        {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
+                        </ng-container>
+                        <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
+                        {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
+         
+                        </ng-container>
+               
+                        <small style="font-size: 1rem;" class="text-muted">GMT</small> </span>
                     
                     <div class="pt-4" style="display: flex;flex-direction: row;">
                       <div style="flex: 1;">
                         <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">STARTING FROM</span>
                         <br>
-                        <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white);">GHS</span> <span style="font-size: 1rem;font-weight: 500;opacity: .8; color: var(--ev-white) !important;"> 45</span>
+                        <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white);">
+                          <ng-container *ngIf="eventContent.ticketing == '0'">
+                            GHS
+                          </ng-container>
+                          <ng-container *ngIf="eventContent.ticketing !== '0'">
+                            {{eventContent.currency}}
+                          </ng-container>
+                          
+                        </span> <span style="font-size: 1rem;font-weight: 500;opacity: .8; color: var(--ev-white) !important;"> 
+                          <ng-container *ngIf="eventContent.ticketing == '0'">
+                            0
+                          </ng-container>
+                          <ng-container *ngIf="eventContent.ticketing !== '0'">
+                            {{eventContent.price}}
+                          </ng-container>
+                          
+                        </span>
                       </div>
                       <div style="flex: 2;">
                         <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT STARTS IN</span>
                         <br>
-                        <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">35D : 12H : 57M: 44S </span>
+                        <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">{{daysToDday}}D : {{hoursToDday}}H : {{minutesToDday}}M: {{secondsToDday}}S </span>
                                          
                       </div>
                     </div>
