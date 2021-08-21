@@ -16,12 +16,14 @@ export class UserAccountService {
   enableTwoFaUrl: string;
   disableTwoFaUrl: string;
   changePasswordUrl: string;
+  getAnyUserUrl: string;
 
   constructor(private http: HttpClient, private endpoint: EndpointService) {
     this.headers = this.endpoint.headers();
     this.formHeaders = this.endpoint.headers(true);
     this.editProfileUrl = this.endpoint.apiHost + '/v1/editProfile'; 
     this.getUserUrl = this.endpoint.apiHost + '/user'; 
+    this.getAnyUserUrl = this.endpoint.apiHost + '/getUser/'; 
     this.enableTwoFaUrl = this.endpoint.apiHost + '/v1/enableTwoWayAuth'; 
     this.disableTwoFaUrl = this.endpoint.apiHost + '/v1/disableTwoWayAuth'; 
     this.changePasswordUrl = this.endpoint.apiHost + '/v1/changePassword/'; 
@@ -63,6 +65,22 @@ export class UserAccountService {
         },
         err => {
           console.log('get_user_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
+  getAnyUser(user_id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const url = this.getAnyUserUrl + user_id;
+      this.http.post<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_events369_user_ok: ', res);
+          resolve(res);
+        },
+        err => {
+          console.log('get_events369_user_error: ', err);
           reject(err);
         }
       );

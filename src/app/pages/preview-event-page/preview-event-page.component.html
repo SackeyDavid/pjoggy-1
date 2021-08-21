@@ -199,100 +199,145 @@
       </div>
       <section class="home-section">
         <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
-            <form class="form-inline pl-3">
+          <form [formGroup] = "formGroup" class="form-inline pl-3">
+            
+
+             
               <div class="form-group has-search">
-                <span class="bi bi-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
-                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-                
-            </form>
-            <div class="dropdown_user only-non-mobile">
-                <div class="dropbtn_user" style="display: grid;height: 100%;">
-                       <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
-                        <div class="img square" style="flex: 1;background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                             <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg" />
-                        </div> 
-                        <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> David</b>
-                        <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
-                        <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
-                        <span class="dot"></span>
-                         <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
-                       </span>
-                </div>
+                <span class="bx bx-search form-control-feedback"></span>
+                <input id="search-input" formControlName="search" type="text" class="form-control" placeholder="What event do you want to join?" [(ngModel)]="this.searchQuery" name="search_query" (keydown.enter)="doSearch()">
+              </div>  
+              <!-- <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()"> -->
+              <div *ngIf="live_search_results?.length" class="row autosearch-results">
+                <div class="col-lg-12 mb-3" style="padding: .2rem;">
+                  <table style="margin: .8rem;margin-bottom: 0;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
+                    <tbody>
+                      <tr style="padding: .4rem;">
+                        <td>
+                          <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
+  
+                          </div>
                         
-                <div class="dropdown-content_user"> 
-                    <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-                    <a id="browse_events_link">Notifications <span class="dot"></span> </a>
-                    <a> Favorites </a>
-                    <a> Following</a>
-                    <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
-                    <a>Tickets (0)</a> 
+                        </td>
+                        <td style="padding-left: 5%;">
+                          <span class="w3-large text-white">{{item.title}}</span>
+                          <span class="present_date text-muted">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                          <span class="search_price">
+                            <ng-container *ngIf="item.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1'">
+                              <span class="price-span">{{item.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && item.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && getTicketSalesStatus(item.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
+                          </span>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <!-- not working  -->
-                    <!-- <a href="#">Credits</a> -->
-                    <!-- <a href="#">Collections</a> -->
-                    <!-- <a href="#">Interests</a> -->
-                    
-                    
-                    <!-- <a href="#">Messages</a> -->
-                    <!-- <a href="#">Events</a> -->
-                    <!-- <a href="#">Saved</a> -->
-                    <!-- end of not working  -->
-
-                    <a href="/create_event/basic_info">Host an event</a>
-                    <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
-                    <!-- href="https://about.gitlab.com/get-help/" -->
-                    <a  target="_blank" routerLink="/help">Help</a>
-                    <a id="logout_link">Log out</a>
                 </div>
-            </div>
+
+              </div>
+
+
+
+             <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
+              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+              <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
               
-            <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
-                <a href="#">
-                  <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
-                </a>
-              </div> -->
-            </nav>
+          </form>
+          <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
+            <li class="nav-item mr-4 active">
+              <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
+            </li>
+            </ul>
+          <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile">
+              <div class="dropbtn_user" style="display: grid;height: 100%;">
+                <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
+                     <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
+                      <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                           <img src="../../../assets/images/avatar-placeholder.png" />
+                      </div> 
+                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                        <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
+                      </div> 
+                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                      <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                      <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                      <span class="dot"></span>
+                       <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
+                     </span>
+              </div>
+                      
+              <div class="dropdown-content_user"> 
+                  <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
+                  <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+                  <a> Favorites </a>
+                  <a> Following</a>
+                  <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
+                  <a>Tickets (0)</a> 
+
+                  <!-- not working  -->
+                  <!-- <a href="#">Credits</a> -->
+                  <!-- <a href="#">Collections</a> -->
+                  <!-- <a href="#">Interests</a> -->
+                  
+                  
+                  <!-- <a href="#">Messages</a> -->
+                  <!-- <a href="#">Events</a> -->
+                  <!-- <a href="#">Saved</a> -->
+                  <!-- end of not working  -->
+
+                  <a href="/create_event/basic_info">Host an event</a>
+                  <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
+                  <!-- href="https://about.gitlab.com/get-help/" -->
+                  <a  target="_blank" routerLink="/help">Help</a>
+                  <a id="logout_link" (click)="logout($event)">Log out</a>
+              </div>
+          </div>
+            
+          <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+              <a href="#">
+                <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+              </a>
+            </div> -->
+          </nav>
           <section class="workspace pt-4">
             <div class="workspace-nav">
                 <!-- <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2> -->
                 
                 <div class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                    <div class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/pexels-august-de-richelieu-4262413.jpg') no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
-                        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
-                          <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
                           <div style="width: 45%;">
-                            <!-- <h1 style="color: white;text-align: left;font-size: 1.3rem;">How to do Basic Jumping and how to landing safely</h1> -->
-                          
                           </div>
-                         
-                          
                         </div>
-                        
                         <div class="card-footer ml-3 pl-1" style="border: none;">
-                            <!-- <div class="profile-details my-4" style="display: flex;">
-                                <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                                
-                                  <span class="discover-user-checkmark"><i class="bi bi-check"></i></span></div>
-                                <div class="name-job p-2">
-                                  <div class="profile_name" style="color: white;">Anthony Andrew</div>
-                                  <div class="job" style="font-size: .8rem;opacity: .7;color: white !important;">53.2K Views &bull; 2 weeks ago</div>
-                                </div> -->
-                                <!-- <i class='bx bx-log-out' ></i> -->
-                              <!-- </div> -->
-                              <!-- <p class="card-text row mb-3 mr-3" style="display: flex; background-color: rgba(10, 10, 25, 0.4);color: white;border-radius: 10px;font-size: .8rem;padding: 10px;" >
-                                <span style="background-color: var(--ev-tertiary-background);text-align: center;width: max-content;padding: 2px 18px;border-radius: 7px;font-weight: bold;color: rgba(255, 255, 255, 0.8);">&bull; LIVE</span>
-                                <span style="flex: content" class="mr-2 ml-4">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: white;"><path d="M8 7h3v10H8zm5 0h3v10h-3z"></path></svg>
-                                </span>
-                                </p> -->
                           </div>
                     </div>
+
+                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                      <div class="card-body mt-1">
+                        <div style="width: 45%;">
+                        </div>
+                      </div>
+                      <div class="card-footer ml-3 pl-1" style="border: none;">
+                        </div>
+                  </div>
+
                 </div>  
 
                 <div class="row ml-4 mt-5 pl-0 mb-3">
@@ -580,7 +625,7 @@
                 </div>
             </div>
             <div class="workspace-core">
-              <div class="row autoplay mb-3" style="display: flex;">
+              <div class="row mb-3" style="display: flex;">
               <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.15); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-end-start-radius: 0px !important; border-end-end-radius: 0px !important;">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <span class="card-date">
@@ -591,7 +636,7 @@
                 <div class="card-body mt-1">
                     <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
                     <div class="pt-4" style="width: 100%;">
-                      <h1 style="text-align: left;font-size: 1.7rem;color: var(--ev-white);">Skateboard Tips You need to know</h1>
+                      <h1 style="text-align: left;font-size: 1.7rem;color: var(--ev-white);">{{eventContent.title}}</h1>
                     
                      
                       
@@ -603,19 +648,20 @@
                   <div class="card-footer ml-3 pl-1" style="border: none;">
                     <span style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">Hosted by</span>
                     <br>
-                    <div class="profile-details my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
+                    <div *ngIf="eventHost" class="profile-details my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                         <div class="profile-content">
                           <div style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                            <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                            <img *ngIf="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                            <img *ngIf="eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                         
                           </div>
                           
                           <span class="discover-user-checkmark"><i class='bx bx-check'></i></span></div>
                         <div class="name-job p-2">
-                          <div class="profile_name" style="color: var(--ev-white);">Anthony Andrew</div>
+                          <div class="profile_name" style="color: var(--ev-white);">{{eventHost.user.name}}</div>
                           <div class="job text-white" style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">
                             <!-- <button routerLink="/" disabled class="btn btn-primary login-button btn-md my-2" type="button">Follow</button> -->
-                           Joined 2021
+                           Joined {{eventHost.user.created_at | date : 'yyyy'}}
                           </div>
                         </div>
                         <!-- <i class='bx bx-log-out' ></i> -->

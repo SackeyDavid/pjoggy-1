@@ -318,8 +318,19 @@
           <section class="workspace">
             <div class="workspace-nav">
                 <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2>
-                
+                <ng-container *ngIf="!eventsNow.length">
+                  <div class="d-flex justify-content-center">
+                    <!-- <div class="spinner-grow" role="status">  -->
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    
+                    <!-- </div> -->
+                  </div>
+                  
+                </ng-container>
                 <div class="autoplay ml-1 pl-2 mb-3" style="display: flex;">
+                  
                     <div class="card mt-3 mr-3 mb-2 card-active" (click)="previewEvent(eventsNow[0].id)" *ngIf="eventsNow?.length" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5)), url(&quot;http://events369.logitall.biz/storage/banner/{{eventsNow[0].banner_image}}&quot;) no-repeat center center fixed; background-size: cover;cursor: pointer;">
                         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                         <div class="card-body mt-1">
