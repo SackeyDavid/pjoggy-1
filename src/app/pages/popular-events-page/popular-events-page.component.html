@@ -214,7 +214,7 @@
                   <tbody>
                     <tr style="padding: .4rem;">
                       <td>
-                        <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
+                        <div class="img-fit-img-fix-background-cover" style="border-radius: 0 !important; background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
 
                         </div>
                       
@@ -326,9 +326,22 @@
 
       <!-- manage events section  -->
       <section class="workspace-items">
-      <h3 class="px-4 ml-2 pt-4 pb-4 text-white">Popular</h3>
+      <h3 class="px-4 ml-2 pt-3 pb-4 text-white">Popular</h3>
       <div class="row">
-        <div class="container mx-4 pl-2 pb-4" style="width: -moz-available;width: -webkit-fill-available;">
+        
+        <div class="container mx-4 pb-5 pl-2" style="width: -moz-available;width: -webkit-fill-available;padding-top: .8rem;">
+          <ng-container *ngIf="!popularEvents.length">
+            <div class="d-flex justify-content-center">
+              <!-- <div class="spinner-grow" role="status">  -->
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+              
+              <!-- </div> -->
+            </div>
+            
+          </ng-container> 
+
           <ng-container *ngFor= "let event of popularEvents">
             <div class="card p-3 event mb-3" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(0,0,0, .02);">
                                   
@@ -345,10 +358,34 @@
                           </div>
                           <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                           </div>
-                          <div class="card-body" style="padding-top: 0 !important;flex: 2;">
+                          <div class="card-body" style="padding-top: 0 !important;flex: 2;padding-right: 4rem;padding-bottom: 0;">
                               <span>
-                                  <small class="card-title text-white" style="font-size: 1.3rem;">{{event.title}}</small>
-                              </span> <br>
+                                  <small class="card-title text-white" style="font-size: 1.3rem;margin-bottom: .2rem;">{{event.title}}</small>
+                              </span> 
+                              <span style="font-size: .9rem;" class="ml-1 text-muted">
+                                <i class='bx bxs-time-five'></i>
+                                <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                                  {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                                    day
+                                  </ng-container>
+                                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                                    days
+                                  </ng-container>
+                                  
+                                </ng-container>
+                                <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                                  <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                                    {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                                  </ng-container>
+                                   
+                                  <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                                    {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                                  </ng-container>
+                                  
+                                </ng-container>
+                              </span>
+                              <span class="job text-muted ml-4" style="font-size: .9rem;"><i class='bx bxs-hourglass-top'></i> {{event.start_date_time | timeago }}</span> <br>
                               <span class="lead">
                               <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
                               <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}} 
@@ -379,15 +416,82 @@
                                       <i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.end_date_time)}}</small>
           
                               </ng-container>
-                          </span><br>
+                          </span> <br style="margin-bottom: .9rem;">
+                          <span class="lead">
+                            <small class="text-muted" style="font-size: .9rem;">Event Hosted by: {{event.created_by}}</small>
+                          </span>
                               
   
                               <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                           </div>
+                          <div class="save_live_event_div_container" style="padding: 8px;padding-top: .85rem;">
+                          
+                            <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                    <svg
+                                        class="favorite-{{event.id}}"
+                                        viewBox="0 0 32 32"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                        aria-hidden="true"
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <path
+                                            d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                        ></path>
+                                    </svg>
+                                </button>                      
+                            </div>
+          
+                            <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                              <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                                  <svg
+                                      class="favorite-{{event.id}}"
+                                      viewBox="0 0 32 32"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                      aria-hidden="true"
+                                      role="presentation"
+                                      focusable="false"
+                                  >
+                                      <path
+                                          d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                      ></path>
+                                  </svg>
+                              </button>                    
+                            </div>
+          
+                            
+                            <div class="event_social_share" style="visibility: hidden;">
+                              <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                  <svg 
+                                    version="1.1" 
+                                    id="Capa_1" 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                    x="0px" 
+                                    y="0px"
+                                    viewBox="0 0 512 512" 
+                                    style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                      
+                                    <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                          c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                          c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                          C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                          l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                          C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                          M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                          s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+            
+                                    </svg>
+                              </button>                      
+                          </div>
+          
+                          </div>
                       </div>
                       
-                      <div class="card-footer">
-                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                      <!-- <div class="card-footer">
                           <div class="float-left">
                           <small class="text-muted" style="font-size: 0.8rem;">{{event.qty_reserved}} 
                           <ng-container *ngIf="event.qty_reserved == 1">
@@ -399,10 +503,11 @@
                           </div>
                           <div class="float-right">
                           <span class="text-muted px-3 ml-2" style="margin-bottom: .3rem;font-size: .8rem;">{{event.event_name}} order #{{event.rsvp_code}}  placed on {{getEventDateWithTime(event.event_reserved_at)}}</span> 
-                          <!-- <span class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"> </span> -->
-  
+                        
                           </div>
-                      </div>
+                      </div> -->
+
+
                   </div>
               </div>
           </div>  
@@ -410,8 +515,14 @@
           </ng-container>
 
         </div>
-        
+        <div class="d-flex justify-content-center pb-4" *ngIf="popularEvents?.next_page_url">
+          <button class="btn btn-lg load-more-button" (click)="getPopularEventsPage(popularEvents.next_page_url)" type="button">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Load more
+            </button>
+          </div>
       </div>
+      
 
       
         

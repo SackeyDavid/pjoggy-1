@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersFavoritesService } from 'src/app/services/users-favorites/users-favorites.service';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import _ from 'lodash';
+import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
 
 declare var $:any;
 
@@ -50,7 +51,10 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
   users_favorite_event_id_and_visibilty: any = [];
   users_favorite_event_ids: any = [];
 
+  modalRef: any;
+
   
+  loading: boolean = false
 
   constructor(
     private eventService: EventsService,
@@ -182,26 +186,16 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
   }
 
   toggleDarkMode() {
-    // if(this.darkMode = 1) {
-      // this.document.body.classList.remove('dark-theme');
-      
-      this.document.body.className +=' dark-theme';
+    this.document.body.className +=' dark-theme';
+      localStorage.setItem('theme', 'dark');
       this.darkMode = true;
-
-    // }
     
   }
 
   toggleLightMode() {
-    // if(this.darkMode = 1) {
-      this.document.body.classList.remove('dark-theme');
-      // this.darkMode = 0;
-    // } else {
-    //   this.document.body.className +=' dark-theme';
-      this.darkMode = false;
-
-    // }
-    
+    this.document.body.classList.remove('dark-theme');
+    localStorage.setItem('theme', 'light');
+    this.darkMode = false;    
   }
 
   checkIfUserAuthenticated() {
@@ -264,6 +258,16 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
     this._snackBar.open('Logging out...', 'x', {
       duration: 3000
     });
+  }
+
+  
+  getDataDiff(startDate: string, endDate: string) {
+    var diff = new Date(endDate).getTime() - new Date(startDate).getTime();
+    var days = Math.floor(diff / (60 * 60 * 24 * 1000));
+    var hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
+    var minutes = Math.floor(diff / (60 * 1000)) - ((days * 24 * 60) + (hours * 60));
+    var seconds = Math.floor(diff / 1000) - ((days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60));
+    return { day: days, hour: hours, minute: minutes, second: seconds };
   }
 
 
@@ -434,6 +438,160 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
       return 1;
     }
   }
+
+  openModal(url: string) {
+    this.modalRef = this.modalService.open(SocialShareModalComponent, { data: { url: url }});
+  }
+
+
+  saveEventAsFavorite(event_id: any): void {
+    // console.log(this.user_token )
+    if(this.user_token == '') {
+      window.open('/login', '_self');
+      
+    } else {
+
+      // var favorite_buttons: HTMLCollection = document.getElementsByClassName('favorite-'+event_id);
+      var favorite_buttons = document.getElementsByClassName('favorite-'+event_id);
+
+      
+      for (let item of favorite_buttons) {
+        item.setAttribute('style', 'display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;'); 
+        // item.style.fill = 'red';  // This is probably what you need for your SVG items
+      }
+      
+      // document.getElementById('favorite-'+event_id)?.style.setProperty('fill', 'rgba(255, 101, 80, 0.4)');
+      
+      this.userFavoriteService.addFavoriteEvent(event_id, this.userID).then(
+        res => {
+          if (res) {
+            console.log(res);
+            
+            // reload data so view reflects changes
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
+
+          }
+          else {
+            console.log('didnt add to favorites');
+          }
+        },
+        err => {
+          console.log(err);
+          // this.isLoading = false;
+        }
+      );
+      
+    }
+    
+  }
+
+  removeEventFromFavorites(event_id: any): void { 
+    console.log(event_id)
+    
+    let favorite_id: any = ''
+
+    for (let i = 0; i < this.users_favorite_event_id_and_fav_id.length; i++) {
+
+      if(this.users_favorite_event_id_and_fav_id[i].event_id == event_id) {
+          favorite_id = this.users_favorite_event_id_and_fav_id[i].fav_id
+
+          var favorite_buttons = document.getElementsByClassName('favorite-'+event_id);
+
+      
+          for (let item of favorite_buttons) {
+            item.setAttribute('style', 'display: block; fill: rgba(0, 0, 0, 0.5); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;'); 
+            // item.style.fill = 'red';  // This is probably what you need for your SVG items
+          }
+          
+      }
+
+      // TODO: low priority; remove duplicates from users_favorite_event_ids
+      // var unique_users_favorite_event_ids = [];
+
+      // unique_users_favorite_event_ids = this.users_favorite_event_ids.filter(function(item: any, pos: any) {
+      //   return this.users_favorite_event_ids.indexOf(item) == pos;
+      // })
+
+      var index = this.users_favorite_event_ids.indexOf(event_id);
+      if (index > -1) {
+        this.users_favorite_event_ids.splice(index, 1);
+      }
+
+    }
+
+      this.userFavoriteService.removeEventFromFavorite(favorite_id).then(
+        res => {
+          if (res) {
+            console.log(res); 
+
+            // reload data so view reflects
+            this.getUsersFavorites();
+            // this.getEventsInSixHrs();
+            // this.getPopularEvents();
+            // this.getNewEvents();
+            // this.getAllEvents();
+            
+          }
+          else {
+            console.log('didnt remove to favorites');
+          }
+        },
+        err => {
+          console.log(err);
+          // this.isLoading = false;
+        }
+      );
+    
+  }
+
+  getPopularEventsPage(url: string): void {
+    this.eventsService.getPopularEventsPage(url).then(
+      res => {
+        console.log(res);
+        let nextEvents = []
+        nextEvents = res.events
+        nextEvents.data.sort(function(a: any, b:any){
+            return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+          });
+        nextEvents.data.forEach((event: any) => {
+          this.popularEvents.data.push(event);
+        });
+
+        // assign id of next events to userfavorites id array
+        if(this.userFavorites.data) this.getUsersFavoritesAfterNextPageLoad();
+
+        // get the next_page_url of the new events data and assigned it to the respective category data
+        this.popularEvents.next_page_url = nextEvents.next_page_url
+        
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  
+  getUsersFavoritesAfterNextPageLoad (){
+
+    if(this.userID !== '') {
+      
+          for (let i = 0; i < this.userFavorites.data.length; i++) {
+            this.users_favorite_event_ids.push(this.userFavorites.data[i].id)
+            this.users_favorite_event_id_and_fav_id.push({event_id: this.userFavorites.data[i].id, fav_id: this.userFavorites.data[i].fav_id })
+            this.users_favorite_event_id_and_visibilty.push({event_id: this.userFavorites.data[i].id, visibility: this.hasBeenAddedToFavorites(this.userFavorites.data[i].id) })
+            
+            
+          }
+
+          // console.log(this.users_favorite_event_id_and_fav_id)
+          // console.log(this.users_favorite_event_id_and_visibilty)
+    }
+  }
+
 
 
 

@@ -105,7 +105,7 @@ hr:not([size]) {
 hr {
   background-color: var(--ev-hr-border-color) !important;
 }
-.bx::before {
+.pp_sidebar .bx::before {
 	background-color: var(--ev-bx-background);
 	padding: 8px;
 	font-size: .9rem;
@@ -836,7 +836,7 @@ flex: 1 1 auto;
 
 
 .img-fit-img-fix-background-cover {
-// border-radius: 0px;
+border-radius: 1.275rem;
 background-position: 50%;
 background-repeat: no-repeat;
 background-size: cover;
@@ -1525,6 +1525,131 @@ box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0
   padding-left: 0;
 }
 
+
+
+.save_live_event_div_container {
+  -moz-box-pack: justify !important;
+  position: absolute !important;
+  right: 2% !important;
+  display: block !important;
+  justify-content: space-between !important;
+  z-index: 1010 !important;
+}
+.save_live_event_div {
+  pointer-events: auto !important;
+  margin-top: -5px !important;
+  margin-right: -3px !important;
+}
+.event-card:hover .event_social_share {
+  visibility: visible !important;
+}
+.save_live_event_div, .event_social_share {
+  pointer-events: auto !important;
+  margin-top: -5px !important;
+  margin-right: -3px !important;
+  margin-bottom: 15px !important;
+}
+
+.event_social_share:hover {
+  visibility: visible !important;
+}
+.save_live_event_button {
+  -moz-box-pack: center !important;
+  -moz-box-align: center !important;
+  cursor: pointer !important;
+  position: relative !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  background: var(--ev-favorite-button-bg) !important;
+  touch-action: manipulation !important;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+  outline: currentcolor none medium !important;
+  padding: 2px 0px 0px !important;
+  transition: -ms-transform 0.25s ease 0s, transform 0.25s ease 0s, transform 0.25s ease 0s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: medium none !important;
+  color: rgb(34, 34, 34) !important;
+  margin: 0px !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+
+.autosearch-results {
+	position: absolute;
+	background-color: var(--ev-input-form-control-background) !important;
+	top: 83%;
+	// border: 1px solid var(--ev-hp_sidebar-border-color);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	border-radius: 0.55rem;
+	border-start-start-radius: 0px;
+	border-start-end-radius: 0px;
+  min-width: 40vw !important;
+}
+
+.w3-large {
+  display: ruby;
+  height: 30px;
+  // margin-bottom: -3.5vh;
+  font-size: 14px;
+}
+
+.present_date {
+  font-size: 14px;
+  display: flex;
+  width: max-content;
+  height: 20px;
+  margin-top: 0vh;
+}
+
+.search_price{
+ font-size: 14px;
+ color: #fe5104 !important;
+}
+
+.load-more-button {
+  // width: 140px;
+  // height: 45px;
+  font-family: 'Roboto', sans-serif;
+  // font-size: 11px;
+  // text-transform: uppercase;
+  // letter-spacing: 2.5px;
+  // font-weight: 500;
+  color: white;
+  // background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.load-more-button {
+  border-radius: 4px;
+  font-size: .8rem;
+  padding: .7rem 2.8rem !important;
+}
+
+.load-more-button:hover {
+  // background-color: #2EE59D;
+  background-color: #fe5104 !important;
+  border-color: #fe5104 !important;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.load-more-button {
+  background-color: #1e0a3c !important;
+  border: none !important;
+}
 
 
 
