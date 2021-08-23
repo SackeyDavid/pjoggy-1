@@ -351,11 +351,11 @@
 
                 </div>  
 
-                <div *ngIf="eventContent" class="row ml-4 mt-5 pl-0 mb-3">
-                  <ul class="nav nav-pills mb-3" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;" id="pills-tab" role="tablist">
+                <div *ngIf="eventContent" class="row ml-4 pl-0 mb-3 fixme">
+                  <ul class="nav nav-pills mb-3 mt-5" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;" id="pills-tab" role="tablist">
       
                     <li class="nav-item" role="presentation">
-                        <a  class="nav-link active" id="pills-drafts-tab" (click)="gotoOverview()" role="tab" aria-controls="pills-drafts" aria-selected="false">
+                        <a  class="nav-link" [class.active] = "activeTab == 'overview'" id="pills-drafts-tab" (click)="gotoOverview()" role="tab" aria-controls="pills-drafts" aria-selected="false">
                             <ng-container >
                                 Overview
                             </ng-container>
@@ -363,7 +363,7 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a   class="nav-link" id="pills-published-tab" (click)="gotoSchedule()" role="tab" aria-controls="pills-published" aria-selected="false">
+                        <a   class="nav-link" [class.active] = "activeTab == 'schedule'" id="pills-published-tab" (click)="gotoSchedule()" role="tab" aria-controls="pills-published" aria-selected="false">
                             <ng-container >
                                 Schedule
                               </ng-container>
@@ -371,7 +371,7 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a   class="nav-link" id="pills-ongoing-tab" (click)="gotoSpeakers()" role="tab" aria-controls="pills-ongoing" aria-selected="false">
+                        <a   class="nav-link" [class.active] = "activeTab == 'speakers'" id="pills-ongoing-tab" (click)="gotoSpeakers()" role="tab" aria-controls="pills-ongoing" aria-selected="false">
                             <ng-container >
                                 Speakers
                             </ng-container>
@@ -379,23 +379,32 @@
                         
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a  class="nav-link" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
+                        <a  class="nav-link" [class.active] = "activeTab == 'hosts'" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
                             <ng-container >
                                 Host
                             </ng-container>
                         </a>
                         
                     </li>
+
+                    <li class="nav-item" role="presentation">
+                      <a  class="nav-link" [class.active] = "activeTab == 'sponsors'" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
+                          <ng-container >
+                              Sponsors
+                          </ng-container>
+                      </a>
+                      
+                  </li>
                    
                 </ul>
                 
                 </div>
 
-                <div *ngIf="eventContent" class="row ml-2 pl-1">
+                <div *ngIf="eventContent" class="row ml-2 pl-1" [class.fixed]="fixed">
         
                   <div *ngIf="eventContent" class="tab-content pt-2  ml-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
-                    <h5 class="text-white pb-4" id="overview">ABOUT THIS EVENT</h5>
+                    <h5 class="text-white pb-3" id="overview">ABOUT THIS EVENT</h5>
                     <p class="text-white mr-5 mb-4 pr-2">
                     {{eventContent.description}}  
                     </p>
@@ -509,7 +518,7 @@
                       </div>
                     </div>
 
-                    <h5 class="text-white pb-4" id="speakers">SPEAKERS</h5>
+                    <h5 class="text-white pb-5" id="speakers">SPEAKERS</h5>
                     <div class="row ml-0 mr-4 mt-3 mb-5">
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
@@ -572,9 +581,9 @@
                         </div>
                       </div>
                     </div>
-
-                    <h5 class="text-white pb-4" id="hosts">HOSTS</h5>
-                    <div class="row ml-0 mr-4 mt-3 mb-5">                      
+                    
+                    <h5 class="text-white pb-5" id="hosts">HOSTS</h5>
+                    <div class="row ml-0 mr-4 mt-3 mb-2">                      
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
@@ -597,7 +606,8 @@
                       </div>
                     </div>
 
-                    <!-- <div class="card-deck ml-0 mr-4 mt-3">
+                    <!-- div below intentional; for hosts section UI scroll on click purposes -->
+                     <div class="card-deck ml-0 mr-4 mt-3" style="visibility: hidden;"> 
                       <div class="card" style="background-color: rgba(255,255,255,.06);">
                         <div class="card-body">
                           <h3 class="card-title">
@@ -655,8 +665,8 @@
                           </p>
                         </div>
                       </div>
-                    </div> -->
-
+                    </div> 
+                    
 
                     </div>
               
@@ -710,11 +720,11 @@
                  
                   </ng-container>
                     <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
-                    <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.start_date_time | date: 'd'}}</b> {{eventContent.start_date_time | date: 'MMM'}}
+                     {{eventContent.start_date_time | date: 'MMM'}} <br>
                      
-                    <small class="text-muted"> {{eventContent.start_date_time | date: 'YYYY'}}</small> <br>
-                    <b>- </b>
-                    <b style="font-size: 1rem;color: var(--ev-white);">{{eventContent.end_date_time | date: 'd'}}</b> {{eventContent.end_date_time | date: 'MMM'}}
+                    <!-- <small class="text-muted"> {{eventContent.start_date_time | date: 'YYYY'}}</small> <br> -->
+                    <p style="margin-top: .3rem;line-height: .7;font-weight: 400;"> <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.start_date_time | date: 'd'}}</b><b> - </b> <b style="font-size: 1.5rem;color: var(--ev-white);">{{eventContent.end_date_time | date: 'd'}}</b></p>
+                     <!-- {{eventContent.end_date_time | date: 'MMM'}} -->
                      
                     <small class="text-muted"> {{eventContent.end_date_time | date: 'YYYY'}}</small> 
                       

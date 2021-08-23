@@ -777,6 +777,8 @@
     .nav-pills .nav-link {
     margin-bottom: 0rem !important;
     padding-bottom: 1rem !important;
+    transition: border-color .4s linear !important;
+    border-bottom: 0px solid var(--ev-sidebar-border-color) !important;
     }
     
     ul.nav {
@@ -797,7 +799,7 @@
     }
     
     .nav-pills .nav-link {
-    border-radius: 30px !important;
+    border-radius: 0px !important;
     margin-left: 0rem !important;
     margin-right: 2rem !important;
     background-color: inherit;
@@ -1721,6 +1723,7 @@
     border-start-start-radius: 0px;
     border-start-end-radius: 0px;
     min-width: 40vw !important;
+    z-index: 999;
   }
   
   .w3-large {
@@ -1752,7 +1755,7 @@
     position: absolute;
     // right: -16px;
     transform: translate(-1.5rem, 1.8rem);
-    background: rgb(106, 76, 255) none repeat scroll 0% 0%;
+    background: var(--ev-tertiary-background) none repeat scroll 0% 0%;
     // color: rgb(255, 255, 255);
     padding: 5px 10px;
     border-radius: 10px;
@@ -1763,5 +1766,16 @@
     overflow-wrap: break-word;
     color: rgba(255, 255, 255, 0.9);
   
+  }
+
+  .fixed{
+    position: sticky;
+    top:0;
+    z-index: 999;
+  }
+
+  .fixme {
+    background: var(--ev-primary-background);
+    z-index: 99;
   }
     

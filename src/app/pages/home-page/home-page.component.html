@@ -662,7 +662,7 @@
                     <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                   
                 </div>
-                <div class="card-body" style="padding-top: .9rem;">
+                <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: .9rem;">
                   <span>
                     <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> <span class="event-host-dot"></span>
   
@@ -886,7 +886,7 @@
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
-              <div class="card-body" style="padding-top: .9rem;">
+              <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: .9rem;">
                 <span>
                   <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small>   
 
@@ -1110,7 +1110,7 @@
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
-              <div class="card-body" style="padding-top: .9rem;">
+              <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: .9rem;">
                 <span>
                   <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> 
 
@@ -1334,7 +1334,7 @@
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
               </div>
-              <div class="card-body" style="padding-top: .9rem;">
+              <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: .9rem;">
                 <span>
                   <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> 
 

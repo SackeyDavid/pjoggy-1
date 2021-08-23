@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Output, Injectable, EventEmitter, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output, Injectable, EventEmitter, Inject, HostListener } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { BannerAdsService } from 'src/app/services/banner-ads/banner-ads.service';
 import { ElementRef } from '@angular/core';
@@ -99,10 +99,10 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   public hoursToDday: any;
   public daysToDday: any;
   
-  
+  public fixed: boolean = false;
   private subscription: Subscription | undefined;
 
-
+  activeTab: string = 'overview';
 
   constructor(
     private eventService: EventsService,
@@ -154,12 +154,22 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
           
   }
 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+      let number = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+      if (number > 100) {
+          this.fixed = true;
+      } else if (this.fixed && number < 10) {
+          this.fixed = false;
+      }
+  }
+
   
   ngOnInit(): void {
     this.checkIfUserAuthenticated();
     this.getUser();
     this.getUsersFavorites();
-    
+    // this.onWindowScroll();
     this.initForm();
     let sessionQuery = sessionStorage.getItem('search_query');
     sessionQuery ? this.searchQuery = sessionQuery : this.searchQuery = '';
@@ -228,7 +238,46 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
 
     
     
-    this.getData();    
+    this.getData();   
+    
+    $(document).ready(() => {
+
+      setTimeout(() => {
+        
+     
+      var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
+      console.log(fixmeTop)
+      $('.workspace-nav').scroll(function() {                  // assign scroll event listener
+        // alert('Hi');
+          var currentScroll = $('.workspace-nav').scrollTop(); // get current position
+
+          if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+            // alert('Hi')
+              $('.fixme').css({                      // scroll to that element or below it
+                  position: 'sticky',
+                  top: '-1.5rem',
+                  // left: '0'
+              });
+             
+          } else {                                   // apply position: static
+            // alert('No')
+              $('.fixme').css({                      // if you scroll above it
+                  position: 'static'
+              });
+              document.querySelector('#overview')?.classList.remove('pt-5');
+              document.querySelector('#overview')?.classList.remove('pb-5');
+              document.querySelector('#overview')!.className += ' pb-3';
+              document.querySelector('#overview')!.nextElementSibling!.classList.remove('pt-3');
+              
+          }
+
+      });
+
+    }, 1000);
+
+
+    });
+    
     
   }
 
@@ -711,23 +760,52 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   }
 
   gotoSpeakers() {
+    this.activeTab = 'speakers';
     document.querySelector('#speakers')?.scrollIntoView({ behavior: 'smooth' });
+    $('.workspace-nav').css({                      // if you scroll above it
+      position: 'relative',
+      left: '1.5rem'
+    });
   }
 
   gotoSchedule() {
+    this.activeTab = 'schedule';
     document.querySelector('#schedule')?.scrollIntoView({ behavior: 'smooth' });
+    $('.workspace-nav').css({                      // if you scroll above it
+      position: 'relative',
+      left: '1.5rem'
+    });
   }
 
   gotoHosts() {
+    this.activeTab = 'hosts';
     document.querySelector('#hosts')?.scrollIntoView({ behavior: 'smooth' });
+    
+    $('.workspace-nav').css({                      // if you scroll above it
+      position: 'relative',
+      left: '1.5rem'
+    });
   }
 
   gotoSponsors() {
+    this.activeTab = 'sponsors';
     document.querySelector('#sponsors')?.scrollIntoView({ behavior: 'smooth' });
+    $('.workspace-nav').css({                      // if you scroll above it
+      position: 'relative',
+      left: '1.5rem'
+    });
   }
   
   gotoOverview() {
+    this.activeTab = 'overview';
     document.querySelector('#overview')?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#overview')?.classList.remove('pb-3');
+    document.querySelector('#overview')!.className += ' pb-5';
+    document.querySelector('#overview')!.nextElementSibling!.className += ' pt-3';
+    $('.workspace-nav').css({                      // if you scroll above it
+      position: 'relative',
+      left: '1.5rem'
+    });
   }
 
 
