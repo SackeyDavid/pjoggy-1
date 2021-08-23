@@ -52,7 +52,8 @@
   --ev-nav-text-color: rgba(17,16,29, .5);
   --ev-header-text-color: rgba(17,16,29, .5);
   --ev-event-banner-bg: rgba(0, 0, 0, 0.01);
-  --ev-event-details-scrollbar: rgb(205, 205, 205);  
+  --ev-event-details-scrollbar: rgb(205, 205, 205);
+  --ev-home-page-banner-bg: rgba(0, 0, 0, 0.06);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -106,7 +107,8 @@
     --ev-nav-text-color: rgb(192, 190, 202);
     --ev-header-text-color: rgb(117, 112, 137);
     --ev-event-banner-bg: rgba(255, 255, 255, 0.1);
-    --ev-event-details-scrollbar: rgba(255, 255, 255, 0.2);  
+    --ev-event-details-scrollbar: rgba(255, 255, 255, 0.2);
+    --ev-home-page-banner-bg: rgba(255, 255, 255, 0.1);  
   }
 
   .no-y-oversroll {
