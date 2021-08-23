@@ -323,9 +323,10 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
 
 
   
-  previewEvent() {
-    this.router.navigateByUrl('/event_details');
-    console.log('clicked');
+  previewEvent(eventId: any) {
+    sessionStorage.setItem('preview_event_id', eventId);
+    // this.router.navigateByUrl('/event_details');
+    window.open('/event_details', "_blank");
   }
 
   getPopularEvents(): void {

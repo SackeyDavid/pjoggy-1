@@ -354,11 +354,11 @@
                       
                       <div class="card-horizontal">
                           
-                          <div *ngIf="event.banner_image == null"  class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px; background-color: #80808082; background-image: url(../../../assets/images/photo-1475721027785-f74eccf877e2.webp);">
+                          <div (click)="previewEvent(event.id)" *ngIf="event.banner_image == null"  class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px; background-color: #80808082; background-image: url(../../../assets/images/photo-1475721027785-f74eccf877e2.webp);">
                           </div>
-                          <div *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
+                          <div (click)="previewEvent(event.id)" *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
                           </div>
-                          <div class="card-body" style="padding-top: 0 !important;flex: 2;padding-right: 4rem;padding-bottom: 0;">
+                          <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: 0 !important;flex: 2;padding-right: 4rem;padding-bottom: 0;">
                               <span>
                                   <small class="card-title text-white" style="font-size: 1.3rem;margin-bottom: .2rem;">{{event.title}}</small>
                               </span> 
@@ -418,7 +418,7 @@
                               </ng-container>
                           </span> <br style="margin-bottom: .9rem;">
                           <span class="lead">
-                            <small class="text-muted" style="font-size: .9rem;">Event Hosted by: {{event.created_by}}</small>
+                            <small class="text-muted" style="font-size: .9rem;">Event by: {{event.created_by}}</small>
                           </span>
                               
   

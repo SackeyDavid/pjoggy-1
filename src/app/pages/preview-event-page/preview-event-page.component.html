@@ -331,7 +331,7 @@
                 </ng-container>
 
                 <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 401px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
                           <div style="width: 45%;">
                           </div>
@@ -340,7 +340,7 @@
                           </div>
                     </div>
 
-                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 401px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                       <div class="card-body mt-1">
                         <div style="width: 45%;">
                         </div>
@@ -512,7 +512,7 @@
                             <div style="padding: 4px;border-radius: 50%;">
                               <img *ngIf="!host.image" src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
                               <img *ngIf="host.image" src="http://events369.logitall.biz/storage/organizer/{{host.image}}" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                          
+                              <span class="host-badge">Host</span>
                             </div>
                           </h3>
                           <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">{{host.name}}</p>
@@ -678,7 +678,7 @@
                   </div>
                   
                   <div class="card-footer ml-3 pl-1" style="border: none;">
-                    <span style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">Hosted by</span>
+                    <span style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">Created by</span>
                     <br>
                     <div *ngIf="eventHost" class="profile-details my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                         <div class="profile-content">
