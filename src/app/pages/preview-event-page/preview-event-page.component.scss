@@ -415,7 +415,7 @@
       width: calc(100% - 260px);
       transition: all 0.5s ease;
       overflow-y: scroll;
-      scrollbar-color: rgba(255, 255, 255, 0.2) var(--ev-primary-background);
+      scrollbar-color: var(--ev-event-details-scrollbar) var(--ev-primary-background);
       scrollbar-width: thin;
       overflow-x: hidden;
     }
@@ -803,12 +803,13 @@
     margin-left: 0rem !important;
     margin-right: 2rem !important;
     background-color: inherit;
-    color: var(--ev-text-color) !important;
+    color: var(--ev-header-text-color) !important;
     font-weight: 400;
     text-transform: capitalize;
     font-size: 1rem;
     padding: 0 !important;
     padding-bottom: 1rem !important;
+    transition: color 0.3s ease 0s !important;
     }
     
     .swipeable-x {
@@ -1777,5 +1778,13 @@
   .fixme {
     background: var(--ev-primary-background);
     z-index: 99;
+  }
+
+  .nav-text-color {
+    color: var(--ev-nav-text-color) !important;
+  }
+
+  .nav-header-color {
+    color: var(--ev-header-text-color) !important;
   }
     

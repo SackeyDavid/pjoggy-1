@@ -48,7 +48,11 @@
   --ev-calendar-content-field: #f0f0f4;
   --ev-home-section-scrollbar: rgb(205, 205, 205) rgb(240, 240, 240);
   --ev-favorite-button-bg: #3331;
-  --ev-speaker-host-text-color: #212121;  
+  --ev-speaker-host-text-color: #212121;
+  --ev-nav-text-color: rgba(17,16,29, .5);
+  --ev-header-text-color: rgba(17,16,29, .5);
+  --ev-event-banner-bg: rgba(0, 0, 0, 0.01);
+  --ev-event-details-scrollbar: rgb(205, 205, 205);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -78,7 +82,7 @@
     --ev-dark-mode-button-background: #1d1b31;
     --ev-dropdown-content-background: rgba(0, 0, 0, .1);
     --ev-sidebar-menu-active-icon: rgba(33,176,126,255);
-    --ev-nav-active-border: rgba(255,255,255, .5);
+    --ev-nav-active-border: rgb(98, 94, 115);
     --ev-card-date: rgba(45,45,64, 1);
     --ev-card-ticket-pseudo-bottom-bg: initial;
     --ev-card-ticket-checkmark-bg: white;
@@ -98,7 +102,11 @@
     --ev-calendar-content-field: rgba(225,224,230,255);
     --ev-home-section-scrollbar: rgba(255, 255, 255, 0.2) var(--ev-primary-background);
     --ev-favorite-button-bg: rgba(255,255,255,.1);
-    --ev-speaker-host-text-color: rgb(225, 224, 230);  
+    --ev-speaker-host-text-color: rgb(225, 224, 230);
+    --ev-nav-text-color: rgb(192, 190, 202);
+    --ev-header-text-color: rgb(117, 112, 137);
+    --ev-event-banner-bg: rgba(255, 255, 255, 0.1);
+    --ev-event-details-scrollbar: rgba(255, 255, 255, 0.2);  
   }
 
   .no-y-oversroll {

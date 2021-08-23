@@ -641,6 +641,23 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  getInitials(name: string) {
+    var str = name;
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    return matches!.join(''); // JSON
+  }
+
+  
+  stringToHslColor(str: string, s: number, l: number) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    
+    var h = hash % 360;
+    return 'hsl('+h+', '+s+'%, '+l+'%)';
+  }
+
 
   
  

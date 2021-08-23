@@ -331,7 +331,7 @@
                 </ng-container>
 
                 <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 401px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
                           <div style="width: 45%;">
                           </div>
@@ -340,7 +340,7 @@
                           </div>
                     </div>
 
-                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat center center fixed; background-size: cover;cursor: pointer;margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 401px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                       <div class="card-body mt-1">
                         <div style="width: 45%;">
                         </div>
@@ -404,12 +404,12 @@
         
                   <div *ngIf="eventContent" class="tab-content pt-2  ml-4" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-drafts" role="tabpanel" aria-labelledby="pills-drafts-tab">
-                    <h5 class="text-white pb-3" id="overview">ABOUT THIS EVENT</h5>
-                    <p class="text-white mr-5 mb-4 pr-2">
+                    <h5 class="nav-header-color pb-3" id="overview">ABOUT THIS EVENT</h5>
+                    <p class="nav-text-color mr-5 mb-4 pr-2">
                     {{eventContent.description}}  
                     </p>
                     <hr style="height: 1px !important;margin-right: 3.5rem !important;">
-                    <h5 class="text-white pt-5 pb-2" id="schedule">SCHEDULE</h5>
+                    <h5 class="nav-header-color pt-5 pb-2" id="schedule">SCHEDULE</h5>
 
                     <div style="display: flex; flex-direction: row;">
                       
@@ -436,39 +436,15 @@
 
                     </div>
 
-                    <div class="mt-5 mb-5 text-white" style="display: flex;flex-direction: row;">
-                      <div style="flex: 1;">
-                        <span>12:00 AM - 1:00 AM</span>
-                      </div>
-                      <div style="flex: 1;">
-                        
-                          <h5>Doors Open & Networking</h5>
-                          <p style="font-size: 1rem;">
-                          <span>Doors open for the TechUp weekend!</span> <br>
-                          <span> <br>
-                            - Familiarize yourself with the platform <br>
-                            - Review the Schedule and select your favorite activities <br>
-                            - Connect with the TechUp community @ the Lounge <br><br>
 
-                            Any doubts: <br>
-                            Come find the TechUp team at the Event Support table @ the Lounge.
-                          </span>
-                        </p>
-                      </div>
-                      <div style="flex: 1;">
-                        <i class="bi bi-calendar-plus"></i> <span class="ml-3">Add to calendar</span>
-                      </div>
-                    </div>
 
-                    <hr style="height: 1px !important;margin-right: 3.5rem !important;">
-
-                    <div class="mt-5 mb-5 text-white" style="display: flex;flex-direction: row;">
-                      <div style="flex: 1;">
+                    <div class="mt-5 mb-5 nav-text-color" style="display: flex;flex-direction: row;">
+                      <div style="flex: .6;">
                         <span>12:00 AM - 1:00 AM</span>
                       </div>
                       <div style="flex: 2; display: flex;flex-direction: column;">
                         <div style="display: flex;flex-direction: row;">
-                          <div style="flex: 1;">
+                          <div class="px-3" style="flex: 1.5;">
                             
                             <h5>Doors Open & Networking</h5>
                             <p style="font-size: 1rem;">
@@ -497,28 +473,10 @@
                       </div>
                     </div>
                     
-                    <hr style="height: 1px !important;margin-right: 3.5rem !important;">
+                    <!-- hr temporarily hidden in wait for data from db -->
+                    <hr style="height: 1px !important;margin-right: 3.5rem !important;visibility: hidden;">
 
-                    <div class="mt-5 mb-5 text-white" style="display: flex;flex-direction: row;">
-                      <div style="flex: 1;">
-                        <span>12:00 AM - 1:00 AM</span>
-                      </div>
-                      <div style="flex: 1;">
-                        
-                          <h5>Doors Open & Networking</h5>
-                          <p style="font-size: 1rem;">
-                          <span>Doors open for the TechUp weekend!</span> <br>
-                          <span> <br>
-                            - Familiarize yourself with the platform <br>
-                          </span>
-                        </p>
-                      </div>
-                      <div style="flex: 1;">
-                        <i class="bi bi-calendar-plus"></i> <span class="ml-3">Add to calendar</span>
-                      </div>
-                    </div>
-
-                    <h5 class="text-white pb-5" id="speakers">SPEAKERS</h5>
+                    <h5 class="nav-header-color pb-5" id="speakers">SPEAKERS</h5>
                     <div class="row ml-0 mr-4 mt-3 mb-5">
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
@@ -582,7 +540,7 @@
                       </div>
                     </div>
                     
-                    <h5 class="text-white pb-5" id="hosts">HOSTS</h5>
+                    <h5 class="nav-header-color pb-5" id="hosts">HOSTS</h5>
                     <div class="row ml-0 mr-4 mt-3 mb-2">                      
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->

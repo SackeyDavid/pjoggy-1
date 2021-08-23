@@ -346,7 +346,7 @@
                         <div class="card-footer ml-3 pl-1" style="border: none;">
                             <div class="profile-details my-4" style="display: flex;">
                                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                                 
                                   <span class="discover-user-checkmark"><i class="bx bx-check"></i></span></div>
                                 <div class="name-job p-2">
@@ -397,7 +397,7 @@
                       <div class="card-footer ml-3 pl-1" style="border: none;">
                           <div class="profile-details my-4" style="display: flex;">
                               <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                                <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                                <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                               
                                 <span class="discover-user-checkmark"><i class="bx bx-check"></i></span></div>
                               <div class="name-job p-2">
@@ -448,7 +448,7 @@
                     <div class="card-footer ml-3 pl-1" style="border: none;">
                         <div class="profile-details my-4" style="display: flex;">
                             <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                             
                               <span class="discover-user-checkmark"><i class="bx bx-check"></i></span></div>
                             <div class="name-job p-2">
@@ -500,7 +500,7 @@
                   <div class="card-footer ml-3 pl-1" style="border: none;">
                       <div class="profile-details my-4" style="display: flex;">
                           <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                            <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                            <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                           
                             <span class="discover-user-checkmark"><i class="bx bx-check"></i></span></div>
                           <div class="name-job p-2">
@@ -655,13 +655,32 @@
                     </ng-container>
                   </span>
                 </p>
-                <div class="profile-details event-host my-4" style="display: flex;">
+
+                <!-- alternate UI for event host pic placeholder with hsl color background -->
+                <!-- <div class="profile-details event-host my-4" style="display: flex;">
                   <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                    <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
-                  
-                    <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
-                  
+                    <div style="height: 50px;width: 50px;border-radius: 50%;" class="box">
+                      <span class="color-circle" [ngStyle]="{'background-color': stringToHslColor(event.created_by, 100, 90)}">{{getInitials(event.created_by)}}</span>
+                     </div>
+                    <span class="discover-user-checkmark event-host-checkmark-hsl"><i class="bx bx-check"></i></span>
+                  </div>
+                </div> -->
+
+                
+              <div class="profile-details event-host my-4" style="display: flex;">
+                <div *ngIf="!event.user_image" class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                
+                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span>
                 </div>
+                <div *ngIf="event.user_image" class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
+                  <img src="http://events369.logitall.biz/storage/banner/{{event.banner_image}}" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                
+                  <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span>
+                </div>
+                
+              </div>
+
                 <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: .9rem;">
                   <span>
                     <small class="mr-2 text-white" style="font-size: 1rem; opacity: .6;">{{event.created_by}}  </small> <span class="event-host-dot"></span>
@@ -881,7 +900,7 @@
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
@@ -1105,7 +1124,7 @@
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 
@@ -1329,7 +1348,7 @@
               </p>
               <div class="profile-details event-host my-4" style="display: flex;">
                 <div class="profile-content" style="border: 1px solid var(--ev-profile-border);padding: 4px;border-radius: 50%;">
-                  <img src="../../../assets/images/company-logos/picture.jpg" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                  <img src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
                 
                   <span class="discover-user-checkmark event-host-checkmark"><i class="bx bx-check"></i></span></div>
                 

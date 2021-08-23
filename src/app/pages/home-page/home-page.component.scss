@@ -624,6 +624,16 @@ visibility: hidden; }
 	font-size: 0.6rem;
 }
 
+.event-host-checkmark-hsl {
+	background-color: var(--blue) !important;
+	color: var(--white) !important;
+	height: 17px !important;
+	width: 17px !important;
+	border: 2px solid var(--ev-checkmark-background) !important;
+	transform: translate(39px, -15px) !important;
+	font-size: 0.6rem !important;
+}
+
 .event-speakers-info {
 display: flex;
 flex-direction: row;
@@ -1575,6 +1585,51 @@ p {
   width: 32px !important;
   height: 32px !important;
 }
+
+
+span.color-circle {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.9rem;
+  text-align: center;
+  color: var(--ev-brandname-darkblue);
+  padding: 12px;
+  letter-spacing: 1px;
+}
+
+.results {
+  position: relative;
+  margin-bottom: 0rem;
+  padding-top: 2rem;
+}
+
+.results .box {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  min-width: 10rem;
+  background: var(--ev-primary-background);
+  padding: .4rem .8rem;
+  border-radius: 10px;
+  transition: all .4s ease-in;
+}
+
+// .box:hover {
+//   background: var(--ev-schedule-user-profile-bg-hover) !important;
+//   cursor: pointer;
+// }
+
+.color-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: antiquewhite;
+  overflow: hidden;
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+}
+
 
 
 
