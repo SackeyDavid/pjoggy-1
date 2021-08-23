@@ -370,7 +370,7 @@
                         </a>
                         
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li *ngIf="speakersContent.length" class="nav-item" role="presentation">
                         <a   class="nav-link" [class.active] = "activeTab == 'speakers'" id="pills-ongoing-tab" (click)="gotoSpeakers()" role="tab" aria-controls="pills-ongoing" aria-selected="false">
                             <ng-container >
                                 Speakers
@@ -378,7 +378,7 @@
                         </a>
                         
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li *ngIf="organisersContent.length" class="nav-item" role="presentation">
                         <a  class="nav-link" [class.active] = "activeTab == 'hosts'" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
                             <ng-container >
                                 Host
@@ -387,8 +387,8 @@
                         
                     </li>
 
-                    <li class="nav-item" role="presentation">
-                      <a  class="nav-link" [class.active] = "activeTab == 'sponsors'" id="pills-cancelled-tab" (click)="gotoHosts()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
+                    <li *ngIf="sponsorsContent.length" class="nav-item" role="presentation">
+                      <a  class="nav-link" [class.active] = "activeTab == 'sponsors'" id="pills-cancelled-tab" (click)="gotoSponsors()" role="tab" aria-controls="pills-cancelled" aria-selected="false">
                           <ng-container >
                               Sponsors
                           </ng-container>
@@ -478,90 +478,66 @@
 
                     <h5 class="nav-header-color pb-5" id="speakers">SPEAKERS</h5>
                     <div class="row ml-0 mr-4 mt-3 mb-5">
+                      <ng-container *ngFor="let speaker of speakersContent">
+
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
                           <h3 class="card-title">
                             <div style="padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                              <img *ngIf="!speaker.image" src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                              <img *ngIf="speaker.image" src="http://events369.logitall.biz/storage/host/{{speaker.image}}" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
                           
                             </div>
                           </h3>
-                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
-                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">{{speaker.name}}</p>
+                          <p class="card-text"><small class="speaker-host-title">{{speaker.title}}</small></p>
                           <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
-                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
-                            He has more than 15 years old of consulting experience in helping customer to
-                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
-                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
-                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                            {{speaker.bio}}
                           </p>
                         </div>
                       </div>
-                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
-                        <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
-                        <div class="card-body">
-                          <h3 class="card-title">
-                            <div style="padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                          
-                            </div>
-                          </h3>
-                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
-                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
-                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
-                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
-                            He has more than 15 years old of consulting experience in helping customer to
-                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
-                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
-                            Application Services portfolio, Automation, Container technologies, and DevOps.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
-                        <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
-                        <div class="card-body">
-                          <h3 class="card-title">
-                            <div style="padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                          
-                            </div>
-                          </h3>
-                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
-                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
-                          <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
-                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
-                            He has more than 15 years old of consulting experience in helping customer to
-                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
-                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
-                            Application Services portfolio, Automation, Container technologies, and DevOps.
-                          </p>
-                        </div>
-                      </div>
+                    </ng-container>
+
                     </div>
                     
                     <h5 class="nav-header-color pb-5" id="hosts">HOSTS</h5>
-                    <div class="row ml-0 mr-4 mt-3 mb-2">                      
+                    <div class="row ml-0 mr-4 mt-3 mb-5">                      
+                      <ng-container *ngFor="let host of organisersContent">
+
                       <div class="col-lg-6 card mb-3" style="border: 1px solid rgba(0,0,0, .02);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);">
                         <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                         <div class="card-body">
                           <h3 class="card-title">
                             <div style="padding: 4px;border-radius: 50%;">
-                              <img src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
-                              <span class="host-badge">Host</span>
+                              <img *ngIf="!host.image" src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                              <img *ngIf="host.image" src="http://events369.logitall.biz/storage/organizer/{{host.image}}" style="height: 100px;width: 100px;border-radius: 50%;" alt="profileImg">
+                          
                             </div>
                           </h3>
-                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">Pua Ming Fei</p>
-                          <p class="card-text"><small class="speaker-host-title">Solution Architect, Red Hat</small></p>
+                          <p class="card-text font-weight-bold text-white" style="color: var(--ev-speaker-host-text-color) !important;">{{host.name}}</p>
+                          <p class="card-text"><small class="speaker-host-title">{{host.title}}</small></p>
                           <p class="pt-3" style="font-size: .8rem;color: var(--ev-speaker-host-text-color);opacity: .8;">
-                            Ming Fei is a Account Solutions Architect for Red Hat Malaysia. 
-                            He has more than 15 years old of consulting experience in helping customer to
-                             deliver integration projects in the areas of ESB, API Management and B2B exchange. 
-                             Currently he is driving technical enablement activities for Red Hat focusing on Red Hat 
-                            Application Services portfolio, Automation, Container technologies, and DevOps.
+                            <ng-container *ngIf="host.bio !== 'null'">
+                              {{host.bio}}
+
+                            </ng-container>
                           </p>
                         </div>
                       </div>
+                    </ng-container>
+                    </div>
+
+                    <h5 *ngIf="sponsorsContent.length" class="nav-header-color pb-5" id="sponsors">SPONSORS</h5>
+                    <div *ngIf="sponsorsContent.length"  class="row ml-0 mr-4 mt-3 mb-2">                      
+                      <ng-container *ngFor="let sponsor of sponsorsContent">
+
+                      <div class="col-lg-4 card mb-3" style="border: 1px solid rgba(0,0,0, .1);max-width: 28.6vw;margin-right: 1rem;background-color: rgba(255,255,255,.06);box-shadow: none !important;">
+                        <img *ngIf="!sponsor.logo" src="../../../assets/images/avatar-placeholder.png" style="height: 100px;width: inherit;border-radius: inherit;margin: .5rem auto;" alt="sponsor">
+                        <img *ngIf="sponsor.logo" src="http://events369.logitall.biz/storage/sponsors/{{sponsor.logo}}" style="height: 100px;width: inherit;border-radius: inherit;margin: .5rem auto;" alt="sponsor">
+                    
+                      </div>
+                    </ng-container>
                     </div>
 
                     <!-- div below intentional; for hosts section UI scroll on click purposes -->
