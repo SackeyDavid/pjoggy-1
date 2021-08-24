@@ -32,7 +32,7 @@
             <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
           </div>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Popular</a></li>
+            <li><a class="link_name" routerLink="/events/popular">Popular</a></li>
             <!-- <li><a href="#">HTML & CSS</a></li>
             <li><a href="#">JavaScript</a></li>
             <li><a href="#">PHP & MySQL</a></li> -->
@@ -40,35 +40,35 @@
         </li>
         <li>
           <div class="iocn-link">
-            <a href="#">
+            <a routerLink="/events/live">
               <i class='bx bxs-video-recording'></i>
-              <span class="link_name">Streaming</span>
+              <span class="link_name">Happening Now</span>
             </a>
             <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
           </div>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Streaming</a></li>
+            <li><a class="link_name" routerLink="/events/live">Happening Now</a></li>
             <!-- <li><a href="#">Web Design</a></li>
             <li><a href="#">Login Form</a></li>
             <li><a href="#">Card Design</a></li> -->
           </ul>
         </li>
         <li>
-          <a href="#">
+          <a routerLink="/events/upcoming">
               <i class='bx bxs-time-five'></i>
             <span class="link_name">Upcoming</span>
           </a>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Upcoming</a></li>
+            <li><a class="link_name" routerLink="/events/upcoming">Upcoming</a></li>
           </ul>
         </li>
         <li>
-          <a href="#">
+          <a routerLink="/events/favorites">
               <i class='bx bxs-heart'></i>
             <span class="link_name">Favorites</span>
           </a>
           <ul class="sub-menu">
-            <li><a class="link_name" href="#">Favorites</a></li>
+            <li><a class="link_name" routerLink="/events/favorites">Favorites</a></li>
           </ul>
         </li>
         <span class="h-rule mx-4 px-4">
@@ -432,7 +432,7 @@
                                         class="favorite-{{event.id}}"
                                         viewBox="0 0 32 32"
                                         xmlns="http://www.w3.org/2000/svg"
-                                        style="display: block; fill: rgba(0, 0, 0, 0.0); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 5px; overflow: visible;"
+                                        style="display: block; fill: var(--ev-fav-button-fill); height: 16px; width: 16px; stroke: var(--ev-fav-button-stroke); stroke-width: 5px; overflow: visible;"
                                         aria-hidden="true"
                                         role="presentation"
                                         focusable="false"
@@ -445,12 +445,12 @@
                             </div>
           
                             <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
-                              <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button">
+                              <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button" style="background: #e05959 !important;">
                                   <svg
                                       class="favorite-{{event.id}}"
                                       viewBox="0 0 32 32"
                                       xmlns="http://www.w3.org/2000/svg"
-                                      style="display: block; fill: rgba(255, 101, 80, 0.4); height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                      style="display: block; fill: white; height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
                                       aria-hidden="true"
                                       role="presentation"
                                       focusable="false"
@@ -517,7 +517,7 @@
         </div>
         <div class="d-flex justify-content-center pb-4" *ngIf="popularEvents?.next_page_url">
           <button class="btn btn-lg load-more-button" (click)="getPopularEventsPage(popularEvents.next_page_url)" type="button">
-              <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span *ngIf="loading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
               Load more
             </button>
           </div>

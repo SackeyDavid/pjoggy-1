@@ -1,3 +1,703 @@
-<app-navbar></app-navbar>
-<app-upcoming-events></app-upcoming-events>
-<app-footer></app-footer>
+<!-- <app-navbar></app-navbar> -->
+<!-- <app-ad-banner *ngIf="bannerAdsData?.length !== 0"></app-ad-banner> -->
+<!-- <app-live-events *ngIf="eventsNow?.length !== 0"></app-live-events> -->
+<!-- <app-events-list></app-events-list> -->
+<!-- <app-footer></app-footer> -->
+<main>
+    <div class="pp_sidebar open">
+        <div class="logo-details">
+          <i class='bx bx-menu'></i>
+          <span class="logo_name">events369</span>
+        </div>
+        
+        <ul class="nav-links">
+            <p class="list-title text-muted px-4 mt-2 mb-2">
+                MENU
+            </p>
+          <li>
+            <a routerLink="/">
+              <i class='bx bxs-home' ></i>
+              <span class="link_name">Discover</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/">Discover</a></li>
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a routerLink="/events/popular" class="active">
+                <i class='bx bx-trending-up'></i>
+                <span class="link_name">Popular</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/popular">Popular</a></li>
+              <!-- <li><a href="#">HTML & CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+              <li><a href="#">PHP & MySQL</a></li> -->
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a routerLink="/events/live">
+                <i class='bx bxs-video-recording'></i>
+                <span class="link_name">Happening Now</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/live">Happening Now</a></li>
+              <!-- <li><a href="#">Web Design</a></li>
+              <li><a href="#">Login Form</a></li>
+              <li><a href="#">Card Design</a></li> -->
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/events/upcoming">
+                <i class='bx bxs-time-five'></i>
+              <span class="link_name">Upcoming</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/upcoming">Upcoming</a></li>
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/events/favorites">
+                <i class='bx bxs-heart'></i>
+              <span class="link_name">Favorites</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/favorites">Favorites</a></li>
+            </ul>
+          </li>
+          <span class="h-rule mx-4 px-4">
+             <hr class="mx-4">
+          </span>
+          <p class="list-title text-muted px-4 mt-2 mb-2">
+              CATEGORY
+          </p>
+          <li>
+            <a href="#">
+              <i class='bx bxs-briefcase'></i>
+              <span class="link_name">Corporate</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Corporate</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+                <i class='bx bxs-cake'></i>
+              <span class="link_name">Social</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Social</a></li>
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a href="#">
+                <i class='bx bxs-music'></i>
+                <span class="link_name">Festivals</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Festivals</a></li>
+              <!-- <li><a href="#">UI Face</a></li>
+              <li><a href="#">Pigments</a></li>
+              <li><a href="#">Box Icons</a></li> -->
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+                <i class='bx bxs-star'></i>
+              <span class="link_name">New</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">New</a></li>
+            </ul>
+          </li>
+          <!-- <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">This Weekend</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">This Weekend</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">History</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">History</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>-->
+          
+          <span class="h-rule mx-4 px-4">
+            <hr class="mx-4">
+         </span>
+          <li>         
+        <div class="profile-details">
+            <div class="form-group" style="display: flex;">
+                <!-- <label>Test3</label> -->
+                <div style="display: flex;flex-direction: row;">
+                    <label *ngIf="!darkMode" (click)="toggleDarkMode()" class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label *ngIf="darkMode" (click)="toggleLightMode()" class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider round"></span>
+                  </label>
+                 <span class="link_name ml-3">Night mode</span>
+                 </div>
+            </div>
+        </div>
+      </li>
+    </ul>
+      </div>
+      <section class="home-section">
+        <nav class="navbar sticky-top navbar-light bg-light justify-content-between">
+          <form [formGroup] = "formGroup" class="form-inline pl-3">
+            
+  
+             
+              <div class="form-group has-search">
+                <span class="bx bx-search form-control-feedback"></span>
+                <input id="search-input" formControlName="search" type="text" class="form-control" placeholder="What event do you want to join?" [(ngModel)]="this.searchQuery" name="search_query" (keydown.enter)="doSearch()">
+              </div>  
+              <!-- <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()"> -->
+              <div *ngIf="live_search_results?.length" class="row autosearch-results">
+                <div class="col-lg-12 mb-3" style="padding: .2rem;">
+                  <table style="margin: .8rem;margin-bottom: 0;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
+                    <tbody>
+                      <tr style="padding: .4rem;">
+                        <td>
+                          <div class="img-fit-img-fix-background-cover" style="border-radius: 0 !important; background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
+  
+                          </div>
+                        
+                        </td>
+                        <td style="padding-left: 5%;">
+                          <span class="w3-large text-white">{{item.title}}</span>
+                          <span class="present_date text-muted">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                          <span class="search_price">
+                            <ng-container *ngIf="item.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1'">
+                              <span class="price-span">{{item.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && item.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && getTicketSalesStatus(item.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
+                          </span>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+  
+                </div>
+  
+              </div>
+  
+  
+  
+             <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
+              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+              <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+              
+          </form>
+          <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
+            <li class="nav-item mr-4 active">
+              <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
+            </li>
+            </ul>
+          <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile">
+              <div class="dropbtn_user" style="display: grid;height: 100%;">
+                <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
+                     <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
+                      <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                           <img src="../../../assets/images/avatar-placeholder.png" />
+                      </div> 
+                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                        <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
+                      </div> 
+                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                      <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                      <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                      <span class="dot"></span>
+                       <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
+                     </span>
+              </div>
+                      
+              <div class="dropdown-content_user"> 
+                  <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
+                  <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+                  <a> Favorites </a>
+                  <a> Following</a>
+                  <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
+                  <a>Tickets (0)</a> 
+  
+                  <!-- not working  -->
+                  <!-- <a href="#">Credits</a> -->
+                  <!-- <a href="#">Collections</a> -->
+                  <!-- <a href="#">Interests</a> -->
+                  
+                  
+                  <!-- <a href="#">Messages</a> -->
+                  <!-- <a href="#">Events</a> -->
+                  <!-- <a href="#">Saved</a> -->
+                  <!-- end of not working  -->
+  
+                  <a href="/create_event/basic_info">Host an event</a>
+                  <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
+                  <!-- href="https://about.gitlab.com/get-help/" -->
+                  <a  target="_blank" routerLink="/help">Help</a>
+                  <a id="logout_link" (click)="logout($event)">Log out</a>
+              </div>
+          </div>
+            
+          <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+              <a href="#">
+                <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+              </a>
+            </div> -->
+          </nav>
+          <section class="workspace">
+            <!-- <div class="workspace-nav">
+                <h2 class="px-4 ml-2 my-1 mt-4 text-white">Popular</h2>
+                
+                 
+            </div> -->
+            
+        </section>
+  
+        <!-- manage events section  -->
+        <section class="workspace-items">
+        <h3 class="px-4 ml-2 pt-3 pb-4 text-white">Upcoming</h3>
+        <div class="row">
+          
+          <div class="container mx-4 pb-5 pl-2" style="width: -moz-available;width: -webkit-fill-available;padding-top: .8rem;">
+            <ng-container *ngIf="!events_in_six_hrs.data.length">
+              <div class="d-flex justify-content-center">
+                <!-- <div class="spinner-grow" role="status">  -->
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                
+                <!-- </div> -->
+              </div>
+              
+            </ng-container> 
+  
+            <ng-container *ngFor= "let event of events_in_six_hrs.data">
+              <div class="card p-3 event mb-3" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid rgba(0,0,0, .02);">
+                                    
+                <div class="card-horizontal event-content-wrapper">
+                    <span class="card-date">
+                        {{event.start_date_time | date: 'MMM'}} <br> 
+                        <small class="text-muted"> {{event.start_date_time | date: 'dd'}}</small>
+                    </span>
+                    <div style="display: flex; flex-direction: column;flex: auto;">
+                        
+                        <div class="card-horizontal">
+                            
+                            <div (click)="previewEvent(event.id)" *ngIf="event.banner_image == null"  class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px; background-color: #80808082; background-image: url(../../../assets/images/photo-1475721027785-f74eccf877e2.webp);">
+                            </div>
+                            <div (click)="previewEvent(event.id)" *ngIf="event.banner_image" class="img-fit-img-fix-background-cover" style="height: 180px; width: 300px;background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{event.banner_image}}&quot;);">
+                            </div>
+                            <div (click)="previewEvent(event.id)" class="card-body" style="padding-top: 0 !important;flex: 2;padding-right: 4rem;padding-bottom: 0;">
+                                <span>
+                                    <small class="card-title text-white" style="font-size: 1.3rem;margin-bottom: .2rem;">{{event.title}}</small>
+                                </span> 
+                                <span style="font-size: .9rem;" class="ml-1 text-muted">
+                                  <i class='bx bxs-time-five'></i>
+                                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 0">
+                                    {{getDataDiff(event.start_date_time, event.end_date_time).day}}
+                                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 1">
+                                      day
+                                    </ng-container>
+                                    <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) > 1">
+                                      days
+                                    </ng-container>
+                                    
+                                  </ng-container>
+                                  <ng-container *ngIf="(getDataDiff(event.start_date_time, event.end_date_time).day) == 0">
+                                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).hour > 0">
+                                      {{getDataDiff(event.start_date_time, event.end_date_time).hour}} hr
+                                    </ng-container>
+                                     
+                                    <ng-container *ngIf="getDataDiff(event.start_date_time, event.end_date_time).minute > 0">
+                                      {{getDataDiff(event.start_date_time, event.end_date_time).minute}} min                    
+                                    </ng-container>
+                                    
+                                  </ng-container>
+                                </span>
+                                <span class="job text-muted ml-4" style="font-size: .9rem;"><i class='bx bxs-hourglass-top'></i> {{event.start_date_time | timeago }}</span> <br>
+                                <span class="lead">
+                                <ng-container *ngIf="getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time)">
+                                <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}} 
+                                    <!-- <b> to </b> {{getEventEndDateFormatted(event.end_date_time)}} -->
+                                </small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.end_date_time))">
+                                <small class="text-white">{{getEventStartDateFormatted(event.start_date_time)}}<i><b> to </b></i>{{getEventStartDateFormatted(event.end_date_time)}}</small>
+        
+                                </ng-container>
+                            </span><br>
+                            <span *ngIf="event.event_price !== 0">
+                                <small class="text-white"><small style="font-size: .9rem;"> {{event.price}}</small></small>
+                                <br></span> 
+                            <span class="lead">
+                                <!-- <ng-container *ngIf="getEventDateWithoutTime(event.event_start_date) == getEventDateWithoutTime(event.event_end_date)">
+                                <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.event_start_date)}} 
+                                    <b> - </b> {{getEventStartDateFormattedOnlyTime(event.event_end_date)}}
+                                </small>
+                                </ng-container>
+                                <ng-container *ngIf="!(getEventDateWithoutTime(event.start_date_time) == getEventDateWithoutTime(event.event_end_date))">
+                                <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.event_start_date)}}
+                                    <i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.event_end_date)}}</small>
+        
+                                </ng-container> -->
+                                <ng-container>
+                                    <small class="text-white" style="font-size: .9rem;">{{getEventStartDateFormattedOnlyTime(event.start_date_time)}}
+                                        <i><b> - </b></i>{{getEventStartDateFormattedOnlyTime(event.end_date_time)}}</small>
+            
+                                </ng-container>
+                            </span> <br style="margin-bottom: .9rem;">
+                            <span class="lead">
+                              <small class="text-muted" style="font-size: .9rem;">Event by: {{event.created_by}}</small>
+                            </span>
+                                
+    
+                                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                            </div>
+                            <div class="save_live_event_div_container" style="padding: 8px;padding-top: .85rem;">
+                            
+                              <div class="save_live_event_div" *ngIf="!hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                  <button aria-label="Save this Event" type="button" (click)="saveEventAsFavorite(event.id)" class="save_live_event_button">
+                                      <svg
+                                          class="favorite-{{event.id}}"
+                                          viewBox="0 0 32 32"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style="display: block; fill: var(--ev-fav-button-fill); height: 16px; width: 16px; stroke: var(--ev-fav-button-stroke); stroke-width: 5px; overflow: visible;"
+                                          aria-hidden="true"
+                                          role="presentation"
+                                          focusable="false"
+                                      >
+                                          <path
+                                              d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                          ></path>
+                                      </svg>
+                                  </button>                      
+                              </div>
+            
+                              <div class="save_live_event_div" *ngIf="hasBeenAddedToFavorites(event.id)" style="visibility: visible !important;">
+                                <button aria-label="Save this Event" type="button" (click)="removeEventFromFavorites(event.id)" class="save_live_event_button" style="background: #e05959 !important;">
+                                    <svg
+                                        class="favorite-{{event.id}}"
+                                        viewBox="0 0 32 32"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style="display: block; fill: white; height: 16px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;"
+                                        aria-hidden="true"
+                                        role="presentation"
+                                        focusable="false"
+                                    >
+                                        <path
+                                            d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"
+                                        ></path>
+                                    </svg>
+                                </button>                    
+                              </div>
+            
+                              
+                              <div class="event_social_share" style="visibility: hidden;">
+                                <button aria-label="Save this Event" type="button" (click)="openModal(event.event_url)" class="save_live_event_button">
+                                    <svg 
+                                      version="1.1" 
+                                      id="Capa_1" 
+                                      xmlns="http://www.w3.org/2000/svg" 
+                                      xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                      x="0px" 
+                                      y="0px"
+                                      viewBox="0 0 512 512" 
+                                      style="enable-background:new 0 0 512 512;display: block; fill: #fff; height: 12px; width: 16px; stroke: rgb(255, 255, 255); stroke-width: 30px; overflow: visible;" xml:space="preserve">
+                                        
+                                      <path d="M406,332c-29.636,0-55.969,14.402-72.378,36.571l-141.27-72.195C194.722,288.324,196,279.809,196,271
+                                            c0-11.931-2.339-23.324-6.574-33.753l148.06-88.958C354.006,167.679,378.59,180,406,180c49.626,0,90-40.374,90-90
+                                            c0-49.626-40.374-90-90-90c-49.626,0-90,40.374-90,90c0,11.47,2.161,22.443,6.09,32.54l-148.43,89.18
+                                            C157.152,192.902,132.941,181,106,181c-49.626,0-90,40.374-90,90c0,49.626,40.374,90,90,90c30.122,0,56.832-14.876,73.177-37.666
+                                            l140.86,71.985C317.414,403.753,316,412.714,316,422c0,49.626,40.374,90,90,90c49.626,0,90-40.374,90-90
+                                            C496,372.374,455.626,332,406,332z M406,30c33.084,0,60,26.916,60,60s-26.916,60-60,60s-60-26.916-60-60S372.916,30,406,30z
+                                            M106,331c-33.084,0-60-26.916-60-60s26.916-60,60-60s60,26.916,60,60S139.084,331,106,331z M406,482c-33.084,0-60-26.916-60-60
+                                            s26.916-60,60-60s60,26.916,60,60S439.084,482,406,482z"/>
+              
+                                      </svg>
+                                </button>                      
+                            </div>
+            
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="card-footer">
+                            <div class="float-left">
+                            <small class="text-muted" style="font-size: 0.8rem;">{{event.qty_reserved}} 
+                            <ng-container *ngIf="event.qty_reserved == 1">
+                                Reservation
+                            </ng-container>
+                            <ng-container *ngIf="event.qty_reserved > 1">
+                                Reservations
+                            </ng-container> </small>
+                            </div>
+                            <div class="float-right">
+                            <span class="text-muted px-3 ml-2" style="margin-bottom: .3rem;font-size: .8rem;">{{event.event_name}} order #{{event.rsvp_code}}  placed on {{getEventDateWithTime(event.event_reserved_at)}}</span> 
+                          
+                            </div>
+                        </div> -->
+  
+  
+                    </div>
+                </div>
+            </div>  
+  
+            </ng-container>
+  
+          </div>
+          <div class="d-flex justify-content-center pb-4" *ngIf="events_in_six_hrs?.next_page_url">
+            <button class="btn btn-lg load-more-button" (click)="getEventsInSixHrsPage(events_in_six_hrs.next_page_url)" type="button">
+                <span *ngIf="loading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Load more
+              </button>
+            </div>
+        </div>
+        
+  
+        
+          
+        </section>
+      </section>
+    
+  
+  </main>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- <div class="swipeable-x" style="display: none;">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      
+      <li class="nav-item" role="presentation">
+          <a *ngIf="createdEvents" class="nav-link active" id="pills-drafts-tab" data-toggle="pill" href="#pills-drafts" role="tab" aria-controls="pills-drafts" aria-selected="false">Drafts
+              <ng-container *ngIf="createdEvents.total">
+                  ({{createdEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="publishedEvents" class="nav-link" id="pills-published-tab" data-toggle="pill" href="#pills-published" role="tab" aria-controls="pills-published" aria-selected="false">Published
+              <ng-container *ngIf="publishedEvents.total">
+                  ({{publishedEvents?.total}})
+                </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="ongoingEvents" class="nav-link" id="pills-ongoing-tab" data-toggle="pill" href="#pills-ongoing" role="tab" aria-controls="pills-ongoing" aria-selected="false">Ongoing
+              <ng-container *ngIf="ongoingEvents.total">
+                  ({{ongoingEvents?.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="cancelledEvents" class="nav-link" id="pills-cancelled-tab" data-toggle="pill" href="#pills-cancelled" role="tab" aria-controls="pills-cancelled" aria-selected="false">Cancelled
+              <ng-container *ngIf="cancelledEvents.total">
+                  ({{cancelledEvents?.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="archivedEvents" class="nav-link" id="pills-archived-tab" data-toggle="pill" href="#pills-archived" role="tab" aria-controls="pills-drafts" aria-selected="false">Archived
+              <ng-container *ngIf="archivedEvents.total">
+                  ({{archivedEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+          <a  *ngIf="pastEvents" class="nav-link" id="pills-past-tab" data-toggle="pill" href="#pills-past" role="tab" aria-controls="pills-past" aria-selected="false">Past
+              <ng-container *ngIf="pastEvents.total">
+                  ({{pastEvents.total}})
+              </ng-container>
+          </a>
+          
+      </li>
+      <li class="nav-item" role="presentation">
+        <a  *ngIf="userEvents" class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All 
+            <ng-container *ngIf="userEvents.total">
+                ({{userEvents.total}})
+            </ng-container>
+        </a>
+    </li>
+  </ul>
+  </div> -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- <div class="card ml-4 mt-4 mr-4 mb-2" style="background-color: rgba(255, 255, 255, 0.04); border: 1px solid #fbfbfb0d;"> -->
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <!-- <div class="card-body">
+    <h4 style="color: white;font-size: 1.2rem;">Design Conference
+      <div class="card-icon float-right" style="padding-top: 0 !important;padding-bottom: 0 !important;">
+        <i class="bi bi-three-dots"></i>
+      </div>
+    </h4>
+    <p class="card-text">
+      <small class="text-muted"> <i class="bi bi-clock"></i> 10:00 - 11:00 &#124; starts in 6 hours</small>
+    </p>
+    <div class="event-speakers-info pt-2">
+      <div class="event-speakers-avatars float-left">
+        <div class="img square mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2 mt-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+          <a href="#">
+            <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+          </a>
+        </div>
+        <div class="img square ml-2  mt-3 speakers-more">
+          +6
+        </div>
+      </div>
+      <div class="event-speakers-buttons">
+        <div class="img square ml-2 card-icon speakers-link mt-3">
+          <i class="bi bi-link"></i>
+        </div>
+        <button class="btn btn-primary login-button px-3 ml-2" style="margin-bottom: .3rem;"> Start</button>
+  
+      </div>
+  
+    </div>
+  </div>
+  </div> -->

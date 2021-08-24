@@ -386,7 +386,7 @@ input:checked+.slider:before {
   width: calc(100% - 260px);
   transition: all 0.5s ease;
   overflow-y: scroll;
-  scrollbar-color: rgba(255, 255, 255, 0.2) var(--ev-primary-background);
+  scrollbar-color: var(--ev-event-details-scrollbar) var(--ev-primary-background);
   scrollbar-width: thin;
   overflow-x: hidden;
 }

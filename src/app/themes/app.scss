@@ -53,7 +53,9 @@
   --ev-header-text-color: rgba(17,16,29, .5);
   --ev-event-banner-bg: rgba(0, 0, 0, 0.01);
   --ev-event-details-scrollbar: rgb(205, 205, 205);
-  --ev-home-page-banner-bg: rgba(0, 0, 0, 0.06);  
+  --ev-home-page-banner-bg: rgba(0, 0, 0, 0.06);
+  --ev-fav-button-fill: rgba(106,108,124,.7);
+  --ev-fav-button-stroke: rgba(106,108,124,.0);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -108,7 +110,9 @@
     --ev-header-text-color: rgb(117, 112, 137);
     --ev-event-banner-bg: rgba(255, 255, 255, 0.1);
     --ev-event-details-scrollbar: rgba(255, 255, 255, 0.2);
-    --ev-home-page-banner-bg: rgba(255, 255, 255, 0.1);  
+    --ev-home-page-banner-bg: rgba(255, 255, 255, 0.1);
+    --ev-fav-button-fill: #6a6c7c;
+    --ev-fav-button-stroke: #6a6c7c;  
   }
 
   .no-y-oversroll {

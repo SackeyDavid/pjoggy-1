@@ -20,7 +20,7 @@
               <span class="link_name">Discover</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Discover</a></li>
+              <li><a class="link_name" routerLink="/">Discover</a></li>
             </ul>
           </li>
           <li>
@@ -32,7 +32,7 @@
               <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Popular</a></li>
+              <li><a class="link_name" routerLink="/events/popular">Popular</a></li>
               <!-- <li><a href="#">HTML & CSS</a></li>
               <li><a href="#">JavaScript</a></li>
               <li><a href="#">PHP & MySQL</a></li> -->
@@ -40,35 +40,35 @@
           </li>
           <li>
             <div class="iocn-link">
-              <a href="#">
+              <a routerLink="/events/live">
                 <i class='bx bxs-video-recording'></i>
-                <span class="link_name">Streaming</span>
+                <span class="link_name">Happening Now</span>
               </a>
               <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Streaming</a></li>
+              <li><a class="link_name" routerLink="/events/live">Happening Now</a></li>
               <!-- <li><a href="#">Web Design</a></li>
               <li><a href="#">Login Form</a></li>
               <li><a href="#">Card Design</a></li> -->
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a routerLink="/events/upcoming">
                 <i class='bx bxs-time-five'></i>
               <span class="link_name">Upcoming</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Upcoming</a></li>
+              <li><a class="link_name" routerLink="/events/upcoming">Upcoming</a></li>
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a routerLink="/events/favorites">
                 <i class='bx bxs-heart'></i>
               <span class="link_name">Favorites</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Favorites</a></li>
+              <li><a class="link_name" routerLink="/events/favorites">Favorites</a></li>
             </ul>
           </li>
           <span class="h-rule mx-4 px-4">
@@ -476,7 +476,7 @@
                     <!-- hr temporarily hidden in wait for data from db -->
                     <hr style="height: 1px !important;margin-right: 3.5rem !important;visibility: hidden;">
 
-                    <h5 class="nav-header-color pb-5" id="speakers">SPEAKERS</h5>
+                    <h5 *ngIf="speakersContent.length" class="nav-header-color pb-5" id="speakers">SPEAKERS</h5>
                     <div class="row ml-0 mr-4 mt-3 mb-5">
                       <ng-container *ngFor="let speaker of speakersContent">
 
@@ -668,7 +668,7 @@
                 <div class="card-body mt-1">
                     <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
                     <div class="pt-4" style="width: 100%;">
-                      <h1 style="text-align: left;font-size: 1.7rem;color: var(--ev-white);">{{eventContent.title}}</h1>
+                      <h1 class="event-title" style="text-align: left;font-size: 1.7rem;color: var(--ev-white);">{{eventContent.title}}</h1>
                     
                      
                       
@@ -678,7 +678,7 @@
                   </div>
                   
                   <div class="card-footer ml-3 pl-1" style="border: none;">
-                    <span style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">Created by</span>
+                    <span style="font-size: .8rem;opacity: .7;color: var(--ev-white) !important;">Event by</span>
                     <br>
                     <div *ngIf="eventHost" class="profile-details my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                         <div class="profile-content">
@@ -729,7 +729,8 @@
                             {{pricingContent[0].currency}}
                           </ng-container>
                           
-                        </span> <span style="font-size: 1rem;font-weight: 500;opacity: .8; color: var(--ev-white) !important;"> 
+                        </span> 
+                        <span style="font-size: 1rem;font-weight: 500;opacity: .8; color: var(--ev-white) !important;"> 
                           <ng-container *ngIf="eventContent.ticketing == '0'">
                             0
                           </ng-container>
@@ -740,10 +741,16 @@
                         </span>
                       </div>
                       <div style="flex: 2;">
-                        <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT STARTS IN</span>
-                        <br>
-                        <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">{{daysToDday}}D : {{hoursToDday}}H : {{minutesToDday}}M: {{secondsToDday}}S </span>
-                                         
+                        <ng-container *ngIf="isEventLive(eventContent.start_date_time, eventContent.end_date_time)">
+                          <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT IS</span>
+                          <br>
+                          <span class="live-text" style="font-size: 1rem;font-weight: 640;opacity: 1;letter-spacing: 2px;">LIVE</span>
+                         </ng-container>
+                         <ng-container *ngIf="!isEventLive(eventContent.start_date_time, eventContent.end_date_time)">
+                          <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT STARTS IN</span>
+                          <br>
+                          <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">{{daysToDday}}D : {{hoursToDday}}H : {{minutesToDday}}M: {{secondsToDday}}S </span>
+                         </ng-container>                 
                       </div>
                     </div>
 

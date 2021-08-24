@@ -457,7 +457,7 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
 
       
       for (let item of favorite_buttons) {
-        item.setAttribute('style', 'display: block; fill: rgba(255, 101, 80, 0.4); height: 24px; width: 24px; stroke: rgb(255, 255, 255); stroke-width: 2px; overflow: visible;'); 
+        item.setAttribute('style', 'display: block; fill: #e05959; height: 16px; width: 16px; stroke: #e05959; stroke-width: 2px; overflow: visible;'); 
         // item.style.fill = 'red';  // This is probably what you need for your SVG items
       }
       
@@ -550,6 +550,7 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
   }
 
   getPopularEventsPage(url: string): void {
+    this.loading = true
     this.eventsService.getPopularEventsPage(url).then(
       res => {
         console.log(res);
@@ -567,6 +568,7 @@ export class PopularEventsPageComponent implements OnInit, AfterViewInit {
 
         // get the next_page_url of the new events data and assigned it to the respective category data
         this.popularEvents.next_page_url = nextEvents.next_page_url
+        this.loading = false;
         
       },
       err => {

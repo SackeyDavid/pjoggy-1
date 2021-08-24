@@ -1788,3 +1788,61 @@
     color: var(--ev-header-text-color) !important;
   }
     
+  .event-title {
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+  }
+
+  .live-text {
+    color: var(--ev-white);
+    animation: blink 4s infinite;
+  }
+
+
+
+@keyframes blink {
+  0% {
+    color: red;
+  }
+  20% {
+    color: var(--ev-white);
+  }
+  40% {
+    color: red;
+  }
+  60% {
+    color: var(--ev-white);
+  }
+  80% {
+    color: red;
+  }
+  100% {
+    color: var(--ev-white);
+  }
+}
+
+@-webkit-keyframes blink{
+  0% {
+    color: red;
+  }
+  20% {
+    color: var(--ev-white);
+  }
+  40% {
+    color: red;
+  }
+  60% {
+    color: var(--ev-white);
+  }
+  80% {
+    color: red;
+  }
+  100% {
+    color: var(--ev-white);
+  }
+
+}
