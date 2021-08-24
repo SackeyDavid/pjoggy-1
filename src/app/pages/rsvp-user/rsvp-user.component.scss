@@ -584,7 +584,8 @@
     }
     
     input.form-control {
-    background-color: var(--ev-input-form-control-background) !important;
+      background-color: var(--ev-input-form-control-background) !important;
+      border: 1px solid var(--ev-sidebar-border-color) !important;
     }
     
     .form-control {
@@ -936,8 +937,9 @@
       min-width: 0;
       word-wrap: break-word;
       // border: 1px solid rgba(0, 0, 0, .05);
-      border-radius: 1.275rem;
-      background-color: var(--ev-white);
+      border-radius: 0;
+      // background-color: var(--ev-white);
+      box-shadow: none !important;
       background-clip: border-box;
       cursor: default;
       transition: all 3s ease-in;
@@ -1356,7 +1358,7 @@
     
     .card {
       // background-color: #107bf7;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: var(--ev-primary-background);
     }
     
     .card-text {
@@ -1855,9 +1857,9 @@
 
 .active-ticket{
   cursor: pointer;
-  // color: #fff;
+  color: var(--ev-white);
   // background-color: rgb(11, 11, 243);
-  border: 2px solid #0d79f8 !important;
+  border: 2px solid #f05537 !important;
 }
 
 .ticket-card .card:hover{
@@ -1922,11 +1924,11 @@
 .btn-primary, .login-button {
   // width: 140px;
   // height: 45px;
-  font-family: 'Roboto', sans-serif;
+  // font-family: 'Roboto', sans-serif;
   // font-size: 11px;
   // text-transform: uppercase;
   // letter-spacing: 2.5px;
-  // font-weight: 500;
+  font-weight: 500;
   // color: #000;
   background-color: #f05537;
   border: none;
@@ -1935,6 +1937,8 @@
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
+  width: inherit;
+  text-transform: capitalize;
 }
 
 .login-button {
@@ -1943,6 +1947,7 @@
 
 .btn-primary:hover {
   background-color: #f42f0c;
+  box-shadow: 0px 15px 20px rgba(255, 101, 80, 0.4);
 }
 
 .btn-primary {
@@ -1961,13 +1966,13 @@
 .alert-secondary {
   margin: .7rem !important;
   margin-left: 0rem !important;
-  background-color: rgba(0,0,0,.03) !important;
-  color: #41464b !important;
+  background-color: rgba(255,255,255, 0.039) !important;
+  color: var(--ev-white) !important;
 }
 
 .alert {
-  padding: .5rem .5rem !important;
-  border-radius: 0px !important;
+  padding: .5rem 1rem !important;
+  border-radius: 5px !important;
   border: none;
   margin-top: 0 !important;
 }
@@ -1985,7 +1990,7 @@ select.ticket-quantity {
 }
 
 .active-ticket-name {
-  color: var(--ev-brandname-darkblue);
+  color: var(--ev-white);
 }
 
 .img-fit-img-fix-background-cover {
@@ -2012,6 +2017,8 @@ select.ticket-quantity {
 
 .card-body {
   padding-top: 0.6rem !important;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .nav-pills .nav-link {
@@ -2046,3 +2053,81 @@ select.ticket-quantity {
   color: var(--ev-brandname-darkblue) !important;
   
 }
+
+.nav-text-color {
+  color: var(--ev-nav-text-color) !important;
+}
+
+.nav-header-color {
+  color: var(--ev-header-text-color) !important;
+}
+
+.form-label {
+	margin-bottom: 0.5rem;
+	color: var(--ev-header-text-color) !important;
+}
+
+.form-control {
+  width: auto !important;
+  padding-left: 1rem;
+}
+
+ /* The container must be positioned relative: */
+ .ticket-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.ticket-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+} 

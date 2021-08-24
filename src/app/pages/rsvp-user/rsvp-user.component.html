@@ -1,7 +1,7 @@
 <main>
     <section class="home-section">
-       <nav class="navbar navbar-light sticky-top bg-light justify-content-end" style="box-shadow: 0 -2px 10px rgba(0, 0, 0, 1) !important;">
-    
+       <nav class="navbar navbar-light sticky-top bg-light justify-content-between" style="box-shadow: var(--ev-rsvp-nav-box-shadow) !important;">
+        <a class="navbar-brand" routerLink="/">events369</a>
     <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
       <li class="nav-item mr-4 active">
         <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
@@ -77,16 +77,16 @@
                         </div>
                       </div> -->
                     <div class="col-md-12" *ngIf="eventData?.event[0]">
-                        <p class="event-title">{{eventData?.event[0].title}}</p>
+                        <p class="event-title" style="color: var(--ev-white) !important;">{{eventData?.event[0].title}}</p>
                         <ng-container *ngIf="getEventDateWithoutTime(eventData?.event[0].start_date_time) == getEventDateWithoutTime(eventData?.event[0].end_date_time)">
-                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{getEventStartDateFormatted(eventData?.event[0].start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventData?.event[0].end_date_time)}}</small></p>
+                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{getEventStartDateFormatted(eventData?.event[0].start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventData?.event[0].end_date_time)}} GMT</small></p>
                           </ng-container>
                           <ng-container *ngIf="!(getEventDateWithoutTime(eventData?.event[0].start_date_time) == getEventDateWithoutTime(eventData?.event[0].end_date_time))">
-                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{eventData?.event[0].start_date_time | date:'mediumDate'}}<i><b> to </b></i>{{eventData?.event[0].end_date_time | date:'mediumDate'}}</small></p>
+                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{eventData?.event[0].start_date_time | date:'mediumDate'}}<i><b> to </b></i>{{eventData?.event[0].end_date_time | date:'mediumDate'}} GMT</small></p>
 
                           </ng-container>
 
-                        <hr class="mb-4">
+                        <hr class="mb-4 mt-3">
                     </div>
                     <div class="banner-content-wrap" *ngIf="!eventData?.event[0]">
                         <div class="d-flex justify-content-center">
@@ -106,7 +106,9 @@
                                     <div>
                                         <span class="font-weight-bold"  class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">{{ticket.name}}</span> <br>
                                         <small style="font-weight: 600;"  class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">Priced</small> <br>
-                                        <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small>
+                                        <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">
+                                            Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}
+                                        </small>
                                     </div>
                                     <div>
                                         <select class="ticket-quantity" [(ngModel)] = "ticketQuantity[i]" [class.active-ticket] = "selectedTicket == ticket.id">
@@ -211,10 +213,10 @@
                 <!-- start of block to be hidden if rsvp hasn't been successfully submited -->
                   <ng-container *ngIf = "!submittedContactInfo">
                     <div class="col alert alert-secondary" role="alert">
-                        <small class="text-secondary">By clicking 'register', I agree that Events369 may <u><a href="/privacy"> share my information</a></u> with the event host.</small>
+                        <small style="color: var(--ev-nav-text-color) !important;">By clicking 'register', I agree that Events369 may <a href="/privacy" style="color: var(--ev-tertiary-background);"> share my information</a> with the event host.</small>
                       </div>
 
-                    <h3 class="my-3 font-weight-bolder">Contact Information</h3>
+                    <h3 class="nav-header-color my-3 font-weight-bolder">Contact Information</h3>
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <div  *ngIf="isPrefixIncluded" class="col">
@@ -562,12 +564,12 @@
 
 
 
-                        <div class="row">
+                        <div class="row" style="display: none;">
                             <div class="col-md-12 mb-3 mt-4">
                                 <hr class="mb-4">
                                 <button class="btn btn-primary btn-lg float-right" type="submit">
                                     <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    Register
+                                    Continue
                                 </button>
                             </div>
                         </div>
@@ -756,17 +758,30 @@
                 </div>
 
                 <div class="container-fluid p-4">
-                    <p class="font-weight-bold">Order Summary</p>
-                    <span *ngIf="ticketQuantity[selectedIndex]" class="w-100">{{ticketQuantity[selectedIndex]}} x {{selectTicketName}}
-                        <span class="float-right"> {{selectedTicketCurrency}} {{selectedTicketPrice}}</span>
+                    <p class="nav-text-color font-weight-bold">Order Summary</p>
+                    <span *ngIf="ticketQuantity[selectedIndex]" class="w-100 nav-text-color">{{ticketQuantity[selectedIndex]}} x {{selectTicketName}}
+                        <span class="float-right nav-text-color"> {{selectedTicketCurrency}} {{selectedTicketPrice}}</span>
                     </span>
 
-                    <hr class="mb-4">
+                    <hr class="my-4" style="color: var(--ev-sidebar-border-color);">
 
-                    <span class="w-100 font-weight-bold">Total
-                        <span *ngIf="ticketQuantity[selectedIndex]" class="float-right">{{selectedTicketCurrency}}  {{(ticketQuantity[selectedIndex]*selectedTicketPrice).toFixed(2)}}</span>
+                    <span class="w-100 font-weight-bold nav-text-color">Total
+                        <span *ngIf="ticketQuantity[selectedIndex]" class="float-right nav-text-color">{{selectedTicketCurrency}}  {{(ticketQuantity[selectedIndex]*selectedTicketPrice).toFixed(2)}}</span>
                     </span>
+
+                    
+                <div class="row">
+                    <div class="col-md-12 mb-3 mt-4">
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg float-right" (click)="onSubmit()" type="submit">
+                            <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Continue
+                        </button>
+                    </div>
                 </div>
+                </div>
+
+                
 
 
             </div>
@@ -855,7 +870,7 @@
                     <hr class="mb-4">
 
                     <div class="d-flex justify-content-between">
-                        <button routerLink="/tickets" class="btn btn-primary btn-view-tickets btn-lg float-right" type="button">View tickets</button>
+                        <button routerLink="/events/tickets" class="btn btn-primary btn-view-tickets btn-lg float-right" type="button">View tickets</button>
 
                         <div style="font-size: 1.3rem;color: var(--ev-brandname-darkblue);">
                             <span class="mx-3 social-media-links">

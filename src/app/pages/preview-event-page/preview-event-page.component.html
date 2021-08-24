@@ -711,7 +711,7 @@
                         {{getEventStartDateFormatted(eventContent?.start_date_time)}} <b> - </b> {{getEventEndDateFormatted(eventContent?.end_date_time)}}
                         </ng-container>
                         <ng-container *ngIf="!(getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time))">
-                        {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> - </b></i>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
+                        {{getEventStartDateFormatted(eventContent?.start_date_time)}}<i><b> - </b></i><br>{{getEventStartDateFormatted(eventContent?.end_date_time)}}
          
                         </ng-container>
                

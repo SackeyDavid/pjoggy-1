@@ -48,6 +48,7 @@ import { EventManagerHomePageComponent } from './pages/event-manager-home-page/e
 import { AuthGuard } from './services/auth-guard/auth.guard';
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
+import { TicketsComponentComponent } from './components/tickets-component/tickets-component.component';
 
 
 const routes: Routes = [
@@ -254,6 +255,11 @@ const routes: Routes = [
       {
         path: 'events-by-category/:id',
         component: CategoryEventsPageComponent
+      },
+      {
+        path: 'tickets',
+        canActivate: [AuthGuard],
+        component: TicketsComponentComponent
       },
     ]
   },
