@@ -1966,7 +1966,7 @@
 .alert-secondary {
   margin: .7rem !important;
   margin-left: 0rem !important;
-  background-color: rgba(255,255,255, 0.039) !important;
+  background-color: inherit !important;
   color: var(--ev-white) !important;
 }
 
@@ -1979,18 +1979,19 @@
 
 select.ticket-quantity {
 	background-color: inherit;
-	border: 2px solid rgba(0,0,0,.1);
+	border: 2px solid var(--ev-select-border-color);
 	padding: .8rem 1rem;
 	font-weight: bolder;
 	padding-right: 2rem;
+  color: var(--ev-white);
 }
 
 .ticket-name {
-  color: rgba(0,0,0,.5);
+  color: var(--ev-text-color);
 }
 
 .active-ticket-name {
-  color: var(--ev-white);
+  color: var(--ev-nav-text-color);
 }
 
 .img-fit-img-fix-background-cover {

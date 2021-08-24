@@ -43,7 +43,8 @@ export class RsvpUserComponent implements OnInit, AfterViewInit, AfterContentIni
   selectedTicket = 0;
   selectedIndex = 0;
   selectedTicketCurrency = '';
-  selectedTicketPrice: number = 0;
+  selectedEventTicket: any;
+  selectedTicketPrice: number = 10;
   ticketQuantity: any[] = [];
   selectTicketName = '';
 
@@ -268,6 +269,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit, AfterContentIni
     this.selectedTicketCurrency = currency;
     if(this.selectedTicketPrice == 0) this.selectedTicketPrice = price;
     this.selectTicketName = name;
+    this.selectedEventTicket = this.eventData?.tickets[this.selectedIndex];
 
     // if the ticket quantity was previouly 0 because it was deselected, set it to 1 on select
     if(this.ticketQuantity[index] <= 0) this.ticketQuantity[index] = 1;
@@ -329,6 +331,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit, AfterContentIni
 
         // initialize selected ticket to the first ticket
         this.selectTicket(this.selectedIndex, this.eventData?.tickets[0].id, this.eventData?.tickets[0].currency, this.eventData?.tickets[0].price, this.eventData?.tickets[0].name);
+        this.selectedEventTicket = this.eventData?.tickets[this.selectedIndex];
         
         // initialize first ticket quantity to 1
         this.ticketQuantity[0] = 1;

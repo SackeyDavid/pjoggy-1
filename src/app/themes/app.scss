@@ -56,7 +56,8 @@
   --ev-home-page-banner-bg: rgba(0, 0, 0, 0.06);
   --ev-fav-button-fill: rgba(106,108,124,.7);
   --ev-fav-button-stroke: rgba(106,108,124,.0);
-  --ev-rsvp-nav-box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 3.6px, rgba(0, 0, 0, 0.04) 0px 0px 14.4px;  
+  --ev-rsvp-nav-box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 3.6px, rgba(0, 0, 0, 0.04) 0px 0px 14.4px;
+  --ev-select-border-color: rgba(0, 0, 0, 0.1);  
 
   .dark-theme {
     --primary-color: #fff;
@@ -114,7 +115,8 @@
     --ev-home-page-banner-bg: rgba(255, 255, 255, 0.1);
     --ev-fav-button-fill: #6a6c7c;
     --ev-fav-button-stroke: #6a6c7c;
-    --ev-rsvp-nav-box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);  
+    --ev-rsvp-nav-box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
+    --ev-select-border-color: rgba(255, 255, 255, 0.3);  
   }
 
   .no-y-oversroll {
