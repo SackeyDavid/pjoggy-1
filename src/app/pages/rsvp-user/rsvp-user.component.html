@@ -1,76 +1,1070 @@
-<app-navbar></app-navbar>
+<main>
+    <section class="home-section">
+       <nav class="navbar navbar-light sticky-top bg-light justify-content-end" style="box-shadow: 0 -2px 10px rgba(0, 0, 0, 1) !important;">
+    
+    <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
+      <li class="nav-item mr-4 active">
+        <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
+      </li>
+      </ul>
+    <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile">
+        <div class="dropbtn_user" style="display: grid;height: 100%;">
+          <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
+               <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
+                <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                     <img src="../../../assets/images/avatar-placeholder.png" />
+                </div> 
+                <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                  <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
+                </div> 
+                <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                <span class="dot"></span>
+                 <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
+               </span>
+        </div>
+                
+        <div class="dropdown-content_user"> 
+            <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
+            <a id="browse_events_link">Notifications <span class="dot"></span> </a>
+            <a> Favorites </a>
+            <a> Following</a>
+            <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
+            <a>Tickets (0)</a> 
 
-<div class="container mt-4">
+            <!-- not working  -->
+            <!-- <a href="#">Credits</a> -->
+            <!-- <a href="#">Collections</a> -->
+            <!-- <a href="#">Interests</a> -->
+            
+            
+            <!-- <a href="#">Messages</a> -->
+            <!-- <a href="#">Events</a> -->
+            <!-- <a href="#">Saved</a> -->
+            <!-- end of not working  -->
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Name Prefix</label>
-            <input type="text" class="form-control" id="cc-prefix" placeholder="" required>
-            <div class="invalid-feedback">
-                Name Prefix is required
+            <a href="/create_event/basic_info">Host an event</a>
+            <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
+            <!-- href="https://about.gitlab.com/get-help/" -->
+            <a  target="_blank" routerLink="/help">Help</a>
+            <a id="logout_link" (click)="logout($event)">Log out</a>
+        </div>
+    </div>
+      
+    <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+        <a href="#">
+          <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+        </a>
+      </div> -->
+    </nav>
+
+<div>
+
+  <div class="col-lg-12">
+    <div class="card mb-4" style="width: 100%;" *ngIf="!rsvpCompleted">
+        <div class="card-horizontal">
+
+            <div class="card-body">
+
+                <div class="row">
+                    <!-- <div *ngIf="errorMsgs?.message" class="row text-center">
+                        <div class="col alert alert-danger">
+                          <small class="text-danger">{{errorMsgs.message}}</small>
+                        </div>
+                      </div> -->
+                    <div class="col-md-12" *ngIf="eventData?.event[0]">
+                        <p class="event-title">{{eventData?.event[0].title}}</p>
+                        <ng-container *ngIf="getEventDateWithoutTime(eventData?.event[0].start_date_time) == getEventDateWithoutTime(eventData?.event[0].end_date_time)">
+                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{getEventStartDateFormatted(eventData?.event[0].start_date_time)}} <b> to </b> {{getEventEndDateFormatted(eventData?.event[0].end_date_time)}}</small></p>
+                          </ng-container>
+                          <ng-container *ngIf="!(getEventDateWithoutTime(eventData?.event[0].start_date_time) == getEventDateWithoutTime(eventData?.event[0].end_date_time))">
+                            <p class="card-text" style="display: block;text-align: center;"><small class="text-muted">{{eventData?.event[0].start_date_time | date:'mediumDate'}}<i><b> to </b></i>{{eventData?.event[0].end_date_time | date:'mediumDate'}}</small></p>
+
+                          </ng-container>
+
+                        <hr class="mb-4">
+                    </div>
+                    <div class="banner-content-wrap" *ngIf="!eventData?.event[0]">
+                        <div class="d-flex justify-content-center">
+                           <!-- <div class="spinner-grow" role="status">  -->
+                             <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                             <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                             <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                           
+                           <!-- </div> -->
+                         </div>
+                     </div>
+
+                    <div *ngIf="eventData?.event[0].ticketing == '1'">
+                        <div *ngFor="let ticket of eventData?.tickets; index as i">
+                            
+                                <div class="d-flex justify-content-between mb-3" (click)="selectTicket(i, ticket.id, ticket.currency, ticket.price, ticket.name)">
+                                    <div>
+                                        <span class="font-weight-bold"  class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">{{ticket.name}}</span> <br>
+                                        <small style="font-weight: 600;"  class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">Priced</small> <br>
+                                        <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small>
+                                    </div>
+                                    <div>
+                                        <select class="ticket-quantity" [(ngModel)] = "ticketQuantity[i]" [class.active-ticket] = "selectedTicket == ticket.id">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="eventData?.event[0].ticketing == '0'">
+                        <div *ngFor="let ticket of eventData?.tickets; index as i">
+                            
+                                <div class="d-flex justify-content-between mb-3" (click)="selectTicket(i, ticket.id, ticket.currency, ticket.price, ticket.name)">
+                                    <div>
+                                        <span class="font-weight-bold" class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">{{ticket.name}}</span> <br>
+                                        <small style="font-weight: 600;" class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">Free</small> <br>
+                                        <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small>
+                                    </div>
+                                    <div>
+                                        <select class="ticket-quantity" [(ngModel)] = "ticketQuantity[i]" [class.active-ticket] = "selectedTicket == ticket.id">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="eventData?.event[0].ticketing == '2'">
+                        <div *ngFor="let ticket of eventData?.tickets; index as i">
+                            
+                                <div class="d-flex justify-content-between mb-3"  (click)="selectTicket(i, ticket.id, ticket.currency, ticket.price, ticket.name)">
+                                    <div>
+                                        <span class="font-weight-bold" class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">{{ticket.name}}</span> <br>
+                                        <small style="font-weight: 600;" class="ticket-name" [class.active-ticket-name] = "selectedTicket == ticket.id">Donation</small> <br>
+                                        <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small>
+                                    </div>
+                                    <div>
+                                        <select class="ticket-quantity" [(ngModel)] = "selectedTicketPrice" [class.active-ticket] = "selectedTicket == ticket.id">
+                                            <option value="0">0</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                            <option value="60">60</option>
+                                            <option value="70">70</option>
+                                            <option value="80">80</option>
+                                            <option value="90">90</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select class="ticket-quantity" [(ngModel)] = "ticketQuantity[i]" [class.active-ticket] = "selectedTicket == ticket.id">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <hr class="mb-4">
+                    </div>
+
+                </div>
+
+                <!-- start of block to be hidden if rsvp hasn't been successfully submited -->
+                  <ng-container *ngIf = "!submittedContactInfo">
+                    <div class="col alert alert-secondary" role="alert">
+                        <small class="text-secondary">By clicking 'register', I agree that Events369 may <u><a href="/privacy"> share my information</a></u> with the event host.</small>
+                      </div>
+
+                    <h3 class="my-3 font-weight-bolder">Contact Information</h3>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div  *ngIf="isPrefixIncluded" class="col">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-name" style="margin-bottom: 0;">Name Prefix</label>
+                                    <input type="text" class="form-control form-element" style="height: 42px;" formControlName="prefix" id="cc-prefix" placeholder="" required>
+                                </div>
+                                <!-- <small *ngIf="errorMsgs?.errors?.prefix"><span *ngFor="let x of errorMsgs?.errors?.prefix" class="text-danger">{{x}}</span></small> -->
+                                <small *ngIf="saved && f.prefix.errors" id="titleHelp" class="text-danger">
+                                    Name prefix is required.
+                                </small>
+                            </div>
+                            <div *ngIf="isFirstNameIncluded" class="col">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-first-name" style="margin-bottom: 0;">First Name</label>
+                                    <input type="text" class="form-control form-element" id="cc-first-name" style="height: 42px;" formControlName="firstname" required>
+                                </div>
+                                <!-- <small *ngIf="errorMsgs?.errors?.firstname"><span *ngFor="let x of errorMsgs?.errors?.firstname" class="text-danger">{{x}}</span></small> -->
+                                <small *ngIf="saved && f?.firstname.errors" id="titleHelp" class="text-danger">
+                                    First name is required.
+                                </small>
+                            </div>
+
+                            <div *ngIf="isLastNameIncluded" class="col">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-last-name" style="margin-bottom: 0;">Last Name</label>
+                                    <input type="text" class="form-control form-element" id="cc-last-name" style="height: 42px;" formControlName="lastname" required>
+                                </div>
+                                <!-- <small *ngIf="errorMsgs?.errors?.lastname"><span *ngFor="let x of errorMsgs?.errors?.lastname" class="text-danger">{{x}}</span></small> -->
+                                <small *ngIf="saved && f?.lastname.errors" id="titleHelp" class="text-danger">
+                                    Last name is required.
+                                </small>
+                            </div>
+
+                            <div *ngIf="isGenderIncluded" class="col">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-gender" style="margin-bottom: 0;">Gender</label>
+                                    <select type="text" class="form-control form-element" id="cc-gender" style="height: 42px;" formControlName="gender" required>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="O">Other</option>
+                                    </select>
+                                </div>
+                                <!-- <small *ngIf="errorMsgs?.errors?.gender"><span *ngFor="let x of errorMsgs?.errors?.gender" class="text-danger">{{x}}</span></small> -->
+                            </div>
+
+                            <div *ngIf="isEmailIncluded" class="col-lg-6">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-email" style="margin-bottom: 0;">Email</label>
+                                    <input type="text" class="form-control form-element" id="cc-email" style="height: 42px;" formControlName="email">
+                                </div>
+                            </div>
+
+                            <div *ngIf="isPhoneIncluded" class="row">
+                                <!-- <div class="col">
+                                    <div class="mt-2">
+                                        <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Country</label>
+                                        <select class="form-control form-element" id="floatingSelect1" style="height: 42px;" formControlName="country" required>
+                                            <option value="AF">Afghanistan</option>
+                                            <option value="AX">Aland Islands</option>
+                                            <option value="AL">Albania</option>
+                                            <option value="DZ">Algeria</option>
+                                            <option value="AS">American Samoa</option>
+                                            <option value="AD">Andorra</option>
+                                            <option value="AO">Angola</option>
+                                            <option value="AI">Anguilla</option>
+                                            <option value="AQ">Antarctica</option>
+                                            <option value="AG">Antigua and Barbuda</option>
+                                            <option value="AR">Argentina</option>
+                                            <option value="AM">Armenia</option>
+                                            <option value="AW">Aruba</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="AT">Austria</option>
+                                            <option value="AZ">Azerbaijan</option>
+                                            <option value="BS">Bahamas</option>
+                                            <option value="BH">Bahrain</option>
+                                            <option value="BD">Bangladesh</option>
+                                            <option value="BB">Barbados</option>
+                                            <option value="BY">Belarus</option>
+                                            <option value="BE">Belgium</option>
+                                            <option value="BZ">Belize</option>
+                                            <option value="BJ">Benin</option>
+                                            <option value="BM">Bermuda</option>
+                                            <option value="BT">Bhutan</option>
+                                            <option value="BO">Bolivia</option>
+                                            <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
+                                            <option value="BA">Bosnia and Herzegovina</option>
+                                            <option value="BW">Botswana</option>
+                                            <option value="BV">Bouvet Island</option>
+                                            <option value="BR">Brazil</option>
+                                            <option value="IO">British Indian Ocean Territory</option>
+                                            <option value="BN">Brunei Darussalam</option>
+                                            <option value="BG">Bulgaria</option>
+                                            <option value="BF">Burkina Faso</option>
+                                            <option value="BI">Burundi</option>
+                                            <option value="KH">Cambodia</option>
+                                            <option value="CM">Cameroon</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="CV">Cape Verde</option>
+                                            <option value="KY">Cayman Islands</option>
+                                            <option value="CF">Central African Republic</option>
+                                            <option value="TD">Chad</option>
+                                            <option value="CL">Chile</option>
+                                            <option value="CN">China</option>
+                                            <option value="CX">Christmas Island</option>
+                                            <option value="CC">Cocos (Keeling) Islands</option>
+                                            <option value="CO">Colombia</option>
+                                            <option value="KM">Comoros</option>
+                                            <option value="CG">Congo</option>
+                                            <option value="CD">Congo, Democratic Republic of the Congo</option>
+                                            <option value="CK">Cook Islands</option>
+                                            <option value="CR">Costa Rica</option>
+                                            <option value="CI">Cote D'Ivoire</option>
+                                            <option value="HR">Croatia</option>
+                                            <option value="CU">Cuba</option>
+                                            <option value="CW">Curacao</option>
+                                            <option value="CY">Cyprus</option>
+                                            <option value="CZ">Czech Republic</option>
+                                            <option value="DK">Denmark</option>
+                                            <option value="DJ">Djibouti</option>
+                                            <option value="DM">Dominica</option>
+                                            <option value="DO">Dominican Republic</option>
+                                            <option value="EC">Ecuador</option>
+                                            <option value="EG">Egypt</option>
+                                            <option value="SV">El Salvador</option>
+                                            <option value="GQ">Equatorial Guinea</option>
+                                            <option value="ER">Eritrea</option>
+                                            <option value="EE">Estonia</option>
+                                            <option value="ET">Ethiopia</option>
+                                            <option value="FK">Falkland Islands (Malvinas)</option>
+                                            <option value="FO">Faroe Islands</option>
+                                            <option value="FJ">Fiji</option>
+                                            <option value="FI">Finland</option>
+                                            <option value="FR">France</option>
+                                            <option value="GF">French Guiana</option>
+                                            <option value="PF">French Polynesia</option>
+                                            <option value="TF">French Southern Territories</option>
+                                            <option value="GA">Gabon</option>
+                                            <option value="GM">Gambia</option>
+                                            <option value="GE">Georgia</option>
+                                            <option value="DE">Germany</option>
+                                            <option selected value="GH">Ghana</option>
+                                            <option value="GI">Gibraltar</option>
+                                            <option value="GR">Greece</option>
+                                            <option value="GL">Greenland</option>
+                                            <option value="GD">Grenada</option>
+                                            <option value="GP">Guadeloupe</option>
+                                            <option value="GU">Guam</option>
+                                            <option value="GT">Guatemala</option>
+                                            <option value="GG">Guernsey</option>
+                                            <option value="GN">Guinea</option>
+                                            <option value="GW">Guinea-Bissau</option>
+                                            <option value="GY">Guyana</option>
+                                            <option value="HT">Haiti</option>
+                                            <option value="HM">Heard Island and Mcdonald Islands</option>
+                                            <option value="VA">Holy See (Vatican City State)</option>
+                                            <option value="HN">Honduras</option>
+                                            <option value="HK">Hong Kong</option>
+                                            <option value="HU">Hungary</option>
+                                            <option value="IS">Iceland</option>
+                                            <option value="IN">India</option>
+                                            <option value="ID">Indonesia</option>
+                                            <option value="IR">Iran, Islamic Republic of</option>
+                                            <option value="IQ">Iraq</option>
+                                            <option value="IE">Ireland</option>
+                                            <option value="IM">Isle of Man</option>
+                                            <option value="IL">Israel</option>
+                                            <option value="IT">Italy</option>
+                                            <option value="JM">Jamaica</option>
+                                            <option value="JP">Japan</option>
+                                            <option value="JE">Jersey</option>
+                                            <option value="JO">Jordan</option>
+                                            <option value="KZ">Kazakhstan</option>
+                                            <option value="KE">Kenya</option>
+                                            <option value="KI">Kiribati</option>
+                                            <option value="KP">Korea, Democratic People's Republic of</option>
+                                            <option value="KR">Korea, Republic of</option>
+                                            <option value="XK">Kosovo</option>
+                                            <option value="KW">Kuwait</option>
+                                            <option value="KG">Kyrgyzstan</option>
+                                            <option value="LA">Lao People's Democratic Republic</option>
+                                            <option value="LV">Latvia</option>
+                                            <option value="LB">Lebanon</option>
+                                            <option value="LS">Lesotho</option>
+                                            <option value="LR">Liberia</option>
+                                            <option value="LY">Libyan Arab Jamahiriya</option>
+                                            <option value="LI">Liechtenstein</option>
+                                            <option value="LT">Lithuania</option>
+                                            <option value="LU">Luxembourg</option>
+                                            <option value="MO">Macao</option>
+                                            <option value="MK">Macedonia, the Former Yugoslav Republic of</option>
+                                            <option value="MG">Madagascar</option>
+                                            <option value="MW">Malawi</option>
+                                            <option value="MY">Malaysia</option>
+                                            <option value="MV">Maldives</option>
+                                            <option value="ML">Mali</option>
+                                            <option value="MT">Malta</option>
+                                            <option value="MH">Marshall Islands</option>
+                                            <option value="MQ">Martinique</option>
+                                            <option value="MR">Mauritania</option>
+                                            <option value="MU">Mauritius</option>
+                                            <option value="YT">Mayotte</option>
+                                            <option value="MX">Mexico</option>
+                                            <option value="FM">Micronesia, Federated States of</option>
+                                            <option value="MD">Moldova, Republic of</option>
+                                            <option value="MC">Monaco</option>
+                                            <option value="MN">Mongolia</option>
+                                            <option value="ME">Montenegro</option>
+                                            <option value="MS">Montserrat</option>
+                                            <option value="MA">Morocco</option>
+                                            <option value="MZ">Mozambique</option>
+                                            <option value="MM">Myanmar</option>
+                                            <option value="NA">Namibia</option>
+                                            <option value="NR">Nauru</option>
+                                            <option value="NP">Nepal</option>
+                                            <option value="NL">Netherlands</option>
+                                            <option value="AN">Netherlands Antilles</option>
+                                            <option value="NC">New Caledonia</option>
+                                            <option value="NZ">New Zealand</option>
+                                            <option value="NI">Nicaragua</option>
+                                            <option value="NE">Niger</option>
+                                            <option value="NG">Nigeria</option>
+                                            <option value="NU">Niue</option>
+                                            <option value="NF">Norfolk Island</option>
+                                            <option value="MP">Northern Mariana Islands</option>
+                                            <option value="NO">Norway</option>
+                                            <option value="OM">Oman</option>
+                                            <option value="PK">Pakistan</option>
+                                            <option value="PW">Palau</option>
+                                            <option value="PS">Palestinian Territory, Occupied</option>
+                                            <option value="PA">Panama</option>
+                                            <option value="PG">Papua New Guinea</option>
+                                            <option value="PY">Paraguay</option>
+                                            <option value="PE">Peru</option>
+                                            <option value="PH">Philippines</option>
+                                            <option value="PN">Pitcairn</option>
+                                            <option value="PL">Poland</option>
+                                            <option value="PT">Portugal</option>
+                                            <option value="PR">Puerto Rico</option>
+                                            <option value="QA">Qatar</option>
+                                            <option value="RE">Reunion</option>
+                                            <option value="RO">Romania</option>
+                                            <option value="RU">Russian Federation</option>
+                                            <option value="RW">Rwanda</option>
+                                            <option value="BL">Saint Barthelemy</option>
+                                            <option value="SH">Saint Helena</option>
+                                            <option value="KN">Saint Kitts and Nevis</option>
+                                            <option value="LC">Saint Lucia</option>
+                                            <option value="MF">Saint Martin</option>
+                                            <option value="PM">Saint Pierre and Miquelon</option>
+                                            <option value="VC">Saint Vincent and the Grenadines</option>
+                                            <option value="WS">Samoa</option>
+                                            <option value="SM">San Marino</option>
+                                            <option value="ST">Sao Tome and Principe</option>
+                                            <option value="SA">Saudi Arabia</option>
+                                            <option value="SN">Senegal</option>
+                                            <option value="RS">Serbia</option>
+                                            <option value="CS">Serbia and Montenegro</option>
+                                            <option value="SC">Seychelles</option>
+                                            <option value="SL">Sierra Leone</option>
+                                            <option value="SG">Singapore</option>
+                                            <option value="SX">Sint Maarten</option>
+                                            <option value="SK">Slovakia</option>
+                                            <option value="SI">Slovenia</option>
+                                            <option value="SB">Solomon Islands</option>
+                                            <option value="SO">Somalia</option>
+                                            <option value="ZA">South Africa</option>
+                                            <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                            <option value="SS">South Sudan</option>
+                                            <option value="ES">Spain</option>
+                                            <option value="LK">Sri Lanka</option>
+                                            <option value="SD">Sudan</option>
+                                            <option value="SR">Suriname</option>
+                                            <option value="SJ">Svalbard and Jan Mayen</option>
+                                            <option value="SZ">Swaziland</option>
+                                            <option value="SE">Sweden</option>
+                                            <option value="CH">Switzerland</option>
+                                            <option value="SY">Syrian Arab Republic</option>
+                                            <option value="TW">Taiwan, Province of China</option>
+                                            <option value="TJ">Tajikistan</option>
+                                            <option value="TZ">Tanzania, United Republic of</option>
+                                            <option value="TH">Thailand</option>
+                                            <option value="TL">Timor-Leste</option>
+                                            <option value="TG">Togo</option>
+                                            <option value="TK">Tokelau</option>
+                                            <option value="TO">Tonga</option>
+                                            <option value="TT">Trinidad and Tobago</option>
+                                            <option value="TN">Tunisia</option>
+                                            <option value="TR">Turkey</option>
+                                            <option value="TM">Turkmenistan</option>
+                                            <option value="TC">Turks and Caicos Islands</option>
+                                            <option value="TV">Tuvalu</option>
+                                            <option value="UG">Uganda</option>
+                                            <option value="UA">Ukraine</option>
+                                            <option value="AE">United Arab Emirates</option>
+                                            <option value="GB">United Kingdom</option>
+                                            <option value="US">United States</option>
+                                            <option value="UM">United States Minor Outlying Islands</option>
+                                            <option value="UY">Uruguay</option>
+                                            <option value="UZ">Uzbekistan</option>
+                                            <option value="VU">Vanuatu</option>
+                                            <option value="VE">Venezuela</option>
+                                            <option value="VN">Viet Nam</option>
+                                            <option value="VG">Virgin Islands, British</option>
+                                            <option value="VI">Virgin Islands, U.s.</option>
+                                            <option value="WF">Wallis and Futuna</option>
+                                            <option value="EH">Western Sahara</option>
+                                            <option value="YE">Yemen</option>
+                                            <option value="ZM">Zambia</option>
+                                            <option value="ZW">Zimbabwe</option>
+                                        </select>
+                                    </div>
+                                    <small *ngIf="errorMsgs?.errors.country"><span *ngFor="let x of errorMsgs?.errors?.country" class="text-danger">{{x}}</span></small>
+                                </div> -->
+                                <div class="col">
+                                    <div class="row gx-1">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <div class="mt-2">
+                                                <label class="form-label" for="cc-phone" style="margin-bottom: 0;">Phone No.</label>
+                                                <input type="text" class="form-control form-element" id="cc-phone" style="height: 42px;" formControlName="phone" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <small *ngIf="errorMsgs?.errors?.phone"><span *ngFor="let x of errorMsgs?.errors?.phone" class="text-danger">{{x}}</span></small> -->
+                                    <small *ngIf="saved && f?.phone.errors" id="titleHelp" class="text-danger">
+                                        Please enter a valid phone number, eg 0501889354
+                                    </small>
+                                </div>
+                            </div>
+
+
+                            <div *ngIf="isAddressIncluded" class="col">
+                                <div class="mt-2">
+                                    <label class="form-label" for="cc-address" style="margin-bottom: 0;">Address</label>
+                                    <input type="text" class="form-control form-element" id="cc-address" style="height: 42px;" formControlName="address" required>
+                                </div>
+                                <!-- <small *ngIf="errorMsgs?.errors?.address"><span *ngFor="let x of errorMsgs?.errors?.address" class="text-danger">{{x}}</span></small> -->
+                                <small *ngIf="saved && f?.address.errors" id="titleHelp" class="text-danger">
+                                    Address is required.
+                                </small>
+                            </div>
+
+                            <!-- // end of row  -->
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3 mt-4">
+                                <hr class="mb-4">
+                                <button class="btn btn-primary btn-lg float-right" type="submit">
+                                    <span *ngIf="isSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                  </ng-container>
+
+                <!-- end of block to be hidden if rsvp successful -->
+
+                <!-- start of block to be shown if rsv successful  -->
+
+                    <ng-container *ngIf="submittedContactInfo">
+                        <!-- <div *ngIf="eventData?.event[0].ticketing == '1'" class="row gx-2">
+                            <div class="col">
+                                <div class="card price-card">
+                                    <div class="card-body">
+                                        <span class="h4"><i class="bi bi-cash mr-2"></i>{{rsvpTicket?.currency}} {{rsvpTicket?.price}}</span>
+                                        <span class="text-muted mx-3">X</span>
+                                        <span class="h4"><i class="bi bi-people mr-2"></i>{{rsvpTicket?.quantity}} {{rsvpTicket?.quantity}}</span>
+                                        <h3 class="h3"><strong>{{rsvpTicket?.currency}} {{rsvpTicket?.price * rsvpTicket?.quantity}}</strong></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div *ngIf="eventData?.event[0].ticketing == '2'" class="row gx-2">
+                            <p class="lead text-muted">Kindly donate any amount to support the event</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 mt-0">
+                                <h3 class="mb-3 mt-0 font-weight-bolder">Payment Information</h3>
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="pills-card-tab" data-toggle="pill" href="#pills-card" role="tab" aria-controls="pills-card" aria-selected="true">Credit / Debit Card</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="pills-mobile-tab" data-toggle="pill" href="#pills-mobile" role="tab" aria-controls="pills-mobile" aria-selected="false">Mobile Money</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content" id="pills-tabContent">
+
+                                    <div class="tab-pane fade show active" id="pills-card" role="tabpanel" aria-labelledby="pills-card-tab">
+                                    <form [formGroup]="cardForm" (ngSubmit)="onCardSubmit()">
+                                        <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-name">Email</label>
+                                            <input type="text" formControlName="customer_email" class="form-control" id="cc-email" placeholder="" required>
+                                            <div *ngIf="isCardSaved && h.customer_email.errors" class="text-danger">
+                                            Name on card is required
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-name">Name on card</label>
+                                            <input type="text" formControlName="card_holder" class="form-control" id="cc-name" placeholder="" required>
+                                            <small class="text-muted">Full name as displayed on card</small>
+                                            <div *ngIf="isCardSaved && h.card_holder.errors" class="text-danger">
+                                            Name on card is required
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-expiration">Card Type</label>
+                                            <select type="text" formControlName="r_switch" class="form-control form-select" id="cc-card-type" placeholder="" required>
+                                            <option selected></option>
+                                            <option value="VIS">Visa</option>
+                                            <option value="MAS">Master Card</option>
+                                            </select>
+                                            <div *ngIf="isCardSaved && h.r_switch.errors" class="text-danger">
+                                            Card Type is required
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-number">Credit card number</label>
+                                            <input type="text" formControlName="pan" class="form-control" id="cc-number" placeholder="" required>
+                                            <div *ngIf="isCardSaved && h.pan.errors" class="text-danger">
+                                            Credit card number is required
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-md-6 mb-3">
+
+                                          <div style="display:flex">
+                                             <div style="width: 40%;">
+                                                <label for="cc-expiration" style="display: block;">Expiration</label>
+
+                                                <div style="display: flex;">
+                                                    <div>
+                                                        <input type="text" formControlName="exp_month" class="form-control expiration-input" id="cc-expiration-month" placeholder="09" required maxlength="2" style="display: inline-block;"
+                                                        [class.invalid]="isCardSaved && h.exp_month.errors" style="display: inline-block;width: 40% !important;">
+                                                        <small class="text-muted">Month</small>
+
+                                                    </div>
+                                                    <span class="h3 text-center mx-1" style="margin: 0 .5rem !important;">/</span>
+                                                </div>
+                                             </div>
+                                            <div style="flex: 1;padding-left: 0rem;">
+                                            <label style="visibility: hidden">Year</label>
+                                            <input type="text" formControlName="exp_year" class="form-control expiration-input" id="cc-expiration-year" placeholder="26" required maxlength="2" style="display: inline-block;width: 50% !important;">
+                                            <small class="text-muted">Year</small>
+
+                                            </div>
+                                         </div>
+
+                                         <div *ngIf="isCardSaved && (h.exp_month.errors || h.exp_year.errors)" class="text-danger">
+                                            Expiration date required
+                                        </div>
+
+                                            <!-- <label for="cc-expiration" style="display: block;">Expiration</label>
+                                            <input type="text" formControlName="exp_month" class="form-control expiration-input" id="cc-expiration-month" placeholder="00" required maxlength="2" style="display: inline-block;"
+                                            [class.invalid]="isCardSaved && f.exp_month.errors">
+                                            <span class="h3 text-center mx-1">/</span>
+                                            <input type="text" formControlName="exp_year" class="form-control expiration-input" id="cc-expiration-year" placeholder="00" required maxlength="2" style="display: inline-block;">
+                                            <div *ngIf="isCardSaved && (f.exp_month.errors || f.exp_year.errors)" class="text-danger">
+                                            Expiration date required
+                                            </div> -->
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-cvv">CVV</label>
+                                            <input type="text" formControlName="cvv" class="form-control" id="cc-cvv" placeholder="000" required maxlength="3" style="width: 100% !important;">
+                                            <div *ngIf="isCardSaved && h.cvv.errors" class="text-danger">
+                                            Security code required
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <hr class="mb-4">
+                                        <button class="btn btn-primary btn-lg float-right" type="submit">
+                                            <span *ngIf="isCardSending || isMobileSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            Continue
+                                        </button>
+                                    </form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="pills-mobile" role="tabpanel" aria-labelledby="pills-mobile-tab">
+                                    <form [formGroup]="mobileForm" (ngSubmit)="onMobileSubmit()">
+                                        <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-expiration">Mobile Network</label>
+                                            <select type="text" [(ngModel)] = "r_switch" formControlName="r_switch" class="form-control form-select" id="cc-network" placeholder="" required>
+                                            <option selected></option>
+                                            <option value="VDF">Vodafone</option>
+                                            <option value="MTN">MTN</option>
+                                            <option value="ATL">Airtel</option>
+                                            <option value="TGO">Tigo</option>
+                                            </select>
+                                            <div *ngIf="isMobileSaved && g.r_switch.errors" class="text-danger">
+                                            Mobile Network is required
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-number">Phone No.</label>
+                                            <input type="text" formControlName="subscriber_number" class="form-control" id="cc-phone" placeholder="" required>
+                                            <div *ngIf="isMobileSaved && g.subscriber_number.errors" class="text-danger">
+                                            Phone No. number is required
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div *ngIf="r_switch == 'VDF'" class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cc-name">Voucher Code</label>
+                                            <input type="text" formControlName="voucher_code" class="form-control" id="cc-code" placeholder="">
+                                            <div *ngIf="isMobileSaved && g.voucher_code.errors" class="text-danger">
+                                            Voucher Code is required
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <hr class="mb-4">
+                                        <button class="btn btn-primary btn-lg float-right" type="submit">Continue</button>
+                                    </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-container>
+                <!-- end of block to be shown if rsvp successful  -->
+
+            </div>
+            <div class="card-footer">
+                <div *ngIf="eventData?.event[0].banner_image" class="img-fit-img-fix-background-cover" style="width: 30vw; background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{eventData?.event[0].banner_image}}&quot;);height: 40vh;">
+                </div>
+                <div *ngIf="eventData?.event[0].banner_image == null" class="img-fit-img-fix-background-cover" style="width: 30vw; background-image: url(&quot;../../../../../assets/images/placeholder-image.png&quot;);height: 40vh;">
+                </div>
+
+                <div class="container-fluid p-4">
+                    <p class="font-weight-bold">Order Summary</p>
+                    <span *ngIf="ticketQuantity[selectedIndex]" class="w-100">{{ticketQuantity[selectedIndex]}} x {{selectTicketName}}
+                        <span class="float-right"> {{selectedTicketCurrency}} {{selectedTicketPrice}}</span>
+                    </span>
+
+                    <hr class="mb-4">
+
+                    <span class="w-100 font-weight-bold">Total
+                        <span *ngIf="ticketQuantity[selectedIndex]" class="float-right">{{selectedTicketCurrency}}  {{(ticketQuantity[selectedIndex]*selectedTicketPrice).toFixed(2)}}</span>
+                    </span>
+                </div>
+
+
+            </div>
+
+        </div>
+
+      </div>
+
+    <div class="card mb-" style="width: 100%;" *ngIf="rsvpCompleted">
+    <div class="card-horizontal">
+
+        <div class="card-body" style="padding: 2.5rem !important;">
+
+            <div class="row">
+                <div *ngIf="errorMsgs?.message" class="row text-center">
+                    <div class="col alert alert-danger">
+                        <small class="text-danger">{{errorMsgs.message}}</small>
+                    </div>
+                    </div>
+                <div class="col-md-12" *ngIf="eventData?.event[0]">
+                   <p style="text-align: left;">
+                       <span style="display: inline-block;text-align: center; color: white; height: 50px;width: 50px;padding: 6px;background-color: #4de3a4;border-radius: 50%;">
+                        <i class="bi bi-check" style="font-size: x-large;"></i>
+                       </span>
+                       <span class="mx-3 font-weight-bold" style="font-size: 1rem;">
+                        Thanks for your order! <ng-container *ngIf="transactionId"> #{{transactionId}} </ng-container>
+                       </span>
+                   </p>
+
+                    <hr class="mb-4">
+                </div>
+
+                <div *ngIf="eventData?.event[0].ticketing == '1' || eventData?.event[0].ticketing == '2' || eventData?.event[0].ticketing == '0'">
+                    <div *ngFor="let ticket of eventData?.tickets; index as i;">
+                        
+                            <div class="mb-3" *ngIf="i == selectedIndex">
+                                <div class="mb-3">
+                                    <small style="font-weight: 600;">You're attending</small> <br>
+                                    <span class="font-weight-bold" style="font-size: 1.4rem;">{{eventData?.event[0].title}}</span> <br>
+                                    <!-- <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small> -->
+                                </div>
+                                <div style="display: flex;" class="mb-3">
+                                    <div style="flex: 1;">
+                                        <small style="font-weight: 600;">
+                                            <ng-container *ngIf="ticketQuantity[selectedIndex] == 1">
+                                                {{ticketQuantity[selectedIndex]}} ticket
+                                            </ng-container>
+                                            <ng-container *ngIf="ticketQuantity[selectedIndex] > 1">
+                                                {{ticketQuantity[selectedIndex]}} tickets
+                                            </ng-container>
+                                            sent to </small> <br>
+                                    <span class="font-weight-initial" style="font-size: .8rem;">{{currentUser?.email}}</span> <br>
+                                    <!-- <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on {{getEventStartDateFormatted(ticket.sales_enddate_time)}}</small> -->
+
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <small style="font-weight: 600;">Date</small> <br>
+                                    <span class="font-weight-initial" style="font-size: .8rem;">{{getEventStartDateFormatted(eventData?.event[0].start_date_time)}}</span> <br>
+                                    <!-- <small class="text-muted" style="font-weight: 600;" *ngIf="ticket.sales_enddate_time">Sales end on </small> -->
+
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <small style="font-weight: 600;">Location</small> <br>
+                                    <span class="font-weight-initial" style="font-size: .8rem;">
+                                        <ng-container *ngIf="eventData?.event[0].venue">
+                                            {{eventData?.event[0].venue}}
+                                          </ng-container>
+                                          <ng-container *ngIf="eventData?.event[0].hosting == '0'">
+                                            Online Event
+                                          </ng-container>
+                                          <ng-container *ngIf="eventData?.event[0].venue_tobe_announced == '1'">
+                                            TBA
+                                          </ng-container>
+                                    </span> <br>
+                                </div>
+
+                            </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <hr class="mb-4">
+
+                    <div class="d-flex justify-content-between">
+                        <button routerLink="/tickets" class="btn btn-primary btn-view-tickets btn-lg float-right" type="button">View tickets</button>
+
+                        <div style="font-size: 1.3rem;color: var(--ev-brandname-darkblue);">
+                            <span class="mx-3 social-media-links">
+                                <a href="https://www.facebook.com/dialog/share?locale=en_US&amp;display=popup&amp;app_id=281876326159158&amp;href={{eventData?.event[0].event_url}}&amp;hashtag="
+                                   target="_blank"
+                                   aria-label="Share this event on Facebook"
+                                >
+                                <i class="bi bi-facebook"></i>
+                                </a>
+                            </span> 
+
+                            <span class="mx-3 social-media-links">
+                                <a target="_blank" 
+                                   href="http://www.facebook.com/dialog/send?app_id=281876326159158&amp;display=popup&amp;redirect_uri=http://events369.herokuapp.com/&amp;link={{eventData?.event[0].event_url}}"
+                                   aria-label="Share this event on Messenger"
+                                   >
+                                <svg xmlns="http://www.w3.org/2000/svg" style="height: 21px; width: 22px;margin-top: -.2rem" fill="currentColor" class="bi bi-messenger" viewBox="0 0 16 16">
+                                    <path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.639.639 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.639.639 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76zm5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z"/>
+                                </svg>
+                                </a>
+                            </span> 
+
+                            <span class="mx-3 social-media-links">
+                              <a href="https://twitter.com/intent/tweet?via=&amp;hashtags=&amp;text=Check%20out%20this%20event%20on%20Events369%3A%20{{eventData?.event[0].title}}&amp;url={{eventData?.event[0].event_url}}"
+                                 target="_blank"
+                                 aria-label="Share this event on Twitter">  
+                                <i class="bi bi-twitter"></i>
+                              </a>
+                            </span> 
+                            
+                            <span class="ml-3 social-media-links">
+                                <a  href="mailto:?subject=Check%20out%20this%20event%20on%20Events369%3A%20{{eventData?.event[0].title}}&amp;body=Hey%2C%20check%20out%20this%20event%20on%20Events369%3A%20{{eventData?.event[0].title}}%20on%2007%2F01%2F21%20%4004%3A00PM(GMT)%2C%20interested%3F%0A{{eventData?.event[0].event_url}}"
+                                    target="_blank"
+                                    aria-label="Share this event by Email"
+                                >
+                                <i class="bi bi-envelope-fill"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card-footer"  *ngIf="eventHost">
+           
+            <div class="profile-details ml-4 my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
+                <div class="profile-content">
+                  <div style="border: 1px solid rgba(255,255,255, 100);padding: 4px;border-radius: 50%;">
+                    <img *ngIf ="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                    <img *ngIf = "eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 50%;" alt="{{eventHost.user.name}}">
+                  
+                    <span class="discover-user-checkmark"><i class="bi bi-check"></i></span>
+                  </div>
+                
+                </div>
+                <div class="name-job p-2">
+                  <div class="profile_name">{{eventHost.user.name}}</div>
+                  <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">
+                    <ng-container *ngIf="eventCreatorsEvents?.total == 1">
+                        {{eventCreatorsEvents?.total}} 
+                    </ng-container>
+                    <ng-container *ngIf="eventCreatorsEvents?.total > 1">
+                        {{eventCreatorsEvents?.total}}
+                    </ng-container>
+                    events &bull; Joined {{eventHost.user.created_at | date : 'yyyy'}}</div>
+                  <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div>
+                  <div class="job" style="font-size: .7rem;opacity: .6;">
+                    <button routerLink="/" disabled class="btn btn-primary login-button btn-md my-2" type="button">Follow</button>
+                  </div>
+                </div>
+                <!-- <i class='bx bx-log-out' ></i> -->
+              </div>
+
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div *ngIf="eventData?.event[0].ticketing == '1'" class="row gx-2 mb-5">
+        <div *ngFor="let ticket of eventData?.tickets" class="col ticket-card">
+            <div class="card h-100" [class.active-ticket]="selectedTicket == ticket.id" (click)="selectTicket(ticket.id, ticket.currency, ticket.price)">
+                <div class="card-body text-center">
+                    <p class="h6">{{ticket.name}}</p>
+                    <p>{{ticket.currency}} {{ticket.price}}</p>
+                    <label for="cc-quantity" class="mb-0"><small>Left - {{ticket.quantity_remaining}}</small></label>
+                    <input [(ngModel)]="ticketQuantity" type="number" formControlName="prefix" style="width: 100% !important;" class="form-control form-control-sm" placeholder="">
+                </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">First Name</label>
-            <input type="text" class="form-control" id="cc-first-name" placeholder="" required>
-            <div class="invalid-feedback">
-                First Name is required
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Last Name</label>
-            <input type="text" class="form-control" id="cc-last-name" placeholder="" required>
-            <div class="invalid-feedback">
-                Last Name is required
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Gender</label>
-            <select type="text" class="form-control form-select" id="cc-first-name" placeholder="" required>
-                <option selected></option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-            <div class="invalid-feedback">
-                First Name is required
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Email</label>
-            <input type="text" class="form-control" id="cc-email" placeholder="" required>
-            <div class="invalid-feedback">
-                Email is required
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="cc-name">Phone No.</label>
-            <input type="text" class="form-control" id="cc-phone" placeholder="" required>
-            <div class="invalid-feedback">
-                Phone No. is required
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg float-right" type="submit">Submit</button>
-        </div>
-    </div>
-
+  </div>
 </div>
+
+ 
+</section>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div *ngIf="isPrefixIncluded" class="col">
+    <div class="col-md-6 mb-3">
+        <label for="cc-name">Name Prefix</label>
+        <input type="text" formControlName="prefix" class="form-control" id="cc-prefix" placeholder="" required>
+        <div *ngIf="saved && f.prefix.errors" class="text-danger">
+            Name Prefix is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isFirstNameIncluded" class="row">
+    <div class="col-md-6 mb-3">
+        <label for="cc-name">First Name</label>
+        <input type="text" formControlName="firstname" class="form-control" id="cc-first-name" placeholder="" required>
+        <div *ngIf="saved && f.firstname.errors" class="text-danger">
+            First Name is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isLastNameIncluded" class="row">
+    <div class="col-md-6 mb-3">
+        <label for="cc-name">Last Name</label>
+        <input type="text" formControlName="lastname" class="form-control" id="cc-last-name" placeholder="" required>
+        <div *ngIf="saved && f.lastname.errors" class="text-danger">
+            Last Name is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isGenderIncluded" class="row">
+    <div class="col-md-12 mb-3">
+        <label for="cc-name">Gender</label>
+        <select type="text" formControlName="gender" class="form-control form-select" id="cc-first-name" placeholder="" required>
+            <option selected></option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <div *ngIf="saved && f.gender.errors" class="text-danger">
+            Gender is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isEmailIncluded" class="col">
+    <div class="col-md-6 mb-3">
+        <label for="cc-name">Email</label>
+        <input type="text" formControlName="email" class="form-control" id="cc-email" placeholder="" required>
+        <div *ngIf="saved && f.email.errors" class="text-danger">
+            Email is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isPhoneIncluded" class="row">
+    <div class="col-md-12 mb-3">
+        <label for="cc-name">Phone No.</label>
+        <input type="text" formControlName="phone" class="form-control" id="cc-phone" placeholder="" required>
+        <div *ngIf="saved && f.phone.errors" class="text-danger">
+            Phone No. is required
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isAddressIncluded" class="row">
+    <div class="col-md-12 mb-3">
+        <label for="cc-name">Phone No.</label>
+        <textarea type="text" formControlName="address" rows="3" class="form-control" id="cc-address" placeholder="" required></textarea>
+        <div *ngIf="saved && f.address.errors" class="text-danger">
+            Address is required
+        </div>
+    </div>
+</div> -->

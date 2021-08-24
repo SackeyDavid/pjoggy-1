@@ -202,7 +202,7 @@
           <form [formGroup] = "formGroup" class="form-inline pl-3">
             
 
-             
+              
               <div class="form-group has-search">
                 <span class="bx bx-search form-control-feedback"></span>
                 <input id="search-input" formControlName="search" type="text" class="form-control" placeholder="What event do you want to join?" [(ngModel)]="this.searchQuery" name="search_query" (keydown.enter)="doSearch()">
@@ -755,8 +755,8 @@
                     </div>
 
                     <div style="text-align: center;" class="mt-4">
-                      <button routerLink="/" class="btn btn-primary ticket-button btn-md mb-2" type="button">Get Ticket</button>
-                      <button routerLink="/" disabled class="btn btn-primary calendar-button btn-md ml-3 mb-2" type="button">Add to calendar</button>
+                      <button (click)="openRSVPForm()" class="btn btn-primary ticket-button btn-md mb-2" type="button">Get Ticket</button>
+                      <button disabled class="btn btn-primary calendar-button btn-md ml-3 mb-2" type="button">Add to calendar</button>
                      
                     </div>
                           

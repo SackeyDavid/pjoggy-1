@@ -819,4 +819,10 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
   }
 
 
+  openRSVPForm() {
+    window.open('/rsvp/user');
+
+  }
+
+
 }

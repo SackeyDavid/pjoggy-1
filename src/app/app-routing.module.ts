@@ -45,6 +45,9 @@ import { AccountProfileComponent } from './pages/profile/account-profile/account
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
 import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 import { EventManagerHomePageComponent } from './pages/event-manager-home-page/event-manager-home-page.component';
+import { AuthGuard } from './services/auth-guard/auth.guard';
+import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
+import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 
 
 const routes: Routes = [
@@ -245,11 +248,27 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
+        canActivate: [AuthGuard],
         component: FavoritePageComponent
       },
       {
         path: 'events-by-category/:id',
         component: CategoryEventsPageComponent
+      },
+    ]
+  },
+  {
+    path: 'rsvp',
+    children: [
+      {
+        path: 'payment',
+        canActivate: [AuthGuard],
+        component: RsvpPaymentComponent
+      },
+      {
+        path: 'user',
+        canActivate: [AuthGuard],
+        component: RsvpUserComponent
       },
     ]
   }

@@ -125,8 +125,16 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('events_user_name', res.user.name);
               sessionStorage.setItem('events_user_email', res.user.email);
               // this.router.navigateByUrl('/manage-community');
-              window.open('/manage-community', "_self");
+              if (!this.auth.redirectUrl) window.open('/manage-community', "_self");
             }
+
+            // redirect to intended route if user came here because of authguard
+            // this.auth.isLoggedIn = true;
+            if (this.auth.redirectUrl) {
+              window.open(this.auth.redirectUrl, "_self");
+              this.auth.redirectUrl = null;
+            }
+
           },
           err => {
             console.log(err);

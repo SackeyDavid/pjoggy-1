@@ -2,11 +2,15 @@ import { EndpointService } from './../endpoints/endpoint.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
+
+  public redirectUrl: any = null;
+  // public isLoggedIn: boolean = false;
 
   private headers: HttpHeaders;  
   private baseUrl = 'http://events369.logitall.biz/api/';
@@ -27,7 +31,7 @@ export class UserAuthService {
   }
 
   loginUser(user: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'loginIAM', user);      
+    return this.http.post<any>(this.baseUrl + 'loginIAM', user);
   }
 
   authenticatePhone(code: any): Observable<any> {
@@ -81,5 +85,9 @@ export class UserAuthService {
   sendMagicLink(body: any): Observable<any> {
     return this.http.post<any>(this.sendMagicUrl, body);  
   }  
+
+  isLoggedIn() {
+    return !!sessionStorage.getItem('x_auth_token');
+  }
 
 }

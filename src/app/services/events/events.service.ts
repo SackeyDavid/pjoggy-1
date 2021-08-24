@@ -231,6 +231,24 @@ export class EventsService {
     });
   }
 
+  getAllEventCreatorsEvents(eUserId: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let events: any[] = [];
+      const url = this.getAllUserEventsUrl + eUserId;
+      this.http.get<any>(url, { headers: this.headers}).subscribe(
+        res => {
+          console.log('get_event_creators_all_events_ok: ', res);
+          events = res;
+          resolve(events);
+        },
+        err => {
+          console.log('get_event_creators_all_events_error: ', err);
+          reject(err);
+        }
+      );
+    });
+  }
+
   getAllUsersEventsNextPage(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let events: any[] = [];
