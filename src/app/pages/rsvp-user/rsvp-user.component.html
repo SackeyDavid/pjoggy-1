@@ -30,11 +30,11 @@
                 
         <div class="dropdown-content_user"> 
             <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-            <a id="browse_events_link">Notifications <span class="dot"></span> </a>
-            <a> Favorites </a>
-            <a> Following</a>
+            <!-- <a id="browse_events_link">Notifications <span class="dot"></span> </a> -->
+            <a id="browse_events_link" routerLink="/events/favorites"> Favorites </a>
+            <!-- <a> Following</a> -->
             <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
-            <a>Tickets (0)</a> 
+            <a routerLink="/events/tickets">Tickets</a> 
 
             <!-- not working  -->
             <!-- <a href="#">Credits</a> -->

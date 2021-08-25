@@ -283,11 +283,11 @@
                       
               <div class="dropdown-content_user"> 
                   <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-                  <a id="browse_events_link">Notifications <span class="dot"></span> </a>
-                  <a> Favorites </a>
-                  <a> Following</a>
+                  <!-- <a id="browse_events_link">Notifications <span class="dot"></span> </a> -->
+                  <a id="browse_events_link" routerLink="/events/favorites"> Favorites </a>
+                  <!-- <a> Following</a> -->
                   <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
-                  <a>Tickets (0)</a> 
+                  <a routerLink="/events/tickets">Tickets</a> 
 
                   <!-- not working  -->
                   <!-- <a href="#">Credits</a> -->
@@ -745,10 +745,17 @@
                           <br>
                           <span class="live-text" style="font-size: 1rem;font-weight: 640;opacity: 1;letter-spacing: 2px;">LIVE</span>
                          </ng-container>
-                         <ng-container *ngIf="!isEventLive(eventContent.start_date_time, eventContent.end_date_time)">
+
+                         <ng-container *ngIf="!isEventLive(eventContent.start_date_time, eventContent.end_date_time) && !isEventPast(eventContent.start_date_time, eventContent.end_date_time)">
                           <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT STARTS IN</span>
                           <br>
                           <span style="font-size: 1rem;font-weight: 440;opacity: .7; color: var(--ev-white) !important;">{{daysToDday}}D : {{hoursToDday}}H : {{minutesToDday}}M: {{secondsToDday}}S </span>
+                         </ng-container> 
+
+                         <ng-container *ngIf="isEventPast(eventContent.start_date_time, eventContent.end_date_time)">
+                          <span style="font-size: .7rem;opacity: .5;color: var(--ev-white) !important;">EVENT HAS</span>
+                          <br>
+                          <span style="font-size: 1rem;font-weight: 640;opacity: .7;letter-spacing: 2px;color: var(--ev-white) !important;">ENDED</span>
                          </ng-container>                 
                       </div>
                     </div>

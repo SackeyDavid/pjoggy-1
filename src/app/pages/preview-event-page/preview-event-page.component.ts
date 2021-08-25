@@ -823,6 +823,16 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isEventPast(startdate: any, enddate: any) {
+    var today = new Date();
+    if(today > new Date(startdate) && today > new Date(enddate)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 
   openRSVPForm() {
     window.open('/rsvp/user');
