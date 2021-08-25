@@ -1026,6 +1026,9 @@ export class EventManagerHomeComponentComponent implements OnInit {
     console.log('clicked');
   }
   
+  gotoHomePage() {
+    window.open('/', '_self');
+  }
 
 
 }

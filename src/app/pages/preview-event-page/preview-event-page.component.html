@@ -643,7 +643,7 @@
                 
               </ng-container>
               <div *ngIf="eventContent" class="row mb-3" style="display: flex;">
-              <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.15); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-end-start-radius: 0px !important; border-end-end-radius: 0px !important;">
+              <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.15); cursor: pointer; width: -moz-available; width: --webkit-fill-available;border-end-start-radius: 0px !important; border-end-end-radius: 0px !important;border: 1px solid rgba(0,0,0, .02);">
                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                 <span class="card-date">
                   <ng-container *ngIf="getEventDateWithoutTime(eventContent?.start_date_time) == getEventDateWithoutTime(eventContent?.end_date_time)">
