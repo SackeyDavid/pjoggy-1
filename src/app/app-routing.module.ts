@@ -43,12 +43,12 @@ import { MagiclinkSuccessComponent } from './pages/user-auth/magiclink-success/m
 import { MagiclinkInvalidComponent } from './pages/user-auth/magiclink-invalid/magiclink-invalid.component';
 import { AccountProfileComponent } from './pages/profile/account-profile/account-profile.component';
 import { AccountSettingsComponent } from './pages/profile/account-settings/account-settings.component';
-import { CategoryEventsPageComponent } from './pages/category-events-page/category-events-page.component';
 import { EventManagerHomePageComponent } from './pages/event-manager-home-page/event-manager-home-page.component';
 import { AuthGuard } from './services/auth-guard/auth.guard';
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 import { TicketsComponentComponent } from './components/tickets-component/tickets-component.component';
+import { EventsByCategoryComponent } from './components/events-by-category/events-by-category.component';
 
 
 const routes: Routes = [
@@ -253,8 +253,8 @@ const routes: Routes = [
         component: FavoritePageComponent
       },
       {
-        path: 'events-by-category/:id',
-        component: CategoryEventsPageComponent
+        path: 'events-by-category',
+        component: EventsByCategoryComponent
       },
       {
         path: 'tickets',

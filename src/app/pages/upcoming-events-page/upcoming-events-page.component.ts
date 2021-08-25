@@ -601,6 +601,12 @@ export class UpcomingEventsPageComponent implements OnInit, AfterViewInit {
     );
   }
 
+  openCategoriesPage(category_id: string) {
+    sessionStorage.setItem('preview_category_id', category_id);
+    window.open('/events/events-by-category', '_blank')
+  }
+
+
 
 
 

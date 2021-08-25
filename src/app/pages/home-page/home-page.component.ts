@@ -658,6 +658,11 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     return 'hsl('+h+', '+s+'%, '+l+'%)';
   }
 
+  openCategoriesPage(category_id: string) {
+    sessionStorage.setItem('preview_category_id', category_id);
+    window.open('/events/events-by-category', '_blank')
+  }
+
 
   
  

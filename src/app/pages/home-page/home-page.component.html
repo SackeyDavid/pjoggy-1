@@ -78,45 +78,45 @@
               CATEGORY
           </p>
           <li>
-            <a href="#">
+            <a (click)="openCategoriesPage('2')">
               <i class='bx bxs-briefcase'></i>
               <span class="link_name">Corporate</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Corporate</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('2')">Corporate</a></li>
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a (click)="openCategoriesPage('3')">
                 <i class='bx bxs-cake'></i>
               <span class="link_name">Social</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Social</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('3')">Social</a></li>
             </ul>
           </li>
           <li>
             <div class="iocn-link">
-              <a href="#">
+              <a (click)="openCategoriesPage('4')">
                 <i class='bx bxs-music'></i>
                 <span class="link_name">Festivals</span>
               </a>
               <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Festivals</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('4')">Festivals</a></li>
               <!-- <li><a href="#">UI Face</a></li>
               <li><a href="#">Pigments</a></li>
               <li><a href="#">Box Icons</a></li> -->
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a routerLink="/events/new">
                 <i class='bx bxs-star'></i>
               <span class="link_name">New</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">New</a></li>
+              <li><a class="link_name" routerLink="/events/new">New</a></li>
             </ul>
           </li>
           <!-- <li>

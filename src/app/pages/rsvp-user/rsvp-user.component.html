@@ -285,14 +285,14 @@
                                 <!-- <small *ngIf="errorMsgs?.errors?.gender"><span *ngFor="let x of errorMsgs?.errors?.gender" class="text-danger">{{x}}</span></small> -->
                             </div>
 
-                            <div *ngIf="isEmailIncluded" class="col-lg-6">
+                            <div *ngIf="isEmailIncluded" class="col">
                                 <div class="mt-2">
                                     <label class="form-label" for="cc-email" style="margin-bottom: 0;">Email</label>
                                     <input type="text" class="form-control form-element" id="cc-email" style="height: 42px;" formControlName="email">
                                 </div>
                             </div>
 
-                            <div *ngIf="isPhoneIncluded" class="row">
+                            <div *ngIf="isPhoneIncluded" class="col">
                                 <!-- <div class="col">
                                     <div class="mt-2">
                                         <label class="form-label" for="floatingFname" style="margin-bottom: 0;">Country</label>

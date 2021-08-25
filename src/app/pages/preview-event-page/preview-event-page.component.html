@@ -78,45 +78,45 @@
               CATEGORY
           </p>
           <li>
-            <a href="#" class="active">
+            <a (click)="openCategoriesPage('2')" [class.active] = "eventContent?.Category_id == 2">
               <i class='bx bxs-briefcase'></i>
               <span class="link_name">Corporate</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Corporate</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('2')">Corporate</a></li>
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a (click)="openCategoriesPage('3')" [class.active] = "eventContent?.Category_id == 3">
                 <i class='bx bxs-cake'></i>
               <span class="link_name">Social</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Social</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('3')">Social</a></li>
             </ul>
           </li>
           <li>
             <div class="iocn-link">
-              <a href="#">
+              <a (click)="openCategoriesPage('4')" [class.active] = "eventContent?.Category_id == 4">
                 <i class='bx bxs-music'></i>
                 <span class="link_name">Festivals</span>
               </a>
               <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
             </div>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">Festivals</a></li>
+              <li><a class="link_name" (click)="openCategoriesPage('4')">Festivals</a></li>
               <!-- <li><a href="#">UI Face</a></li>
               <li><a href="#">Pigments</a></li>
               <li><a href="#">Box Icons</a></li> -->
             </ul>
           </li>
           <li>
-            <a href="#">
+            <a routerLink="/events/new">
                 <i class='bx bxs-star'></i>
               <span class="link_name">New</span>
             </a>
             <ul class="sub-menu">
-              <li><a class="link_name" href="#">New</a></li>
+              <li><a class="link_name" routerLink="/events/new">New</a></li>
             </ul>
           </li>
           <!-- <li>
@@ -352,7 +352,7 @@
                 </div>  
 
                 <div *ngIf="eventContent" class="row ml-4 pl-0 mb-3 fixme">
-                  <ul class="nav nav-pills mb-3 mt-5" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;" id="pills-tab" role="tablist">
+                  <ul class="nav nav-pills mb-3 mt-5" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;margin-bottom: 0 !important;" id="pills-tab" role="tablist">
       
                     <li class="nav-item" role="presentation">
                         <a  class="nav-link" [class.active] = "activeTab == 'overview'" id="pills-drafts-tab" (click)="gotoOverview()" role="tab" aria-controls="pills-drafts" aria-selected="false">
@@ -409,7 +409,7 @@
                     {{eventContent.description}}  
                     </p>
                     <hr style="height: 1px !important;margin-right: 3.5rem !important;">
-                    <h5 class="nav-header-color pt-5 pb-2" id="schedule">SCHEDULE</h5>
+                    <h5 class="nav-header-color pt-4 mb-3 mt-5" id="schedule">SCHEDULE</h5>
 
                     <div style="display: flex; flex-direction: row;">
                       

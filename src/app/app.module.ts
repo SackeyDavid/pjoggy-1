@@ -250,7 +250,8 @@ import { TicketsComponentComponent } from './components/tickets-component/ticket
     RsvpPaymentComponent,
     RsvpUserComponent,
     SidebarComponent,
-    TicketsComponentComponent
+    TicketsComponentComponent,
+    EventsByCategoryComponent
   ],
   imports: [
     BrowserModule,
