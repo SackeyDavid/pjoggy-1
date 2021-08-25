@@ -845,4 +845,8 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
     window.open('/events/events-by-category', '_blank')
   }
 
+  gotoHomePage() {
+    window.open('/', '_self');
+  }
+
 }
