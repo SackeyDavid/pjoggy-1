@@ -19,6 +19,20 @@
     // border-right: 1px solid #2d2d2ded;
     // height: 90vh !important;
     }
+    div.workspace-nav::-webkit-scrollbar {
+      width: .5em;
+      display: none;
+    }
+     
+    div.workspace-nav::-webkit-scrollbar-track {
+      // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: var(--ev-primary-background);
+    }
+     
+    div.workspace-nav::-webkit-scrollbar-thumb {
+      background-color: var(--ev-event-details-scrollbar);
+      // outline: 1px solid slategrey;
+    }
   
     div.workspace-core {
     flex: 1;
@@ -420,6 +434,19 @@
       scrollbar-width: thin;
       overflow-x: hidden;
     }
+    .home-section::-webkit-scrollbar {
+      width: .5em;
+    }
+     
+    .home-section::-webkit-scrollbar-track {
+      // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: var(--ev-primary-background);
+    }
+     
+    .home-section::-webkit-scrollbar-thumb {
+      background-color: var(--ev-event-details-scrollbar);
+      // outline: 1px solid slategrey;
+    }
     .sidebar.close ~ .home-section{
       left: 78px;
       width: calc(100% - 78px);
@@ -786,6 +813,7 @@
     border-bottom: 1px solid var(--ev-sidebar-border-color);
     padding-bottom: 0px;
     width: -moz-available !important;
+    width: -webkit-fill-available !important;
     overflow-x: hidden;
     margin-left: 2vh;
     }
@@ -1536,6 +1564,7 @@
     
     .banner-card-active {
       width: -moz-available;
+      width: -webkit-fill-available;
       transition: all .4 ease-in;
       margin-left: 1.5rem !important;
       height: 50vh !important;
@@ -1543,6 +1572,7 @@
     
     .card-next {
       width: -moz-available;
+      width: -webkit-fill-available;
       transition: all .4 ease-in;
       margin-left: 0.25rem !important;
       height: 50vh !important;

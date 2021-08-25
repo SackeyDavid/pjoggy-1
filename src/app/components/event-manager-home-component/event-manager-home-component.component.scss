@@ -824,6 +824,16 @@ padding: .7rem;
   display: ruby !important;
   border-bottom: 0px solid var(--ev-sidebar-border-color) !important;
   }
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+    .nav-pills .nav-link {
+      display: flex !important;
+
+      span {
+        margin-top: -.15rem;
+      }
+    }
+}
   
 .swipeable-x {
 overflow-x: scroll !important;

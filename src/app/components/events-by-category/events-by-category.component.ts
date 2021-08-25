@@ -77,6 +77,7 @@ export class EventsByCategoryComponent implements OnInit {
   ngOnInit(): void {
     // scroll page to top
     // window.scrollTo(0, 0);
+    this.getUser();
     this.checkIfUserAuthenticated();
     // this.id = this.route.snapshot.params['id'];
     this.id = sessionStorage.getItem('preview_category_id')!;
@@ -448,6 +449,22 @@ export class EventsByCategoryComponent implements OnInit {
   openCategoriesPage(category_id: string) {
     sessionStorage.setItem('preview_category_id', category_id);
     window.open('/events/events-by-category', '_blank')
+  }
+
+  getUser(): void {
+    this.userAccountsService.getCurrentUser().then(
+      res => {
+        console.log(res);
+        this.currentUser = res;
+
+        if (res.profile) {
+          this.imgSrc =  res.profile
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
