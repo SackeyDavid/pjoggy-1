@@ -321,6 +321,7 @@ export class CreateEventModalComponent implements OnInit {
   }
 
   returnIndexOfCurrentTime(time: any) {
+    if(this.selected > this.today) return -1;
     for(var i = 0; i < this.times.length; i++) {
       if(this.times[i] == time) {
         break;

@@ -22,10 +22,11 @@
           <!-- <i class="bi bi-link-45deg"></i> -->
           <input type="text" placeholder="John's Meetup" formControlName="title" [ngClass]="{'is-invalid': saved && f.title.errors, 'is-valid': !f.title.errors}">
           <!-- <button><i class="bi bi-plus"></i> Add description</button> -->
-          <small *ngIf="saved && f.title.errors" id="titleHelp" class="form-text invalid-feedback">
-            Title is required.
-          </small>
+          
         </div>
+        <small *ngIf="saved && f.title.errors" id="titleHelp" class="form-text invalid-feedback">
+          Title is required.
+        </small>
         <div class="mt-4 mb-5" style="display: flex;flex-direction: row;">
             <div class="mr-2" style="flex: 1;" (click)="showCalendar('start')">
                 <p  class="text-white" style="color: var(--ev-white) !important;">Start Date</p>
@@ -141,7 +142,10 @@
     </div>
   </form>
     <div class="modal-footer">
-      <button class="btn btn-primary login-button" (click)="create()"> Create Event</button> <small class="text-muted">You can always change these details later</small>
+      <button class="btn btn-primary login-button" (click)="create()">
+        <span *ngIf="isLoading" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Create Event
+      </button> 
+      <small class="text-muted">You can always change these details later</small>
 
     </div>
   </div>

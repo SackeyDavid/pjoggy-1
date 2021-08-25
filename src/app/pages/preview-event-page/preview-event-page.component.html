@@ -215,9 +215,8 @@
                       <tr style="padding: .4rem;">
                         <td>
                           <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
-  
+                            
                           </div>
-                        
                         </td>
                         <td style="padding-left: 5%;">
                           <span class="w3-large text-white">{{item.title}}</span>
@@ -329,7 +328,7 @@
                   </div>
                   
                 </ng-container>
-
+                
                 <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
                     <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
@@ -770,7 +769,7 @@
         
 
         <!-- manage events section  -->
-       
+       <img *ngIf="eventContent" id="banner_image" style="height: 0px !important;"  src= "http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}">
       </section>
     
   

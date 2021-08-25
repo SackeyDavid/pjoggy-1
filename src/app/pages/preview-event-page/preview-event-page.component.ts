@@ -17,6 +17,8 @@ import { UsersFavoritesService } from 'src/app/services/users-favorites/users-fa
 import { SocialShareModalComponent } from 'src/app/components/social-share-modal/social-share-modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Meta, Title } from '@angular/platform-browser';
+// import * as Vibrant from 'node-vibrant';
+// import Vibrant = require('node-vibrant');
 
 declare var $:any;
 
@@ -277,9 +279,12 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
 
 
     });
+
     
     
   }
+
+
 
   dataCall() {
     return this.http.get(this.dataUrl);
