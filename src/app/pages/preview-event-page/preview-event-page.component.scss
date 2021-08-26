@@ -225,6 +225,7 @@
     }
     .sidebar .nav-links li a .link_name:hover{
       opacity: 1;
+      cursor: pointer;
     }
     .sidebar.close .nav-links li a .link_name{
       opacity: 0;
@@ -813,9 +814,14 @@
     border-bottom: 1px solid var(--ev-sidebar-border-color);
     padding-bottom: 0px;
     width: -moz-available !important;
-    width: -webkit-fill-available !important;
     overflow-x: hidden;
     margin-left: 2vh;
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+      .ul.nav {
+        width: -webkit-fill-available;
+      }
     }
     
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -926,6 +932,10 @@
     .card-horizontal {
     display: flex;
     flex: 1 1 auto;
+    }
+
+    .card-footer {
+      background-color: inherit;
     }
     
     
@@ -1564,18 +1574,28 @@
     
     .banner-card-active {
       width: -moz-available;
-      width: -webkit-fill-available;
       transition: all .4 ease-in;
       margin-left: 1.5rem !important;
       height: 50vh !important;
     }
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+      .banner-card-active {
+        width: -webkit-fill-available;
+      }
+    }
     
     .card-next {
       width: -moz-available;
-      width: -webkit-fill-available;
       transition: all .4 ease-in;
       margin-left: 0.25rem !important;
       height: 50vh !important;
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+      .card-next {
+        width: -webkit-fill-available;
+      }
     }
     
     .card-slided-left {

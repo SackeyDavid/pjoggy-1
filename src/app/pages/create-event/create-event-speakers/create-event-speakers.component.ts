@@ -70,7 +70,8 @@ export class CreateEventSpeakersComponent implements OnInit {
     const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', Validators.required],      
+      title: [''],
       profile_image: [''],
       bio: [''],
       facebook: ['', Validators.pattern(urlRegex)],
@@ -122,6 +123,7 @@ export class CreateEventSpeakersComponent implements OnInit {
     const data = {
       event_id: this.eventId,
       name: this.f.name.value,
+      title: this.f.title.value,
       profile_image: this.f.profile_image,
       bio: this.f.bio.value,
       facebook: this.f.facebook.value,
@@ -137,6 +139,7 @@ export class CreateEventSpeakersComponent implements OnInit {
     const data = {
       speakerId: speakerId,
       name: speaker.name,
+      title: speaker.title,
       bio: speaker.bio,
       profile_image: this.createdImgSrc,
       facebook: speaker.facebook,
@@ -214,6 +217,7 @@ export class CreateEventSpeakersComponent implements OnInit {
   edit(speaker: any, index: number): void {
     this.isEditMode = true;
     this.f.name.setValue(speaker.name);
+    this.f.title.setValue(speaker.title);
     this.f.bio.setValue(speaker.bio);
     this.f.facebook.setValue(speaker.facebook);
     this.f.linkedin.setValue(speaker.linkedin);
@@ -236,6 +240,7 @@ export class CreateEventSpeakersComponent implements OnInit {
         if (ok) {          
           const editedSpeaker = this.createdSpeakerList[index];
           editedSpeaker.name = speaker.name;
+          editedSpeaker.title = speaker.title;
           editedSpeaker.bio = speaker.bio;
           editedSpeaker.facebook = speaker.facebook,
           editedSpeaker.linkedin = speaker.linkedin,
@@ -270,6 +275,7 @@ export class CreateEventSpeakersComponent implements OnInit {
   
   resetForm() {
     this.f.name.setValue('');
+    this.f.title.setValue('');
     this.f.bio.setValue('');
     this.f.facebook.setValue('');
     this.f.linkedin.setValue('');

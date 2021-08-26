@@ -41,6 +41,7 @@ export class SpeakersService {
       formData.append('event_id', eventId);
       formData.append('image', image);
       formData.append('name', speaker.name);
+      formData.append('title', speaker.title);
       formData.append('bio', speaker.bio);
       formData.append('facebook', speaker.facebook);      
       formData.append('twitter', speaker.twitter);      
@@ -78,6 +79,7 @@ export class SpeakersService {
       const formData = new FormData();
       formData.append('image', image);
       formData.append('name', speaker.name);
+      formData.append('title', speaker.title);
       formData.append('bio', speaker.bio);
       formData.append('facebook', speaker.facebook);      
       formData.append('twitter', speaker.twitter);      

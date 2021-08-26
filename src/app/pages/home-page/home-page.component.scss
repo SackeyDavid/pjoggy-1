@@ -885,7 +885,6 @@ height: 100%;
   background-color: var(--ev-white);
   background-clip: border-box;
   cursor: pointer;
-  transition: all 3s ease-in;
   transition: box-shadow .2s ease-in-out;
 }
 
@@ -1488,18 +1487,21 @@ p {
   width: 45vw;
   transition: all .4 ease-in;
   margin-left: 1.5rem !important;
+  transition: all 3s ease-in;
 }
 
 .card-next {
   width: 30vw;
   transition: all 1s ease-in;
   margin-left: 0.25rem !important;
+  transition: all 3s ease-in;
 }
 
 .card-slided-left {
   margin-left: -46.1vw !important;
   visibility: hidden;
   width: 45vw;
+  transition: all 3s ease-in;
 }
 
 ::ng-deep .mat-form-field-underline {
