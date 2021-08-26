@@ -210,7 +210,7 @@
               <!-- <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()"> -->
               <div *ngIf="live_search_results?.length" class="row autosearch-results">
                 <div class="col-lg-12 mb-3" style="padding: .2rem;">
-                  <table style="margin: .8rem;margin-bottom: 0;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
+                  <table style="margin: .8rem;margin-bottom: 0;cursor: pointer;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
                     <tbody>
                       <tr style="padding: .4rem;">
                         <td>
@@ -351,7 +351,7 @@
                 </div>  
 
                 <div *ngIf="eventContent" class="row ml-4 pl-0 mb-3 fixme">
-                  <ul class="nav nav-pills mb-3 mt-5" style="width: -moz-available !important;width: --webkit-fill-available !important;margin-right: 2rem !important;margin-bottom: 0 !important;" id="pills-tab" role="tablist">
+                  <ul class="nav nav-pills mb-3 mt-5" style="width: -moz-available !important;width: -webkit-fill-available !important;margin-right: 2rem !important;margin-bottom: 0 !important;" id="pills-tab" role="tablist">
       
                     <li class="nav-item" role="presentation">
                         <a  class="nav-link" [class.active] = "activeTab == 'overview'" id="pills-drafts-tab" (click)="gotoOverview()" role="tab" aria-controls="pills-drafts" aria-selected="false">

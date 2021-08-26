@@ -536,7 +536,7 @@ export class PreviewEventPageComponent implements OnInit, AfterViewInit {
 
   gotoPreview(eventId: any) {
     sessionStorage.setItem('preview_event_id', eventId);
-    this.router.navigateByUrl('/event_details');
+    window.open('/event_details', '_blank');
   }
 
   openManageEventsPage() {
