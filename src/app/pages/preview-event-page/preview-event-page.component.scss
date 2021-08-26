@@ -626,7 +626,8 @@
     
     @media (min-width: 576px) {
       .form-inline .form-control {
-        min-width: 40vw !important;
+        max-width: 40vw !important;
+        width: 40vw !important;
       }
     }
     
@@ -1774,7 +1775,8 @@
     border-radius: 0.55rem;
     border-start-start-radius: 0px;
     border-start-end-radius: 0px;
-    min-width: 40vw !important;
+    max-width: 40vw !important;
+    width: 40vw !important;
     z-index: 999;
   }
   
