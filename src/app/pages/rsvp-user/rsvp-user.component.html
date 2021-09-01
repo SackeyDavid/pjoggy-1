@@ -62,7 +62,7 @@
       </div> -->
     </nav>
 
-<div style="height: inherit;">
+<div style="height: 87.7vh;">
 
   <div class="col-lg-12" style="height: inherit;">
     <div class="card mb-0" style="width: 100%;height: inherit;" *ngIf="!rsvpCompleted">
@@ -812,7 +812,7 @@
 
       </div>
 
-    <div class="card mb-0" style="width: 100%;" *ngIf="rsvpCompleted">
+    <div class="card mb-0" style="width: 100%;height: inherit;" *ngIf="rsvpCompleted">
     <div class="card-horizontal">
 
         <div class="card-body" style="padding: 2.5rem !important;">
@@ -828,18 +828,18 @@
                        <span style="display: inline-block;text-align: center; color: white; height: 50px;width: 50px;padding: 6px;background-color: #4de3a4;border-radius: 50%;">
                         <i class="bi bi-check" style="font-size: x-large;"></i>
                        </span>
-                       <span class="mx-3 font-weight-bold" style="font-size: 1rem;">
+                       <span class="mx-3 font-weight-bold" style="font-size: 1rem;color: var(--ev-nav-text-color);">
                         Thanks for your order! <ng-container *ngIf="transactionId"> #{{transactionId}} </ng-container>
                        </span>
                    </p>
 
-                    <hr class="mb-4">
+                    <hr class="mb-4 mt-4">
                 </div>
 
                 <div *ngIf="eventData?.event[0].ticketing == '1' || eventData?.event[0].ticketing == '2' || eventData?.event[0].ticketing == '0'">
                     <div *ngFor="let ticket of eventData?.tickets; index as i;">
                         
-                            <div class="mb-3" *ngIf="i == selectedIndex">
+                            <div class="mb-3" style="color: var(--ev-nav-text-color);" *ngIf="i == selectedIndex">
                                 <div class="mb-3">
                                     <small style="font-weight: 600;">You're attending</small> <br>
                                     <span class="font-weight-bold" style="font-size: 1.4rem;">{{eventData?.event[0].title}}</span> <br>
@@ -938,7 +938,7 @@
             </div>
 
         </div>
-        <div class="card-footer"  *ngIf="eventHost">
+        <div class="card-footer" style="width: 30vw;"  *ngIf="eventHost">
            
             <div class="profile-details ml-4 my-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                 <div class="profile-content">
@@ -950,7 +950,7 @@
                   </div>
                 
                 </div>
-                <div class="name-job p-2">
+                <div class="name-job p-2 nav-text-color">
                   <div class="profile_name">{{eventHost.user.name}}</div>
                   <div class="job" style="font-size: .8rem;opacity: .7;" *ngIf="eventCreatorsEvents?.total">
                     <ng-container *ngIf="eventCreatorsEvents?.total == 1">

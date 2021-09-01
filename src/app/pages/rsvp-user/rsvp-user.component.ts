@@ -44,7 +44,7 @@ export class RsvpUserComponent implements OnInit, AfterViewInit, AfterContentIni
   selectedIndex = 0;
   selectedTicketCurrency = '';
   selectedEventTicket: any;
-  selectedTicketPrice: number = 10;
+  selectedTicketPrice: number = 0;
   ticketQuantity: any[] = [];
   selectTicketName = '';
 

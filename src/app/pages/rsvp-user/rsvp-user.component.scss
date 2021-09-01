@@ -646,7 +646,7 @@
         background-color: var(--ev-card-ticket-checkmark-bg); // css bg color specific to this page
         height: 15px;
         width: 15px;
-        border: 2px solid var(--ev-card-ticket-checkmark-bg) !important;
+        // border: 2px solid var(--ev-card-ticket-checkmark-bg) !important;
         text-align: center;
         padding-bottom: 9px;
         color: var(--ev-black);
@@ -1910,12 +1910,12 @@
 .discover-user-checkmark {
   position: absolute;
   border-radius: 50%;
-  background-color: white;
+  // background-color: white;
   height: 13px;
   width: 13px;
   text-align: center;
   padding-bottom: 6px;
-  color: gray;
+  color: var(--ev-black); // css 
   transform: translate(-9px, 38px);
   font-size: .6rem;
 
