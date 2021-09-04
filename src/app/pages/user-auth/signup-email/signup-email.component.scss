@@ -468,7 +468,7 @@ small {
   text-align: left;
 }
 .replacing-text div::after {
-  content: "events";
+  content: "meetups";
   animation: text 50s infinite;
   color: transparent;
   
@@ -491,7 +491,7 @@ small {
 
 @keyframes text {
   10% {
-    content: 'events';
+    content: 'meetups';
   }
   20% {
     content: 'workshops';
@@ -516,6 +516,9 @@ small {
   }
   90% {
     content: 'summits';
+  }
+  100% {
+    content: 'events';
   }
 }
 

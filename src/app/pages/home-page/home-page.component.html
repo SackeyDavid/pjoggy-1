@@ -420,7 +420,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="(getDataDiff(events_in_six_hrs[0].start_date_time, events_in_six_hrs[0].end_date_time).day) == 0">
                                   <ng-container *ngIf="getDataDiff(events_in_six_hrs[0].start_date_time, events_in_six_hrs[0].end_date_time).hour > 0">
-                                    {{getDataDiff(eventsNow[0].start_date_time, events_in_six_hrs[0].end_date_time).hour}} hr
+                                    {{getDataDiff(events_in_six_hrs[0].start_date_time, events_in_six_hrs[0].end_date_time).hour}} hr
                                   </ng-container>
                                    
                                   <ng-container *ngIf="getDataDiff(events_in_six_hrs[0].start_date_time, events_in_six_hrs[0].end_date_time).minute > 0">
