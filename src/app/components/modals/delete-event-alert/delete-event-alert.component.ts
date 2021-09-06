@@ -45,7 +45,7 @@ export class DeleteEventAlertComponent implements OnInit {
           resolve(true);
           
           // TODO: reload page 
-          window.open('/user_events', "_self");
+          window.open('/manage-community', "_self");
         },
         err => {
           console.log(err);

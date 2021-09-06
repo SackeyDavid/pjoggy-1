@@ -232,11 +232,11 @@
                       
               <div class="dropdown-content_user"> 
                   <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
-                  <a id="browse_events_link">Notifications <span class="static-dot"></span> </a>
-                  <a> Favorites </a>
-                  <a> Following</a>
-                  <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
-                  <a>Tickets (0)</a> 
+                  <!-- <a id="browse_events_link">Notifications <span class="static-dot"></span> </a> -->
+                  <a id="browse_events_link" routerLink="/events/favorites"> Favorites </a>
+                  <!-- <a> Following</a> -->
+                  <!-- <a style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a> -->
+                  <a routerLink="/events/tickets">Tickets</a> 
 
                   <!-- not working  -->
                   <!-- <a href="#">Credits</a> -->
@@ -498,8 +498,13 @@
                             <small class="text-muted" style="font-size: 0.8rem;">1 Registration</small>
                           </td>
                           <td>
-                            <button (click)="gotoEdit(event.id)" class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"><i class='bx bxs-edit-alt mr-2'></i> Edit Details</button>
+                            <!-- <button (click)="gotoEdit(event.id)" class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"><i class='bx bxs-edit-alt mr-2'></i> Edit Details</button> -->
                             <!-- <button class="btn btn-primary card-button px-3 ml-2" style="margin-bottom: .3rem;"><i class='bx bx-show mr-2'></i> Preview</button> -->
+                            <span class="mini-buttons">
+                              <i (click)="gotoEdit(event.id)" title="Edit Event" class='bx bxs-edit-alt mr-2'></i>
+                              &nbsp;&nbsp;<i title="Delete Event" (click)="archiveEvent(event.id)" class="bx bxs-trash"></i>
+
+                            </span>
 
                           </td>
                         </tr>

@@ -1,0 +1,572 @@
+<!-- <app-navbar></app-navbar> -->
+<!-- <app-ad-banner *ngIf="bannerAdsData?.length !== 0"></app-ad-banner> -->
+<!-- <app-live-events *ngIf="eventsNow?.length !== 0"></app-live-events> -->
+<!-- <app-events-list></app-events-list> -->
+<!-- <app-footer></app-footer> -->
+<main>
+    <div class="sidebar open">
+        <div class="logo-details">
+          <i class='bx bx-menu'></i>
+          <span class="logo_name" (click)="gotoHomePage()">events369</span>
+        </div>
+        
+        <ul class="nav-links">
+            <p class="list-title text-muted px-4 mt-2 mb-2">
+                MENU
+            </p>
+          <li>
+            <a  (click)="gotoHomePage()">
+              <i class='bx bx-chair' ></i>
+              <span class="link_name">Lounge</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name"  (click)="gotoHomePage()">Lounge</a></li>
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a routerLink="/events/popular"class="active">
+                <i class='bx bxs-video'></i>
+                <span class="link_name">Stage</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/popular">Stage</a></li>
+              <!-- <li><a href="#">HTML & CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+              <li><a href="#">PHP & MySQL</a></li> -->
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a routerLink="/events/live">
+                <i class='bx bxs-group'></i>
+                <span class="link_name">Networking</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/live">Networking</a></li>
+              <!-- <li><a href="#">Web Design</a></li>
+              <li><a href="#">Login Form</a></li>
+              <li><a href="#">Card Design</a></li> -->
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/events/upcoming">
+                <i class='bx bxs-calendar-alt'></i>
+              <span class="link_name">Schedule</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/upcoming">Schedule</a></li>
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/events/favorites">
+                <i class='bx bxs-store'></i>
+              <span class="link_name">Expo</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/favorites">Expo</a></li>
+            </ul>
+          </li>
+          <span class="h-rule mx-4 px-4">
+             <hr class="mx-4">
+          </span>
+          <p class="list-title text-muted px-4 mt-2 mb-2">
+              INBOX
+          </p>
+          <li>
+            <a (click)="openCategoriesPage('2')">
+              <i class='bx bxs-bell'></i>
+              <span class="link_name">Alerts</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" (click)="openCategoriesPage('2')">Alerts</a></li>
+            </ul>
+          </li>
+          <li>
+            <a (click)="openCategoriesPage('3')">
+                <i class='bx bxs-chat'></i>
+              <span class="link_name">Messages</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" (click)="openCategoriesPage('3')">Messages</a></li>
+            </ul>
+          </li>
+          <li>
+            <div class="iocn-link">
+              <a (click)="openCategoriesPage('4')" [class.active] = "eventContent?.Category_id == 4">
+                <i class='bx bxs-face'></i>
+                <span class="link_name">People</span>
+              </a>
+              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" (click)="openCategoriesPage('4')">People</a></li>
+              <!-- <li><a href="#">UI Face</a></li>
+              <li><a href="#">Pigments</a></li>
+              <li><a href="#">Box Icons</a></li> -->
+            </ul>
+          </li>
+          <!-- <li>
+            <a routerLink="/events/new">
+                <i class='bx bxs-star'></i>
+              <span class="link_name">New</span>
+            </a>
+            <ul class="sub-menu">
+              <li><a class="link_name" routerLink="/events/new">New</a></li>
+            </ul>
+          </li> -->
+          <!-- <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">This Weekend</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">This Weekend</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">History</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-history'></i>
+              <span class="link_name">History</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">History</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-cog' ></i>
+              <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+          </li>-->
+          
+          <span class="h-rule mx-4 px-4">
+            <hr class="mx-4">
+         </span>
+          <li>         
+        <div class="profile-details">
+            <div class="form-group" style="display: flex;">
+                <!-- <label>Test3</label> -->
+                <div style="display: flex;flex-direction: row;">
+                    <label *ngIf="!darkMode" (click)="toggleDarkMode()" class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <label *ngIf="darkMode" (click)="toggleLightMode()" class="switch">
+                      <input type="checkbox" checked>
+                      <span class="slider round"></span>
+                  </label>
+                 <span class="link_name ml-3">Night mode</span>
+                 </div>
+            </div>
+        </div>
+      </li>
+    </ul>
+      </div>
+      <section class="home-section">
+        <nav class="navbar navbar-light sticky-top bg-light justify-content-between" style="box-shadow: var(--ev-rsvp-nav-box-shadow) !important;">
+          <form style="display: none;" [formGroup] = "formGroup" class="form-inline pl-3">
+            
+
+              
+              <div class="form-group has-search">
+                <span class="bx bx-search form-control-feedback"></span>
+                <input id="search-input" formControlName="search" type="text" class="form-control" placeholder="What event do you want to join?" [(ngModel)]="this.searchQuery" name="search_query" (keydown.enter)="doSearch()">
+              </div>  
+              <!-- <input formControlName="search" matInput [matAutocomplete] = "auto" [(ngModel)]="this.searchQuery" name="search_query" class="form-control mr-sm-2 ev-nav-searchbar-input" type="text" placeholder="What do you want to attend?" aria-label="Search" (keydown.enter)="doSearch()"> -->
+              <div *ngIf="live_search_results?.length" class="row autosearch-results">
+                <div class="col-lg-12 mb-3" style="padding: .2rem;">
+                  <table style="margin: .8rem;margin-bottom: 0;cursor: pointer;" (click)="gotoPreview(item.id)" *ngFor ="let item of live_search_results">
+                    <tbody>
+                      <tr style="padding: .4rem;">
+                        <td>
+                          <div class="img-fit-img-fix-background-cover" style="background-image: url(&quot;http://events369.logitall.biz/storage/banner/{{item.banner_image}}&quot;);width: 70px !important;height: 67px !important;">
+                            
+                          </div>
+                        </td>
+                        <td style="padding-left: 5%;">
+                          <span class="w3-large text-white">{{item.title}}</span>
+                          <span class="present_date text-muted">{{ getEventDateFormatted(item.start_date_time)}}</span>
+                          <span class="search_price">
+                            <ng-container *ngIf="item.ticketing == '0'">
+                              <span class="price-span">Free</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '2'">
+                              <span class="price-span">Donation</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1'">
+                              <span class="price-span">{{item.price}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && item.qty_remaining == 0">
+                              <span class="price-span">Sold out</span>
+                            </ng-container>
+                            <ng-container *ngIf="item.ticketing == '1' && getTicketSalesStatus(item.ticket_sales_end_date) == 0">
+                              <span class="price-span">Sales ended</span>
+                            </ng-container> 
+                          </span>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+
+
+
+             <!-- <button class="btn btn-primary login-button px-3 ml-2"> Host an Event</button> -->
+              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+              <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+              
+          </form>
+          <table>
+              <tbody>
+                  <tr>
+                      <td>
+                        <div *ngIf="!eventHostImgSrc" class="img squared" style="background-image: url(../../../assets/images/avatar-placeholder.png);">
+                            <a href="#">
+                                <img src="../../../assets/images/avatar-placeholder.png">
+                            </a>
+                        </div>
+                        
+                        <div *ngIf="eventHostImgSrc" class="img squared" style="background-image: url('{{eventHostImgSrc}}');">
+                            <a href="#">
+                                <img [src]="eventHostImgSrc">
+                            </a>
+                        </div>
+                      </td>
+                      <td>
+                        <span style="color: var(--ev-white);" class="ml-3 font-weight-bold"> Session 1</span>
+                      </td>
+                      <td>
+                          <span class="mx-3" style="border-right: 1px solid var(--ev-sidebar-border-color);font-size: 25px;"></span>
+                      </td>
+                      <td>
+                        <span style="color: var(--ev-tertiary-background);" class="font-weight-bold"> View Schedule</span>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          <ul *ngIf="!userAuthenticated" class="navbar-nav" style="display: flex;flex-direction: row;">
+            <li class="nav-item mr-4 active">
+              <a class="nav-link text-white" routerLink="/login">Login <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link font-weight-bold" style="color: var(--ev-tertiary-background);" routerLink="/register">Sign Up</a>
+            </li>
+            </ul>
+          <div *ngIf="userAuthenticated" class="dropdown_user only-non-mobile">
+              <div class="dropbtn_user" style="display: grid;height: 100%;">
+                <!-- http://events369.logitall.biz/storage/profile/{{imgSrc}} -->
+                     <span class="ev-border-authenticated" style="display: flex;flex-direction: row; justify-content: space-between;">
+                      <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
+                           <img src="../../../assets/images/avatar-placeholder.png" />
+                      </div> 
+                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                        <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
+                      </div> 
+                      <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
+                      <i class="bi bi-chevron-down" style="color: #9f9f9f;margin-top: .5rem;flex: 1;opacity: .5;"></i>
+                      <i class="bi bi-bell-fill ml-5" style="color: grey;margin-top: .5rem;flex: 1;"></i>
+                      <span class="dot"></span>
+                       <!-- <ion-icon style="margin-top: 1vh;margin-left: 1vh;" name="chevron-down-outline"></ion-icon> -->
+                     </span>
+              </div>
+                      
+              <div class="dropdown-content_user"> 
+                  <!-- <a href="#" id="browse_events_link">Browse Events</a> -->
+                  <!-- <a id="browse_events_link">Notifications <span class="dot"></span> </a> -->
+                  <a id="browse_events_link" routerLink="/events/favorites"> Favorites </a>
+                  <!-- <a> Following</a> -->
+                  <a routerLink="/manage-community" style="border-top: 1px solid var(--ev-hr-border-color); cursor: pointer;">Manage event</a>
+                  <a routerLink="/events/tickets">Tickets</a> 
+
+                  <!-- not working  -->
+                  <!-- <a href="#">Credits</a> -->
+                  <!-- <a href="#">Collections</a> -->
+                  <!-- <a href="#">Interests</a> -->
+                  
+                  
+                  <!-- <a href="#">Messages</a> -->
+                  <!-- <a href="#">Events</a> -->
+                  <!-- <a href="#">Saved</a> -->
+                  <!-- end of not working  -->
+
+                  <a href="/create_event/basic_info">Host an event</a>
+                  <a href="/account/profile" style="border-top: 1px solid var(--ev-hr-border-color);">Account</a>
+                  <!-- href="https://about.gitlab.com/get-help/" -->
+                  <a  target="_blank" routerLink="/help">Help</a>
+                  <a id="logout_link" (click)="logout($event)">Log out</a>
+              </div>
+          </div>
+            
+          <!-- <div class="img square mr-3" style="background-image: url(http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg);">
+              <a href="#">
+                <img src="http://s3.amazonaws.com/images.couchsurfing.us/MICBP/115976_t_718aa2b69a929aa9f57c00e7b047174b.jpg">
+              </a>
+            </div> -->
+          </nav>
+          <section class="workspace pt-0">
+            <div class="workspace-nav">
+                <!-- <h2 class="px-4 ml-2 my-1 mt-4 text-white">Discover</h2> -->
+                <ng-container *ngIf="!eventContent">
+                  <div class="d-flex justify-content-center">
+                    <!-- <div class="spinner-grow" role="status">  -->
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                      <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    
+                    <!-- </div> -->
+                  </div>
+                  
+                </ng-container>
+                
+                <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
+                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                        <div class="card-body mt-1">
+                          <div style="width: 100%;">
+                          </div>
+                        </div>
+                        <div class="card-footer ml-3 pl-1" style="border: none;background-color: none;">
+                            <span style="background-color: #282730;border-radius: 10px;">
+                                <span style="background-color: #ff5b4c;color: var(--ev-white);">LIVE</span> 20:58 <span class="ml-3" style="color: var(--ev-white);"><i class="bi bi-people-fill"></i> 32</span>
+                            </span>
+                          </div>
+                    </div>
+
+                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                      <div class="card-body mt-1">
+                        <div style="width: 45%;">
+                        </div>
+                      </div>
+                      <div class="card-footer footer-styles ml-0 pl-1" style="display: flex; border: none;background-color: none;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,.79));">
+                        <span style="background-color: #282730;border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
+                            <span style="background-color: #ff5b4c;color: var(--ev-white);border-radius: 6px;padding: .2rem .5rem;font-size: .8rem;">LIVE</span>&nbsp; 20:58 <span class="ml-3 mr-2" style="color: var(--ev-white);"><i class="bi bi-people-fill"></i> 32</span>
+                        </span>
+
+                        <span class="mini-buttons" style="background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
+                           <b>👏</b><b>❤️</b><b>👍</b> <b>😎</b><b>🤣</b><b>🎉</b><b>🏆</b>
+                        </span>
+
+                        <span style="background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
+                            <b>✋🏻</b> Raise hand
+                         </span>
+
+                         <span style="background-color: #282730;border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
+                            <b><i class="bi bi-badge-hd"></i></b><i class='bx bx-chevron-down'></i>
+                         </span>
+
+                         <span class="facing-problems">
+                            Facing problems?
+                         </span>
+                      </div>
+                  </div>
+
+                </div>  
+
+            </div>
+            <div class="workspace-core">
+              <ng-container *ngIf="!eventContent">
+                <div class="d-flex justify-content-center">
+                  <!-- <div class="spinner-grow" role="status">  -->
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                    <span class="spinner-grow spinner-grow-sm text-secondary ev-spinner" role="status" aria-hidden="true"></span>
+                  
+                  <!-- </div> -->
+                </div>
+                
+              </ng-container>
+              <div *ngIf="eventContent" class="row mb-3" style="display: flex;height: inherit;">
+              <div class="card card-ticket mt-3 mr-3 mb-0 card-next" style="background-color: rgba(255,255,255,.05); cursor: default; width: -moz-available; width: --webkit-fill-available;border: 1px solid rgba(0,0,0, .02);height: 100% !important;">
+                
+                <div class="card-body mt-1" style="padding-top: .9rem;">
+                    <!-- <h1 style="color: white;text-align: right;">Good evenning David</h1> -->
+                    <div class="row pt-0" style="width: 100%;height: 100%;">
+                        <ul class="nav nav-pills mb-3 mt-0" style="width: -moz-available !important;width: -webkit-fill-available !important;margin-bottom: 0 !important;background-color: var(--ev-video-nav-list-bg);border-radius: 7px;display: flex;padding: .14rem;" id="pills-tab" role="tablist">
+      
+                            <li style="flex: .7;" class="nav-item" role="presentation">
+                                <a  class="nav-link active" id="pills-chat-tab" data-toggle="pill" href="#pills-chat" role="tab" aria-controls="pills-drafts" aria-selected="false">
+                                    <ng-container >
+                                        Chats
+                                    </ng-container>
+                                </a>
+                                
+                            </li>
+                            <li style="flex: 1;" class="nav-item" role="presentation">
+                                <a   class="nav-link" id="pills-raised-hand-tab" data-toggle="pill" href="#pills-raised-hand" role="tab" aria-controls="pills-published" aria-selected="false">
+                                    <ng-container >
+                                        Raised Hands
+                                      </ng-container>
+                                </a>
+                                
+                            </li>
+                            <!-- <li class="nav-item" role="presentation">
+                                <a   class="nav-link" id="pills-ongoing-tab" (click)="gotoSpeakers()" role="tab" aria-controls="pills-ongoing" aria-selected="false">
+                                    <ng-container >
+                                        People
+                                    </ng-container>
+                                </a>
+                                
+                            </li> -->
+                            <li style="flex: .7;" class="nav-item" role="presentation">
+                                <a  class="nav-link" id="pills-polls-tab" data-toggle="pill" href="#pills-polls" role="tab" aria-controls="pills-cancelled" aria-selected="false">
+                                    <ng-container >
+                                        Polls
+                                    </ng-container>
+                                </a>
+                                
+                            </li>
+        
+                           
+                        </ul>
+                        <hr style="height: 1px !important;" class="my-3">
+                        
+                        <div class="tab-content pt-0  ml-0" id="pills-tabContent" style="height: inherit;">
+                            <div class="tab-pane fade show active" id="pills-chat" role="tabpanel" style="height: inherit;" aria-labelledby="pills-all-tab">
+                                <div style="display: flex;">
+                                    <span>
+                                        <img style="height: 34px;width: 34px;border-radius: .4rem;" src="../../../assets/images/company-logos/black-men-1.jpg">
+                               
+                                    </span>
+                                    <span>
+                                        <span>
+                                            <table>
+                                                <tbody>
+                                                    <tr style="padding-left: .8rem; display: block;">
+                                                        <p class="nav-header-color chat-name chat-person-font">Jereme Bell</p>
+                                                        <p class="nav-header-color chat-person-font">Maintenance Manager &bull; 27 mins ago</p>
+                                                        <p class="nav-text-color chat-content">
+                                                            Going to the main stage
+                                                        </p>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                         </span>
+                                        
+                                    </span>
+                                </div>
+
+                                <div class="fab_field">
+                                    <a id="fab_camera" class="fab"><i style="color: #6a6969;" class="bx bxs-happy-alt"></i></a>
+                                    <a id="fab_send" class="fab"><i class="bx bxs-send"></i></a>
+                                    <textarea id="chatSend" name="chat_message" placeholder="What do you want to share?" class="chat_field chat_message"></textarea>
+                                  </div>
+                               
+                            </div>
+                                
+                            <div class="tab-pane fade" id="pills-raised-hand" role="tabpanel" aria-labelledby="pills-all-tab">
+                                <div class="profile-details ml-0 mb-4" style="display: -webkit-inline-box;justify-content: flex-start;">
+                                    <div class="profile-content">
+                                      <div style="padding: 4px;border-radius: 5px;">
+                                        <img *ngIf ="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 5px;" alt="profileImg">
+                                        <img *ngIf = "eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 5px;" alt="{{eventHost.user.name}}">
+                                      
+                                        <!-- <span class="discover-user-checkmark"><i class="bi bi-check"></i></span> -->
+                                      </div>
+                                    
+                                    </div>
+                                    <div class="name-job p-2 pt-0 nav-text-color">
+                                    <div class="profile_name">Mary Edem</div>
+                                    <div class="job" style="font-size: .8rem;opacity: .7;">
+                                      requested for mic access
+                                    </div>
+                                    <!-- <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div> -->
+                                    <div class="job mt-3" style="font-size: .7rem;opacity: .6;">
+                                      <button  class="btn mic-button btn-md mr-3 my-2" style="background-color: grey;" type="button"> 
+                                        <img src="../../../assets/svg/microphone-with-wire-svgrepo-com.svg" alt="microphone-sing-svgrepo-com" width="32" height="32">
+                                        Hand mic</button>
+                                      <button disabled class="btn btn-danger mic-button btn-md my-2" type="button">X</button>
+                                    </div>
+                                  </div> 
+                                  </div>   
+                            </div>
+                            
+                            <div class="tab-pane fade" id="pills-polls" role="tabpanel" aria-labelledby="pills-all-tab">
+                                <div style="height: 50%;width: 100%;padding-bottom: 10%;">
+                                    <p style="display: block;text-align: center;margin-left: 10%;margin-right: 10%;padding-top: 1%;">
+                                      <i class="bx bx-poll" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
+                                      <span style="display: block;font-weight: 400;color: var(--ev-nav-text-color);font-size: 20px;">This is the polls tab</span>
+                                      <p style="font-size: 14px;text-align: center;color: var(--ev-nav-text-color);margin-left: 10%;margin-right: 10%;">
+                                        Polls you create will appear hear
+              
+                                    </p>
+                                  </div>
+                            </div>
+                        </div>
+                     
+                      
+                    </div>
+                   
+                    
+                  </div>
+                  
+              </div>
+
+
+
+              </div>
+            </div>
+        </section>
+        
+
+        <!-- manage events section  -->
+       <!-- <img *ngIf="eventContent" id="banner_image" style="height: 0px !important;"  src= "http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}"> -->
+      </section>
+    
+  
+</main>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+

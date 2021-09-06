@@ -272,7 +272,7 @@ export class EventManagerHomeComponentComponent implements OnInit {
 
         if (eventStatus == 3) this.archivedEvents = res;
         this.archivedEvents?.data?.sort(function(a: any, b:any){
-          return new Date(a.start_date_time).valueOf() - new Date(b.start_date_time).valueOf();
+          return new Date(b.start_date_time).valueOf() - new Date(a.start_date_time).valueOf();
         });
 
         

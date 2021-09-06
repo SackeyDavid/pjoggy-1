@@ -140,6 +140,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TicketsComponentComponent } from './components/tickets-component/tickets-component.component';
+import { VideoConferenceComponent } from './pages/video-conference/video-conference.component';
 
 
 
@@ -251,7 +252,8 @@ import { TicketsComponentComponent } from './components/tickets-component/ticket
     RsvpUserComponent,
     SidebarComponent,
     TicketsComponentComponent,
-    EventsByCategoryComponent
+    EventsByCategoryComponent,
+    VideoConferenceComponent
   ],
   imports: [
     BrowserModule,

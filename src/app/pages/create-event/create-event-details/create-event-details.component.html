@@ -107,7 +107,7 @@
                     </div>
                   </div>
                   <div *ngIf="isBannerSet">
-                    <image-cropper 
+                    <!-- <image-cropper 
                       [imageChangedEvent]="imageChangedEvent" 
                       [maintainAspectRatio]="true" 
                       [aspectRatio]="2 / 1"
@@ -117,8 +117,8 @@
                       (imageCropped)="imageCropped($event)" 
                       (imageLoaded)="imageLoaded()"
                       (cropperReady)="cropperReady()" 
-                      (loadImageFailed)="loadImageFailed()"></image-cropper>
-                    <!-- <img class="card-img-bottom banner-img" [src]="imgSrc" width="400" height="250"> -->
+                      (loadImageFailed)="loadImageFailed()"></image-cropper> -->
+                    <img class="card-img-bottom banner-img" [src]="imgSrc" width="400" height="250">
                   </div>
                 </div>
               </div>

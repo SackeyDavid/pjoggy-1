@@ -49,6 +49,7 @@ import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.componen
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
 import { TicketsComponentComponent } from './components/tickets-component/tickets-component.component';
 import { EventsByCategoryComponent } from './components/events-by-category/events-by-category.component';
+import { VideoConferenceComponent } from './pages/video-conference/video-conference.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'help',
     component: HelpPageComponent
+  },
+  {
+    path: 'e',
+    component: VideoConferenceComponent
   },
   {
     path: 'user_events',

@@ -24,11 +24,11 @@ import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 declare var $:any;
 
 @Component({
-  selector: 'app-preview-event-page',
-  templateUrl: './preview-event-page.component.html',
-  styleUrls: ['./preview-event-page.component.scss']
+  selector: 'app-video-conference',
+  templateUrl: './video-conference.component.html',
+  styleUrls: ['./video-conference.component.scss']
 })
-export class PreviewEventPageComponent implements OnInit, AfterViewInit {
+export class VideoConferenceComponent implements OnInit, AfterViewInit {
 
   userAuthenticated: boolean = false;  
   searchQuery: string = '';

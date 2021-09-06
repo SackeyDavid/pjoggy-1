@@ -761,7 +761,8 @@
                     </div>
 
                     <div style="text-align: center;" class="mt-4">
-                      <button (click)="openRSVPForm()" class="btn btn-primary ticket-button btn-md mb-2" type="button">Get Ticket</button>
+                      <button  *ngIf="!isEventLive(eventContent.start_date_time, eventContent.end_date_time)" (click)="openRSVPForm()" class="btn btn-primary ticket-button btn-md mb-2" type="button">Book Ticket</button>
+                      <button  *ngIf="isEventLive(eventContent.start_date_time, eventContent.end_date_time)" (click)="enterEvent()" class="btn btn-primary ticket-button btn-md mb-2" type="button">Enter Event</button>
                       <button disabled class="btn btn-primary calendar-button btn-md ml-3 mb-2" type="button">Add to calendar</button>
                      
                     </div>
