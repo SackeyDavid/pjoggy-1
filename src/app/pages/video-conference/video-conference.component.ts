@@ -18,6 +18,9 @@ import { SocialShareModalComponent } from 'src/app/components/social-share-modal
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Meta, Title } from '@angular/platform-browser';
 import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+
 // import * as Vibrant from 'node-vibrant';
 // import Vibrant = require('node-vibrant');
 
@@ -109,6 +112,21 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
 
   activeTab: string = 'overview';
 
+  public servers = {
+    iceServers: [
+      {
+        urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'],
+      },
+    ],
+    iceCandidatePoolSize: 10,
+  };
+
+  // Global State 
+  public pc = new RTCPeerConnection(this.servers);
+  public localStream:any = null;
+  public remoteStream:any = null;
+
+
   constructor(
     private eventService: EventsService,
     private bannerService: BannerAdsService,
@@ -126,7 +144,8 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
     private eventsService: EventsService,
     private title: Title,
     private meta: Meta,
-    private rsvpService: RsvpService
+    private rsvpService: RsvpService,
+    private firestore: AngularFirestore
   ) { 
     this.initForm(); 
 
@@ -230,6 +249,15 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
+    // HTML elements
+    const webcamButton = this.elementRef.nativeElement.querySelector('#webcamButton');
+    const webcamVideo = this.elementRef.nativeElement.querySelector('#webcamVideo');
+    const callButton = this.elementRef.nativeElement.querySelector('#callButton');
+    const callInput = this.elementRef.nativeElement.querySelector('#callInput');
+    const answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
+    const remoteVideo = this.elementRef.nativeElement.querySelector('#remoteVideo');
+    const hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
+
     this.elementRef.nativeElement.querySelector('.sidebar')
                                   .addEventListener('click', this.onClick.bind(this));
     
@@ -285,7 +313,117 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
     });
 
     
-    
+    // 1. Setup media sources
+
+    webcamButton.onclick = async () => {
+      this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      this.remoteStream = new MediaStream();
+
+      // Push tracks from local stream to peer connection
+      this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
+        this.pc.addTrack(track, this.localStream);
+      });
+
+      // Pull tracks from remote stream, add to video stream
+      this.pc.ontrack = (event) => {
+        event.streams[0].getTracks().forEach((track) => {
+          this.remoteStream.addTrack(track);
+        });
+      };
+
+      webcamVideo.srcObject = this.localStream;
+      remoteVideo.srcObject = this.remoteStream;
+
+      callButton.disabled = false;
+      answerButton.disabled = false;
+      webcamButton.disabled = true;
+    };
+
+    // 2. Create an offer
+    callButton.onclick = async () => {
+      // Reference Firestore collections for signaling
+      const callDoc = this.firestore.collection('calls').ref.doc();
+      const offerCandidates = callDoc.collection('offerCandidates');
+      const answerCandidates = callDoc.collection('answerCandidates');
+
+      callInput.value = callDoc.id;
+
+      // Get candidates for caller, save to db
+      this.pc.onicecandidate = (event) => {
+        event.candidate && offerCandidates.add(event.candidate.toJSON());
+      };
+
+      // Create offer
+      const offerDescription = await this.pc.createOffer();
+      await this.pc.setLocalDescription(offerDescription);
+
+      const offer = {
+        sdp: offerDescription.sdp,
+        type: offerDescription.type,
+      };
+
+      await callDoc.set({ offer });
+
+      // Listen for remote answer
+      callDoc.onSnapshot((snapshot:any) => {
+        const data: any = snapshot.data();
+        if (!this.pc.currentRemoteDescription && data?.answer) {
+          const answerDescription = new RTCSessionDescription(data.answer);
+          this.pc.setRemoteDescription(answerDescription);
+        }
+      });
+
+      // When answered, add candidate to peer connection
+      answerCandidates.onSnapshot((snapshot: any) => {
+        snapshot.docChanges().forEach((change: any) => {
+          if (change.type === 'added') {
+            const candidate = new RTCIceCandidate(change.doc.data());
+            this.pc.addIceCandidate(candidate);
+          }
+        });
+      });
+
+      hangupButton.disabled = false;
+    };
+
+    // 3. Answer the call with the unique ID
+    answerButton.onclick = async () => {
+      const callId = callInput.value;
+      const callDoc = this.firestore.collection('calls').doc(callId);
+      const answerCandidates = callDoc.collection('answerCandidates');
+      const offerCandidates = callDoc.collection('offerCandidates');
+
+      this.pc.onicecandidate = (event) => {
+        event.candidate && answerCandidates.add(event.candidate.toJSON());
+      };
+
+      const callData:any = (await callDoc.ref.get()).data();
+
+      const offerDescription = callData.offer;
+      await this.pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
+
+      const answerDescription = await this.pc.createAnswer();
+      await this.pc.setLocalDescription(answerDescription);
+
+      const answer = {
+        type: answerDescription.type,
+        sdp: answerDescription.sdp,
+      };
+
+      await callDoc.update({ answer });
+
+      offerCandidates.ref.onSnapshot((snapshot: any) => {
+        snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
+          console.log(change);
+          if (change.type === 'added') {
+            let data = change.doc.data();
+            this.pc.addIceCandidate(new RTCIceCandidate(data));
+          }
+        });
+      });
+    };
+
+
   }
 
 

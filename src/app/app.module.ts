@@ -142,7 +142,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TicketsComponentComponent } from './components/tickets-component/tickets-component.component';
 import { VideoConferenceComponent } from './pages/video-conference/video-conference.component';
 
-
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -283,7 +285,10 @@ import { VideoConferenceComponent } from './pages/video-conference/video-confere
     MdbModalModule,
     GoogleMapsModule,
     ImageCropperModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
