@@ -37,7 +37,7 @@
     div.workspace-core {
     flex: 1;
     background-color: inherit;
-    height: 84.5vh;
+    height: 80vh;
     }
     section.workspace {
       display: flex;
@@ -58,7 +58,7 @@
     }
     
     div.workspace-nav {
-      flex: 2;
+      flex: 2.7;
       background-color: inherit;
       // border-right: 1px solid #2d2d2ded;
       // height: 90vh !important;
@@ -436,8 +436,9 @@
       position: relative;
       background: #E4E9F7;
       height: 100vh;
-      left: 260px;
-      width: calc(100% - 260px);
+      // left: 260px;
+      // width: calc(100% - 260px);
+      width: calc(100% - 0px);
       transition: all 0.5s ease;
       overflow-y: scroll;
       scrollbar-color: var(--ev-event-details-scrollbar) var(--ev-primary-background);
@@ -854,7 +855,7 @@
     color: var(--ev-header-text-color) !important;
     font-weight: 400;
     text-transform: capitalize;
-    font-size: .9rem;
+    font-size: .8rem;
     padding: 0.6rem .97rem !important;
     /* padding-bottom: .5rem !important; */
     transition: color 0.3s ease 0s !important;
@@ -950,6 +951,7 @@
 
     .card-footer {
       // background-color: inherit;
+      border-top: none !important;
     }
     
     
@@ -996,7 +998,7 @@
     }
     
     .card-body {
-      padding: 1.5rem;
+      padding: 1.2rem;
       flex: 1 1 auto;
     }
     
@@ -1430,8 +1432,8 @@
         text-align: right !important;
         position: absolute;
         right: .1rem;
-        margin-right: .6rem !important;
-        margin-top: .6rem !important;
+        margin-right: .1rem !important;
+        margin-top: .1rem !important;
     }
     
     .event-host {
@@ -1589,7 +1591,7 @@
     .banner-card-active {
       width: -moz-available;
       transition: all .4 ease-in;
-      margin-left: 1.5rem !important;
+      margin-left: 0rem !important;
       height: 50vh !important;
     }
 
@@ -1777,6 +1779,7 @@
     
   .card-deck .card {
     margin-left: 0px !important;
+    border-radius: 10px !important;
   }
 
   .autosearch-results {
@@ -1954,7 +1957,7 @@
     // text-transform: uppercase;
     // letter-spacing: 2.5px;
     font-weight: 500;
-    color: var(--ev-white);
+    color: white; //color recommend
     background-color: #f05537;
     border: none;
     border-radius: 8px;
@@ -2751,6 +2754,7 @@
 	background-color: none;
 	background: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.6));
 	padding: 1rem;
+  padding-top: 2.6rem;
 	border-end-start-radius: 1.275rem;
 	border-end-end-radius: 1.275rem;
 }
@@ -2762,13 +2766,135 @@
     margin-right: .2rem;
 	font-size: .8rem;
 	border-radius: 10px;
+  cursor: pointer;
 }
 
 .facing-problems {
 	background-color: rgba(79,78,84,255);
 	border-radius: 10px;
-	padding: .4rem .5rem;
-	margin-left: 1rem;
-	color: #7468b1;
+	padding: 0.55rem 0.65rem;
+	// margin-left: 1rem;
+	color: #a363f7;
 	font-size: .8rem;
+  cursor: pointer;
+}
+
+.live-label {
+	background-color: #ff5b4c;
+	color: white;
+	border-radius: 4px;
+	padding: .2rem .5rem;
+	font-size: .7rem;
+	font-weight: 600;
+	letter-spacing: .7px;
+}
+
+.video-conference-div {
+	width: 100%;
+	background-color: white;
+	display: flex;
+	height: 100%;
+	border-end-start-radius: 1.275rem;
+	border-end-end-radius: 1.275rem;
+	margin-top: 6.1rem;
+}
+
+
+.host-attendee .card {
+  width: 32vw; // use min-width if it's only one card
+
+}
+
+.speakers .card {
+  min-width: 9vw; // use min-width if it's only one card
+
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+img.emoji {
+  height: 20px;
+  width: 20px;
+}
+
+.host-attendee-job-title {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: .59rem;
+	font-weight: 600;
+	color: white;
+	opacity: .9;
+}
+
+.video-conference-member-tag  {
+	color: white;
+	background-color: var(--ev-tertiary-background);
+	border-radius: 5px;
+	padding: 5px 10px;
+	font-size: .7rem;
+	font-weight: 500;
+	letter-spacing: .1px;
+}
+
+
+span.color-circle {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.9rem;
+  text-align: center;
+  color: var(--ev-brandname-darkblue);
+  padding: 12px;
+  letter-spacing: 1px;
+  color: white;
+  background-color: rgb(204, 230, 255);
+  height: 70%;
+  width: 50%;
+  margin-top: 3.6rem;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 4rem;
+  
+}
+
+.lds-facebook,
+.lds-facebook span {
+  box-sizing: border-box;
+}
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 4px;
+  height: 4px;
+  top: -1.65rem;
+}
+.lds-facebook span {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 2px;
+  background: #40c941;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook span:nth-child(1) {
+  left: 2px;
+  animation-delay: -0.24s;
+}
+.lds-facebook span:nth-child(2) {
+  left: 5px;
+  animation-delay: -0.12s;
+}
+.lds-facebook span:nth-child(3) {
+  left: 11px;
+  animation-delay: 0s;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 20px;
+    height: 8px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 4px;
+  }
 }

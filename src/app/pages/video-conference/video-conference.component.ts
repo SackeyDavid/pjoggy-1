@@ -872,4 +872,11 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
 
   }
 
+  getInitials(name: string) {
+    var str = name;
+    var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+    return matches!.join(''); // JSON
+  }
+
+
 }

@@ -4,199 +4,6 @@
 <!-- <app-events-list></app-events-list> -->
 <!-- <app-footer></app-footer> -->
 <main>
-    <div class="sidebar open">
-        <div class="logo-details">
-          <i class='bx bx-menu'></i>
-          <span class="logo_name" (click)="gotoHomePage()">events369</span>
-        </div>
-        
-        <ul class="nav-links">
-            <p class="list-title text-muted px-4 mt-2 mb-2">
-                MENU
-            </p>
-          <li>
-            <a  (click)="gotoHomePage()">
-              <i class='bx bx-chair' ></i>
-              <span class="link_name">Lounge</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name"  (click)="gotoHomePage()">Lounge</a></li>
-            </ul>
-          </li>
-          <li>
-            <div class="iocn-link">
-              <a routerLink="/events/popular"class="active">
-                <i class='bx bxs-video'></i>
-                <span class="link_name">Stage</span>
-              </a>
-              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" routerLink="/events/popular">Stage</a></li>
-              <!-- <li><a href="#">HTML & CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-              <li><a href="#">PHP & MySQL</a></li> -->
-            </ul>
-          </li>
-          <li>
-            <div class="iocn-link">
-              <a routerLink="/events/live">
-                <i class='bx bxs-group'></i>
-                <span class="link_name">Networking</span>
-              </a>
-              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" routerLink="/events/live">Networking</a></li>
-              <!-- <li><a href="#">Web Design</a></li>
-              <li><a href="#">Login Form</a></li>
-              <li><a href="#">Card Design</a></li> -->
-            </ul>
-          </li>
-          <li>
-            <a routerLink="/events/upcoming">
-                <i class='bx bxs-calendar-alt'></i>
-              <span class="link_name">Schedule</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name" routerLink="/events/upcoming">Schedule</a></li>
-            </ul>
-          </li>
-          <li>
-            <a routerLink="/events/favorites">
-                <i class='bx bxs-store'></i>
-              <span class="link_name">Expo</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name" routerLink="/events/favorites">Expo</a></li>
-            </ul>
-          </li>
-          <span class="h-rule mx-4 px-4">
-             <hr class="mx-4">
-          </span>
-          <p class="list-title text-muted px-4 mt-2 mb-2">
-              INBOX
-          </p>
-          <li>
-            <a (click)="openCategoriesPage('2')">
-              <i class='bx bxs-bell'></i>
-              <span class="link_name">Alerts</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name" (click)="openCategoriesPage('2')">Alerts</a></li>
-            </ul>
-          </li>
-          <li>
-            <a (click)="openCategoriesPage('3')">
-                <i class='bx bxs-chat'></i>
-              <span class="link_name">Messages</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name" (click)="openCategoriesPage('3')">Messages</a></li>
-            </ul>
-          </li>
-          <li>
-            <div class="iocn-link">
-              <a (click)="openCategoriesPage('4')" [class.active] = "eventContent?.Category_id == 4">
-                <i class='bx bxs-face'></i>
-                <span class="link_name">People</span>
-              </a>
-              <!-- <i class='bx bxs-chevron-down arrow' ></i> -->
-            </div>
-            <ul class="sub-menu">
-              <li><a class="link_name" (click)="openCategoriesPage('4')">People</a></li>
-              <!-- <li><a href="#">UI Face</a></li>
-              <li><a href="#">Pigments</a></li>
-              <li><a href="#">Box Icons</a></li> -->
-            </ul>
-          </li>
-          <!-- <li>
-            <a routerLink="/events/new">
-                <i class='bx bxs-star'></i>
-              <span class="link_name">New</span>
-            </a>
-            <ul class="sub-menu">
-              <li><a class="link_name" routerLink="/events/new">New</a></li>
-            </ul>
-          </li> -->
-          <!-- <li>
-            <a href="#">
-              <i class='bx bx-history'></i>
-              <span class="link_name">This Weekend</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">This Weekend</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class='bx bx-cog' ></i>
-              <span class="link_name">Setting</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">Setting</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class='bx bx-history'></i>
-              <span class="link_name">History</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">History</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class='bx bx-cog' ></i>
-              <span class="link_name">Setting</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">Setting</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class='bx bx-history'></i>
-              <span class="link_name">History</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">History</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class='bx bx-cog' ></i>
-              <span class="link_name">Setting</span>
-            </a>
-            <ul class="sub-menu blank">
-              <li><a class="link_name" href="#">Setting</a></li>
-            </ul>
-          </li>-->
-          
-          <span class="h-rule mx-4 px-4">
-            <hr class="mx-4">
-         </span>
-          <li>         
-        <div class="profile-details">
-            <div class="form-group" style="display: flex;">
-                <!-- <label>Test3</label> -->
-                <div style="display: flex;flex-direction: row;">
-                    <label *ngIf="!darkMode" (click)="toggleDarkMode()" class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                    <label *ngIf="darkMode" (click)="toggleLightMode()" class="switch">
-                      <input type="checkbox" checked>
-                      <span class="slider round"></span>
-                  </label>
-                 <span class="link_name ml-3">Night mode</span>
-                 </div>
-            </div>
-        </div>
-      </li>
-    </ul>
-      </div>
       <section class="home-section">
         <nav class="navbar navbar-light sticky-top bg-light justify-content-between" style="box-shadow: var(--ev-rsvp-nav-box-shadow) !important;">
           <form style="display: none;" [formGroup] = "formGroup" class="form-inline pl-3">
@@ -358,7 +165,7 @@
                 </ng-container>
                 
                 <div *ngIf="eventContent" class="row banner-autoplay ml-1 pl-2 mb-3" style="display: flex;">
-                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
+                    <div *ngIf="eventContent.banner_image == null" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url('../../../../assets/images/photo-1475721027785-f74eccf877e2.webp') no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: .5rem !important; width: -moz-available; width: --webkit-fill-available;">
                         <div class="card-body mt-1">
                           <div style="width: 100%;">
                           </div>
@@ -370,31 +177,108 @@
                           </div>
                     </div>
 
-                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 392px !important; margin-right: 2rem !important; width: -moz-available; width: --webkit-fill-available;">
-                      <div class="card-body mt-1">
-                        <div style="width: 45%;">
+                    <div *ngIf="eventContent.banner_image" class="card mt-3 mr-4 mb-2 banner-card-active" style="background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: contain; background-color: var(--ev-event-banner-bg);cursor: default;height: 80vh !important; margin-right: .5rem !important; width: -moz-available; width: --webkit-fill-available;">
+                      <div class="card-body" style="padding: 0rem;display: flex;">
+                        <div style="width: 100%;">
+                          <div class="video-conference-div">
+                            <div class="host-attendee card-deck ml-5 mr-0" style="margin-bottom: 3.7rem !important;margin-top: 2.5rem !important;">
+                              <div class="card m-2" style="background-color: rgba(255,255,255,.06);border: 1px solid rgba(0,0,0, .02);background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: cover;cursor: default;">
+                                <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
+                                <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+                                  <span class="video-conference-member-tag ml-1">
+                                  SPEAKER
+                                  </span>
+                                </p>
+                                <div class="card-body">
+                                  
+                                </div>
+                                <div class="card-footer" style="padding: .8rem .55rem;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,1.9));border-end-start-radius: 10px;border-end-end-radius: 10px;">
+                                  <p class="card-text font-weight-bold" style="margin-bottom: -.6rem;opacity: .9;font-size: .9rem;">Erin Sojourner <span class="mx-1"><i style="color: #ee3625;" class='bx bxs-microphone-off'></i></span></p>
+                                  <p class="card-text"><span class="host-attendee-job-title">VP of Brand Strategy + Innovation, HB Specialty Foods</span></p>
+                                
+                                </div>
+                              </div>
+                              <div class="card m-2" style="background-color: #1f1e24;border: 1px solid rgba(0,0,0, .02);cursor: default;">
+                                <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
+                                <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
+                                  <span class="video-conference-member-tag ml-1">
+                                  ATTENDEE
+                                  </span>
+                                </p>
+                                <div class="card-body" style="text-align: center;">
+                                  <span class="color-circle" [ngStyle]="{'background-color': stringToHslColor('Amber Branch', 80, 70)}">{{getInitials('Amber Branch')}}</span>
+                    
+                                </div>
+                                <div class="card-footer" style="padding: .8rem .55rem;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,1.9));border-end-start-radius: 10px;border-end-end-radius: 10px;">
+                                  <p class="card-text font-weight-bold" style="margin-bottom: -.6rem;opacity: .9;font-size: .9rem;">Amber Branch <span class="mx-1"><span class="lds-facebook"><span></span><span></span><span></span><span></span></span></span></p>
+                                  
+                                  <p class="card-text"><span class="host-attendee-job-title">Logistics & Fulfillment Manager</span></p>
+                                
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="speakers card-deck ml-0 mr-5 mt-5" style="margin-bottom: 3.5rem !important;">
+                              <div class="card m-2" style="background-color: rgba(255,255,255,.06);border: 1px solid rgba(0,0,0, .02);">
+                                <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
+                                <div class="card-body">
+                                  <h3 class="card-title">
+                                    <div class="card-icon" style="background-color: var(--ev-card-icon-first-bg);">
+                                      <!-- <i class="bi bi-camera-video-fill"></i> -->
+                                      <img src="../../../assets/svg/microphone-sing-svgrepo-com.svg" alt="microphone-sing-svgrepo-com" width="32" height="32">
+                                    </div>
+                                  </h3>
+                                  <p class="card-text font-weight-bold">Create Event</p>
+                                  <p class="card-text"><small class="text-muted">create new event</small></p>
+                                </div>
+                              </div>
+                              <div class="card m-2 mr-2"  >
+                                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                                <div class="card-body">
+                                  <h3 class="card-title">
+                                    <div class="card-icon" style="background-color: var(--ev-card-icon-bg);">
+                                      <i class="bi bi-plus-square-fill" style="color: #f16ebc;"></i>
+                                    </div>
+                                  </h3>
+                                 
+                                  <!-- <p class="card-text font-weight-bold">Join Event</p>
+                                  <p class="card-text"><small class="text-muted">via event link</small></p> -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div class="card-footer footer-styles ml-0 pl-1" style="display: flex; border: none;background-color: none;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,.79));">
-                        <span style="background-color: #282730;border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
-                            <span style="background-color: #ff5b4c;color: var(--ev-white);border-radius: 6px;padding: .2rem .5rem;font-size: .8rem;">LIVE</span>&nbsp; 20:58 <span class="ml-3 mr-2" style="color: var(--ev-white);"><i class="bi bi-people-fill"></i> 32</span>
+                      <div class="card-footer footer-styles ml-0 pl-1" style="display: flex;justify-content: space-between; border: none;background-color: none;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,.7));">
+                        <div class="inline-flex">
+                        
+                          <span style="background-color: #282730;border-radius: 10px;padding: .55rem .5rem;margin-left: 1rem;color: white;font-size: .8rem;">
+                            <span class="live-label">LIVE</span>&nbsp; 20:58 <span class="ml-3 mr-2" style="color: white;"><i class="bi bi-people-fill"></i> 32</span>
+                        </span>  
+                        </div>
+
+                        <div class="inline-flex">
+                          
+                          <span class="mini-buttons" style="background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .55rem .5rem;margin-left: 1rem;color: white;font-size: .8rem;">
+                            <b><img src="../../../assets/emoji/icons8-clapping-hands-48.png" class="emoji"></b><b><img src="../../../assets/emoji/icons8-heart-suit-48.png" class="emoji"></b><b><img src="../../../assets/emoji/icons8-thumbs-up-48.png" class="emoji"></b> <b><img src="../../../assets/emoji/icons8-smiling-face-with-sunglasses-48.png" class="emoji"></b><b><img src="../../../assets/emoji/icons8-rolling-on-the-floor-laughing-48.png" class="emoji"></b><b><img src="../../../assets/emoji/icons8-party-popper-48.png" class="emoji"></b><b><img src="../../../assets/emoji/icons8-trophy-48.png" class="emoji"></b>
                         </span>
+                        <span class="mx-2" style="border-right: 1px solid rgba(255,255,255,.3);font-size: 25px;"></span>
+                      
+                        <span style="cursor: pointer; background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .55rem .5rem;color: white;font-size: .87rem;font-weight: 500;">
+                            <b><img src="../../../assets/emoji/icons8-raised-hand-48.png" class="emoji"></b> Raise hand
+                          </span>
+                        </div>
 
-                        <span class="mini-buttons" style="background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
-                           <b>👏</b><b>❤️</b><b>👍</b> <b>😎</b><b>🤣</b><b>🎉</b><b>🏆</b>
-                        </span>
+                        <div class="inline-flex">
+                          <span style="cursor: pointer;background-color: #282730;border-radius: 10px;padding: .5rem .5rem;margin-left: 1rem;color: white;font-size: .88rem;">
+                             <b><img src="../../../assets/emoji/icons8-hd-24.png" style="height: 24px;width: 24px;"></b><i class='bx bx-chevron-down'></i>
+                          </span>
+ 
+                          <span class="facing-problems ml-2">
+                             Facing problems?
+                          </span>
 
-                        <span style="background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
-                            <b>✋🏻</b> Raise hand
-                         </span>
-
-                         <span style="background-color: #282730;border-radius: 10px;padding: .4rem .5rem;margin-left: 1rem;color: var(--ev-white);font-size: .8rem;">
-                            <b><i class="bi bi-badge-hd"></i></b><i class='bx bx-chevron-down'></i>
-                         </span>
-
-                         <span class="facing-problems">
-                            Facing problems?
-                         </span>
+                        </div>
                       </div>
                   </div>
 
@@ -512,7 +396,7 @@
                                       <button  class="btn mic-button btn-md mr-3 my-2" style="background-color: grey;" type="button"> 
                                         <img src="../../../assets/svg/microphone-with-wire-svgrepo-com.svg" alt="microphone-sing-svgrepo-com" width="32" height="32">
                                         Hand mic</button>
-                                      <button disabled class="btn btn-danger mic-button btn-md my-2" type="button">X</button>
+                                      <button class="btn btn-danger mic-button btn-md my-2" style="padding: 0.7rem 1rem !important;" type="button">X</button>
                                     </div>
                                   </div> 
                                   </div>   
@@ -557,6 +441,126 @@
 
 
 
+
+
+<!-- <div class="sidebar open">
+  <div class="logo-details">
+    <i class='bx bx-menu'></i>
+    <span class="logo_name" (click)="gotoHomePage()">events369</span>
+  </div>
+  
+  <ul class="nav-links">
+      <p class="list-title text-muted px-4 mt-2 mb-2">
+          MENU
+      </p>
+    <li>
+      <a  (click)="gotoHomePage()">
+        <i class='bx bx-chair' ></i>
+        <span class="link_name">Lounge</span>
+      </a>
+      <ul class="sub-menu">
+        <li><a class="link_name"  (click)="gotoHomePage()">Lounge</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a routerLink="/events/popular"class="active">
+          <i class='bx bxs-video'></i>
+          <span class="link_name">Stage</span>
+        </a>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" routerLink="/events/popular">Stage</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a routerLink="/events/live">
+          <i class='bx bxs-group'></i>
+          <span class="link_name">Networking</span>
+        </a>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" routerLink="/events/live">Networking</a></li>
+      </ul>
+    </li>
+    <li>
+      <a routerLink="/events/upcoming">
+          <i class='bx bxs-calendar-alt'></i>
+        <span class="link_name">Schedule</span>
+      </a>
+      <ul class="sub-menu">
+        <li><a class="link_name" routerLink="/events/upcoming">Schedule</a></li>
+      </ul>
+    </li>
+    <li>
+      <a routerLink="/events/favorites">
+          <i class='bx bxs-store'></i>
+        <span class="link_name">Expo</span>
+      </a>
+      <ul class="sub-menu">
+        <li><a class="link_name" routerLink="/events/favorites">Expo</a></li>
+      </ul>
+    </li>
+    <span class="h-rule mx-4 px-4">
+       <hr class="mx-4">
+    </span>
+    <p class="list-title text-muted px-4 mt-2 mb-2">
+        INBOX
+    </p>
+    <li>
+      <a (click)="openCategoriesPage('2')">
+        <i class='bx bxs-bell'></i>
+        <span class="link_name">Alerts</span>
+      </a>
+      <ul class="sub-menu">
+        <li><a class="link_name" (click)="openCategoriesPage('2')">Alerts</a></li>
+      </ul>
+    </li>
+    <li>
+      <a (click)="openCategoriesPage('3')">
+          <i class='bx bxs-chat'></i>
+        <span class="link_name">Messages</span>
+      </a>
+      <ul class="sub-menu">
+        <li><a class="link_name" (click)="openCategoriesPage('3')">Messages</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a (click)="openCategoriesPage('4')" [class.active] = "eventContent?.Category_id == 4">
+          <i class='bx bxs-face'></i>
+          <span class="link_name">People</span>
+        </a>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" (click)="openCategoriesPage('4')">People</a></li>
+        
+      </ul>
+    </li>
+    
+    <span class="h-rule mx-4 px-4">
+      <hr class="mx-4">
+   </span>
+    <li>         
+  <div class="profile-details">
+      <div class="form-group" style="display: flex;">
+          <div style="display: flex;flex-direction: row;">
+              <label *ngIf="!darkMode" (click)="toggleDarkMode()" class="switch">
+                  <input type="checkbox">
+                  <span class="slider round"></span>
+              </label>
+              <label *ngIf="darkMode" (click)="toggleLightMode()" class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
+           <span class="link_name ml-3">Night mode</span>
+           </div>
+      </div>
+  </div>
+</li>
+</ul>
+</div> -->
 
 
 
