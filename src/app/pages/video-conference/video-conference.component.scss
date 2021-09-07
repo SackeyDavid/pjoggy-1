@@ -2804,10 +2804,18 @@
   width: 32vw; // use min-width if it's only one card
 
 }
-
+.speakers {
+  height: max-content;
+  overflow-y: hidden;
+}
 .speakers .card {
   min-width: 9vw; // use min-width if it's only one card
   margin-top: 0rem !important;
+  min-height: 18vh;
+}
+
+.speakers .card:not(:first-child):not(:nth-child(2)) {
+  display: none;
 }
 
 .inline-flex {
@@ -2898,3 +2906,4 @@ span.color-circle {
     height: 4px;
   }
 }
+
