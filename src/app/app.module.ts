@@ -135,7 +135,6 @@ import { CreateEventModalComponent } from './components/modal/create-event-modal
 import { PostponeEventAlertComponent } from './components/modals/postpone-event-alert/postpone-event-alert.component';
 import { RsvpPaymentComponent } from './pages/rsvp-payment/rsvp-payment.component';
 import { RsvpUserComponent } from './pages/rsvp-user/rsvp-user.component';
-import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -284,7 +283,6 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     TimeagoModule.forRoot(),
     MdbModalModule,
     GoogleMapsModule,
-    ImageCropperModule,
     SlickCarouselModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
