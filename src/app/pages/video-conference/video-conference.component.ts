@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Output, Injectable, EventEmitter, Inject, HostListener } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output, Injectable, EventEmitter, Inject, HostListener, AfterContentInit } from '@angular/core';
 import { EventsService } from 'src/app/services/events/events.service';
 import { BannerAdsService } from 'src/app/services/banner-ads/banner-ads.service';
 import { ElementRef } from '@angular/core';
@@ -31,7 +31,7 @@ declare var $:any;
   templateUrl: './video-conference.component.html',
   styleUrls: ['./video-conference.component.scss']
 })
-export class VideoConferenceComponent implements OnInit, AfterViewInit {
+export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterContentInit {
 
   userAuthenticated: boolean = false;  
   searchQuery: string = '';
@@ -247,182 +247,167 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
     this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
   }
 
+  ngAfterContentInit() {
+
+    
+      if(this.eventContent) this.setupCamera();
+        
+    
+    
+  }
+
+  setupCamera() {
+      // HTML elements
+      setTimeout(() => {
+
+      const webcamButton = this.elementRef.nativeElement.querySelector('#webcamButton');
+      const webcamVideo = this.elementRef.nativeElement.querySelector('#webcamVideo');
+      const callButton = this.elementRef.nativeElement.querySelector('#callButton');
+      const callInput = this.elementRef.nativeElement.querySelector('#callInput');
+      const answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
+      const remoteVideo = this.elementRef.nativeElement.querySelector('#remoteVideo');
+      const hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
+
+      // 1. Setup media sources
+      $(document).ready(function(){
+          $('#webcamButton').trigger('click');
+      });
+      
+      webcamButton.onclick = async () => {
+        this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        this.remoteStream = new MediaStream();
+
+        // Push tracks from local stream to peer connection
+        this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
+          this.pc.addTrack(track, this.localStream);
+        });
+
+        // Pull tracks from remote stream, add to video stream
+        this.pc.ontrack = (event) => {
+          event.streams[0].getTracks().forEach((track) => {
+            this.remoteStream.addTrack(track);
+          });
+        };
+
+        webcamVideo.srcObject = this.localStream;
+        remoteVideo.srcObject = this.remoteStream;
+
+        callButton.disabled = false;
+        answerButton.disabled = false;
+        webcamButton.disabled = true;
+      };
+
+      // 2. Create an offer
+      callButton.onclick = async () => {
+        // Reference Firestore collections for signaling
+        const callDoc = this.firestore.collection('calls').ref.doc();
+        const offerCandidates = callDoc.collection('offerCandidates');
+        const answerCandidates = callDoc.collection('answerCandidates');
+
+        callInput.value = callDoc.id;
+
+        // Get candidates for caller, save to db
+        this.pc.onicecandidate = (event) => {
+          event.candidate && offerCandidates.add(event.candidate.toJSON());
+        };
+
+        // Create offer
+        const offerDescription = await this.pc.createOffer();
+        await this.pc.setLocalDescription(offerDescription);
+
+        const offer = {
+          sdp: offerDescription.sdp,
+          type: offerDescription.type,
+        };
+
+        await callDoc.set({ offer });
+
+        // Listen for remote answer
+        callDoc.onSnapshot((snapshot:any) => {
+          const data: any = snapshot.data();
+          if (!this.pc.currentRemoteDescription && data?.answer) {
+            const answerDescription = new RTCSessionDescription(data.answer);
+            this.pc.setRemoteDescription(answerDescription);
+          }
+        });
+
+        // When answered, add candidate to peer connection
+        answerCandidates.onSnapshot((snapshot: any) => {
+          snapshot.docChanges().forEach((change: any) => {
+            if (change.type === 'added') {
+              const candidate = new RTCIceCandidate(change.doc.data());
+              this.pc.addIceCandidate(candidate);
+            }
+          });
+        });
+
+        hangupButton.disabled = false;
+      };
+
+      // 3. Answer the call with the unique ID
+      answerButton.onclick = async () => {
+        const callId = callInput.value;
+        const callDoc = this.firestore.collection('calls').doc(callId);
+        const answerCandidates = callDoc.collection('answerCandidates');
+        const offerCandidates = callDoc.collection('offerCandidates');
+
+        this.pc.onicecandidate = (event) => {
+          event.candidate && answerCandidates.add(event.candidate.toJSON());
+        };
+
+        const callData:any = (await callDoc.ref.get()).data();
+
+        const offerDescription = callData.offer;
+        await this.pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
+
+        const answerDescription = await this.pc.createAnswer();
+        await this.pc.setLocalDescription(answerDescription);
+
+        const answer = {
+          type: answerDescription.type,
+          sdp: answerDescription.sdp,
+        };
+
+        await callDoc.update({ answer });
+
+        offerCandidates.ref.onSnapshot((snapshot: any) => {
+          snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
+            console.log(change);
+            if (change.type === 'added') {
+              let data = change.doc.data();
+              this.pc.addIceCandidate(new RTCIceCandidate(data));
+            }
+          });
+        });
+      };
+
+      
+    }, 7000);
+
+  }
+
   ngAfterViewInit() {
 
-    // HTML elements
-    const webcamButton = this.elementRef.nativeElement.querySelector('#webcamButton');
-    const webcamVideo = this.elementRef.nativeElement.querySelector('#webcamVideo');
-    const callButton = this.elementRef.nativeElement.querySelector('#callButton');
-    const callInput = this.elementRef.nativeElement.querySelector('#callInput');
-    const answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
-    const remoteVideo = this.elementRef.nativeElement.querySelector('#remoteVideo');
-    const hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
 
-    this.elementRef.nativeElement.querySelector('.sidebar')
-                                  .addEventListener('click', this.onClick.bind(this));
+    // this.elementRef.nativeElement.querySelector('.sidebar')
+    //                               .addEventListener('click', this.onClick.bind(this));
     
-    document.querySelector(".sidebar")?.classList.toggle("close");
+    // document.querySelector(".sidebar")?.classList.toggle("close");
 
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".bx-menu");
-    console.log(sidebarBtn);
-    sidebarBtn!.addEventListener("click", ()=>{
-      sidebar!.classList.toggle("close");
-    });
+    // let sidebar = document.querySelector(".sidebar");
+    // let sidebarBtn = document.querySelector(".bx-menu");
+    // console.log(sidebarBtn);
+    // sidebarBtn!.addEventListener("click", ()=>{
+    //   sidebar!.classList.toggle("close");
+    // });
 
     
     
     this.getData();   
     
-    $(document).ready(() => {
-
-      setTimeout(() => {
-        
-     
-      var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
-      console.log(fixmeTop)
-      $('.workspace-nav').scroll(function() {                  // assign scroll event listener
-        // alert('Hi');
-          var currentScroll = $('.workspace-nav').scrollTop(); // get current position
-
-          if (currentScroll >= fixmeTop) {           // apply position: fixed if you
-            // alert('Hi')
-              $('.fixme').css({                      // scroll to that element or below it
-                  position: 'sticky',
-                  top: '-1.5rem',
-                  // left: '0'
-              });
-             
-          } else {                                   // apply position: static
-            // alert('No')
-              $('.fixme').css({                      // if you scroll above it
-                  position: 'static'
-              });
-              document.querySelector('#overview')?.classList.remove('pt-5');
-              document.querySelector('#overview')?.classList.remove('pb-5');
-              document.querySelector('#overview')!.className += ' pb-3';
-              document.querySelector('#overview')!.nextElementSibling!.classList.remove('pt-3');
-              
-          }
-
-      });
-
-    }, 2000);
-
-
-    });
-
     
-    // 1. Setup media sources
-
-    webcamButton.onclick = async () => {
-      this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      this.remoteStream = new MediaStream();
-
-      // Push tracks from local stream to peer connection
-      this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-        this.pc.addTrack(track, this.localStream);
-      });
-
-      // Pull tracks from remote stream, add to video stream
-      this.pc.ontrack = (event) => {
-        event.streams[0].getTracks().forEach((track) => {
-          this.remoteStream.addTrack(track);
-        });
-      };
-
-      webcamVideo.srcObject = this.localStream;
-      remoteVideo.srcObject = this.remoteStream;
-
-      callButton.disabled = false;
-      answerButton.disabled = false;
-      webcamButton.disabled = true;
-    };
-
-    // 2. Create an offer
-    callButton.onclick = async () => {
-      // Reference Firestore collections for signaling
-      const callDoc = this.firestore.collection('calls').ref.doc();
-      const offerCandidates = callDoc.collection('offerCandidates');
-      const answerCandidates = callDoc.collection('answerCandidates');
-
-      callInput.value = callDoc.id;
-
-      // Get candidates for caller, save to db
-      this.pc.onicecandidate = (event) => {
-        event.candidate && offerCandidates.add(event.candidate.toJSON());
-      };
-
-      // Create offer
-      const offerDescription = await this.pc.createOffer();
-      await this.pc.setLocalDescription(offerDescription);
-
-      const offer = {
-        sdp: offerDescription.sdp,
-        type: offerDescription.type,
-      };
-
-      await callDoc.set({ offer });
-
-      // Listen for remote answer
-      callDoc.onSnapshot((snapshot:any) => {
-        const data: any = snapshot.data();
-        if (!this.pc.currentRemoteDescription && data?.answer) {
-          const answerDescription = new RTCSessionDescription(data.answer);
-          this.pc.setRemoteDescription(answerDescription);
-        }
-      });
-
-      // When answered, add candidate to peer connection
-      answerCandidates.onSnapshot((snapshot: any) => {
-        snapshot.docChanges().forEach((change: any) => {
-          if (change.type === 'added') {
-            const candidate = new RTCIceCandidate(change.doc.data());
-            this.pc.addIceCandidate(candidate);
-          }
-        });
-      });
-
-      hangupButton.disabled = false;
-    };
-
-    // 3. Answer the call with the unique ID
-    answerButton.onclick = async () => {
-      const callId = callInput.value;
-      const callDoc = this.firestore.collection('calls').doc(callId);
-      const answerCandidates = callDoc.collection('answerCandidates');
-      const offerCandidates = callDoc.collection('offerCandidates');
-
-      this.pc.onicecandidate = (event) => {
-        event.candidate && answerCandidates.add(event.candidate.toJSON());
-      };
-
-      const callData:any = (await callDoc.ref.get()).data();
-
-      const offerDescription = callData.offer;
-      await this.pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
-
-      const answerDescription = await this.pc.createAnswer();
-      await this.pc.setLocalDescription(answerDescription);
-
-      const answer = {
-        type: answerDescription.type,
-        sdp: answerDescription.sdp,
-      };
-
-      await callDoc.update({ answer });
-
-      offerCandidates.ref.onSnapshot((snapshot: any) => {
-        snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
-          console.log(change);
-          if (change.type === 'added') {
-            let data = change.doc.data();
-            this.pc.addIceCandidate(new RTCIceCandidate(data));
-          }
-        });
-      });
-    };
-
+    
+    
 
   }
 
@@ -467,7 +452,7 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit {
 
           
           if(this.eventContent) {
-
+            this.setupCamera();
             this.subscription = interval(1000)
             .subscribe(x => { this.getTimeDifference(); });
             this.getEventHost();

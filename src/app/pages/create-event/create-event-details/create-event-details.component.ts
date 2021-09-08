@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { EventDetailsService } from 'src/app/services/event-details/event-details.service';
 import { BasicInfoService } from 'src/app/services/basic-info/basic-info.service';
 import _ from 'lodash';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-create-event-details',
@@ -354,7 +353,7 @@ export class CreateEventDetailsComponent implements OnInit {
     );
   }
 
-  imageCropped(event: ImageCroppedEvent) {
+  imageCropped(event: any) {
 
     this.urltoFile(event.base64!, 'cropped.wep','image/webp')
     .then((file) =>{ 
