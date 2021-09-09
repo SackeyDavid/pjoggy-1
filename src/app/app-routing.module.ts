@@ -67,6 +67,7 @@ const routes: Routes = [
   },
   {
     path: 'e',
+    canActivate: [AuthGuard],
     component: VideoConferenceComponent
   },
   {

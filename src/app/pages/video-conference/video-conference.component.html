@@ -184,7 +184,7 @@
                         <div style="width: 100%;">
                           <div class="video-conference-div">
                             <div class="host-attendee card-deck ml-5 mr-0" style="margin-bottom: 3.7rem !important;margin-top: 2.5rem !important;">
-                               <div class="card m-2" style="height: max-content;background-color: #1f1e24; cursor: default;">
+                              <div class="card m-2" style="height: 38.1vh;margin-bottom: -1rem !important;background-color: #1f1e24; cursor: default;">
                                 
                                 <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                                 <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
@@ -192,12 +192,12 @@
                                   SPEAKER
                                   </span>
                                 </p>
-                                <div class="card-body" style="padding: 0 !important;width: 100%;max-height: 35vh;margin-top: -1px;"> 
-                                  <video style="width: -moz-available;width: -webkit-fill-available;height: 46vh;margin-bottom: -4.7rem;" id="webcamVideo" autoplay playsinline></video>
+                                <div class="card-body" style="padding: 0 !important;width: 100%;min-height: 20vh;margin-top: -1px;"> 
+                                  <video style="transform: scale(-1,1); width: -moz-available;width: -webkit-fill-available;height: auto;margin-bottom: 0rem;border-radius: .6rem;" id="webcamVideo" autoplay playsinline></video>
                               
                                 </div>
-                                <div class="card-footer" style="padding: .8rem .55rem;background: linear-gradient(rgba(0,0,0,.001), rgba(0,0,0,1.9));border-end-start-radius: 10px;border-end-end-radius: 10px;">
-                                  <p class="card-text font-weight-bold" style="margin-bottom: -.6rem;opacity: .9;font-size: .9rem;">Erin Sojourner <span class="mx-1"><i style="color: #ee3625;" class='bx bxs-microphone-off'></i></span></p>
+                                <div class="card-footer" style="margin-bottom: -0.2rem;padding-top: .09rem !important; padding: .8rem .55rem;background: linear-gradient(rgba(0,0,0,.001), rgba(0, 0, 0, .9));border-end-start-radius: 10px;border-end-end-radius: 10px;">
+                                  <p class="card-text font-weight-bold" style="margin-bottom: -.6rem;opacity: .9;font-size: .9rem;">Erin Sojourner <span class="mx-1"><i style="color: #ee3625;display: none;" class='bx bxs-microphone-off'></i><i style="color: #40c941;" class='bx bx-dots-horizontal'></i></span></p>
                                   <p class="card-text"><span class="host-attendee-job-title">VP of Brand Strategy + Innovation, HB Specialty Foods</span></p>
                                 
                                 </div>
@@ -212,7 +212,7 @@
                                   </span>
                                 </p>
                                 <div class="card-body" style="padding: 0 !important;width: 100%;min-height: 20vh;margin-top: -1px;"> 
-                                  <video style="width: -moz-available;width: -webkit-fill-available;height: auto;margin-bottom: 0rem;border-radius: .6rem;" id="remoteVideo" autoplay playsinline></video>
+                                  <video style="transform: scale(-1,1); width: -moz-available;width: -webkit-fill-available;height: auto;margin-bottom: 0rem;border-radius: .6rem;" id="remoteVideo" autoplay playsinline></video>
                               
                                 </div>
                                 <div class="card-footer" style="margin-bottom: -0.2rem;padding-top: .09rem !important; padding: .8rem .55rem;background: linear-gradient(rgba(0,0,0,.001), rgba(0, 0, 0, .9));border-end-start-radius: 10px;border-end-end-radius: 10px;">
@@ -244,7 +244,7 @@
                               </div>
                             </div>
 
-                            <div class="speakers card-deck ml-0 mr-5 mt-5" style="margin-bottom: 3.5rem !important;display: flex;flex-direction: column;">
+                            <div class="speakers card-deck ml-0 mr-5 mt-5" style="visibility: hidden; margin-bottom: 3.5rem !important;display: flex;flex-direction: column;">
                               <div class="card m-2" style="background-color: rgba(255,255,255,.06);border: 1px solid rgba(0,0,0, .02);background: url(&quot;http://events369.logitall.biz/storage/banner/{{eventContent.banner_image}}&quot;) no-repeat scroll center center; background-size: cover;cursor: default;">
                                 <!-- <img class="card-img-top" src="..." #f57736;alt="Card image cap"> -->
                                 <p class="card-text float-right mb-3 mr-3 item-event-duration" style="text-align: right;">
@@ -328,7 +328,7 @@
                         </span>
                         <span class="mx-2" style="border-right: 1px solid rgba(255,255,255,.3);font-size: 25px;"></span>
                       
-                        <span style="cursor: pointer; background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .55rem .5rem;color: white;font-size: .87rem;font-weight: 500;">
+                        <span *ngIf="eventHost?.user?.id !== userID" id="callButton" style="cursor: pointer; background-color: rgba(83,82,88,.9);border-radius: 10px;padding: .55rem .5rem;color: white;font-size: .87rem;font-weight: 500;">
                             <b><img src="../../../assets/emoji/icons8-raised-hand-48.png" class="emoji"></b> Raise hand
                           </span>
                         </div>
@@ -351,11 +351,11 @@
                 <div class="row">
                   <div class="col d-flex justify-content-center">
                     
-                <button id="webcamButton">Start webcam</button>
-                <button id="callButton" disabled>Create Call (offer)</button>
+                <button id="webcamButton" style="visibility: hidden;">Start webcam</button>
+                <!-- <button id="callButton" disabled>Create Call (offer)</button> -->
                 <input id="callInput" />
-                <button id="answerButton" disabled>Answer</button>
-                <button id="hangupButton" disabled>Hangup</button>
+                <!-- <button id="answerButton" disabled>Answer</button> -->
+                <!-- <button id="hangupButton" disabled>Hangup</button> -->
                 
               </div>
               </div>
@@ -390,11 +390,12 @@
                                 </a>
                                 
                             </li>
-                            <li style="flex: 1;" class="nav-item" role="presentation">
+                            <li *ngIf="eventHost?.user?.id == userID" style="flex: 1;" class="nav-item" role="presentation">
                                 <a   class="nav-link" id="pills-raised-hand-tab" data-toggle="pill" href="#pills-raised-hand" role="tab" aria-controls="pills-published" aria-selected="false">
-                                    <ng-container >
-                                        Raised Hands
+                                    <ng-container>
+                                      <span [class.font-weight-bold] = "raisedHands?.length > 0">  Raised Hands </span>
                                       </ng-container>
+
                                 </a>
                                 
                             </li>
@@ -452,31 +453,36 @@
                                
                             </div>
                                 
-                            <div class="tab-pane fade" id="pills-raised-hand" role="tabpanel" aria-labelledby="pills-all-tab">
-                                <div class="profile-details ml-0 mb-4" style="display: -webkit-inline-box;justify-content: flex-start;">
+                            <div *ngIf="eventHost?.user?.id == userID" class="tab-pane fade" id="pills-raised-hand" role="tabpanel" aria-labelledby="pills-all-tab">
+                              <ng-container *ngFor="let raisedHand of raisedHands">
+
+                              <div class="profile-details ml-0 mb-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                                     <div class="profile-content">
                                       <div style="padding: 4px;border-radius: 5px;">
-                                        <img *ngIf ="!eventHostImgSrc" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 5px;" alt="profileImg">
-                                        <img *ngIf = "eventHostImgSrc" [src]="eventHostImgSrc" style="height: 50px;width: 50px;border-radius: 5px;" alt="{{eventHost.user.name}}">
+                                        <img *ngIf ="!raisedHand.profileImg" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 5px;" alt="profileImg">
+                                        <img *ngIf = "raisedHand.profileImg" src="http://events369.logitall.biz/storage/profile/{{raisedHand.profileImg}}" style="height: 50px;width: 50px;border-radius: 5px;" alt="{{raisedHand.username}}">
                                       
                                         <!-- <span class="discover-user-checkmark"><i class="bi bi-check"></i></span> -->
                                       </div>
                                     
                                     </div>
                                     <div class="name-job p-2 pt-0 nav-text-color">
-                                    <div class="profile_name">Mary Edem</div>
+                                    <div class="profile_name">{{raisedHand.username}}</div>
                                     <div class="job" style="font-size: .8rem;opacity: .7;">
                                       requested for mic access
                                     </div>
                                     <!-- <div class="job" style="font-size: .7rem;opacity: .6;">Event Host</div> -->
                                     <div class="job mt-3" style="font-size: .7rem;opacity: .6;">
-                                      <button  class="btn mic-button btn-md mr-3 my-2" style="background-color: grey;" type="button"> 
+                                      <button id="answerButton" (click)= "answerCall(raisedHand.callDocId)" class="btn mic-button btn-md mr-3 my-2" style="background-color: grey;" type="button"> 
                                         <img src="../../../assets/svg/microphone-with-wire-svgrepo-com.svg" alt="microphone-sing-svgrepo-com" width="32" height="32">
                                         Hand mic</button>
-                                      <button class="btn btn-danger mic-button btn-md my-2" style="padding: 0.7rem 1rem !important;" type="button">X</button>
+                                      <button id="hangupButton" (click)= "removeRaisedHand(raisedHand)" class="btn btn-danger mic-button btn-md my-2" style="padding: 0.7rem 1rem !important;" type="button">X</button>
                                     </div>
                                   </div> 
-                                  </div>   
+                                  </div>  
+                                  
+                              </ng-container>  
+                               
                             </div>
                             
                             <div class="tab-pane fade" id="pills-polls" role="tabpanel" aria-labelledby="pills-all-tab">

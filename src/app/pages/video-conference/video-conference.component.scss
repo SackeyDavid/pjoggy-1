@@ -939,7 +939,7 @@
     
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link  {
     span {
-     background-color: var(--ev-tertiary-background) !important;
+    //  background-color: var(--ev-tertiary-background) !important;
      color: var(--ev-white) !important;
     }
     }
@@ -1432,7 +1432,7 @@
         text-align: right !important;
         position: absolute;
         right: .1rem;
-        margin-right: .1rem !important;
+        margin-right: .2rem !important;
         margin-top: .1rem !important;
     }
     

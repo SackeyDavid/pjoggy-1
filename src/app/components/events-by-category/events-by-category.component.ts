@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, EventEmitter, OnInit, Output, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlCarousel } from 'ngx-owl-carousel';
 import { EventsService } from 'src/app/services/events/events.service';
@@ -21,7 +21,7 @@ import _ from 'lodash';
   templateUrl: './events-by-category.component.html',
   styleUrls: ['./events-by-category.component.scss']
 })
-export class EventsByCategoryComponent implements OnInit {
+export class EventsByCategoryComponent implements OnInit, AfterViewInit {
 
   
   @Output() searchEvent = new EventEmitter<string>();
@@ -101,6 +101,38 @@ export class EventsByCategoryComponent implements OnInit {
     
   }
 
+  ngAfterViewInit() {
+
+    this.elementRef.nativeElement.querySelector('.pp_sidebar')
+                                  .addEventListener('click', this.onClick.bind(this));
+    
+    document.querySelector(".pp_sidebar")?.classList.toggle("close");
+
+    let pp_sidebar = document.querySelector(".pp_sidebar");
+    let pp_sidebarBtn = document.querySelector(".bx-menu");
+    console.log(pp_sidebarBtn);
+    pp_sidebarBtn!.addEventListener("click", ()=>{
+      pp_sidebar!.classList.toggle("close");
+    });
+
+    
+    
+  }
+  
+  menuBtnChange() {
+    if(document.querySelector(".pp_sidebar")?.classList.contains("open")){
+      document.querySelector(".pp_closeBtn")?.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+    }else {
+      document.querySelector(".pp_closeBtn")?.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+    }
+  }
+
+  onClick(event: any) {
+    document.querySelector(".pp_sidebar")?.classList.toggle("open");
+    this.menuBtnChange();//calling the function(optional)
+  }
+
+
   getCategoryEvents() {
     this.eventsService.getCategoryEvents(this.id).then(
       res => {
@@ -112,7 +144,7 @@ export class EventsByCategoryComponent implements OnInit {
       }
     );
   }
-
+ 
   
   initForm() {
     this.formGroup = this.fb.group({

@@ -19,6 +19,8 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Meta, Title } from '@angular/platform-browser';
 import { RsvpService } from 'src/app/services/rsvp/rsvp.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { VideoChatService } from 'src/app/services/video-chat/video-chat.service';
+
 
 
 // import * as Vibrant from 'node-vibrant';
@@ -126,6 +128,12 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
   public localStream:any = null;
   public remoteStream:any = null;
 
+  callDocId: any;
+  raisedHands: any;
+
+  answerButton: any;
+  hangupButton: any;
+  callDocData: any;
 
   constructor(
     private eventService: EventsService,
@@ -145,7 +153,8 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
     private title: Title,
     private meta: Meta,
     private rsvpService: RsvpService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private videoChatService: VideoChatService
   ) { 
     this.initForm(); 
 
@@ -174,6 +183,27 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
         this.dataUrl = 'http://events369.logitall.biz/api/get_event_data/' + sessionStorage.getItem('preview_event_id');
 
       }
+
+      // Reference Firestore collections for signaling
+      // const callDoc = this.firestore.collection('calls').ref.doc();
+      // const offerCandidates = callDoc.collection('offerCandidates');
+      // const answerCandidates = callDoc.collection('answerCandidates');
+
+      // this.firestore.collection('calls').snapshotChanges().subscribe(actions => {
+      //   return actions.map(snap => {
+      //     this.callDocId = snap.payload.doc.id;
+      //     console.log(this.callDocId);
+          // let data = { id, ...snap.payload.doc.data() };
+          // console.log(data); //{id: "Q6YZOzyFPvrfsxwT3uTS", field1: "a thing", field2: "another"}
+
+          // use data in your html
+          // this.data=data
+
+          // return data;
+      //   });
+      // });
+
+    
 
 
           
@@ -257,6 +287,19 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
   }
 
   setupCamera() {
+    this.videoChatService.getRaisedHandsDoc(this.eventContent?.id).subscribe(
+      (data) => {
+        if(data) {
+          let response:any = data
+          this.raisedHands = response.raisedHands;
+          if(this.raisedHands?.length > 0) {
+            this.answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
+            this.hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
+          }
+          console.log(this.raisedHands);
+        }
+      }
+    );
       // HTML elements
       setTimeout(() => {
 
@@ -264,15 +307,14 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
       const webcamVideo = this.elementRef.nativeElement.querySelector('#webcamVideo');
       const callButton = this.elementRef.nativeElement.querySelector('#callButton');
       const callInput = this.elementRef.nativeElement.querySelector('#callInput');
-      const answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
+      
       const remoteVideo = this.elementRef.nativeElement.querySelector('#remoteVideo');
-      const hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
 
       // 1. Setup media sources
       $(document).ready(function(){
           $('#webcamButton').trigger('click');
       });
-      
+
       webcamButton.onclick = async () => {
         this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         this.remoteStream = new MediaStream();
@@ -293,7 +335,7 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
         remoteVideo.srcObject = this.remoteStream;
 
         callButton.disabled = false;
-        answerButton.disabled = false;
+        if(this.raisedHands?.length > 0) this.answerButton.disabled = false;
         webcamButton.disabled = true;
       };
 
@@ -305,6 +347,13 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
         const answerCandidates = callDoc.collection('answerCandidates');
 
         callInput.value = callDoc.id;
+        this.callDocId = callDoc.id;
+        // sessionStorage.setItem('callDocId', callDoc.id);  
+
+        // save to firebase
+        this.callDocData = {username: this.currentUser?.name, userId: this.userID, profileImg: this.imgSrc, jobTitle: 'Product Manager', company: 'GiT',  callDocId: this.callDocId, time: new Date().getTime()}
+        console.log(this.callDocData);
+        this.videoChatService.saveRaiseHand(this.eventContent?.id, this.callDocData);
 
         // Get candidates for caller, save to db
         this.pc.onicecandidate = (event) => {
@@ -341,50 +390,70 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
           });
         });
 
-        hangupButton.disabled = false;
+        this.hangupButton.disabled = false;
       };
 
       // 3. Answer the call with the unique ID
-      answerButton.onclick = async () => {
-        const callId = callInput.value;
-        const callDoc = this.firestore.collection('calls').doc(callId);
-        const answerCandidates = callDoc.collection('answerCandidates');
-        const offerCandidates = callDoc.collection('offerCandidates');
+      // answerButton.onclick = async () => {
+       
+      // }
 
-        this.pc.onicecandidate = (event) => {
-          event.candidate && answerCandidates.add(event.candidate.toJSON());
-        };
-
-        const callData:any = (await callDoc.ref.get()).data();
-
-        const offerDescription = callData.offer;
-        await this.pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
-
-        const answerDescription = await this.pc.createAnswer();
-        await this.pc.setLocalDescription(answerDescription);
-
-        const answer = {
-          type: answerDescription.type,
-          sdp: answerDescription.sdp,
-        };
-
-        await callDoc.update({ answer });
-
-        offerCandidates.ref.onSnapshot((snapshot: any) => {
-          snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
-            console.log(change);
-            if (change.type === 'added') {
-              let data = change.doc.data();
-              this.pc.addIceCandidate(new RTCIceCandidate(data));
-            }
-          });
-        });
-      };
-
+    
       
     }, 7000);
 
   }
+
+  removeRaisedHand(raiseHand: any) {
+    let callDocData = {username: raiseHand.username, userId: raiseHand.userId, profileImg: raiseHand.profileImg, jobTitle: raiseHand.jobTitle, company: raiseHand.company,  callDocId: raiseHand.callDocId, time: raiseHand.time }
+      
+    this.videoChatService.deleteRaiseHand(this.eventContent?.id, callDocData);
+
+  }
+
+  
+  // 3. Answer the call with the unique ID
+  async answerCall(callDocId: string) {
+      // const callId = callInput.value;
+      const callId = callDocId;
+      // const callId = sessionStorage.getItem('callDocId');
+      if(callId) {
+      const callDoc = this.firestore.collection('calls').doc(callId!);
+      const answerCandidates = callDoc.collection('answerCandidates');
+      const offerCandidates = callDoc.collection('offerCandidates');
+
+      this.pc.onicecandidate = (event) => {
+        event.candidate && answerCandidates.add(event.candidate.toJSON());
+      };
+
+      const callData:any = (await callDoc.ref.get()).data();
+
+      const offerDescription = callData.offer;
+      await this.pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
+
+      const answerDescription = await this.pc.createAnswer();
+      await this.pc.setLocalDescription(answerDescription);
+
+      const answer = {
+        type: answerDescription.type,
+        sdp: answerDescription.sdp,
+      };
+
+      await callDoc.update({ answer });
+
+      offerCandidates.ref.onSnapshot((snapshot: any) => {
+        snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
+          console.log(change);
+          if (change.type === 'added') {
+            let data = change.doc.data();
+            this.pc.addIceCandidate(new RTCIceCandidate(data));
+          }
+        });
+      });
+    };
+  }
+
+
 
   ngAfterViewInit() {
 
@@ -452,10 +521,10 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
 
           
           if(this.eventContent) {
-            this.setupCamera();
-            this.subscription = interval(1000)
-            .subscribe(x => { this.getTimeDifference(); });
             this.getEventHost();
+            this.setupCamera();
+            // this.subscription = interval(1000)
+            // .subscribe(x => { this.getTimeDifference(); });
           }
       
         },
@@ -652,7 +721,8 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
       res => {
         console.log(res);
         this.currentUser = res;
-
+        this.callDocData = { username: this.currentUser?.name, userId: this.userID, profileImg: this.imgSrc, jobTitle: 'Product Manager', company: 'GiT',  callDocId: this.callDocId, time: new Date().getTime()}
+        
         if (res.profile) {
           this.imgSrc =  res.profile
         }
