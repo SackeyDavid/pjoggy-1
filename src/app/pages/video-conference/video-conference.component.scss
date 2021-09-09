@@ -1434,6 +1434,7 @@
         right: .1rem;
         margin-right: .2rem !important;
         margin-top: .1rem !important;
+        z-index: 999;
     }
     
     .event-host {
@@ -2905,5 +2906,9 @@ span.color-circle {
     top: 24px;
     height: 4px;
   }
+}
+
+.hide {
+  visibility: hidden !important;
 }
 

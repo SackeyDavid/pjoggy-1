@@ -134,6 +134,8 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
   answerButton: any;
   hangupButton: any;
   callDocData: any;
+  selectedAttendeeIndex: any;
+  gotonStage: boolean = false;
 
   constructor(
     private eventService: EventsService,
@@ -296,7 +298,7 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
             this.answerButton = this.elementRef.nativeElement.querySelector('#answerButton');
             this.hangupButton = this.elementRef.nativeElement.querySelector('#hangupButton');
           }
-          console.log(this.raisedHands);
+          // console.log(this.raisedHands);
         }
       }
     );
@@ -351,7 +353,7 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
         // sessionStorage.setItem('callDocId', callDoc.id);  
 
         // save to firebase
-        this.callDocData = {username: this.currentUser?.name, userId: this.userID, profileImg: this.imgSrc, jobTitle: 'Product Manager', company: 'GiT',  callDocId: this.callDocId, time: new Date().getTime()}
+        this.callDocData = {username: this.currentUser?.name, userId: this.userID, profileImg: this.imgSrc, jobTitle: 'Product Requirements Manager', company: 'GiT',  callDocId: this.callDocId, time: new Date().getTime()}
         console.log(this.callDocData);
         this.videoChatService.saveRaiseHand(this.eventContent?.id, this.callDocData);
 
@@ -386,6 +388,7 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
             if (change.type === 'added') {
               const candidate = new RTCIceCandidate(change.doc.data());
               this.pc.addIceCandidate(candidate);
+              this.gotonStage = true;
             }
           });
         });
@@ -413,7 +416,8 @@ export class VideoConferenceComponent implements OnInit, AfterViewInit, AfterCon
 
   
   // 3. Answer the call with the unique ID
-  async answerCall(callDocId: string) {
+  async answerCall(callDocId: string, index: any) {
+      this.selectedAttendeeIndex = index;
       // const callId = callInput.value;
       const callId = callDocId;
       // const callId = sessionStorage.getItem('callDocId');
