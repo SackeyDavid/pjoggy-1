@@ -573,7 +573,10 @@
                                       <i class="bx bx-poll" mode="ios" style="color: #a1949c;font-size: 60px;"></i>
                                       <span style="display: block;font-weight: 400;color: var(--ev-nav-text-color);font-size: 20px;">This is the polls tab</span>
                                       <p style="font-size: 14px;text-align: center;color: var(--ev-nav-text-color);margin-left: 10%;margin-right: 10%;">
-                                        Polls you create will appear hear
+                                        Polls 
+                                        <ng-container  *ngIf="eventHost?.user?.id == userID"> you create </ng-container> 
+                                        <ng-container  *ngIf="!(eventHost?.user?.id == userID)"> created </ng-container> 
+                                         will appear hear
               
                                     </p>
                                   </div>
