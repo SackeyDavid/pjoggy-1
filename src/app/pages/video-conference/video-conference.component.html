@@ -105,7 +105,7 @@
                       <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
                            <img src="../../../assets/images/avatar-placeholder.png" />
                       </div> 
-                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url('http://events369.logitall.biz/storage/profile/{{imgSrc}}');">
                         <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
                       </div> 
                       <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
@@ -511,8 +511,8 @@
                                             <table>
                                                 <tbody>
                                                     <tr style="padding-left: .8rem; display: block;">
-                                                        <p class="nav-header-color chat-name chat-person-font">Jereme Bell</p>
-                                                        <p class="nav-header-color chat-person-font">Maintenance Manager &bull; 27 mins ago</p>
+                                                        <p class="nav-header-color chat-name chat-person-font">Jereme Appiah</p>
+                                                        <p class="nav-header-color chat-person-font">Tech Delivery Manager, GiT &bull; 27 mins ago</p>
                                                         <p class="nav-text-color chat-content">
                                                             Going to the main stage
                                                         </p>
@@ -533,15 +533,15 @@
                             </div>
                                 
                             <div *ngIf="eventHost?.user?.id == userID" class="tab-pane fade" id="pills-raised-hand" role="tabpanel" aria-labelledby="pills-all-tab">
-                              <div *ngIf="raisedHands?.length > 0">
+                              <div *ngIf="raisedHands?.length > 0" style="height: 60vh;overflow-y: scroll;overflow-x: hidden;">
 
                               <ng-container *ngFor="let raisedHand of raisedHands; let i = index;">
 
                               <div class="profile-details ml-0 mb-4" style="display: -webkit-inline-box;justify-content: flex-start;">
                                     <div class="profile-content">
-                                      <div style="padding: 4px;border-radius: 5px;">
-                                        <img *ngIf ="!raisedHand.profileImg" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 5px;" alt="profileImg">
-                                        <img *ngIf = "raisedHand.profileImg" src="http://events369.logitall.biz/storage/profile/{{raisedHand.profileImg}}" style="height: 50px;width: 50px;border-radius: 5px;" alt="{{raisedHand.username}}">
+                                      <div style="padding: 4px;border-radius: 50%;">
+                                        <img *ngIf ="!raisedHand.profileImg" src="../../../assets/images/avatar-placeholder.png" style="height: 50px;width: 50px;border-radius: 50%;" alt="profileImg">
+                                        <img *ngIf = "raisedHand.profileImg" src="http://events369.logitall.biz/storage/profile/{{raisedHand.profileImg}}" style="height: 50px;width: 50px;border-radius: 50%;" alt="{{raisedHand.username}}">
                                       
                                         <!-- <span class="discover-user-checkmark"><i class="bi bi-check"></i></span> -->
                                       </div>

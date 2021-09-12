@@ -270,7 +270,7 @@
                       <div *ngIf="!imgSrc" class="img square" style="flex: 1;background-image: url(../../../assets/images/avatar-placeholder.png); width: 90px;">
                            <img src="../../../assets/images/avatar-placeholder.png" />
                       </div> 
-                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url(http://events369.logitall.biz/storage/profile/{{imgSrc}});">
+                      <div *ngIf="imgSrc" class="img square" style="flex: 1;background-image: url('http://events369.logitall.biz/storage/profile/{{imgSrc}}');">
                         <img src="http://events369.logitall.biz/storage/profile/{{imgSrc}}" />
                       </div> 
                       <b class="mx-2 text-white font-weight-normal navbar-username" style="margin-top: .5rem;opacity: .8;"> {{currentUser?.name}}</b>
