@@ -77,9 +77,5 @@
     "inquirer-autocomplete-prompt": "^1.0.1",
     "open": "^7.0.3",
     "jsonc-parser": "^3.0.0"
-  },
-  // "engines": {
-  //  "node": "18.17.1",
-  //  "npm": "6.14.10"
-  //}
+  }
 }
